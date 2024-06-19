@@ -29,7 +29,7 @@
           "index"
         ],
         // import문 순서 설정, internal = parent + sibling
-        // builtin: 노드 내장 모듈 external: 외부라이브러리모듈  internal: 절대경로 사용시
+        // builtin: 노드 내장 모듈 external: 외부라이브러리모듈 internal: 절대경로 사용시
         // parent: 부모폴더로부터 가까운순 sibling: 상위->하위폴더 순 index: 현재 디렉토리에 있는 파일
 
         "pathGroups": [
@@ -41,7 +41,7 @@
           {
             "pattern": "next*",
             "group": "external",
-            "position": "before"
+            "position": "after"
           },
           {
             "pattern": "@hooks/*",
