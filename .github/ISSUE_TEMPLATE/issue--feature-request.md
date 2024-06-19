@@ -4,7 +4,6 @@ about: 이슈를 등록해주세요
 title: ''
 labels: ''
 assignees: ''
-
 ---
 
 ## 어떤 기능인가요?
