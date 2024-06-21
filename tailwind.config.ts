@@ -1,7 +1,6 @@
 import type { Config } from 'tailwindcss';
 import type { PluginAPI } from 'tailwindcss/types/config';
 
-// px 값을 객체로 변환하는 함수
 const createPxRange = (max: number) => {
   const result: { [key: string]: string } = {};
   for (let i = 0; i <= max; i++) {
@@ -13,6 +12,7 @@ const createPxRange = (max: number) => {
 const px0_10 = createPxRange(10);
 const px0_100 = createPxRange(100);
 const px0_200 = createPxRange(200);
+const px0_500 = createPxRange(500);
 
 const config: Config = {
   content: [
@@ -22,8 +22,12 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        pretendard: ['Pretendard', 'sans-serif'],
+        rokaf: ['ROKAF Sans', 'sans-serif'],
+      },
       screens: {
-        mobile: { max: '767px' },
+        pc: { min: '1200px' },
         tablet: { min: '768px', max: '1023px' },
       },
       zIndex: {
@@ -37,12 +41,8 @@ const config: Config = {
       borderRadius: {
         '6px': '6px',
       },
-      width: {
-        '350px': '350px',
-      },
-      height: {
-        '48px': '48px',
-      },
+      width: px0_500,
+      height: px0_500,
       colors: {
         primary: '#9935ff',
         purple10: '#f8f0ff',
@@ -76,91 +76,127 @@ const config: Config = {
   },
   plugins: [
     function ({ addUtilities }: PluginAPI) {
-      addUtilities(
-        {
-          '.button_large_active': {
-            width: '350px',
-            height: '48px',
-            borderRadius: '6px',
-            border: '0',
-            backgroundColor: '#ea3c12',
-            color: '#ffffff',
-            fontSize: '16px',
-            fontWeight: '700',
-          },
-          '.button_large_disActive': {
-            width: '350px',
-            height: '48px',
-            borderRadius: '6px',
-            border: '1px solid #ea3c12',
-            backgroundColor: '#ffffff',
-            color: '#ea3c12',
-            fontSize: '16px',
-            fontWeight: '700',
-          },
-          '.button_medium_active': {
-            width: '108px',
-            height: '37px',
-            borderRadius: '6px',
-            border: '0',
-            backgroundColor: '#ea3c12',
-            color: '#ffffff',
-            fontSize: '16px',
-            fontWeight: '700',
-          },
-          '.button_medium_disActive': {
-            width: '108px',
-            height: '37px',
-            borderRadius: '6px',
-            border: '1px solid #ea3c12',
-            backgroundColor: '#ffffff',
-            color: '#ea3c12',
-            fontSize: '14px',
-            fontWeight: '700',
-          },
-          '.button_small_active': {
-            width: '82px',
-            height: '32px',
-            borderRadius: '6px',
-            border: '0',
-            backgroundColor: '#ea3c12',
-            color: '#ffffff',
-            fontSize: '12px',
-            fontWeight: '400',
-          },
-          '.button_small_disActive': {
-            width: '82px',
-            height: '32px',
-            borderRadius: '6px',
-            border: '1px solid #ea3c12',
-            backgroundColor: '#ffffff',
-            color: '#ea3c12',
-            fontSize: '12px',
-            fontWeight: '400',
-          },
-          '.button_large_inActive': {
-            width: '335px',
-            height: '48px',
-            borderRadius: '6px',
-            border: '0',
-            backgroundColor: '#a4a1aa',
-            color: '#ffffff',
-            fontSize: '16px',
-            fontWeight: '700',
-          },
-          '.button_small_inActive': {
-            width: '95px',
-            height: '37px',
-            borderRadius: '6px',
-            border: '0',
-            backgroundColor: '#a4a1aa',
-            color: '#ffffff',
-            fontSize: '14px',
-            fontWeight: '700',
-          },
+      addUtilities({
+        '.flex-center': {
+          display: 'flex',
+          justifyContent: 'center',
+          alineItems: 'center',
         },
-        ['responsive', 'hover']
-      );
+        '.button_large_active': {
+          width: 'max-content',
+          height: '48px',
+          padding: '14px 136px',
+          borderRadius: '6px',
+          border: '0',
+          backgroundColor: '#ea3c12',
+          fontFamily: 'Spoqa Han Sans Neo',
+          color: '#ffffff',
+          fontSize: '16px',
+          fontWeight: '700',
+          lineHeight: '20px',
+        },
+        '.button_large_disActive': {
+          width: 'max-content',
+          height: '48px',
+          padding: '14px 136px',
+          borderRadius: '6px',
+          border: '1px solid #ea3c12',
+          backgroundColor: '#ffffff',
+          fontFamily: 'Spoqa Han Sans Neo',
+          color: '#ea3c12',
+          fontSize: '16px',
+          fontWeight: '700',
+          lineHeight: '20px',
+        },
+        '.button_medium_active': {
+          width: 'max-content',
+          height: '37px',
+          padding: '10px 20px',
+          borderRadius: '6px',
+          border: '0',
+          backgroundColor: '#ea3c12',
+          color: '#ffffff',
+          fontFamily: 'Spoqa Han Sans Neo',
+          fontSize: '14px',
+          fontWeight: '700',
+          lineHeight: '17px',
+        },
+        '.button_medium_disActive': {
+          width: 'max-content',
+          height: '37px',
+          padding: '10px 20px',
+          borderRadius: '6px',
+          border: '1px solid #ea3c12',
+          backgroundColor: '#ffffff',
+          color: '#ea3c12',
+          fontFamily: 'Spoqa Han Sans Neo',
+          fontSize: '14px',
+          fontWeight: '700',
+          lineHeight: '17px',
+        },
+        '.button_small_active': {
+          width: 'max-content',
+          height: '32px',
+          padding: '8px 12px',
+          borderRadius: '6px',
+          border: '0',
+          backgroundColor: '#ea3c12',
+          fontFamily: 'Spoqa Han Sans Neo',
+          color: '#ffffff',
+          fontSize: '12px',
+          fontWeight: '400',
+          lineHeight: '16px',
+        },
+        '.button_small_disActive': {
+          width: 'max-content',
+          height: '32px',
+          padding: '8px 12px',
+          borderRadius: '6px',
+          border: '1px solid #ea3c12',
+          fontFamily: 'Spoqa Han Sans Neo',
+          backgroundColor: '#ffffff',
+          color: '#ea3c12',
+          fontSize: '12px',
+          fontWeight: '400',
+          lineHeight: '16px',
+        },
+        '.button_large_disApply': {
+          width: 'max-content',
+          height: '48px',
+          borderRadius: '6px',
+          padding: '14px 136px',
+          border: '0',
+          fontFamily: 'Spoqa Han Sans Neo',
+          backgroundColor: '#a4a1aa',
+          color: '#ffffff',
+          fontSize: '16px',
+          fontWeight: '700',
+          lineHeight: '20px',
+        },
+        '.button_small_disApply': {
+          width: 'max-content',
+          height: '37px',
+          borderRadius: '6px',
+          padding: '10px 20px',
+          border: '0',
+          fontFamily: 'Spoqa Han Sans Neo',
+          backgroundColor: '#a4a1aa',
+          color: '#ffffff',
+          fontSize: '14px',
+          fontWeight: '700',
+          lineHeight: '17px',
+        },
+        '.button_Ok': {
+          width: '120px',
+          height: '48px',
+          borderRadius: '8px',
+          border: '0',
+          backgroundColor: '#ea3c12',
+          color: '#ffffff',
+          fontSize: '16px',
+          fontWeight: '500',
+        },
+      });
     },
   ],
 };

@@ -11,14 +11,14 @@
     "import/resolver": {
       "node": {},
       "typescript": {
-        "directory": "./src" // 최상위폴더로 설정
+        "directory": "./src"
       }
     },
     "import/parsers": { "@typescript-eslint/parser": [".ts", ".tsx"] }
   },
   "rules": {
     "import/order": [
-      "error", // 순서를 위반한 경우 에러메세지를 띄워줌
+      "error",
       {
         "groups": [
           "builtin",
@@ -28,10 +28,6 @@
           "sibling",
           "index"
         ],
-        // import문 순서 설정, internal = parent + sibling
-        // builtin: 노드 내장 모듈 external: 외부라이브러리모듈 internal: 절대경로 사용시
-        // parent: 부모폴더로부터 가까운순 sibling: 상위->하위폴더 순 index: 현재 디렉토리에 있는 파일
-
         "pathGroups": [
           {
             "pattern": "react*",
@@ -44,7 +40,7 @@
             "position": "after"
           },
           {
-            "pattern": "@hooks/*",
+            "pattern": "@recoil/*",
             "group": "internal",
             "position": "after"
           },
@@ -57,24 +53,39 @@
             "pattern": "@components/*",
             "group": "internal",
             "position": "after"
+          },
+          {
+            "pattern": "@hooks/*",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@lib/*",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@types/*",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@constants/*",
+            "group": "internal",
+            "position": "after"
           }
         ],
 
         "alphabetize": {
-          "order": "asc", // 오름차순
-          "caseInsensitive": true // 대소문자 구분
+          "order": "asc",
+          "caseInsensitive": true
         },
-        // 같은 순서 내에서 알파벳순으로..
 
-        "newlines-between": "never" // 그룹사이에 띄어쓰기 할지? 기본ignore never은 금지
+        "newlines-between": "never"
       }
     ],
     "import/no-unresolved": "off",
     "import/export": "off",
-    "no-console": "error" // 콘솔로그 금지
+    "no-console": "error"
   }
 }
-
-// 에어비앤비 컨벤션 관련
-// eslint-config-airbnb-base: 에어비엔비 린트 플러그인
-// "extends": ["airbnb", "airbnb/hooks", "next/core-web-vitals", "prettier"],

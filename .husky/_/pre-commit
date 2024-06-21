@@ -4,20 +4,7 @@
 
 echo "🔍 commit 이전에 prettier, lint 규칙을 적용합니다..."
 
-# STAGED_FILES=$(npx lint-staged)
-# echo "$STAGED_FILES" | xargs git add --
-
-# if [ $? -ne 0 ]; then
-# echo "❌ ESLint 오류가 발생했습니다. 오류를 수정한 후 다시 시도하세요."
-# exit 1
-# fi
-
 npx lint-staged
-
-if [ $? -ne 0 ]; then
-  echo "❌ ESLint 오류가 발생했습니다. 오류를 수정한 후 다시 시도하세요."
-  exit 1
-fi
 
 # lint-staged 실행 후 변경된 파일을 가져옵니다.
 changed_files=$(git diff --name-only --staged)
