@@ -17,29 +17,28 @@ function Button({
   disabled = false,
   type = 'button',
 }: ButtonProps) {
-  let ClassName = className;
+  const classMap: Record<string, string> = {
+    button_large: disabled ? 'button_large_active' : 'button_large_disActive',
+    button_medium: disabled
+      ? 'button_medium_active'
+      : 'button_medium_disActive',
+    button_small: disabled ? 'button_small_active' : 'button_small_disActive',
+    button_large_fill: disabled
+      ? 'button_large_active flex-1'
+      : 'button_large_disActive flex-1',
+  };
 
-  if (className === 'button_large') {
-    ClassName = disabled ? 'button_large_active' : 'button_large_disActive';
-  } else if (className === 'button_medium') {
-    ClassName = disabled ? 'button_medium_active' : 'button_medium_disActive';
-  } else if (className === 'button_small') {
-    ClassName = disabled ? 'button_small_active' : 'button_small_disActive';
-  } else {
-    ClassName = className;
-  }
+  const finalClassName = classMap[className] || className;
 
   return (
-    <>
-      <button
-        className={ClassName}
-        onClick={onClick}
-        onSubmit={onSubmit}
-        type={type}
-      >
-        {children}
-      </button>
-    </>
+    <button
+      className={finalClassName}
+      onClick={onClick}
+      onSubmit={onSubmit}
+      type={type}
+    >
+      {children}
+    </button>
   );
 }
 
