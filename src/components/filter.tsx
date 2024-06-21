@@ -1,7 +1,7 @@
+import { ko } from 'date-fns/locale';
 import { useEffect, useRef, useState } from 'react';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { ko } from 'date-fns/locale';
 import Icon_close_black from '@/../public/images/icon-close-black.svg';
 import { LOCATIONS } from '@/lib/data-locations';
 
@@ -11,7 +11,7 @@ export default function Filter() {
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
   const [inputPrice, setInputPrice] = useState<string>('');
-  const [isFilterOpen, setIsFilterOpen] = useState<Boolean>(false);
+  const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
   const FilterContainerRef = useRef<HTMLDivElement>(null);
 
   const handleLocationClick = (location: string) => {
