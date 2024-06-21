@@ -30,6 +30,12 @@ export default function Filter() {
     setInputPrice(formattedPrice);
   };
 
+  const handleResetClick = () => {
+    setStartDate(new Date);
+    setSelectedLocations([]);
+    setInputPrice('');
+  }
+
   const formatDate = (date: Date) => {
     const day = format(date, 'iii', { locale: ko }); // 요일을 한글로 출력
     return format(date, `yyyy/MM/dd/'${day}'`, { locale: ko });
@@ -110,10 +116,8 @@ export default function Filter() {
       </div>
       <div className="flex justify-between mt-[20px]">
         <button
-          className="bg-gray-300 text-white py-2 px-4 rounded-lg w-[80px]"
-          onClick={() => {
-            /* 초기화 기능 */
-          }}
+          className="text-[#EA3C12] py-14px rounded-6px w-[80px] border-1px border-[#EA3C12] font-bold text-center"
+          onClick={handleResetClick}
         >
           초기화
         </button>
