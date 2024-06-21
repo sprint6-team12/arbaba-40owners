@@ -11,6 +11,59 @@ body {
   font-family: 'SpoqaHanSansNeo';
 }
 
+input,
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+  &:focus {
+    outline: none;
+  }
+  &:active {
+    outline: none;
+  }
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+input[type='password']::-ms-reveal,
+input[type='password']::-ms-clear {
+  display: none;
+}
+
+@layer components {
+  .input-base {
+    @apply h-58px rounded-6px border-1px py-16px px-20px border-gray30;
+  }
+
+  .input-base::placeholder {
+    @apply text-16px text-gray40;
+  }
+
+  .input-base.input-error {
+    @apply border-red40 border-1px;
+  }
+
+  .input-error-message {
+    @apply text-red40 text-12px;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
