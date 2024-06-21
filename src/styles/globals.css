@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'SpoqaHanSansNeo';
+  src: url(https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+}
+
+body {
+  font-family: 'SpoqaHanSansNeo';
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
