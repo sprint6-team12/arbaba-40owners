@@ -93,7 +93,9 @@ const config: Config = {
           fontWeight: '700',
           lineHeight: '20px',
         },
-
+        '.button_large_active:hover': {
+          backgroundColor: '#d32f2f',
+        },
         '.button_large_disActive': {
           width: 'max-content',
           height: '48px',
@@ -106,6 +108,9 @@ const config: Config = {
           fontSize: '16px',
           fontWeight: '700',
           lineHeight: '20px',
+        },
+        '.button_large_disActive:hover': {
+          backgroundColor: '#ffe5d4',
         },
         '.button_medium_active': {
           width: 'max-content',
@@ -120,6 +125,9 @@ const config: Config = {
           fontWeight: '700',
           lineHeight: '17px',
         },
+        '.button_medium_active:hover': {
+          backgroundColor: '#d32f2f',
+        },
         '.button_medium_disActive': {
           width: 'max-content',
           height: '37px',
@@ -132,6 +140,9 @@ const config: Config = {
           fontSize: '14px',
           fontWeight: '700',
           lineHeight: '17px',
+        },
+        '.button_medium_disActive:hover': {
+          backgroundColor: '#ffe5d4',
         },
         '.button_small_active': {
           width: 'max-content',
@@ -146,6 +157,9 @@ const config: Config = {
           fontWeight: '400',
           lineHeight: '16px',
         },
+        '.button_small_active:hover': {
+          backgroundColor: '#d32f2f',
+        },
         '.button_small_disActive': {
           width: 'max-content',
           height: '32px',
@@ -158,6 +172,9 @@ const config: Config = {
           fontSize: '12px',
           fontWeight: '400',
           lineHeight: '16px',
+        },
+        '.button_small_disActive:hover': {
+          backgroundColor: '#ffe5d4',
         },
         '.button_large_disApply': {
           width: 'max-content',
@@ -172,6 +189,9 @@ const config: Config = {
           fontWeight: '700',
           lineHeight: '20px',
         },
+        '.button_large_disApply:hover': {
+          backgroundColor: '#8c8a92', // 호버 시 배경색 변경
+        },
         '.button_small_disApply': {
           width: 'max-content',
           height: '37px',
@@ -185,6 +205,9 @@ const config: Config = {
           fontWeight: '700',
           lineHeight: '17px',
         },
+        '.button_small_disApply:hover': {
+          backgroundColor: '#8c8a92', // 호버 시 배경색 변경
+        },
         '.button_Ok': {
           width: '120px',
           height: '48px',
@@ -194,6 +217,9 @@ const config: Config = {
           color: '#ffffff',
           fontSize: '16px',
           fontWeight: '500',
+        },
+        '.button_Ok:hover': {
+          backgroundColor: '#d32f2f',
         },
       });
     },

@@ -19,11 +19,11 @@ function Button({
 }: ButtonProps) {
   let ClassName = className;
 
-  if (className === 'large_active') {
+  if (className === 'button_large') {
     ClassName = disabled ? 'button_large_active' : 'button_large_disActive';
-  } else if (className === 'medium_active') {
+  } else if (className === 'button_medium') {
     ClassName = disabled ? 'button_medium_active' : 'button_medium_disActive';
-  } else if (className === 'small_active') {
+  } else if (className === 'button_small') {
     ClassName = disabled ? 'button_small_active' : 'button_small_disActive';
   } else {
     ClassName = className;
