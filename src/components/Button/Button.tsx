@@ -1,7 +1,5 @@
-import { ReactNode } from 'react';
-
 interface ButtonProps {
-  children: ReactNode;
+  children: React.ReactNode;
   className: string;
   disabled?: boolean;
   onClick?: () => void;

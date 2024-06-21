@@ -1,14 +1,10 @@
 import Link from 'next/link';
-import { ReactNode } from 'react';
 
 interface ButtonLinkProps {
   href: string;
   className?: string;
-  children?: ReactNode;
+  children?: React.ReactNode;
   disabled?: boolean;
-  onClick?: () => void;
-  onSubmit?: () => void;
-  type?: 'button' | 'submit';
 }
 
 function getClassName(
@@ -33,31 +29,14 @@ function LinkButton({
   children,
   className,
   href,
-  onClick,
-  onSubmit,
   disabled = false,
-  type = 'button',
 }: ButtonLinkProps) {
   const finalClassName = getClassName(className, disabled);
 
-  const buttonProps = {
-    className: finalClassName,
-    onClick,
-    onSubmit,
-    type,
-  };
-
   return (
-    <>
-      {disabled ? (
-        <Link href={href}>
-          <button {...buttonProps}>{children}</button>
-        </Link>
-      ) : (
-        <button {...buttonProps}>{children}</button>
-      )}
-    </>
+    <Link className={finalClassName} href={href}>
+      {children}
+    </Link>
   );
 }
-
 export default LinkButton;
