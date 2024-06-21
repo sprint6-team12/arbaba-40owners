@@ -1,23 +1,19 @@
-import { LOCATIONS } from '@/lib/data-locations';
 import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
-
-const formatDate = (date: Date) => {
-  const day = format(date, 'iii', { locale: ko }); // 요일을 한글로 출력
-  return format(date, `yyyy/MM/dd/'${day}'`, { locale: ko });
-};
+import { LOCATIONS } from '@/lib/data-locations';
 
 export default function Filter() {
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
-  const [inputPrice, setInputPrice] = useState<string>("");
+  const [inputPrice, setInputPrice] = useState<string>('');
 
   const handleLocationClick = (location: string) => {
-    if (!selectedLocations.includes(location))
+    if (!selectedLocations.includes(location)) {
       setSelectedLocations([...selectedLocations, location]);
+    }
   };
 
   const handleRemoveLocation = (location: string) => {
@@ -25,14 +21,19 @@ export default function Filter() {
   };
 
   const Commas = (number: string) => {
-    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  }
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  };
 
   const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const price = event.target.value.replace(/\D/g, "");
+    const price = event.target.value.replace(/\D/g, '');
     const formattedPrice = Commas(price);
     setInputPrice(formattedPrice);
-  }
+  };
+
+  const formatDate = (date: Date) => {
+    const day = format(date, 'iii', { locale: ko }); // 요일을 한글로 출력
+    return format(date, `yyyy/MM/dd/'${day}'`, { locale: ko });
+  };
 
   return (
     <div className="relative w-[390px] px-20px py-24px overflow-auto border-1px border-solid border-[#e5e4e7] rounded-[10px] bg-white">
