@@ -12,6 +12,16 @@ const formatDate = (date: Date) => {
 
 export default function Filter() {
   const [startDate, setStartDate] = useState<Date | null>(new Date());
+  const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
+
+  const handleLocationClick = (location: string) => {
+    if (!selectedLocations.includes(location))
+      setSelectedLocations([...selectedLocations, location]);
+  };
+
+  const handleRemoveLocation = (location: string) => {
+    setSelectedLocations(selectedLocations.filter((item) => item !== location));
+  };
 
   return (
     <div className="relative w-[390px] px-20px py-24px overflow-auto border-1px border-solid border-[#e5e4e7] rounded-[10px] bg-white">
@@ -23,11 +33,32 @@ export default function Filter() {
         <p>위치</p>
         <div className="p-36px border-1px border-solid rounded-[6px] grid grid-cols-2 gap-32px overflow-y-scroll h-[350px]">
           {LOCATIONS.map((item) => (
-            <button key={item} type="button" className="text-[14px]">
+            <button
+              key={item}
+              type="button"
+              className="text-[14px]"
+              onClick={() => handleLocationClick(item)}
+            >
               {item}
             </button>
           ))}
         </div>
+      </div>
+      <div className="flex flex-wrap gap-2 pb-4">
+        {selectedLocations.map((location) => (
+          <div
+            key={location}
+            className="flex items-center bg-[#FFEBE7] text-[#EA3C12] px-10px py-6px rounded-20px font-bold text-[14px]"
+          >
+            {location}
+            <button
+              className="ml-2 text-[#EA3C12]"
+              onClick={() => handleRemoveLocation(location)}
+            >
+              ×
+            </button>
+          </div>
+        ))}
       </div>
       <div className="border-solid border-b-2px border-[#f2f2f3] my-[18px]" />
       <div className="flex flex-col pb-[18px] gap-16px">
@@ -39,7 +70,7 @@ export default function Filter() {
           customInput={
             <input
               type="text"
-              className="w-full py-2 px-4 border border-gray-300 rounded-lg"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg"
               value={startDate ? formatDate(startDate) : ''}
               readOnly
             />
@@ -56,7 +87,7 @@ export default function Filter() {
               placeholder="입력"
               className="w-[180px] py-16px px-20px border border-gray-300 rounded-6px pr-12"
             />
-            <span className="absolute right-4 top-1/2 transform -translate-y-1/2">
+            <span className="absolute transform -translate-y-1/2 right-4 top-1/2">
               원
             </span>
           </div>
