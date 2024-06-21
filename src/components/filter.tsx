@@ -3,6 +3,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { format } from 'date-fns';
 import { ko } from 'date-fns/locale';
+import Icon_close_black from "@/../public/images/icon-close-black.svg"
 import { LOCATIONS } from '@/lib/data-locations';
 
 export default function Filter() {
@@ -43,9 +44,9 @@ export default function Filter() {
 
   return (
     <div className="relative w-[390px] px-20px py-24px overflow-auto border-1px border-solid border-[#e5e4e7] rounded-[10px] bg-white">
-      <div className="flex justify-between pb-18px">
+      <div className="flex items-center justify-between pb-18px">
         <p className="font-bold text-[20px]">상세 필터</p>
-        <p>X버튼</p>
+        <Icon_close_black />
       </div>
       <div className="flex flex-col pb-18px gap-16px">
         <p>위치</p>
