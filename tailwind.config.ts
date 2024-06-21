@@ -194,6 +194,13 @@ const config: Config = {
           fontSize: '16px',
           fontWeight: '500',
         },
+        '.no-scrollbar': {
+          '-ms-overflow-style': 'none',
+          'scrollbar-width': 'none',
+        },
+        '.no-scrollbar::-webkit-scrollbar': {
+          display: 'none',
+        },
       });
     },
   ],
