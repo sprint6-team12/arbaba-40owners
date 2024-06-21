@@ -73,6 +73,7 @@ const config: Config = {
     },
   },
   plugins: [
+    require('@tailwindcss/line-clamp'),
     function ({ addUtilities }: PluginAPI) {
       addUtilities({
         '.flex-center': {
