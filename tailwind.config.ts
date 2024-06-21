@@ -93,6 +93,7 @@ const config: Config = {
           fontWeight: '700',
           lineHeight: '20px',
         },
+
         '.button_large_disActive': {
           width: 'max-content',
           height: '48px',
