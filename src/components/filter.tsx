@@ -114,7 +114,7 @@ export default function Filter() {
                 customInput={
                   <input
                     type="text"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg cursor-pointer"
+                    className="w-full px-4 border border-gray-300 rounded-lg cursor-pointer py-16px"
                     readOnly
                   />
                 }
