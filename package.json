@@ -9,8 +9,7 @@
     "lint": "next lint",
     "lint:full-inspection": "eslint .",
     "type-check": "tsc --noEmit --incremental",
-    "prepare": "husky",
-    "postinstall": "husky install"
+    "prepare": "husky"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
