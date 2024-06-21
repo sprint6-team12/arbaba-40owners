@@ -1,42 +1,44 @@
 import Input from '@/components/Input/Input';
 
-const FormGroupWrapper = ({
+function FormGroupWrapper({
   className = '',
   children,
 }: {
   className?: string;
   children: React.ReactNode;
-}) => (
+}) {
   <div className={`relative flex flex-col gap-8px ${className}`}>
     {children}
-  </div>
-);
+  </div>;
+}
 
-const Label = ({
+function Label({
   className = '',
   children,
   ...rest
-}: React.LabelHTMLAttributes<HTMLLabelElement>) => (
+}: React.LabelHTMLAttributes<HTMLLabelElement>) {
   <label className={`${className}`} {...rest}>
     {children}
-  </label>
-);
+  </label>;
+}
 
-const InputWrapper = ({
+function InputWrapper({
   className = '',
   children,
 }: {
   className?: string;
   children: React.ReactNode;
-}) => <div className={`relative ${className}`}>{children}</div>;
+}) {
+  return <div className={`relative ${className}`}>{children}</div>;
+}
 
-const ErrorMessage = ({
+function ErrorMessage({
   className = '',
   errorMessage,
 }: {
   className?: string;
   errorMessage: string | null;
-}) => {
+}) {
   return (
     <>
       {errorMessage && (
@@ -44,7 +46,7 @@ const ErrorMessage = ({
       )}
     </>
   );
-};
+}
 
 const FormGroup = Object.assign(FormGroupWrapper, {
   Label: Label,

@@ -7,13 +7,13 @@ interface ImageInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 // *** 기본 이미지 input UI만 추가해놓은 상태입니다
 // 자유롭게 변경해서 사용해주세요...
-const ImageInput = ({
+function ImageInput({
   className,
   id,
   name,
   placeholder = '이미지를 추가해주세요',
   ...rest
-}: ImageInputProps) => {
+}: ImageInputProps) {
   return (
     <div className={`flex min-h-168px min-w-168px gap-8px ${className}`}>
       <label
@@ -33,6 +33,6 @@ const ImageInput = ({
       </label>
     </div>
   );
-};
+}
 
 export default ImageInput;
