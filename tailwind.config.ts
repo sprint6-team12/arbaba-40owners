@@ -38,9 +38,7 @@ const config: Config = {
       borderWidth: px0_10,
       fontSize: px0_100,
       spacing: px0_200,
-      borderRadius: {
-        '6px': '6px',
-      },
+      borderRadius: px0_100,
       width: px0_500,
       height: px0_500,
       colors: {

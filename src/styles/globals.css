@@ -15,10 +15,4 @@ body {
   .text-balance {
     text-wrap: balance;
   }
-
-  .flex-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
 }
