@@ -1,6 +1,18 @@
 import { LOCATIONS } from '@/lib/data-locations';
+import { useState } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { format } from 'date-fns';
+import { ko } from 'date-fns/locale';
+
+const formatDate = (date: Date) => {
+  const day = format(date, 'iii', { locale: ko }); // 요일을 한글로 출력
+  return format(date, `yyyy/MM/dd/'${day}'`, { locale: ko });
+};
 
 export default function Filter() {
+  const [startDate, setStartDate] = useState<Date | null>(new Date());
+
   return (
     <div className="relative w-[390px] px-20px py-24px overflow-auto border-1px border-solid border-[#e5e4e7] rounded-[10px] bg-white">
       <div className="flex justify-between pb-18px">
@@ -20,7 +32,19 @@ export default function Filter() {
       <div className="border-solid border-b-2px border-[#f2f2f3]" />
       <div className="flex flex-col pb-[18px]">
         <p>시작일</p>
-        {/* 날짜 선택 기능 */}
+        <DatePicker
+          selected={startDate}
+          onChange={(date) => setStartDate(date)}
+          dateFormat="yyyy년 MM월 dd일"
+          customInput={
+            <input
+              type="text"
+              className="w-full py-2 px-4 border border-gray-300 rounded-lg"
+              value={startDate ? formatDate(startDate) : ''}
+              readOnly
+            />
+          }
+        />
       </div>
       <div className="border-solid border-b-2 border-[#f2f2f3] my-[18px]" />
       <div className="flex flex-col">
