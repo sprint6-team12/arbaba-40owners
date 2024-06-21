@@ -32,6 +32,7 @@ const config: Config = {
       },
       zIndex: {
         dropdown: '10',
+        popup: '15',
         modalbackground: '20',
         modalbody: '30',
       },
@@ -70,6 +71,20 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        fadeOut: {
+          '0%': { opacity: '1' },
+          '100%': { opacity: '0' },
+        },
+      },
+      animation: {
+        fadeIn: 'fadeIn 0.5s ease-out',
+        fadeOut: 'fadeOut 0.5s ease-out',
+      },
     },
   },
   plugins: [
@@ -78,7 +93,7 @@ const config: Config = {
         '.flex-center': {
           display: 'flex',
           justifyContent: 'center',
-          alineItems: 'center',
+          alignItems: 'center',
         },
         '.button_large_active': {
           width: 'max-content',
