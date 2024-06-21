@@ -2,7 +2,7 @@ import { ko } from 'date-fns/locale';
 import { useEffect, useRef, useState } from 'react';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import Icon_close_black from '@/../public/images/icon-close-black.svg';
+import IconCloseBlack from '@/../public/images/icon-close-black.svg';
 import { LOCATIONS } from '@/constants/data-locations';
 
 registerLocale('ko', ko);
@@ -69,7 +69,7 @@ export default function Filter() {
             <div className="flex items-center justify-between pb-[18px]">
               <p className="font-bold text-[20px]">상세 필터</p>
               <button onClick={() => setIsFilterOpen(false)}>
-                <Icon_close_black />
+                <IconCloseBlack />
               </button>
             </div>
             <div className="flex flex-col pb-18px gap-16px">
