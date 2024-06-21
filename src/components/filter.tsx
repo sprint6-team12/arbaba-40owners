@@ -16,21 +16,21 @@ export default function Filter() {
   return (
     <div className="relative w-[390px] px-20px py-24px overflow-auto border-1px border-solid border-[#e5e4e7] rounded-[10px] bg-white">
       <div className="flex justify-between pb-18px">
-        <p>상세 필터</p>
+        <p className="font-bold text-[20px]">상세 필터</p>
         <p>X버튼</p>
       </div>
-      <div className="flex-col pb-18px">
+      <div className="flex flex-col pb-18px gap-16px">
         <p>위치</p>
-        <div className="p-4px border-1px border-solid rounded-[6px] grid grid-cols-2 gap-12px overflow-y-scroll h-[350px]">
+        <div className="p-36px border-1px border-solid rounded-[6px] grid grid-cols-2 gap-32px overflow-y-scroll h-[350px]">
           {LOCATIONS.map((item) => (
-            <button key={item} type="button">
+            <button key={item} type="button" className="text-[14px]">
               {item}
             </button>
           ))}
         </div>
       </div>
-      <div className="border-solid border-b-2px border-[#f2f2f3]" />
-      <div className="flex flex-col pb-[18px]">
+      <div className="border-solid border-b-2px border-[#f2f2f3] my-[18px]" />
+      <div className="flex flex-col pb-[18px] gap-16px">
         <p>시작일</p>
         <DatePicker
           selected={startDate}
@@ -47,14 +47,14 @@ export default function Filter() {
         />
       </div>
       <div className="border-solid border-b-2 border-[#f2f2f3] my-[18px]" />
-      <div className="flex flex-col">
+      <div className="flex flex-col gap-16px">
         <p>금액</p>
         <div className="flex items-center gap-[18px]">
           <div className="relative">
             <input
               type="text"
               placeholder="입력"
-              className="w-[180px] py-2 px-4 border border-gray-300 rounded-lg pr-12"
+              className="w-[180px] py-16px px-20px border border-gray-300 rounded-6px pr-12"
             />
             <span className="absolute right-4 top-1/2 transform -translate-y-1/2">
               원
