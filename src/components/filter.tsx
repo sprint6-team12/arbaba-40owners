@@ -24,12 +24,12 @@ export default function Filter() {
     setSelectedLocations(selectedLocations.filter((item) => item !== location));
   };
 
-  function Commas(n: string) {
-    return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const Commas = (number: string) => {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 
-  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const price = e.target.value.replace(/\D/g, "");
+  const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const price = event.target.value.replace(/\D/g, "");
     const formattedPrice = Commas(price);
     setInputPrice(formattedPrice);
   }
