@@ -13,6 +13,7 @@ const formatDate = (date: Date) => {
 export default function Filter() {
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
+  const [inputPrice, setInputPrice] = useState<string>("");
 
   const handleLocationClick = (location: string) => {
     if (!selectedLocations.includes(location))
@@ -22,6 +23,16 @@ export default function Filter() {
   const handleRemoveLocation = (location: string) => {
     setSelectedLocations(selectedLocations.filter((item) => item !== location));
   };
+
+  function Commas(n: string) {
+    return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const price = e.target.value.replace(/\D/g, "");
+    const formattedPrice = Commas(price);
+    setInputPrice(formattedPrice);
+  }
 
   return (
     <div className="relative w-[390px] px-20px py-24px overflow-auto border-1px border-solid border-[#e5e4e7] rounded-[10px] bg-white">
@@ -86,6 +97,8 @@ export default function Filter() {
               type="text"
               placeholder="입력"
               className="w-[180px] py-16px px-20px border border-gray-300 rounded-6px pr-12"
+              value={inputPrice}
+              onChange={handlePriceChange}
             />
             <span className="absolute transform -translate-y-1/2 right-4 top-1/2">
               원
