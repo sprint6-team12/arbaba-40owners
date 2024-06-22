@@ -4,22 +4,24 @@ import EnvelopeIcon from '/public/images/icon-envelope-square.svg';
 
 export default function Footer() {
   return (
-    <footer className="flex justify-between p-20px bg-gray10">
-      <div className="flex flex-col gap-10">
-        <span className="order-3 font-normal text-16px text-gray50">
-          @codeit - 2023
-        </span>
-        <div className="flex-center gap-10">
-          <span className="font-normal text-16px text-gray50">
+    <footer className="flex justify-between p-[20px] tablet:p-[30px] pc:px-[238px] py-[37px] bg-gray10">
+      <div className="flex flex-col gap-[40px] tablet:flex-row pc:flex-row">
+        <div>
+          <span className="order-3 tablet:order-none pc:order-none font-normal text-[16px] text-gray50">
+            @codeit - 2023
+          </span>
+        </div>
+        <div className="flex items-center gap-[40px]">
+          <span className="font-normal text-[16px] text-gray50 tablet:ml-[144px] pc:ml-[286px]">
             Privacy Policy
           </span>
-          <span className="font-normal text-16px text-gray50">FAQ</span>
+          <span className="font-normal text-[16px] text-gray50">FAQ</span>
         </div>
       </div>
-      <div className="flex gap-3">
-        <EnvelopeIcon alt="이메일" className="h-24px w-24px" />
-        <FacebookIcon alt="페이스북" className="h-24px w-24px" />
-        <InstagramIcon alt="인스타그램" className="h-24px w-24px" />
+      <div className="flex gap-[12px]">
+        <EnvelopeIcon aria-label="이메일" className="h-[24px] w-[24px]" />
+        <FacebookIcon aria-label="페이스북" className="h-[24px] w-[24px]" />
+        <InstagramIcon aria-label="인스타그램" className="h-[24px] w-[24px]" />
       </div>
     </footer>
   );
