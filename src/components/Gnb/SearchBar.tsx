@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 export default function SearchBar() {
   const [searchInput, setSearchInput] = useState('');
+
   const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(event.target.value);
   };
