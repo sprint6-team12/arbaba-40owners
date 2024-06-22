@@ -78,7 +78,7 @@ const config: Config = {
         '.flex-center': {
           display: 'flex',
           justifyContent: 'center',
-          alignItems: 'center',
+          alineItems: 'center',
         },
         '.button_large_active': {
           width: 'max-content',
