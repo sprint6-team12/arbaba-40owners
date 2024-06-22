@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import ActiveButton from '@/../public/images/icon-status-active.svg';
-import InActiveButton from '@/../public/images/icon-status-inactive.svg';
+import ActiveButton from '/public/images/icon-status-active.svg';
+import InActiveButton from '/public/images/icon-status-inactive.svg';
 
 interface NotificationButtonProps {
   hasNotification: boolean;

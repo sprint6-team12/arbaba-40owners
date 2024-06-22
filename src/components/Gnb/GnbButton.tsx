@@ -1,5 +1,5 @@
-import GnbUiButton from './GnbUiButton';
-import NotificationButton from './NotificationBUtton';
+import GnbUiButton from '@/components/Gnb/GnbUiButton';
+import NotificationButton from '@/components/Gnb/NotificationBUtton';
 
 interface Button {
   name: string;
