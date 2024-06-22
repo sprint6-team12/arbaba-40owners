@@ -6,11 +6,9 @@ export default function Footer() {
   return (
     <footer className="flex justify-between p-[20px] tablet:p-[30px] pc:px-[238px] py-[37px] bg-gray10">
       <div className="flex flex-col gap-[40px] tablet:flex-row pc:flex-row">
-        <div>
-          <span className="order-3 tablet:order-none pc:order-none font-normal text-[16px] text-gray50">
-            @codeit - 2023
-          </span>
-        </div>
+        <span className="order-3 tablet:order-none pc:order-none font-normal text-[16px] text-gray50">
+          @codeit - 2023
+        </span>
         <div className="flex items-center gap-[40px]">
           <span className="font-normal text-[16px] text-gray50 tablet:ml-[144px] pc:ml-[286px]">
             Privacy Policy
