@@ -27,7 +27,7 @@ function StatusBadge({ status }: StatusBadgeProps) {
 
   return (
     <span
-      className={`px-10px py-6px rounded-20px font-bold text-14px inline-flex justify-center items-center ${backgroundColor} ${textColor}`}
+      className={`px-10px py-6px rounded-20px font-bold text-12px tablet:text-14px pc:text-14px inline-flex justify-center items-center ${backgroundColor} ${textColor}`}
     >
       {text}
     </span>
