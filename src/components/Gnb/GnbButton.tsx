@@ -1,13 +1,15 @@
 import GnbUiButton from './GnbUiButton';
-
-interface GnbButtonProps {
-  userType?: 'employee' | 'employer' | 'guest';
-  handleClick: (pathname: string) => void;
-}
+import NotificationButton from './NotificationBUtton';
 
 interface Button {
   name: string;
   id: string;
+}
+
+interface GnbButtonProps {
+  userType?: 'employee' | 'employer' | 'guest';
+  handleClick: (pathname: string) => void;
+  hasNotification?: boolean;
 }
 
 const GUEST_BUTTONS: Button[] = [
@@ -25,22 +27,40 @@ const EMPLOYEE_BUTTONS: Button[] = [
   { name: '로그아웃', id: 'logout' },
 ];
 
-export default function GnbButton({ userType, handleClick }: GnbButtonProps) {
+export default function GnbButton({
+  userType,
+  handleClick,
+  hasNotification = false,
+}: GnbButtonProps) {
   const renderButtons = (buttons: Button[]) =>
     buttons.map((button) => (
       <GnbUiButton
         key={button.id}
         name={button.name}
         id={button.id}
-        handleClickButton={handleClick}
+        handleClickButton={() => handleClick(button.id)}
       />
     ));
 
   return (
     <div>
       {userType === 'guest' && renderButtons(GUEST_BUTTONS)}
-      {userType === 'employer' && renderButtons(EMPLOYER_BUTTONS)}
-      {userType === 'employee' && renderButtons(EMPLOYEE_BUTTONS)}
+      {userType === 'employer' && (
+        <>
+          {renderButtons(EMPLOYER_BUTTONS)}
+          {hasNotification !== undefined && (
+            <NotificationButton hasNotification={hasNotification} />
+          )}
+        </>
+      )}
+      {userType === 'employee' && (
+        <>
+          {renderButtons(EMPLOYEE_BUTTONS)}
+          {hasNotification !== undefined && (
+            <NotificationButton hasNotification={hasNotification} />
+          )}
+        </>
+      )}
     </div>
   );
 }
