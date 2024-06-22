@@ -1,7 +1,7 @@
 import { useState, forwardRef } from 'react';
 import BaseInput from '@/components/Input/BaseInput';
-import EyeIcon from '/public/images/icon-eye.svg';
-import EyeOffIcon from '/public/images/icon-eye-off.svg';
+import IconEye from '/public/images/icon-eye.svg';
+import IconEyeOff from '/public/images/icon-eye-off.svg';
 
 function InputPassword(
   { className, ...rest }: React.InputHTMLAttributes<HTMLInputElement>,
@@ -25,7 +25,7 @@ function InputPassword(
         onClick={handleTogglePasswordVisibility}
         className="absolute -translate-x-full h-24px w-24px bg-transparent"
       >
-        {isPasswordVisible ? <EyeOffIcon /> : <EyeIcon />}
+        {isPasswordVisible ? <IconEyeOff /> : <IconEye />}
       </button>
     </div>
   );
