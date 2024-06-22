@@ -9,6 +9,7 @@
 
 body {
   font-family: 'SpoqaHanSansNeo';
+  @apply text-black;
 }
 
 @layer utilities {
