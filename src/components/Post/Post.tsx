@@ -26,13 +26,11 @@ export default function Post({
   originalHourlyPay,
   href,
 }: PostCardProps) {
+  const isPassed = new Date() > new Date(startsAt);
   const currentPostState = {
-    isPassed: new Date() > new Date(startsAt),
-    isClosed: closed || new Date() > new Date(startsAt),
+    isPassed,
+    isClosed: closed || isPassed,
   };
-
-  const CLOSED_TEXT = '마감 완료';
-  const PASSED_TEXT = '지난 공고';
 
   return (
     <Link
@@ -42,8 +40,7 @@ export default function Post({
       <PostImage
         imageUrl={imageUrl}
         isClosed={currentPostState.isClosed}
-        closedText={CLOSED_TEXT}
-        passedText={PASSED_TEXT}
+        isPassed={currentPostState.isPassed}
       />
       <PostInformation
         name={name}
