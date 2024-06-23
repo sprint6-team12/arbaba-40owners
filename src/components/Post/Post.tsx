@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import Link from 'next/link';
+import { useState } from 'react';
 import PostImage from './PostImage';
 import PostInformation from './PostInformation';
 import PostPrice from './PostPrice';
