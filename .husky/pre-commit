@@ -1,0 +1,31 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+
+echo "🔍 commit 이전에 prettier, lint 규칙을 적용합니다..."
+
+npx lint-staged
+
+# lint-staged 실행 후 변경된 파일을 가져옵니다.
+changed_files=$(git diff --name-only --staged)
+
+if [ $? -ne 0 ]; then
+  echo "❌ 변경된 파일을 가져오는 중 오류가 발생했습니다."
+  exit 1
+fi
+
+# 변경된 파일들을 다시 스테이징합니다.
+echo "$changed_files" | while IFS= read -r file; do
+  git add "$file"
+done
+
+if [ $? -ne 0 ]; then
+  echo "❌ 파일을 다시 스테이징하는 중 오류가 발생했습니다."
+  exit 1
+fi
+
+
+echo "✅ 모든 prettier, lint 규칙이 성공적으로 적용되었습니다."
+
+# 스테이징 된 파일 대상으로만 검사를 진행합니다
+# 자동으로 수정가능한 오류는 변경되어 커밋되고 자동으로 수정 불가능한 오류가 발생하면 검사를 중단합니다
