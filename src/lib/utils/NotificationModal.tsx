@@ -11,14 +11,23 @@ export const formatDate = (dateString: string) => {
   });
 };
 
-export const getEllipseIcon = (result: string) => {
+export const getResultInfo = (result: string) => {
   switch (result) {
     case 'canceled':
-      return <IconEllipseGray />;
+      return {
+        icon: <IconEllipseGray />,
+        text: <span className="text-gray20">취소</span>,
+      };
     case 'rejected':
-      return <IconEllipseOrange />;
+      return {
+        icon: <IconEllipseOrange />,
+        text: <span className="text-red20">거절</span>,
+      };
     case 'accepted':
-      return <IconEllipseBlue />;
+      return {
+        icon: <IconEllipseBlue />,
+        text: <span className="text-blue10">승인</span>,
+      };
     default:
       return null;
   }
@@ -33,17 +42,4 @@ export const getWorkTime = (startsAt: string, workhour: number) => {
   const formattedEndTime = format(endTime, 'HH:mm', { locale: ko });
 
   return { formattedStartTime, formattedEndTime };
-};
-
-export const getResultText = (result: string) => {
-  switch (result) {
-    case 'canceled':
-      return <span className="text-gray20">취소</span>;
-    case 'rejected':
-      return <span className="text-red20">거절</span>;
-    case 'accepted':
-      return <span className="text-blue10">승인</span>;
-    default:
-      return null;
-  }
 };
