@@ -10,12 +10,12 @@ export default function SearchBar() {
 
   return (
     <div className="relative flex items-center">
-      <SearchIcon className="absolute w-[20px] h-[20px] ml-[8px]" />
+      <SearchIcon className="absolute w-[20px] h-[20px] ml-[15px]" />
       <input
         value={searchInput}
         placeholder="가게 이름으로 찾아보세요"
         onChange={handleChangeInput}
-        className="searchInput border border-none bg-gray10 rounded-[10px] px-[32px] py-[8px] w-[335px]"
+        className="px-[32px] py-[8px] ml-8px rounded-[10px] bg-gray10 w-335px tablet:w-344px pc:w-450px"
       />
     </div>
   );
