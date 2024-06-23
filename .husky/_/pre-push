@@ -10,4 +10,3 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "✅ ✅ ✅ ✅ git push 성공 ✅ ✅ ✅ ✅ "
-

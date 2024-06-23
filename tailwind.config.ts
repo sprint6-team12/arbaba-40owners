@@ -32,6 +32,7 @@ const config: Config = {
       },
       zIndex: {
         dropdown: '10',
+        popup: '15',
         modalbackground: '20',
         modalbody: '30',
       },
@@ -70,6 +71,20 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        fadeOut: {
+          '0%': { opacity: '1' },
+          '100%': { opacity: '0' },
+        },
+      },
+      animation: {
+        fadeIn: 'fadeIn 0.5s ease-out',
+        fadeOut: 'fadeOut 0.5s ease-out',
+      },
     },
   },
   plugins: [
@@ -78,7 +93,7 @@ const config: Config = {
         '.flex-center': {
           display: 'flex',
           justifyContent: 'center',
-          alineItems: 'center',
+          alignItems: 'center',
         },
         '.button_large_active': {
           width: 'max-content',
@@ -93,6 +108,9 @@ const config: Config = {
           fontWeight: '700',
           lineHeight: '20px',
         },
+        '.button_large_active:hover': {
+          backgroundColor: '#d32f2f',
+        },
         '.button_large_disActive': {
           width: 'max-content',
           height: '48px',
@@ -105,6 +123,9 @@ const config: Config = {
           fontSize: '16px',
           fontWeight: '700',
           lineHeight: '20px',
+        },
+        '.button_large_disActive:hover': {
+          backgroundColor: '#ffe5d4',
         },
         '.button_medium_active': {
           width: 'max-content',
@@ -119,6 +140,9 @@ const config: Config = {
           fontWeight: '700',
           lineHeight: '17px',
         },
+        '.button_medium_active:hover': {
+          backgroundColor: '#d32f2f',
+        },
         '.button_medium_disActive': {
           width: 'max-content',
           height: '37px',
@@ -131,6 +155,9 @@ const config: Config = {
           fontSize: '14px',
           fontWeight: '700',
           lineHeight: '17px',
+        },
+        '.button_medium_disActive:hover': {
+          backgroundColor: '#ffe5d4',
         },
         '.button_small_active': {
           width: 'max-content',
@@ -145,6 +172,9 @@ const config: Config = {
           fontWeight: '400',
           lineHeight: '16px',
         },
+        '.button_small_active:hover': {
+          backgroundColor: '#d32f2f',
+        },
         '.button_small_disActive': {
           width: 'max-content',
           height: '32px',
@@ -157,6 +187,9 @@ const config: Config = {
           fontSize: '12px',
           fontWeight: '400',
           lineHeight: '16px',
+        },
+        '.button_small_disActive:hover': {
+          backgroundColor: '#ffe5d4',
         },
         '.button_large_disApply': {
           width: 'max-content',
@@ -171,6 +204,9 @@ const config: Config = {
           fontWeight: '700',
           lineHeight: '20px',
         },
+        '.button_large_disApply:hover': {
+          backgroundColor: '#8c8a92', // 호버 시 배경색 변경
+        },
         '.button_small_disApply': {
           width: 'max-content',
           height: '37px',
@@ -184,6 +220,9 @@ const config: Config = {
           fontWeight: '700',
           lineHeight: '17px',
         },
+        '.button_small_disApply:hover': {
+          backgroundColor: '#8c8a92', // 호버 시 배경색 변경
+        },
         '.button_Ok': {
           width: '120px',
           height: '48px',
@@ -193,6 +232,9 @@ const config: Config = {
           color: '#ffffff',
           fontSize: '16px',
           fontWeight: '500',
+        },
+        '.button_Ok:hover': {
+          backgroundColor: '#d32f2f',
         },
       });
     },
