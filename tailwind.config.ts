@@ -80,6 +80,10 @@ const config: Config = {
           justifyContent: 'center',
           alignItems: 'center',
         },
+        // w-full을 적용하기위한 코드
+        '.w-full.button_medium_active': {
+          width: '100% !important',
+        },
         '.button_large_active': {
           width: 'max-content',
           height: '48px',
