@@ -8,9 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "lint:full-inspection": "eslint .",
-    "type-check": "tsc --noEmit --incremental",
-    "prepare": "husky",
-    "postinstall": "husky install"
+    "type-check": "tsc --noEmit --incremental"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -22,6 +20,7 @@
     "axios": "^1.7.2",
     "next": "14.2.4",
     "react": "^18",
+    "react-datepicker": "^7.1.0",
     "react-dom": "^18",
     "recoil": "^0.7.7"
   },
