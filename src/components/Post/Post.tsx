@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { useState } from 'react';
 import PostImage from './PostImage';
 import PostInformation from './PostInformation';
 import PostPrice from './PostPrice';
@@ -27,10 +26,10 @@ export default function Post({
   originalHourlyPay,
   href,
 }: PostCardProps) {
-  const [currentPostState, setCurrentPostState] = useState({
+  const currentPostState = {
     isPassed: new Date() > new Date(startsAt),
     isClosed: closed || new Date() > new Date(startsAt),
-  });
+  };
 
   const CLOSED_TEXT = '마감 완료';
   const PASSED_TEXT = '지난 공고';
