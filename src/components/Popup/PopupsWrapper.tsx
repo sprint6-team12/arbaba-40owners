@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
+import Popup from '@/components/Popup/Popup';
 import popupsDataState from '@/recoil/atoms/PopupAtom';
-import Popup from './Popup';
 
 function PopupsWrapper() {
   const popupsData = useRecoilValue(popupsDataState);
