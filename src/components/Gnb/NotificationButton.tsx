@@ -19,9 +19,12 @@ export default function NotificationButton({
     <div>
       <button type="button" onClick={handleClickNotification}>
         {hasNotification ? (
-          <ActiveButton aria-label="알림 활성화" width={20} height={20} />
+          <ActiveButton aria-label="알림 활성화" className="w-20px h-20px" />
         ) : (
-          <InActiveButton aria-label="알림 비활성화" width={20} height={20} />
+          <InActiveButton
+            aria-label="알림 비활성화"
+            className="w-20px h-20px"
+          />
         )}
       </button>
       {isModalOpen && <div></div>}
