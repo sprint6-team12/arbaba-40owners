@@ -4,25 +4,25 @@ interface StatusBadgeProps {
   status: Status;
 }
 
-function StatusBadge({ status }: StatusBadgeProps) {
-  const statusMap = {
-    pending: {
-      backgroundColor: 'bg-green10',
-      textColor: 'text-green20',
-      text: '대기중',
-    },
-    accepted: {
-      backgroundColor: 'bg-blue10',
-      textColor: 'text-blue20',
-      text: '승인 완료',
-    },
-    rejected: {
-      backgroundColor: 'bg-red10',
-      textColor: 'text-red40',
-      text: '거절',
-    },
-  };
+const statusMap = {
+  pending: {
+    backgroundColor: 'bg-green10',
+    textColor: 'text-green20',
+    text: '대기중',
+  },
+  accepted: {
+    backgroundColor: 'bg-blue10',
+    textColor: 'text-blue20',
+    text: '승인 완료',
+  },
+  rejected: {
+    backgroundColor: 'bg-red10',
+    textColor: 'text-red40',
+    text: '거절',
+  },
+};
 
+function StatusBadge({ status }: StatusBadgeProps) {
   const { backgroundColor, textColor, text } = statusMap[status];
 
   return (
