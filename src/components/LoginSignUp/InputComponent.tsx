@@ -24,7 +24,7 @@ export default function InputComponent({
     <>
       {type === 'email' ? (
         <FormGroup className='my-4px'>
-          <FormGroup.Label htmlFor={id}>이메일</FormGroup.Label>
+          <FormGroup.Label htmlFor={id}>{placeholder}</FormGroup.Label>
           <FormGroup.InputField.Text
             id={id}
             name={name}
@@ -38,7 +38,7 @@ export default function InputComponent({
         </FormGroup>
       ) : (
         <FormGroup className='my-4px'>
-          <FormGroup.Label htmlFor={id}>비밀번호</FormGroup.Label>
+          <FormGroup.Label htmlFor={id}>{placeholder}</FormGroup.Label>
           <FormGroup.InputField.Password
             id={id}
             name={name}
