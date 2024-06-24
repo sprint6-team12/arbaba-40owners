@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import SearchIcon from '/public/images/icon-search.svg';
+import { IconSearch } from '@/utils/Icons';
 
 export default function SearchBar() {
   const [searchInput, setSearchInput] = useState('');
@@ -10,7 +10,7 @@ export default function SearchBar() {
 
   return (
     <div className="relative flex items-center">
-      <SearchIcon className="absolute w-[20px] h-[20px] ml-[15px]" />
+      <IconSearch className="absolute w-[20px] h-[20px] ml-[15px]" />
       <input
         value={searchInput}
         placeholder="가게 이름으로 찾아보세요"

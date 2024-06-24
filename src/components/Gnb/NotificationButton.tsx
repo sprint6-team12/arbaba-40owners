@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import ActiveIcon from '/public/images/icon-status-active.svg';
-import InActiveIcon from '/public/images/icon-status-inactive.svg';
+import { IconStatusActive, IconStatusInactive } from '@/utils/Icons';
 
 interface NotificationButtonProps {
   hasNotification: boolean;
@@ -19,9 +18,15 @@ export default function NotificationButton({
     <div>
       <button type="button" onClick={handleClickNotification}>
         {hasNotification ? (
-          <ActiveIcon aria-label="알림 활성화" className="w-20px h-20px" />
+          <IconStatusActive
+            aria-label="알림 활성화"
+            className="w-20px h-20px"
+          />
         ) : (
-          <InActiveIcon aria-label="알림 비활성화" className="w-20px h-20px" />
+          <IconStatusInactive
+            aria-label="알림 비활성화"
+            className="w-20px h-20px"
+          />
         )}
       </button>
       {isModalOpen && <div></div>}

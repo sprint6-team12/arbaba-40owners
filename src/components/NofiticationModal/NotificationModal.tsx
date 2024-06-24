@@ -1,5 +1,5 @@
-import IconCloseBlack from '@/../public/images/icon-close-black.svg';
 import { NotificationModalProps } from '@/types/NotificationModal';
+import { IconCloseBlack } from '@/utils/Icons';
 import AlertItem from './AlertItem';
 
 export default function NotificationModal({ data }: NotificationModalProps) {

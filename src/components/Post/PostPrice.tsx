@@ -1,6 +1,5 @@
 import percentageCalculator from '@/lib/utils/percentageCalculator';
-import GrayArrow from '/public/images/icon-arrow-up-gray.svg';
-import RedArrow from '/public/images/icon-arrow-up-red.svg';
+import { IconGrayArrow, IconRedArrow } from '@/utils/Icons';
 
 interface PostPriceProps {
   hourlyPay: number;
@@ -34,9 +33,9 @@ export default function PostPrice({
           className={`text-12px ${alertColor} font-[400] tablet:text-white pc:text-white`}
         >{`기존 시급보다 ${percentage}%`}</p>{' '}
         {isClosed ? (
-          <GrayArrow className="ml-4px" alt="비활성화 화살표" />
+          <IconGrayArrow className="ml-4px" alt="비활성화 화살표" />
         ) : (
-          <RedArrow className="ml-4px" alt="활성화 화살표" />
+          <IconRedArrow className="ml-4px" alt="활성화 화살표" />
         )}
       </div>
     </div>
