@@ -1,19 +1,19 @@
-import { axiosInstance } from '@/pages/api/axiosInstance';
+import { axiosInstance } from './axiosInstance';
 
 interface GetNoticeListData {
-  offset?: number;
-  limit?: number;
-  address?: string;
-  keyword?: string;
-  startsAtGte?: string;
-  hourlyPayGte?: number;
-  sort?: string;
+  offset: number;
+  limit: number;
+  address: string;
+  keyword: string;
+  startsAtGte: string;
+  hourlyPayGte: number;
+  sort: string;
 }
 
 interface GetShopNoticeListData {
   shops_id: string;
-  offset?: number;
-  limit?: number;
+  offset: number;
+  limit: number;
 }
 
 interface GetShopNoticeData {
