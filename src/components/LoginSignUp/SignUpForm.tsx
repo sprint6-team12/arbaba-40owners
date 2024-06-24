@@ -1,47 +1,45 @@
 import { useState } from 'react';
 import Button from '../Button/Button';
+import InputComponent from './InputComponent';
+import MemberTypeToggle from './MemberTypeToggle';
 
 const SignUpForm = () => {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [userType, setUserType] = useState<'employee' | 'employer'>('employee');
+
+  const handleUserTypeClick = (type: 'employee' | 'employer') => {
+    if (userType !== type) {
+      setUserType(type);
+    }
+  };
 
   return (
-    <form className="flex flex-col">
-      <h1 className="mb-6 text-2xl font-bold text-center">회원가입</h1>
-      <label className="text-left" htmlFor="signUpEmail">
-        이메일
-      </label>
-      <input
+    <form className="flex flex-col" autoComplete="off">
+      <h1 className="font-bold text-center mb-24px text-24px">회원가입</h1>
+      <InputComponent
         id="signUpEmail"
         type="text"
         placeholder="이메일"
         value={id}
         onChange={(event) => setId(event.target.value)}
-        className="w-full px-5 py-4 my-2 text-lg border rounded h-14"
       />
-      <label className="text-left" htmlFor="signUpPassword">
-        비밀번호
-      </label>
-      <input
+      <InputComponent
         id="signUpPassword"
         type="password"
         placeholder="비밀번호"
         value={password}
         onChange={(event) => setPassword(event.target.value)}
-        className="w-full px-5 py-4 my-2 text-lg border rounded h-14"
       />
-      <label className="text-left" htmlFor="signUpPasswordConfirm">
-        비밀번호 확인
-      </label>
-      <input
+      <InputComponent
         id="signUpPasswordConfirm"
-        type="text"
+        type="password"
         placeholder="비밀번호 확인"
         value={passwordConfirm}
         onChange={(event) => setPasswordConfirm(event.target.value)}
-        className="w-full px-5 py-4 my-2 text-lg border rounded h-14"
       />
+      <MemberTypeToggle userType={userType} onClick={handleUserTypeClick} />
       <Button className="w-full button_medium_active" type="submit">
         가입하기
       </Button>
