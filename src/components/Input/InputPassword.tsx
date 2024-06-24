@@ -1,7 +1,6 @@
 import { useState, forwardRef } from 'react';
 import BaseInput from '@/components/Input/BaseInput';
-import IconEye from '/public/images/icon-eye.svg';
-import IconEyeOff from '/public/images/icon-eye-off.svg';
+import { IconEye, IconEyeOff } from '@/utils/Icons';
 
 function InputPassword(
   { className, ...rest }: React.InputHTMLAttributes<HTMLInputElement>,

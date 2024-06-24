@@ -28,7 +28,7 @@ const config: Config = {
       },
       screens: {
         pc: { min: '1200px' },
-        tablet: { min: '768px', max: '1023px' },
+        tablet: { min: '768px', max: '1199px' },
       },
       zIndex: {
         dropdown: '10',
@@ -88,6 +88,7 @@ const config: Config = {
     },
   },
   plugins: [
+    require('@tailwindcss/line-clamp'),
     function ({ addUtilities }: PluginAPI) {
       addUtilities({
         '.flex-center': {
@@ -235,6 +236,13 @@ const config: Config = {
         },
         '.button_Ok:hover': {
           backgroundColor: '#d32f2f',
+        },
+        '.no-scrollbar': {
+          '-ms-overflow-style': 'none',
+          'scrollbar-width': 'none',
+        },
+        '.no-scrollbar::-webkit-scrollbar': {
+          display: 'none',
         },
       });
     },
