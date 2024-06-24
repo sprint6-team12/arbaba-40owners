@@ -1,4 +1,4 @@
-import formatTime from '@/utils/formatTime';
+import formatTimeRange from '@/lib/utils/formatTime';
 import ActiveClock from '/public/images/icon-clock.svg';
 import InActiveClock from '/public/images/icon-clock-inactive.svg';
 import ActiveLocation from '/public/images/icon-location.svg';
@@ -19,15 +19,20 @@ export default function PostInformation({
   address1,
   isClosed,
 }: PostInformationProps) {
+  const { startDateString, startTimeString, endTimeString } = formatTimeRange(
+    startsAt,
+    workhour
+  );
+
   const clockIcon = isClosed ? (
     <InActiveClock aria-label="시간 비활성화" />
   ) : (
     <ActiveClock aria-label="시간 활성화" />
   );
   const locationIcon = isClosed ? (
-    <InActiveLocation aria-label="장소활성화" />
+    <InActiveLocation aria-label="장소 비활성화" />
   ) : (
-    <ActiveLocation aria-label="장소비활성화" />
+    <ActiveLocation aria-label="장소 활성화" />
   );
   const textColor = isClosed ? 'text-gray30' : 'text-gray50';
   const nameColor = isClosed ? 'text-gray30' : 'text-black';
@@ -45,7 +50,7 @@ export default function PostInformation({
       <div className={`flex items-center gap-6px ${textColor}`}>
         {clockIcon}
         <p className="text-12px tablet:text-14px pc:text-14px font-[400] break-keep">
-          {formatTime(startsAt, workhour)}
+          {`${startDateString} ${startTimeString} ~ ${endTimeString} (${workhour}시간)`}
         </p>
       </div>
 
