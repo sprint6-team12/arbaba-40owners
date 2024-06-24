@@ -28,7 +28,7 @@ const config: Config = {
       },
       screens: {
         pc: { min: '1200px' },
-        tablet: { min: '768px', max: '1023px' },
+        tablet: { min: '768px', max: '1199px' },
       },
       zIndex: {
         dropdown: '10',
