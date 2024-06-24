@@ -1,8 +1,10 @@
 import formatTimeRange from '@/lib/utils/formatTime';
-import ActiveClock from '/public/images/icon-clock.svg';
-import InActiveClock from '/public/images/icon-clock-inactive.svg';
-import ActiveLocation from '/public/images/icon-location.svg';
-import InActiveLocation from '/public/images/icon-location-inactive.svg';
+import {
+  IconClock,
+  IconClockActive,
+  IconLocation,
+  IconLocationActive,
+} from '@/utils/Icons';
 
 interface PostInformationProps {
   name: string;
@@ -25,14 +27,14 @@ export default function PostInformation({
   );
 
   const clockIcon = isClosed ? (
-    <InActiveClock aria-label="시간 비활성화" />
+    <IconClockActive aria-label="시간 비활성화" />
   ) : (
-    <ActiveClock aria-label="시간 활성화" />
+    <IconClock aria-label="시간 활성화" />
   );
   const locationIcon = isClosed ? (
-    <InActiveLocation aria-label="장소 비활성화" />
+    <IconLocationActive aria-label="장소 비활성화" />
   ) : (
-    <ActiveLocation aria-label="장소 활성화" />
+    <IconLocation aria-label="장소 활성화" />
   );
   const textColor = isClosed ? 'text-gray30' : 'text-gray50';
   const nameColor = isClosed ? 'text-gray30' : 'text-black';
