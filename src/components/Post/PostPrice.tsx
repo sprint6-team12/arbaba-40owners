@@ -1,4 +1,4 @@
-import percentageCalculator from '@/utils/percentageCalculator';
+import percentageCalculator from '@/lib/utils/percentageCalculator';
 import GrayArrow from '/public/images/icon-arrow-up-gray.svg';
 import RedArrow from '/public/images/icon-arrow-up-red.svg';
 
