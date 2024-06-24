@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import ReactPaginate from 'react-paginate';
-import PrevArrow from '/public/images/icon-arrow-prev-pagination.svg';
-import NextArrow from '/public/images/icon-arrow-next-pagination.svg';
+import { IconPrevArrow, IconNextArrow } from '@/utils/Icons';
 
 interface PaginationProps {
   totalPages: number;
@@ -11,32 +10,31 @@ interface PaginationProps {
 }
 
 // 페이지 버튼 UI, 숫자버튼을 누르면 부모컴포넌트의 onPageChange함수로 api 호출해서 새로운 props을 받는다
-function Pagination({ totalPages, currentPage, hasNext }: PaginationProps) {
-  const [isDisabledAtFirstPage, setIsDisabledAtFirstPage] = useState(false);
+function Pagination({
+  totalPages,
+  currentPage,
+  hasNext,
+  onPageChange,
+}: PaginationProps) {
   const isFewPages = totalPages <= 7;
+  const isFirstPage = currentPage === 1;
 
   // 부모컴포넌트에서 새로운 데이터 패치 실행한다.
   const handlePageClick = (data: { selected: number }) => {
-    // const selectedPage = data.selected + 1;
-    // onPageChange(selectedPage);
+    const selectedPage = data.selected + 1;
+    onPageChange(selectedPage);
   };
-
-  // 현재 페이지가 첫번째 페이지일 경우 처리
-  useEffect(() => {
-    const isFirstPage = currentPage === 1;
-    setIsDisabledAtFirstPage(isFirstPage);
-  }, [currentPage]);
 
   return (
     <div className="flex justify-center mt-8">
       <ReactPaginate
         previousLabel={
-          <PrevArrow
-            className={`${isDisabledAtFirstPage ? 'text-gray30 pointer-events-none' : 'text-black pointer-events-auto'} ${isFewPages && 'hidden'}`}
+          <IconPrevArrow
+            className={`${isFirstPage ? 'text-gray30 pointer-events-none' : 'text-black pointer-events-auto'} ${isFewPages && 'hidden'}`}
           />
         }
         nextLabel={
-          <NextArrow
+          <IconNextArrow
             className={`${hasNext ? 'text-black' : 'hidden'} ${isFewPages && 'hidden'}`}
           />
         } // 다음 페이지 버튼의 라벨
