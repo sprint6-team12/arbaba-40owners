@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "lint:full-inspection": "eslint .",
-    "type-check": "tsc --noEmit --incremental"
+    "type-check": "tsc --noEmit --incremental",
+    "prepare": "husky"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
