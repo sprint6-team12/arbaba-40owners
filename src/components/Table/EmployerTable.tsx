@@ -67,25 +67,25 @@ function EmployerTable() {
           </tr>
         </thead>
         <tbody>
-          {mockData.map((item) => (
-            <tr>
+          {mockData.map(({ name, description, phone, supportStatus }, id) => (
+            <tr key={id}>
               <td
                 className={`${baseTdStyle} min-w-189px tablet:min-w-[228px] pc:w-228px h-46px sticky left-0 pl-8px z-10`}
               >
-                {item.name}
+                {name}
               </td>
               <td
                 className={`${baseTdStyle} min-w-262px tablet:min-w-[300px] pc:w-300px h-46px tablet:h-91px pc:h-91px pl-8px tablet:py-20px tablet:px-16px pc:py-20px pc:px-16px`}
               >
-                <p className="line-clamp-2">{item.description}</p>
+                <p className="line-clamp-2">{description}</p>
               </td>
               <td className={`${baseTdStyle} min-w-162px h-46px pl-8px`}>
-                {item.phone}
+                {phone}
               </td>
               <td
                 className={`${baseTdStyle} min-w-162px tablet:min-w-[220px] pc:w-236px h-46px pl-12px`}
               >
-                {item.supportStatus}
+                {supportStatus}
               </td>
             </tr>
           ))}
