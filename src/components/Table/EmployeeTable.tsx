@@ -48,28 +48,22 @@ function EmployeeTable() {
   const baseTdStyle =
     'border-gray20 border-1px bg-white h-46px tablet:h-69px pc:h-69px text-14px tablet:text-16px pc:text-16px';
 
-  interface TableHeader {
-    label: string;
-    className: string;
-  }
-
-  const tableHeaders: TableHeader[] = [
+  const tableHeaders = [
     {
       label: '가게',
-      className:
-        'min-w-189px tablet:min-w-[228px] pc:w-228px sticky left-0 p-0 pl-8px',
+      className: `${baseThStyle} min-w-189px tablet:min-w-[228px] pc:w-228px sticky left-0 p-0 pl-8px`,
     },
     {
       label: '일자',
-      className: 'min-w-162px tablet:min-w-[300px] pc:w-300px pl-8px',
+      className: `${baseThStyle} min-w-162px tablet:min-w-[300px] pc:w-300px pl-8px`,
     },
     {
       label: '시급',
-      className: 'min-w-162px pl-8px',
+      className: `${baseThStyle} min-w-162px pl-8px`,
     },
     {
       label: '상태',
-      className: 'min-w-162px tablet:min-w-[220px] pc:w-236px pl-12px',
+      className: `${baseThStyle} min-w-162px tablet:min-w-[220px] pc:w-236px pl-12px`,
     },
   ];
 
@@ -79,7 +73,7 @@ function EmployeeTable() {
         <thead>
           <tr>
             {tableHeaders.map(({ className, label }, index) => (
-              <th key={index} className={`${baseThStyle} ${className}`}>
+              <th key={index} className={className}>
                 {label}
               </th>
             ))}
