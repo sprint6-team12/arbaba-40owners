@@ -1,6 +1,6 @@
 import Button from '@/components/Button/Button';
 import ModalWrapper from '@/components/Modal/ModalWrapper';
-import IconCheck from '/public/images/icon-check.svg';
+import { IconCheck } from '@/utils/Icons';
 
 interface ModalType {
   className?: string;
