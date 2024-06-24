@@ -7,9 +7,11 @@ function FormGroupWrapper({
   className?: string;
   children: React.ReactNode;
 }) {
-  <div className={`relative flex flex-col gap-8px ${className}`}>
-    {children}
-  </div>;
+  return (
+    <div className={`relative flex flex-col gap-8px ${className}`}>
+      {children}
+    </div>
+  );
 }
 
 function Label({
@@ -17,9 +19,11 @@ function Label({
   children,
   ...rest
 }: React.LabelHTMLAttributes<HTMLLabelElement>) {
-  <label className={`${className}`} {...rest}>
-    {children}
-  </label>;
+  return (
+    <label className={`${className}`} {...rest}>
+      {children}
+    </label>
+  );
 }
 
 function InputWrapper({
