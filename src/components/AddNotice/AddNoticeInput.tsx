@@ -1,6 +1,6 @@
 import { useState, FormEvent } from 'react';
-import Button from '../Button/Button';
-import FormGroup from '../FormGroup/FormGroup';
+import Button from '@/components/Button/Button';
+import FormGroup from '@/components/FormGroup/FormGroup';
 
 interface FormData {
   hourlyPay: string;
@@ -77,12 +77,12 @@ export default function AddNoticeInput() {
   };
 
   return (
-    <div className="flex-center tablet:w-680px pc:w-964px">
-      <form onSubmit={handleSubmit}>
+    <div className="flex-center">
+      <form onSubmit={handleSubmit} className="w-full">
         <FormGroup>
-          <div className="tablet:flex tablet:flex-wrap tablet:gap-20px pc:flex pc:gap-20px">
-            <div className="pc:flex gap-20px">
-              <div className="mb-20px">
+          <div className="tablet:flex tablet:justify-between tablet:gap-20px pc:flex pc:gap-20px">
+            <div className="pc:flex pc:justify-between pc:basis-2/3 gap-20px w-full">
+              <div className="mb-20px w-full">
                 <FormGroup.Label htmlFor="hourlyPay">시급*</FormGroup.Label>
                 <FormGroup.InputWrapper className="flex input-base">
                   <FormGroup.InputField
@@ -95,7 +95,7 @@ export default function AddNoticeInput() {
                 </FormGroup.InputWrapper>
                 <FormGroup.ErrorMessage errorMessage={errors.hourlyPay} />
               </div>
-              <div className="mb-40px h-58px">
+              <div className="mb-60px h-58px w-full">
                 <FormGroup.Label htmlFor="startsAt">시작 일시*</FormGroup.Label>
                 <FormGroup.InputField
                   id="startsAt"
@@ -107,7 +107,7 @@ export default function AddNoticeInput() {
                 <FormGroup.ErrorMessage errorMessage={errors.startsAt} />
               </div>
             </div>
-            <div className="mb-20px">
+            <div className="mb-20px w-full pc:basis-1/3">
               <FormGroup.Label htmlFor="workHour">업무 시간*</FormGroup.Label>
               <FormGroup.InputWrapper className="flex input-base">
                 <FormGroup.InputField

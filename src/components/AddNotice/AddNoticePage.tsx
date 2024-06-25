@@ -1,6 +1,6 @@
 import Link from 'next/link';
+import AddNoticeInput from '@/components/AddNotice/AddNoticeInput';
 import { IconCloseBlack } from '@/utils/Icons';
-import AddNoticeInput from './AddNoticeInput';
 
 export default function AddNoticePage() {
   return (
@@ -10,7 +10,7 @@ export default function AddNoticePage() {
           공고 등록
         </span>
         <Link href="/">
-          {/* 어디로 이동해야하려나 */}
+          {/* 공고리스트페이지로 이동 */}
           <IconCloseBlack alt="닫기" />
         </Link>
       </div>
