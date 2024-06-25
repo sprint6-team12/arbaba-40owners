@@ -10,7 +10,7 @@ interface Notice {
 }
 
 interface currentUserApplication {
-  id: 'string'; // application.id,
-  status: 'pending | accepted | rejected | canceled'; // application.status
-  createdAt: 'string'; // application.createdAt
+  id: string; // application.id,
+  status: UserApplicationStatus; // application.status
+  createdAt: string; // application.createdAt
 }

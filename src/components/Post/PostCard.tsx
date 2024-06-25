@@ -28,7 +28,7 @@ export default function PostCard({ item, className }: PostCardProps) {
           status={currentPostState}
           className="w-full aspect-video mb-12px tablet:mb-20px"
         />
-        <div className="flex flex-col gap-8px tablet:">
+        <div className="flex flex-col gap-8px">
           <Post.SubTitle text={name} status={currentPostState} />
           <Post.WorkSchedule
             startsAt={startsAt}

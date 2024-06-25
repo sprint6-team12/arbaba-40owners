@@ -97,7 +97,7 @@ function Title({
 
   return (
     <h2
-      className={`text-16px tablet:text-20px pc:text-20px font-[700] ${textColor} ${className}`}
+      className={`text-18px tablet:text-24px pc:text-24px font-[700] tablet:mr-9px pc:mr-9px ${textColor} ${className}`}
     >
       {text}
     </h2>
@@ -117,7 +117,7 @@ function SubTitle({
 
   return (
     <h4
-      className={`text-18px tablet:text-24px pc:text-24px font-[700] tablet:mr-9px pc:mr-9px ${textColor} ${className}`}
+      className={`text-16px tablet:text-20px pc:text-20px font-[700] ${textColor} ${className}`}
     >
       {text}
     </h4>
@@ -169,7 +169,7 @@ function WorkSchedule({
   return (
     <div className={`flex gap-6px ${textColor} ${className}`}>
       {clockIcon}
-      <div className="flex gap-4px flex-wrap text-12px tablet:text-14px pc:text-14px font-[400] break-keep">
+      <div className="flex gap-4px flex-wrap leading-[22px] text-12px tablet:text-14px pc:text-14px font-[400] break-keep">
         <p>{formattedStartDate}</p>
         <p>
           {formattedStartTime} ~ {formattedEndTime} ({durationHours}시간)
@@ -201,7 +201,7 @@ function Location({
     <div className={`flex items-center gap-6px ${className}`}>
       {locationIcon}
       <p
-        className={`text-12px tablet:text-14px pc:text-14px font-[400] ${textColor}`}
+        className={`text-12px tablet:text-14px pc:text-14px font-[400] leading-[22px] ${textColor}`}
       >
         {address}
       </p>
