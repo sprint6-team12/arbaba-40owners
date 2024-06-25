@@ -72,7 +72,7 @@ function ModalPrimary({
   return (
     <ModalWrapper>
       <div
-        className={`flex-center flex-col min-w-298px min-h-183px rounded-12px bg-white p-24px ${className}`}
+        className={`flex-center flex-col min-w-[298px] min-h-[183px] rounded-12px bg-white p-24px ${className}`}
       >
         {IconComponent}
         <p className="text-center">{content}</p>
