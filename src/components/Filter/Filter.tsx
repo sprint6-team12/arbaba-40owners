@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import IconCloseBlack from '@/../public/images/icon-close-black.svg';
-import { LOCATIONS } from '@/constants/data-locations';
+import { LOCATIONS } from '@/constants/DataLocations';
 import DateSection from './DataSection';
 import Divider from './Divider';
 import LocationSection from './LocationSection';
