@@ -13,6 +13,13 @@ export const AddNoticeValidation = (data: FormData): FormErrors => {
   }
   if (!data.startsAt) {
     noticeErrors.startsAt = ERROR_MESSAGES.STARTS_AT_REQUIRED;
+  } else {
+    const startsAtDate = new Date(data.startsAt);
+    const currentDate = new Date();
+
+    if (startsAtDate < currentDate) {
+      noticeErrors.startsAt = ERROR_MESSAGES.STARTS_AT_PAST_DATE;
+    }
   }
   if (!data.workHour || data.workHour === 0) {
     noticeErrors.workHour = ERROR_MESSAGES.WORK_HOUR_REQUIRED;

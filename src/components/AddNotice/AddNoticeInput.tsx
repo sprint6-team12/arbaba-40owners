@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import Button from '@/components/Button/Button';
 import FormGroup from '@/components/FormGroup/FormGroup';
+import ModalPrimary from '@/components/Modal/ModalPrimary';
+import useModal from '@/hooks/useModal';
 import FormatUtils from '@/lib/utils/FormatUtils';
 import { AddNoticeValidation } from '@/lib/utils/InputValidation';
 
@@ -18,6 +20,7 @@ export interface FormErrors {
 }
 
 export default function AddNoticeInput() {
+  const { openModal } = useModal();
   const [data, setData] = useState<FormData>({
     hourlyPay: '',
     startsAt: '',
@@ -57,13 +60,28 @@ export default function AddNoticeInput() {
     }));
   };
 
+  const ConfirmModal = ({ ...rest }) => (
+    <ModalPrimary
+      optionType="confirm"
+      content="등록이 완료되었습니다."
+      {...rest}
+    />
+  );
+
+  const handleOpenConfirmModal = () => {
+    openModal('confirmModal', ConfirmModal, {
+      // onConfirm: () => console.log(data),
+    });
+  };
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     const validationErrors = AddNoticeValidation(data);
     if (Object.values(validationErrors).some((error) => error !== null)) {
       setErrors(validationErrors);
     } else {
-      // 유효성 검사를 통과한 경우, 데이터 제출
+      // 유효성 검사를 통과한 경우, 확인 모달을 엽니다
+      handleOpenConfirmModal();
     }
   };
 
@@ -125,7 +143,7 @@ export default function AddNoticeInput() {
         </FormGroup>
 
         <div className="mt-24px text-center">
-          <Button type="submit" className="button_large_active">
+          <Button className="button_large_active" type="submit">
             등록하기
           </Button>
         </div>
