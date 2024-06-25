@@ -1,4 +1,8 @@
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import authTokenState from '@/recoil/atoms/AuthAtom';
+import authenticationAPI from '@/utils/api/authenticationAPI';
 import Button from '../Button/Button';
 import InputComponent from './InputComponent';
 
@@ -6,6 +10,9 @@ const SignInForm = () => {
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassWord, setLoginPassWord] = useState('');
   const [errors, setErrors] = useState({ loginEmail: '', loginPassWord: '' });
+  const [authToken, setAuthToken] = useRecoilState(authTokenState);
+
+  const router = useRouter();
 
   const isValidate = (name: string, value: string) => {
     let errorMessage = '';
@@ -34,10 +41,23 @@ const SignInForm = () => {
     if (name === 'loginPassWord') setLoginPassWord(value);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!errors.loginEmail && !errors.loginPassWord) {
       // 성공
+      try {
+        const res = await authenticationAPI.post({
+          email: loginEmail,
+          password: loginPassWord,
+        });
+        const token = res.item.token;
+        localStorage.setItem('testToken', token);
+        setAuthToken(token);
+
+        router.push('/');
+      } catch (error) {
+        // error
+      }
     }
   };
 

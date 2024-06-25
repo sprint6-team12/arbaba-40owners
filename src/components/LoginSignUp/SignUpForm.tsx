@@ -1,4 +1,6 @@
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import userAPI from '@/utils/api/userAPI';
 import Button from '../Button/Button';
 import InputComponent from './InputComponent';
 import MemberTypeToggle from './MemberTypeToggle';
@@ -13,6 +15,7 @@ const SignUpForm = () => {
     signUpPassword: '',
     signUpPasswordConfirm: '',
   });
+  const router = useRouter();
 
   const isValidate = (name: string, value: string) => {
     let errorMessage = '';
@@ -47,7 +50,7 @@ const SignUpForm = () => {
     if (name === 'signUpPasswordConfirm') setSignUpPasswordConfirm(value);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (
       !errors.signUpEmail &&
@@ -55,6 +58,16 @@ const SignUpForm = () => {
       !errors.signUpPasswordConfirm
     ) {
       // 성공
+      try {
+        await userAPI.postUserData({
+          email: signUpEmail,
+          password: signUpPassword,
+          type: userType,
+        });
+        router.push('/');
+      } catch (error) {
+        // error
+      }
     }
   };
 
