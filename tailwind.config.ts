@@ -88,6 +88,7 @@ const config: Config = {
     },
   },
   plugins: [
+    require('@tailwindcss/line-clamp'),
     function ({ addUtilities }: PluginAPI) {
       addUtilities({
         '.flex-center': {
@@ -232,6 +233,13 @@ const config: Config = {
           color: '#ffffff',
           fontSize: '16px',
           fontWeight: '500',
+        },
+        '.no-scrollbar': {
+          '-ms-overflow-style': 'none',
+          'scrollbar-width': 'none',
+        },
+        '.no-scrollbar::-webkit-scrollbar': {
+          display: 'none',
         },
         '.button_Ok:hover': {
           backgroundColor: '#d32f2f',
