@@ -1,53 +1,30 @@
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import userAPI from '@/utils/api/userAPI';
-import Button from '../Button/Button';
+// import userAPI from '@/utils/api/userAPI';
+import Button from '@/components/Button/Button';
+import { SignUpValidate } from '@/utils/validation';
 import InputComponent from './InputComponent';
 import MemberTypeToggle from './MemberTypeToggle';
 
-const SignUpForm = () => {
-  const [signUpEmail, setSignUpEmail] = useState('');
-  const [signUpPassword, setSignUpPassword] = useState('');
-  const [signUpPasswordConfirm, setSignUpPasswordConfirm] = useState('');
+const SignUpForm = ({ onSignUpSuccess }: { onSignUpSuccess: () => void }) => {
+  const [formData, setFormData] = useState({
+    signUpEmail: '',
+    signUpPassword: '',
+    signUpPasswordConfirm: '',
+  });
   const [userType, setUserType] = useState<'employee' | 'employer'>('employee');
   const [errors, setErrors] = useState({
     signUpEmail: '',
     signUpPassword: '',
     signUpPasswordConfirm: '',
   });
-  const router = useRouter();
-
-  const isValidate = (name: string, value: string) => {
-    let errorMessage = '';
-    if (name === 'signUpEmail') {
-      if (!value) {
-        errorMessage = '이메일을 입력해주세요.';
-      } else if (!/\S+@\S+\.\S+/.test(value)) {
-        errorMessage = '유효한 이메일 주소를 입력해주세요.';
-      }
-    }
-    if (name === 'signUpPassword') {
-      if (!value) {
-        errorMessage = '비밀번호를 입력해주세요.';
-      } else if (value.length < 8) {
-        errorMessage = '비밀번호는 최소 8자 이상이어야 합니다.';
-      }
-    }
-    if (name === 'signUpPasswordConfirm') {
-      if (signUpPassword !== value) {
-        errorMessage = '비밀번호가 일치하지 않습니다.';
-      }
-    }
-    return errorMessage;
-  };
+  // const router = useRouter();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    const errorMessage = isValidate(name, value);
+    const errorMessage = SignUpValidate(name, value, formData);
     setErrors((prevErrors) => ({ ...prevErrors, [name]: errorMessage }));
-    if (name === 'signUpEmail') setSignUpEmail(value);
-    if (name === 'signUpPassword') setSignUpPassword(value);
-    if (name === 'signUpPasswordConfirm') setSignUpPasswordConfirm(value);
+    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -58,16 +35,20 @@ const SignUpForm = () => {
       !errors.signUpPasswordConfirm
     ) {
       // 성공
-      try {
-        await userAPI.postUserData({
-          email: signUpEmail,
-          password: signUpPassword,
-          type: userType,
-        });
-        router.push('/');
-      } catch (error) {
-        // error
-      }
+      // try {
+      //   const response = await userAPI.postUserData({
+      //     email: signUpEmail,
+      //     password: signUpPassword,
+      //     type: userType,
+      //   });
+      //   if (response.status === 201) {
+      //     onSignUpSuccess();
+      //   }
+      // } catch (error) {
+      //   // error
+      //   return;
+      // }
+      onSignUpSuccess(); // 임시
     }
   };
 
@@ -85,7 +66,7 @@ const SignUpForm = () => {
         name="signUpEmail"
         type="email"
         placeholder="이메일"
-        value={signUpEmail}
+        value={formData.signUpEmail}
         onChange={handleInputChange}
         errorMessage={errors.signUpEmail}
       />
@@ -94,7 +75,7 @@ const SignUpForm = () => {
         name="signUpPassword"
         type="password"
         placeholder="비밀번호"
-        value={signUpPassword}
+        value={formData.signUpPassword}
         onChange={handleInputChange}
         errorMessage={errors.signUpPassword}
       />
@@ -103,7 +84,7 @@ const SignUpForm = () => {
         name="signUpPasswordConfirm"
         type="password"
         placeholder="비밀번호 확인"
-        value={signUpPasswordConfirm}
+        value={formData.signUpPasswordConfirm}
         onChange={handleInputChange}
         errorMessage={errors.signUpPasswordConfirm}
       />

@@ -7,6 +7,7 @@ import IconSmallArrow from '/public/Images/icon-arrow-up-small.svg';
 import IconRedArrow from '/public/images/icon-arrow-up-red.svg';
 import IconCamera from '/public/images/icon-camera.svg';
 import IconCheck from '/public/images/icon-check.svg';
+import IconChecked from '/public/images/icon-checked.svg';
 import IconClock from '/public/images/icon-clock.svg';
 import IconClockActive from '/public/images/icon-clock-inactive.svg';
 import IconCloseBlack from '/public/images/icon-close-black.svg';
@@ -32,6 +33,7 @@ export {
   IconArrowUpBold,
   IconCamera,
   IconCheck,
+  IconChecked,
   IconClock,
   IconClockActive,
   IconCloseBlack,

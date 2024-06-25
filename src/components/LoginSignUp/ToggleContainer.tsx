@@ -1,4 +1,4 @@
-import Button from '../Button/Button';
+import Button from '@/components/Button/Button';
 
 type ToggleContainerProps = {
   isSignUp: boolean;
@@ -22,7 +22,7 @@ const ToggleContainer = ({ isSignUp, onToggle }: ToggleContainerProps) => {
 
   return (
     <div
-      className={`absolute top-0 left-1/2 w-1/2 h-full p-5 flex flex-col items-center justify-center transition-transform duration-500 ease-in-out ${
+      className={`absolute top-0 left-1/2 w-1/2 h-full p-5 flex-center flex-col transition-transform duration-500 ease-in-out ${
         isSignUp ? '-translate-x-full' : 'translate-x-0'
       }`}
     >
