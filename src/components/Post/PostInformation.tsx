@@ -1,4 +1,4 @@
-import formatTimeRange from '@/lib/utils/formatTime';
+import FormatUtils from '@/lib/utils/FormatUtils';
 import {
   IconClock,
   IconClockActive,
@@ -21,10 +21,7 @@ export default function PostInformation({
   address1,
   isClosed,
 }: PostInformationProps) {
-  const { startDateString, startTimeString, endTimeString } = formatTimeRange(
-    startsAt,
-    workhour
-  );
+  const { formattedSchedule } = FormatUtils.workSchedule(startsAt, workhour);
 
   const clockIcon = isClosed ? (
     <IconClockActive aria-label="시간 비활성화" />
@@ -52,7 +49,7 @@ export default function PostInformation({
       <div className={`flex items-center gap-6px ${textColor}`}>
         {clockIcon}
         <p className="text-12px tablet:text-14px pc:text-14px font-[400] break-keep">
-          {`${startDateString} ${startTimeString} ~ ${endTimeString} (${workhour}시간)`}
+          {formattedSchedule}
         </p>
       </div>
 

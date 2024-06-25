@@ -1,4 +1,4 @@
-import percentageCalculator from '@/lib/utils/percentageCalculator';
+import FormatUtils from '@/lib/utils/FormatUtils';
 import { IconGrayArrow, IconRedArrow } from '@/utils/Icons';
 
 interface PostPriceProps {
@@ -12,7 +12,10 @@ export default function PostPrice({
   originalHourlyPay,
   isClosed,
 }: PostPriceProps) {
-  const percentage = percentageCalculator(hourlyPay, originalHourlyPay);
+  const { roundedPercentage } = FormatUtils.payIncreasePercent(
+    hourlyPay,
+    originalHourlyPay
+  );
   const payColor = isClosed ? 'text-gray30' : 'text-black';
   const alertColor = isClosed ? 'text-gray30' : 'text-red40';
   const borderColor = isClosed ? 'bg-gray30' : 'bg-red40';
@@ -31,11 +34,11 @@ export default function PostPrice({
       >
         <p
           className={`text-12px ${alertColor} font-[400] tablet:text-white pc:text-white`}
-        >{`기존 시급보다 ${percentage}%`}</p>{' '}
+        >{`기존 시급보다 ${roundedPercentage}%`}</p>{' '}
         {isClosed ? (
-          <IconGrayArrow className="ml-4px" alt="비활성화 화살표" />
+          <IconGrayArrow className="ml-4px" aria-label="비활성화 화살표" />
         ) : (
-          <IconRedArrow className="ml-4px" alt="활성화 화살표" />
+          <IconRedArrow className="ml-4px" aria-label="활성화 화살표" />
         )}
       </div>
     </div>
