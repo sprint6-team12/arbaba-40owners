@@ -9,6 +9,129 @@
 
 body {
   font-family: 'SpoqaHanSansNeo';
+  @apply text-black;
+}
+
+input,
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+  &:focus {
+    outline: none;
+  }
+  &:active {
+    outline: none;
+  }
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+input[type='password']::-ms-reveal,
+input[type='password']::-ms-clear {
+  display: none;
+}
+
+@layer components {
+  .input-base {
+    @apply h-58px rounded-6px border-1px py-16px px-20px border-gray30;
+  }
+
+  .input-base::placeholder {
+    @apply text-16px text-gray40;
+  }
+
+  .input-base.input-error {
+    @apply border-red40 border-1px;
+  }
+
+  .input-error-message {
+    @apply text-red40 text-12px;
+  }
+
+  .modal-overlay {
+    @apply fixed top-0 left-0 w-full h-full bg-[#00000050] z-modalbackground;
+  }
+
+  .modal-container {
+    @apply fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-modalbody;
+  }
+}
+
+input,
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+  &:focus {
+    outline: none;
+  }
+  &:active {
+    outline: none;
+  }
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+input[type='password']::-ms-reveal,
+input[type='password']::-ms-clear {
+  display: none;
+}
+
+@layer components {
+  .input-base {
+    @apply h-58px rounded-6px border-1px py-16px px-20px border-gray30;
+  }
+
+  .input-base::placeholder {
+    @apply text-16px text-gray40;
+  }
+
+  .input-base.input-error {
+    @apply border-red40 border-1px;
+  }
+
+  .input-error-message {
+    @apply text-red40 text-12px;
+  }
+
+  .modal-overlay {
+    @apply fixed top-0 left-0 w-full h-full bg-[#00000050] z-modalbackground;
+  }
+
+  .modal-container {
+    @apply fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-modalbody;
+  }
 }
 
 @layer utilities {
@@ -17,9 +140,10 @@ body {
   }
 }
 
-/* filter scrollbar */
+/* filter, table scrollbar */
 ::-webkit-scrollbar {
   width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -34,4 +158,3 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
-/* filter scrollbar */
