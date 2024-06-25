@@ -30,7 +30,7 @@ function Dropdown({
     onSelect(option); // 선택된 옵션을 상위 컴포넌트로 전달
   };
 
-  const handleClick = (e: MouseEvent) => {
+  const handleOutsideClick = (e: MouseEvent) => {
     if (
       dropDownClickRef.current &&
       !dropDownClickRef.current.contains(e.target as Node)
@@ -40,9 +40,9 @@ function Dropdown({
   };
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleClick);
+    document.addEventListener('mousedown', handleOutsideClick);
     return () => {
-      document.removeEventListener('mousedown', handleClick);
+      document.removeEventListener('mousedown', handleOutsideClick);
     };
   }, []);
 
@@ -63,8 +63,8 @@ function Dropdown({
           <div className="absolute inline-flex flex-col rounded-md border-2px items-center border-gray20 bg-white shadow-md z-5 mt-8px overflow-y-auto overflow-x-hidden max-h-200px z-dropdown right-7px left-7px">
             {options.map((option) => (
               <div
-                className="w-full flex px-24px py-12px items-center gap-16px cursor-pointer text-base leading-26 tracking--0.16 hover:bg-gray-100 border border-gary-20"
                 key={option}
+                className="w-full flex justify-center px-24px py-12px items-center gap-16px cursor-pointer text-base leading-26 tracking--0.16 hover:bg-gray-100 border border-gary-20"
                 onClick={() => handleSelectOption(option)}
               >
                 {option}
