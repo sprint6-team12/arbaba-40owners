@@ -1,5 +1,5 @@
-import authenticationAPI from '@/pages/api/authenticationAPI';
-import userAPI from '@/pages/api/userAPI';
+import authenticationAPI from '@/utils/api/authenticationAPI';
+import userAPI from '@/utils/api/userAPI';
 
 interface UserInfo {
   name: string;
