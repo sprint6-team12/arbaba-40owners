@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import userAPI from '@/utils/api/userAPI';
+// import userAPI from '@/utils/api/userAPI';
 import Button from '../Button/Button';
 import InputComponent from './InputComponent';
 import MemberTypeToggle from './MemberTypeToggle';
@@ -56,19 +56,20 @@ const SignUpForm = ({ onSignUpSuccess }: { onSignUpSuccess: () => void }) => {
       !errors.signUpPasswordConfirm
     ) {
       // 성공
-      try {
-        const response = await userAPI.postUserData({
-          email: signUpEmail,
-          password: signUpPassword,
-          type: userType,
-        });
-        if (response.status === 201) {
-          onSignUpSuccess();
-        }
-      } catch (error) {
-        // error
-        return;
-      }
+      // try {
+      //   const response = await userAPI.postUserData({
+      //     email: signUpEmail,
+      //     password: signUpPassword,
+      //     type: userType,
+      //   });
+      //   if (response.status === 201) {
+      //     onSignUpSuccess();
+      //   }
+      // } catch (error) {
+      //   // error
+      //   return;
+      // }
+      onSignUpSuccess(); // 임시
     }
   };
 
