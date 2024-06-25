@@ -1,4 +1,3 @@
-// src/state/authState.ts
 import { atom } from 'recoil';
 
 interface User {
