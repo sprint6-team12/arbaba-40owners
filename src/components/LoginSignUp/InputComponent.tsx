@@ -8,7 +8,7 @@ interface InputComponentProps {
   placeholder: string;
   value: string;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  errorMessage: string
+  errorMessage: string;
 }
 
 export default function InputComponent({
@@ -22,9 +22,9 @@ export default function InputComponent({
 }: InputComponentProps) {
   return (
     <>
-      {type === 'email' ? (
-        <FormGroup className='my-4px'>
-          <FormGroup.Label htmlFor={id}>{placeholder}</FormGroup.Label>
+      <FormGroup className="my-4px">
+        <FormGroup.Label htmlFor={id}>{placeholder}</FormGroup.Label>
+        {type === 'email' ? (
           <FormGroup.InputField.Text
             id={id}
             name={name}
@@ -34,11 +34,7 @@ export default function InputComponent({
             onChange={onChange}
             className="w-full border rounded px-10px my-8px text-18px h-56px"
           />
-          <FormGroup.ErrorMessage errorMessage={errorMessage} />
-        </FormGroup>
-      ) : (
-        <FormGroup className='my-4px'>
-          <FormGroup.Label htmlFor={id}>{placeholder}</FormGroup.Label>
+        ) : (
           <FormGroup.InputField.Password
             id={id}
             name={name}
@@ -47,9 +43,9 @@ export default function InputComponent({
             onChange={onChange}
             className="w-full border rounded px-10px my-8px text-18px h-56px"
           />
-          <FormGroup.ErrorMessage errorMessage={errorMessage}/>
-        </FormGroup>
-      )}
+        )}
+        <FormGroup.ErrorMessage errorMessage={errorMessage} />
+      </FormGroup>
     </>
   );
 }
