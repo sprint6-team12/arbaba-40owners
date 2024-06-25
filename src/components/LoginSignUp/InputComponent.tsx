@@ -1,5 +1,4 @@
-import { ChangeEvent } from 'react';
-import FormGroup from '../FormGroup/FormGroup';
+import FormGroup from '@/components/FormGroup/FormGroup';
 
 interface InputComponentProps {
   id: string;
@@ -7,7 +6,7 @@ interface InputComponentProps {
   type: 'email' | 'password';
   placeholder: string;
   value: string;
-  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   errorMessage: string;
 }
 
@@ -32,7 +31,7 @@ export default function InputComponent({
             placeholder={placeholder}
             value={value}
             onChange={onChange}
-            className="w-full border rounded px-10px my-8px text-18px h-56px"
+            className="px-10px my-8px text-18px"
           />
         ) : (
           <FormGroup.InputField.Password
@@ -41,10 +40,17 @@ export default function InputComponent({
             placeholder={placeholder}
             value={value}
             onChange={onChange}
-            className="w-full border rounded px-10px my-8px text-18px h-56px"
+            className="px-10px my-8px text-18px"
           />
         )}
-        <FormGroup.ErrorMessage errorMessage={errorMessage} />
+        {errorMessage === '' ? (
+          <p className="h-14px"> </p>
+        ) : (
+          <FormGroup.ErrorMessage
+            className="h-14px"
+            errorMessage={errorMessage}
+          />
+        )}
       </FormGroup>
     </>
   );

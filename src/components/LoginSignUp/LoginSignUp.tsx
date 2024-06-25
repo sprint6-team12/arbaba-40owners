@@ -11,7 +11,7 @@ export default function LoginSignUp() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-200">
+    <div className="flex-center min-h-screen bg-gray-200">
       <div className="relative flex justify-between w-full max-w-4xl mx-auto overflow-hidden bg-white shadow-lg rounded-3xl">
         <div
           className={`w-full p-10 transition-transform duration-500 ease-in-out ${isSignUp ? '-translate-x-full' : ''}`}

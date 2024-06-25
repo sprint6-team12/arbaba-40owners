@@ -1,13 +1,16 @@
 import { useState } from 'react';
 // import userAPI from '@/utils/api/userAPI';
+import { SignUpValidate } from '@/utils/validation';
 import Button from '../Button/Button';
 import InputComponent from './InputComponent';
 import MemberTypeToggle from './MemberTypeToggle';
 
 const SignUpForm = ({ onSignUpSuccess }: { onSignUpSuccess: () => void }) => {
-  const [signUpEmail, setSignUpEmail] = useState('');
-  const [signUpPassword, setSignUpPassword] = useState('');
-  const [signUpPasswordConfirm, setSignUpPasswordConfirm] = useState('');
+  const [formData, setFormData] = useState({
+    signUpEmail: '',
+    signUpPassword: '',
+    signUpPasswordConfirm: '',
+  });
   const [userType, setUserType] = useState<'employee' | 'employer'>('employee');
   const [errors, setErrors] = useState({
     signUpEmail: '',
@@ -15,37 +18,11 @@ const SignUpForm = ({ onSignUpSuccess }: { onSignUpSuccess: () => void }) => {
     signUpPasswordConfirm: '',
   });
 
-  const isValidate = (name: string, value: string) => {
-    let errorMessage = '';
-    if (name === 'signUpEmail') {
-      if (!value) {
-        errorMessage = '이메일을 입력해주세요.';
-      } else if (!/\S+@\S+\.\S+/.test(value)) {
-        errorMessage = '유효한 이메일 주소를 입력해주세요.';
-      }
-    }
-    if (name === 'signUpPassword') {
-      if (!value) {
-        errorMessage = '비밀번호를 입력해주세요.';
-      } else if (value.length < 8) {
-        errorMessage = '비밀번호는 최소 8자 이상이어야 합니다.';
-      }
-    }
-    if (name === 'signUpPasswordConfirm') {
-      if (signUpPassword !== value) {
-        errorMessage = '비밀번호가 일치하지 않습니다.';
-      }
-    }
-    return errorMessage;
-  };
-
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    const errorMessage = isValidate(name, value);
+    const errorMessage = SignUpValidate(name, value, formData);
     setErrors((prevErrors) => ({ ...prevErrors, [name]: errorMessage }));
-    if (name === 'signUpEmail') setSignUpEmail(value);
-    if (name === 'signUpPassword') setSignUpPassword(value);
-    if (name === 'signUpPasswordConfirm') setSignUpPasswordConfirm(value);
+    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -87,7 +64,7 @@ const SignUpForm = ({ onSignUpSuccess }: { onSignUpSuccess: () => void }) => {
         name="signUpEmail"
         type="email"
         placeholder="이메일"
-        value={signUpEmail}
+        value={formData.signUpEmail}
         onChange={handleInputChange}
         errorMessage={errors.signUpEmail}
       />
@@ -96,7 +73,7 @@ const SignUpForm = ({ onSignUpSuccess }: { onSignUpSuccess: () => void }) => {
         name="signUpPassword"
         type="password"
         placeholder="비밀번호"
-        value={signUpPassword}
+        value={formData.signUpPassword}
         onChange={handleInputChange}
         errorMessage={errors.signUpPassword}
       />
@@ -105,7 +82,7 @@ const SignUpForm = ({ onSignUpSuccess }: { onSignUpSuccess: () => void }) => {
         name="signUpPasswordConfirm"
         type="password"
         placeholder="비밀번호 확인"
-        value={signUpPasswordConfirm}
+        value={formData.signUpPasswordConfirm}
         onChange={handleInputChange}
         errorMessage={errors.signUpPasswordConfirm}
       />

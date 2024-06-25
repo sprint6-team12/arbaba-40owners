@@ -1,40 +1,23 @@
 import React, { useState } from 'react';
 // import { useAuth } from '@/hooks/useAuth';
 // import authenticationAPI from '@/utils/api/authenticationAPI';
+import { SignInValidate } from '@/utils/validation';
 import Button from '../Button/Button';
 import InputComponent from './InputComponent';
 
 const SignInForm = () => {
-  const [loginEmail, setLoginEmail] = useState('');
-  const [loginPassWord, setLoginPassWord] = useState('');
+  const [formData, setFormData] = useState({
+    loginEmail: '',
+    loginPassWord: '',
+  });
   const [errors, setErrors] = useState({ loginEmail: '', loginPassWord: '' });
   // const { setUser } = useAuth();
 
-  const isValidate = (name: string, value: string) => {
-    let errorMessage = '';
-    if (name === 'loginEmail') {
-      if (!value) {
-        errorMessage = '이메일을 입력해주세요.';
-      } else if (!/\S+@\S+\.\S+/.test(value)) {
-        errorMessage = '유효한 이메일 주소를 입력해주세요.';
-      }
-    }
-    if (name === 'loginPassWord') {
-      if (!value) {
-        errorMessage = '비밀번호를 입력해주세요.';
-      } else if (value.length < 8) {
-        errorMessage = '비밀번호는 최소 8자 이상이어야 합니다.';
-      }
-    }
-    return errorMessage;
-  };
-
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    const errorMessage = isValidate(name, value);
+    const errorMessage = SignInValidate(name, value);
     setErrors((prevErrors) => ({ ...prevErrors, [name]: errorMessage }));
-    if (name === 'loginEmail') setLoginEmail(value);
-    if (name === 'loginPassWord') setLoginPassWord(value);
+    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -64,7 +47,7 @@ const SignInForm = () => {
         name="loginEmail"
         type="email"
         placeholder="이메일"
-        value={loginEmail}
+        value={formData.loginEmail}
         onChange={handleInputChange}
         errorMessage={errors.loginEmail}
       />
@@ -73,7 +56,7 @@ const SignInForm = () => {
         name="loginPassWord"
         type="password"
         placeholder="비밀번호"
-        value={loginPassWord}
+        value={formData.loginPassWord}
         onChange={handleInputChange}
         errorMessage={errors.loginPassWord}
       />
