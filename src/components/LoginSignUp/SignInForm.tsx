@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 // import { useAuth } from '@/hooks/useAuth';
 // import authenticationAPI from '@/utils/api/authenticationAPI';
+import Button from '@/components/Button/Button';
 import { SignInValidate } from '@/utils/validation';
-import Button from '../Button/Button';
 import InputComponent from './InputComponent';
 
 const SignInForm = () => {

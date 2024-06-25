@@ -1,4 +1,4 @@
-const LOCATIONS = [
+export const LOCATIONS = [
   '서울시 강남구',
   '서울시 중구',
   '서울시 용산구',
@@ -24,5 +24,3 @@ const LOCATIONS = [
   '서울시 송파구',
   '서울시 강동구',
 ];
-
-export { LOCATIONS };
