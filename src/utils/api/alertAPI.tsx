@@ -32,9 +32,15 @@ const alertAPI = {
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        const status = error.response?.status || 500;
-        const errorMessage = ErrorMessages[status] || ErrorMessages.default;
-        throw new APIError(errorMessage, status);
+        if (error.response) {
+          const { status, data } = error.response;
+          const errorMessage =
+            data.message || ErrorMessages[status] || ErrorMessages.default;
+          throw new APIError(errorMessage, status);
+        } else {
+          // 서버 응답이 없는 경우 (네트워크 오류 등)
+          throw new Error('서버에서 응답을 받아오지 못했습니다.');
+        }
       } else {
         throw new Error('서버에서 네트워크가 오지 않습니다.');
       }
@@ -57,12 +63,18 @@ const alertAPI = {
           headers,
         }
       );
-      return response.data
+      return response.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        const status = error.response?.status || 500;
-        const errorMessage = ErrorMessages[status] || ErrorMessages.default;
-        throw new APIError(errorMessage, status);
+        if (error.response) {
+          const { status, data } = error.response;
+          const errorMessage =
+            data.message || ErrorMessages[status] || ErrorMessages.default;
+          throw new APIError(errorMessage, status);
+        } else {
+          // 서버 응답이 없는 경우 (네트워크 오류 등)
+          throw new Error('서버에서 응답을 받아오지 못했습니다.');
+        }
       } else {
         throw new Error('서버에서 네트워크가 오지 않습니다.');
       }

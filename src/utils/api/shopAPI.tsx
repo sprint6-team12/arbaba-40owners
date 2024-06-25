@@ -3,13 +3,13 @@ import { APIError, ErrorMessages } from './ApiError';
 import { axiosInstance } from './axiosInstance';
 
 interface PostShopData {
-  name: string;
-  category: string;
-  address1: string;
-  address2: string;
-  description: string;
-  imageUrl: string;
-  originalHourlyPay: number;
+  name?: string;
+  category?: string;
+  address1?: string;
+  address2?: string;
+  description?: string;
+  imageUrl?: string;
+  originalHourlyPay?: number;
 }
 
 const shopAPI = {
@@ -19,35 +19,25 @@ const shopAPI = {
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        const status = error.response?.status || 500;
-        const errorMessage = ErrorMessages[status] || ErrorMessages.default;
-        throw new APIError(errorMessage, status);
+        if (error.response) {
+          const { status, data } = error.response;
+          const errorMessage =
+            data.message || ErrorMessages[status] || ErrorMessages.default;
+          throw new APIError(errorMessage, status);
+        } else {
+          // 서버 응답이 없는 경우 (네트워크 오류 등)
+          throw new Error('서버에서 응답을 받아오지 못했습니다.');
+        }
       } else {
         throw new Error('서버에서 네트워크가 오지 않습니다.');
       }
     }
   },
-  postShop: async ({
-    name,
-    category,
-    address1,
-    address2,
-    description,
-    imageUrl,
-    originalHourlyPay,
-  }: PostShopData) => {
+  postShop: async (body: PostShopData) => {
     const headers = {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     };
-    const body = {
-      name,
-      category,
-      address1,
-      address2,
-      description,
-      imageUrl,
-      originalHourlyPay,
-    };
+
     try {
       const response = await axiosInstance.post(
         `/shops`,
@@ -57,37 +47,23 @@ const shopAPI = {
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        const status = error.response?.status || 500;
-        const errorMessage = ErrorMessages[status] || ErrorMessages.default;
-        throw new APIError(errorMessage, status);
+        if (error.response) {
+          const { status, data } = error.response;
+          const errorMessage =
+            data.message || ErrorMessages[status] || ErrorMessages.default;
+          throw new APIError(errorMessage, status);
+        } else {
+          // 서버 응답이 없는 경우 (네트워크 오류 등)
+          throw new Error('서버에서 응답을 받아오지 못했습니다.');
+        }
       } else {
         throw new Error('서버에서 네트워크가 오지 않습니다.');
       }
     }
   },
-  putShop: async (
-    shop_id: string,
-    {
-      name,
-      category,
-      address1,
-      address2,
-      description,
-      imageUrl,
-      originalHourlyPay,
-    }: PostShopData
-  ) => {
+  putShop: async (shop_id: string, body: PostShopData) => {
     const headers = {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
-    };
-    const body = {
-      name,
-      category,
-      address1,
-      address2,
-      description,
-      imageUrl,
-      originalHourlyPay,
     };
     try {
       const response = await axiosInstance.put(
@@ -98,9 +74,15 @@ const shopAPI = {
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        const status = error.response?.status || 500;
-        const errorMessage = ErrorMessages[status] || ErrorMessages.default;
-        throw new APIError(errorMessage, status);
+        if (error.response) {
+          const { status, data } = error.response;
+          const errorMessage =
+            data.message || ErrorMessages[status] || ErrorMessages.default;
+          throw new APIError(errorMessage, status);
+        } else {
+          // 서버 응답이 없는 경우 (네트워크 오류 등)
+          throw new Error('서버에서 응답을 받아오지 못했습니다.');
+        }
       } else {
         throw new Error('서버에서 네트워크가 오지 않습니다.');
       }
