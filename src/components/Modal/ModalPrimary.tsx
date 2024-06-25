@@ -2,9 +2,18 @@ import Button from '@/components/Button/Button';
 import ModalWrapper from '@/components/Modal/ModalWrapper';
 import { IconCheck, IconExclamationMark } from '@/utils/Icons';
 
+type ModalOptionType = 'confirm' | 'actions';
+
+function ModalPrimaryIcon(optionType: ModalOptionType) {
+  return optionType === 'actions' ? (
+    <IconCheck className="mx-auto mb-16px" />
+  ) : (
+    <IconExclamationMark className="mx-auto mb-16px" />
+  );
+}
 interface ModalPrimaryProps {
   className?: string;
-  optionType?: 'confirm' | 'actions';
+  optionType: ModalOptionType;
   Icon?: React.ElementType;
   content?: string;
   confirmButtonText?: string;
@@ -46,35 +55,24 @@ function ModalPrimary({
     onCancel();
   };
 
-  let ButtonsComponent, IconComponent;
-
-  if (optionType === 'confirm') {
-    IconComponent = <IconExclamationMark className="mx-auto mb-16px" />;
-    ButtonsComponent = (
-      <Button className="button_medium" onClick={handleConfirm}>
-        {confirmButtonText || '확인'}
-      </Button>
-    );
-  } else {
-    IconComponent = <IconCheck className="mx-auto mb-16px" />;
-    ButtonsComponent = (
-      <>
+  const IconComponent = Icon ? <Icon /> : ModalPrimaryIcon(optionType);
+  const ButtonsComponent = (
+    <>
+      {optionType === 'actions' && (
         <Button className="button_medium" onClick={handleCancel}>
           {cancelButtonText || '아니요'}
         </Button>
-        <Button className="button_medium_fill" onClick={handleConfirm}>
-          {confirmButtonText || '예'}
-        </Button>
-      </>
-    );
-  }
-
-  IconComponent = Icon ? <Icon /> : IconComponent;
+      )}
+      <Button className="button_medium_fill" onClick={handleConfirm}>
+        {confirmButtonText || optionType === 'actions' ? '예' : '확인'}
+      </Button>
+    </>
+  );
 
   return (
     <ModalWrapper>
       <div
-        className={`flex-center flex-col min-w-[298px] min-h-183px rounded-12px bg-white p-24px ${className}`}
+        className={`flex-center flex-col min-w-298px min-h-183px rounded-12px bg-white p-24px ${className}`}
       >
         {IconComponent}
         <p className="text-center">{content}</p>
