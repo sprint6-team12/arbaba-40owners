@@ -41,11 +41,11 @@ interface PostProps {
 function PostWrapper({
   className = '',
   children,
-  status,
+  status = 'open',
 }: {
   className?: string;
   children: React.ReactNode;
-  status: NoticeStatus;
+  status?: NoticeStatus;
 }) {
   return (
     <div className={`relative ${className}`}>
@@ -63,11 +63,11 @@ function PostWrapper({
 function PostImage({
   className = '',
   imageUrl,
-  status,
+  status = 'open',
 }: {
   className?: string;
   imageUrl: string;
-  status: NoticeStatus;
+  status?: NoticeStatus;
 }) {
   const statusText = POST_STATUS_STYLE_MAP[status].imageText;
   const ImageOverlay = (
@@ -87,11 +87,11 @@ function PostImage({
 function Title({
   className = '',
   text,
-  status,
+  status = 'open',
 }: {
   className?: string;
   text: string;
-  status: NoticeStatus;
+  status?: NoticeStatus;
 }) {
   const textColor = POST_STATUS_STYLE_MAP[status].titleTextColor;
 
@@ -107,11 +107,11 @@ function Title({
 function SubTitle({
   className = '',
   text,
-  status,
+  status = 'open',
 }: {
   className?: string;
   text: string;
-  status: NoticeStatus;
+  status?: NoticeStatus;
 }) {
   const textColor = POST_STATUS_STYLE_MAP[status].titleTextColor;
 
@@ -144,12 +144,12 @@ function WorkSchedule({
   className = '',
   startsAt,
   workHour,
-  status,
+  status = 'open',
 }: {
   className?: string;
   startsAt: string;
   workHour: number;
-  status: NoticeStatus;
+  status?: NoticeStatus;
 }) {
   const {
     formattedStartDate,
@@ -182,11 +182,11 @@ function WorkSchedule({
 function Location({
   className = '',
   address,
-  status,
+  status = 'open',
 }: {
   className?: string;
   address: string;
-  status: NoticeStatus;
+  status?: NoticeStatus;
 }) {
   const textColor = POST_STATUS_STYLE_MAP[status].textColor;
 
