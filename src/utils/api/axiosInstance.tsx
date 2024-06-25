@@ -7,4 +7,3 @@ export const axiosInstance = axios.create({
   },
   withCredentials: false,
 });
-

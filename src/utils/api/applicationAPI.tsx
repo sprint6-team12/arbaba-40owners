@@ -1,6 +1,5 @@
 import { axiosInstance } from './axiosInstance';
 
-
 interface ShopApplyData {
   shop_id: string;
   notice_id: string;
@@ -49,9 +48,13 @@ const applicationAPI = {
     const body = {
       shop_id,
       notice_id,
-      application_id
+      application_id,
     };
-    return axiosInstance.put(`/shop/${shop_id}/notices/${notice_id}/applications/${application_id}`, {body}, {headers})
+    return axiosInstance.put(
+      `/shop/${shop_id}/notices/${notice_id}/applications/${application_id}`,
+      { body },
+      { headers }
+    );
   },
   getUserApply: ({ user_id, offset, limit }: UserApplyData) => {
     const params = {
