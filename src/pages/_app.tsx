@@ -1,6 +1,7 @@
 import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import { RecoilRoot } from 'recoil';
+import Footer from '@/components/Footer/footer';
 import Gnb from '@/components/Gnb/Gnb';
 import ModalsWrapper from '@/components/Modal/ModalsWrapper';
 import PopupsWrapper from '@/components/Popup/PopupsWrapper';
@@ -17,8 +18,9 @@ export default function App({ Component, pageProps }: AppProps) {
     <RecoilRoot>
       <ModalsWrapper />
       <PopupsWrapper />
-      <Gnb onClick={handleGnbButtonsClick} />
+      <Gnb userType="employee" onClick={handleGnbButtonsClick} />
       <Component {...pageProps} />
+      <Footer />
     </RecoilRoot>
   );
 }

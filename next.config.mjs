@@ -2,6 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
 
+  images: {
+    domains: ['content.surfit.io'],
+  },
+
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,

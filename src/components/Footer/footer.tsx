@@ -1,5 +1,8 @@
-import { IconEnvelopeSquare, IconFacebookSquare, IconInstagram } from '@/utils/Icons';
-
+import {
+  IconEnvelopeSquare,
+  IconFacebookSquare,
+  IconInstagram,
+} from '@/utils/Icons';
 
 export default function Footer() {
   return (
@@ -17,7 +20,10 @@ export default function Footer() {
       </div>
       <div className="flex gap-[12px]">
         <IconEnvelopeSquare aria-label="이메일" className="h-[24px] w-[24px]" />
-        <IconFacebookSquare aria-label="페이스북" className="h-[24px] w-[24px]" />
+        <IconFacebookSquare
+          aria-label="페이스북"
+          className="h-[24px] w-[24px]"
+        />
         <IconInstagram aria-label="인스타그램" className="h-[24px] w-[24px]" />
       </div>
     </footer>
