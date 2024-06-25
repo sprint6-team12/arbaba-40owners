@@ -1,9 +1,10 @@
 import { useState } from 'react';
+import userAPI from '@/utils/api/userAPI';
 import Button from '../Button/Button';
 import InputComponent from './InputComponent';
 import MemberTypeToggle from './MemberTypeToggle';
 
-const SignUpForm = () => {
+const SignUpForm = ({ onSignUpSuccess }: { onSignUpSuccess: () => void }) => {
   const [signUpEmail, setSignUpEmail] = useState('');
   const [signUpPassword, setSignUpPassword] = useState('');
   const [signUpPasswordConfirm, setSignUpPasswordConfirm] = useState('');
@@ -47,7 +48,7 @@ const SignUpForm = () => {
     if (name === 'signUpPasswordConfirm') setSignUpPasswordConfirm(value);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (
       !errors.signUpEmail &&
@@ -55,6 +56,19 @@ const SignUpForm = () => {
       !errors.signUpPasswordConfirm
     ) {
       // 성공
+      try {
+        const response = await userAPI.postUserData({
+          email: signUpEmail,
+          password: signUpPassword,
+          type: userType,
+        });
+        if (response.status === 201) {
+          onSignUpSuccess();
+        }
+      } catch (error) {
+        // error
+        return;
+      }
     }
   };
 

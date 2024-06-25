@@ -21,7 +21,7 @@ export default function LoginSignUp() {
         <div
           className={`w-full p-10 transition-transform duration-500 ease-in-out ${isSignUp ? '' : 'translate-x-full'}`}
         >
-          <SignUpForm />
+          <SignUpForm onSignUpSuccess={toggleSignUp} />
         </div>
         <ToggleContainer isSignUp={isSignUp} onToggle={toggleSignUp} />
       </div>
