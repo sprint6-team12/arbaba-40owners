@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function ShopImageSection({
   imageUrl,
   name,
@@ -6,9 +8,8 @@ export default function ShopImageSection({
   name: string;
 }) {
   return (
-    <div className="overflow-hidden rounded-12px min-h-[358px] min-w-[539px]">
-      {/* <Image src={imageUrl} alt={name} width={539} height={358} /> */}
-      <img src={imageUrl} alt={name} className="w-full h-full object-cover" />
+    <div className="relative overflow-hidden rounded-12px w-full h-auto aspect-[1.75/1] pc:w-[539px] pc:w-358px pc:aspect-[1.5/1]">
+      <Image src={imageUrl} alt={name} fill/>
     </div>
   );
 }
