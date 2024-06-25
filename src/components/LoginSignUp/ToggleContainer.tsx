@@ -1,4 +1,6 @@
+import Image from 'next/image';
 import Button from '@/components/Button/Button';
+import Logo from '/public/images/logo.png';
 
 type ToggleContainerProps = {
   isSignUp: boolean;
@@ -22,13 +24,14 @@ const ToggleContainer = ({ isSignUp, onToggle }: ToggleContainerProps) => {
 
   return (
     <div
-      className={`absolute top-0 left-1/2 w-1/2 h-full p-5 flex-center flex-col transition-transform duration-500 ease-in-out ${
+      className={`absolute top-0 left-1/2 w-1/2 h-full p-20px flex-center flex-col transition-transform duration-500 ease-in-out ${
         isSignUp ? '-translate-x-full' : 'translate-x-0'
       }`}
     >
       <>
-        <h1 className="mb-4 text-xl font-bold">{content.title}</h1>
-        <p className="mb-8">{content.text}</p>
+        <Image src={Logo} className='mb-16px' alt="더줄게 로고" />
+        <h1 className="mb-16px text-xl font-bold">{content.title}</h1>
+        <p className="mb-32px">{content.text}</p>
         <Button className="button_medium_active" onClick={onToggle}>
           {content.sign}
         </Button>
