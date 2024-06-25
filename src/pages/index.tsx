@@ -1,3 +1,9 @@
+import RateBadge from '@/components/Badge/RateBadge';
+
 export default function Home() {
-  return <main></main>;
+  return (
+    <main>
+      <RateBadge rate={100} />
+    </main>
+  );
 }
