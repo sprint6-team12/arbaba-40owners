@@ -24,3 +24,14 @@ export const LOCATIONS = [
   '서울시 송파구',
   '서울시 강동구',
 ];
+
+export const MENU_CATEGORIES = [
+  '한식',
+  '중식',
+  '일식',
+  '양식',
+  '분식',
+  '카페',
+  '편의점',
+  '기타',
+];

@@ -2,7 +2,7 @@ import { ko } from 'date-fns/locale';
 import { useEffect, useRef, useState } from 'react';
 import { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { LOCATIONS } from '@/constants/data-locations';
+import { LOCATIONS } from '@/constants/DataLocations';
 import { IconCloseBlack } from '@/utils/Icons';
 import DateSection from './DataSection';
 import Divider from './Divider';
