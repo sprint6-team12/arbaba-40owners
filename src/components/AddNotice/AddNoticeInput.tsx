@@ -1,15 +1,17 @@
-import { useState, FormEvent } from 'react';
+import { useState } from 'react';
 import Button from '@/components/Button/Button';
 import FormGroup from '@/components/FormGroup/FormGroup';
+import FormatUtils from '@/lib/utils/FormatUtils';
+import { AddNoticeValidation } from '@/lib/utils/InputValidation';
 
-interface FormData {
+export interface FormData {
   hourlyPay: string;
   startsAt: string;
-  workHour: string;
+  workHour: number;
   description: string;
 }
 
-interface FormErrors {
+export interface FormErrors {
   hourlyPay: string | null;
   startsAt: string | null;
   workHour: string | null;
@@ -19,7 +21,7 @@ export default function AddNoticeInput() {
   const [data, setData] = useState<FormData>({
     hourlyPay: '',
     startsAt: '',
-    workHour: '',
+    workHour: 0,
     description: '',
   });
   const [errors, setErrors] = useState<FormErrors>({
@@ -34,41 +36,30 @@ export default function AddNoticeInput() {
       | React.MouseEvent<HTMLButtonElement>
   ) => {
     const target = event.target as HTMLInputElement | HTMLTextAreaElement;
+    const { name, value } = target;
 
-    setData((prev) => ({
-      ...prev,
-      [target.name]: target.value,
-    }));
+    if (name === 'hourlyPay') {
+      const formattedPrice = FormatUtils.price(Number(value.replace(/,/g, '')));
+      setData((prev) => ({
+        ...prev,
+        [name]: formattedPrice,
+      }));
+    } else {
+      setData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
 
     setErrors((prev) => ({
       ...prev,
-      [target.name]: null,
+      [name]: null,
     }));
   };
 
-  const validate = () => {
-    const newErrors: FormErrors = {
-      hourlyPay: null,
-      startsAt: null,
-      workHour: null,
-    };
-
-    if (!data.hourlyPay) {
-      newErrors.hourlyPay = '시급을 입력해주세요.';
-    }
-    if (!data.startsAt) {
-      newErrors.startsAt = '시작 일시를 입력해주세요.';
-    }
-    if (!data.workHour) {
-      newErrors.workHour = '시간을 입력해주세요.';
-    }
-
-    return newErrors;
-  };
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    const validationErrors = validate();
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    const validationErrors = AddNoticeValidation(data);
     if (Object.values(validationErrors).some((error) => error !== null)) {
       setErrors(validationErrors);
     } else {
@@ -88,7 +79,8 @@ export default function AddNoticeInput() {
                   <FormGroup.InputField
                     id="hourlyPay"
                     name="hourlyPay"
-                    type="number"
+                    type="text"
+                    value={data.hourlyPay}
                     onChange={handleData}
                   />
                   <span>원</span>
@@ -113,6 +105,8 @@ export default function AddNoticeInput() {
                 <FormGroup.InputField
                   id="workHour"
                   name="workHour"
+                  type="number"
+                  value={data.workHour}
                   onChange={handleData}
                 />
                 <span className="w-40px">시간</span>
