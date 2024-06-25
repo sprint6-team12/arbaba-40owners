@@ -10,7 +10,7 @@ function RateBadge({ rate }: RateBadgeProps) {
 
   return (
     <span
-      className={`${textColor} ${backgroundColor} tablet:rounded-20px pc:rounded-20px tablet:px-16px pc:px-16px tablet:py-8px pc:py-8px tablet:text-white pc:text-white  h-18px tablet:h-36px pc:h-36px text-12px tablet:text-14px pc:text-14px font-bold inline-flex items-center gap-2px`}
+      className={`${textColor} ${backgroundColor} tablet:rounded-20px pc:rounded-20px tablet:px-16px pc:px-16px tablet:py-8px pc:py-8px tablet:text-white pc:text-white h-18px tablet:h-36px pc:h-36px text-12px tablet:text-14px pc:text-14px font-bold inline-flex items-center gap-2px`}
     >
       기존 시급보다 {rate}%
       <SmallArrowIcon className={`${textColor} tablet:hidden pc:hidden`} />
