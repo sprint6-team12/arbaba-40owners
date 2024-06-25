@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { APIError, ErrorMessages } from './ApiError';
 import { axiosInstance } from './axiosInstance';
 
 interface ShopApplyData {
@@ -15,19 +17,35 @@ interface UserApplyData {
 }
 
 const applicationAPI = {
-  getShopApply: ({ shop_id, notice_id, offset, limit }: ShopApplyData) => {
+  getShopApply: async ({
+    shop_id,
+    notice_id,
+    offset,
+    limit,
+  }: ShopApplyData) => {
     const params = {
       shop_id,
       notice_id,
       offset,
       limit,
     };
-    return axiosInstance.get(
-      `/shops/${shop_id}/notices/${notice_id}/application`,
-      { params }
-    );
+    try {
+      const response = await axiosInstance.get(
+        `/shops/${shop_id}/notices/${notice_id}/application`,
+        { params }
+      );
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const status = error.response?.status || 500;
+        const errorMessage = ErrorMessages[status] || ErrorMessages.default;
+        throw new APIError(errorMessage, status);
+      } else {
+        throw new Error('서버에서 네트워크가 오지 않습니다.');
+      }
+    }
   },
-  postShopApply: ({ shop_id, notice_id }: ShopApplyData) => {
+  postShopApply: async ({ shop_id, notice_id }: ShopApplyData) => {
     const headers = {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     };
@@ -35,13 +53,24 @@ const applicationAPI = {
       shop_id,
       notice_id,
     };
-    return axiosInstance.post(
-      `/shop/${shop_id}/notices/${notice_id}/applications`,
-      { body },
-      { headers }
-    );
+    try {
+      const response = await axiosInstance.post(
+        `/shop/${shop_id}/notices/${notice_id}/applications`,
+        { body },
+        { headers }
+      );
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const status = error.response?.status || 500;
+        const errorMessage = ErrorMessages[status] || ErrorMessages.default;
+        throw new APIError(errorMessage, status);
+      } else {
+        throw new Error('서버에서 네트워크가 오지 않습니다.');
+      }
+    }
   },
-  putShopApply: ({ shop_id, notice_id, application_id }: ShopApplyData) => {
+  putShopApply: async({ shop_id, notice_id, application_id }: ShopApplyData) => {
     const headers = {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     };
@@ -50,19 +79,41 @@ const applicationAPI = {
       notice_id,
       application_id,
     };
-    return axiosInstance.put(
-      `/shop/${shop_id}/notices/${notice_id}/applications/${application_id}`,
-      { body },
-      { headers }
-    );
+    try {
+      const response = await axiosInstance.put(
+        `/shop/${shop_id}/notices/${notice_id}/applications/${application_id}`,
+        { body },
+        { headers }
+      );
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const status = error.response?.status || 500;
+        const errorMessage = ErrorMessages[status] || ErrorMessages.default;
+        throw new APIError(errorMessage, status);
+      } else {
+        throw new Error('서버에서 네트워크가 오지 않습니다.');
+      }
+    }
   },
-  getUserApply: ({ user_id, offset, limit }: UserApplyData) => {
+  getUserApply: async ({ user_id, offset, limit }: UserApplyData) => {
     const params = {
       user_id,
       offset,
       limit,
     };
-    return axiosInstance.get(`/users/${user_id}/application`, { params });
+    try {
+      const response = await axiosInstance.get(`/users/${user_id}/application`, { params });
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const status = error.response?.status || 500;
+        const errorMessage = ErrorMessages[status] || ErrorMessages.default;
+        throw new APIError(errorMessage, status);
+      } else {
+        throw new Error('서버에서 네트워크가 오지 않습니다.');
+      }
+    }
   },
 };
 

@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { APIError, ErrorMessages } from './ApiError';
 import { axiosInstance } from './axiosInstance';
 
 interface GetAlertData {
@@ -9,7 +11,7 @@ interface GetAlertData {
 }
 
 const alertAPI = {
-  getAlerts: ({
+  getAlerts: async ({
     user_id,
     token = localStorage.getItem('token'),
     offset,
@@ -22,9 +24,23 @@ const alertAPI = {
       offset,
       limit,
     };
-    return axiosInstance.get(`/users/${user_id}/alerts`, { params, headers });
+    try {
+      const response = await axiosInstance.get(`/users/${user_id}/alerts`, {
+        params,
+        headers,
+      });
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const status = error.response?.status || 500;
+        const errorMessage = ErrorMessages[status] || ErrorMessages.default;
+        throw new APIError(errorMessage, status);
+      } else {
+        throw new Error('서버에서 네트워크가 오지 않습니다.');
+      }
+    }
   },
-  putAlerts: ({
+  putAlerts: async ({
     user_id,
     token = localStorage.getItem('token'),
     alert_id,
@@ -33,13 +49,24 @@ const alertAPI = {
       Authorization: `Bearer ${token}`,
     };
     const requestBody = {};
-    return axiosInstance.put(
-      `/users/${user_id}/alerts/${alert_id}`,
-      requestBody,
-      {
-        headers,
+    try {
+      const response = await axiosInstance.put(
+        `/users/${user_id}/alerts/${alert_id}`,
+        requestBody,
+        {
+          headers,
+        }
+      );
+      return response.data
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const status = error.response?.status || 500;
+        const errorMessage = ErrorMessages[status] || ErrorMessages.default;
+        throw new APIError(errorMessage, status);
+      } else {
+        throw new Error('서버에서 네트워크가 오지 않습니다.');
       }
-    );
+    }
   },
 };
 

@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { APIError, ErrorMessages } from './ApiError';
 import { axiosInstance } from './axiosInstance';
 
 interface GetNoticeListData {
@@ -28,7 +30,7 @@ interface ShopNoticeData {
   description: string;
 }
 const noticeAPI = {
-  getNoticeList: ({
+  getNoticeList: async ({
     offset,
     limit,
     address,
@@ -46,39 +48,102 @@ const noticeAPI = {
       hourlyPayGte,
       sort,
     };
-    return axiosInstance.get(`/notices`, { params });
+    try {
+      const response = await axiosInstance.get(`/notices`, { params });
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const status = error.response?.status || 500;
+        const errorMessage = ErrorMessages[status] || ErrorMessages.default;
+        throw new APIError(errorMessage, status);
+      } else {
+        throw new Error('서버에서 네트워크가 오지 않습니다.');
+      }
+    }
   },
-  getShopNoticeList: ({ shops_id, offset, limit }: GetShopNoticeListData) => {
+  getShopNoticeList: async ({
+    shops_id,
+    offset,
+    limit,
+  }: GetShopNoticeListData) => {
     const params = {
       offset,
       limit,
     };
-    return axiosInstance.get(`/shops/${shops_id}/notices`, {
-      params,
-    });
-  },
-  getShopNotice: ({ shops_id, notice_id }: GetShopNoticeData) => {
-    return axiosInstance.get(`/shops/${shops_id}/notices/${notice_id}`);
-  },
-  postShopNotice: (shop_id: string, body: ShopNoticeData) => {
-    const headers = {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    };
-    return axiosInstance.post(
-      `/shops/${shop_id}/notices`,
-      { body },
-      {
-        headers,
+    try {
+      const response = await axiosInstance.get(`/shops/${shops_id}/notices`, {
+        params,
+      });
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const status = error.response?.status || 500;
+        const errorMessage = ErrorMessages[status] || ErrorMessages.default;
+        throw new APIError(errorMessage, status);
+      } else {
+        throw new Error('서버에서 네트워크가 오지 않습니다.');
       }
-    );
+    }
   },
-  putShopNotice: (shop_id: string, notice_id: string, body: string) => {
+  getShopNotice: async ({ shops_id, notice_id }: GetShopNoticeData) => {
+    try {
+      const response = await axiosInstance.get(
+        `/shops/${shops_id}/notices/${notice_id}`
+      );
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const status = error.response?.status || 500;
+        const errorMessage = ErrorMessages[status] || ErrorMessages.default;
+        throw new APIError(errorMessage, status);
+      } else {
+        throw new Error('서버에서 네트워크가 오지 않습니다.');
+      }
+    }
+  },
+  postShopNotice: async (shop_id: string, body: ShopNoticeData) => {
     const headers = {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     };
-    return axiosInstance.put(`/shops/${shop_id}/notices/${notice_id}`, body, {
-      headers,
-    });
+    try {
+      const response = await axiosInstance.post(
+        `/shops/${shop_id}/notices`,
+        { body },
+        { headers }
+      );
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const status = error.response?.status || 500;
+        const errorMessage = ErrorMessages[status] || ErrorMessages.default;
+        throw new APIError(errorMessage, status);
+      } else {
+        throw new Error('서버에서 네트워크가 오지 않습니다.');
+      }
+    }
+  },
+  putShopNotice: async (shop_id: string, notice_id: string, body: string) => {
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    };
+    try {
+      const response = await axiosInstance.put(
+        `/shops/${shop_id}/notices/${notice_id}`,
+        body,
+        {
+          headers,
+        }
+      );
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const status = error.response?.status || 500;
+        const errorMessage = ErrorMessages[status] || ErrorMessages.default;
+        throw new APIError(errorMessage, status);
+      } else {
+        throw new Error('서버에서 네트워크가 오지 않습니다.');
+      }
+    }
   },
 };
 
