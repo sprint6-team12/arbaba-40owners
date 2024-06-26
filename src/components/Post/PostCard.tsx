@@ -22,11 +22,12 @@ export default function PostCard({ item, className }: PostCardProps) {
   const { formattedUrl } = FormatUtils.parseIDAndFormatUrl(shop.href);
   const noticeHref = formattedUrl + `/notices/${id}`;
 
-  const statusStyle =
-    currentPostState !== 'open' ? '[&_*]:mix-blend-luminosity' : '';
+  // const statusStyle =
+  //   currentPostState !== 'open' ? '[&_*]:mix-blend-luminosity' : '';
 
   return (
-    <Link href={noticeHref} className={`${statusStyle} ${className}`}>
+    // <Link href={noticeHref} className={`${statusStyle} ${className}`}>
+    <Link href={noticeHref} className={`${className}`}>
       <Post.Wrapper
         status={currentPostState}
         className={`flex flex-col justify-between w-full min-h-[16.3rem] tablet:min-h-[21.8rem] pc:min-h-[21.8rem] bg-white rounded-12px p-12px tablet:p-16px pc:p-16px border border-gray20 ${closed ? 'pointer-events-none' : ''}`}

@@ -14,6 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
       router.push(pathname);
     }
   };
+
   return (
     <RecoilRoot>
       <ModalsWrapper />
