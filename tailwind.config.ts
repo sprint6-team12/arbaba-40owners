@@ -20,6 +20,24 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  safelist: [
+    'text-gray20',
+    'text-red20',
+    'text-red30',
+    'text-red40',
+    'bg-gray20',
+    'bg-red20',
+    'bg-red30',
+    'bg-red40',
+    'tablet:bg-gray20',
+    'tablet:bg-red20',
+    'tablet:bg-red30',
+    'tablet:bg-red40',
+    'pc:bg-gray20',
+    'pc:bg-red20',
+    'pc:bg-red30',
+    'pc:bg-red40',
+  ],
   theme: {
     extend: {
       fontFamily: {
@@ -32,6 +50,7 @@ const config: Config = {
       },
       zIndex: {
         dropdown: '10',
+        popup: '15',
         modalbackground: '20',
         modalbody: '30',
       },
@@ -70,15 +89,34 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        fadeOut: {
+          '0%': { opacity: '1' },
+          '100%': { opacity: '0' },
+        },
+      },
+      animation: {
+        fadeIn: 'fadeIn 0.5s ease-out',
+        fadeOut: 'fadeOut 0.5s ease-out',
+      },
     },
   },
   plugins: [
+    require('@tailwindcss/line-clamp'),
     function ({ addUtilities }: PluginAPI) {
       addUtilities({
         '.flex-center': {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
+        },
+        // w-full을 적용하기위한 코드
+        '.w-full.button_medium_active': {
+          width: '100% !important',
         },
         '.button_large_active': {
           width: 'max-content',
@@ -217,6 +255,13 @@ const config: Config = {
           color: '#ffffff',
           fontSize: '16px',
           fontWeight: '500',
+        },
+        '.no-scrollbar': {
+          '-ms-overflow-style': 'none',
+          'scrollbar-width': 'none',
+        },
+        '.no-scrollbar::-webkit-scrollbar': {
+          display: 'none',
         },
         '.button_Ok:hover': {
           backgroundColor: '#d32f2f',

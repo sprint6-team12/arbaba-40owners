@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "lint:full-inspection": "eslint .",
-    "type-check": "tsc --noEmit --incremental"
+    "type-check": "tsc --noEmit --incremental",
+    "prepare": "husky"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
@@ -17,11 +18,14 @@
     ]
   },
   "dependencies": {
+    "@tailwindcss/line-clamp": "^0.4.4",
     "axios": "^1.7.2",
+    "date-fns": "^3.6.0",
     "next": "14.2.4",
     "react": "^18",
     "react-datepicker": "^7.1.0",
     "react-dom": "^18",
+    "react-paginate": "^8.2.0",
     "recoil": "^0.7.7"
   },
   "devDependencies": {
