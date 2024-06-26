@@ -56,3 +56,38 @@ export const SignUpValidate = (
   }
   return errorMessage;
 };
+
+export const validateShopInfo = (name: string, value: string) => {
+  let errorMessage = '';
+
+  switch (name) {
+    case 'shopName':
+      if (!value) {
+        errorMessage = ERROR_MESSAGES.shopNameRequired;
+      }
+      break;
+    case 'category':
+      if (!value) {
+        errorMessage = ERROR_MESSAGES.categoryRequired;
+      }
+      break;
+    case 'address':
+      if (!value) {
+        errorMessage = ERROR_MESSAGES.addressRequired;
+      }
+      break;
+    case 'detailedAddress':
+      if (!value) {
+        errorMessage = ERROR_MESSAGES.addressDetailRequired;
+      }
+      break;
+    case 'hourlyPay':
+      if (!value) {
+        errorMessage = ERROR_MESSAGES.hourlyPayRequired;
+      }
+      break;
+    default:
+      break;
+  }
+  return errorMessage;
+};
