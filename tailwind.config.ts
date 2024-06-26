@@ -20,6 +20,24 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  safelist: [
+    'text-gray20',
+    'text-red20',
+    'text-red30',
+    'text-red40',
+    'bg-gray20',
+    'bg-red20',
+    'bg-red30',
+    'bg-red40',
+    'tablet:bg-gray20',
+    'tablet:bg-red20',
+    'tablet:bg-red30',
+    'tablet:bg-red40',
+    'pc:bg-gray20',
+    'pc:bg-red20',
+    'pc:bg-red30',
+    'pc:bg-red40',
+  ],
   theme: {
     extend: {
       fontFamily: {
