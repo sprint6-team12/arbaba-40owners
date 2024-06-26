@@ -7,7 +7,7 @@ export default function ShopTitle({ shopData }: { shopData: Shops }) {
   return (
     <>
       <ShopImageSection imageUrl={shopData.imageUrl} name={shopData.name}/>
-      <div className="flex flex-col items-start justify-between pt-8px w-346px h-348px">
+      <div className="flex flex-col justify-between pt-8px w-346px h-348px">
         <div className="flex flex-col gap-12px">
           <TitleInfo
             category={shopData.category}
