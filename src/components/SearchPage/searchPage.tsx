@@ -183,7 +183,27 @@ function SearchPage() {
         {/* 필터 변경하면 랜더링 변경 */}
         <div className="flex flex-wrap gap-8px flex-grow-1">
           {mockDatas.map((data, index) => (
-            <Post {...data} key={index} />
+            <Post.Wrapper key={index}>
+              <Post.Image
+                imageUrl={data.imageUrl}
+                status={data.closed ? 'closed' : 'open'}
+              />
+              <Post.Title text={data.name} />
+              <Post.SubTitle text={data.address1} />
+              <Post.WorkSchedule
+                startsAt={data.startsAt}
+                workHour={data.workhour}
+                status={data.closed ? 'closed' : 'open'}
+              />
+              <Post.Location
+                address={data.address1}
+                status={data.closed ? 'closed' : 'open'}
+              />
+              <Post.IncreaseRateBadge
+                hourlyPay={data.hourlyPay}
+                originalHourlyPay={data.originalHourlyPay}
+              />
+            </Post.Wrapper>
           ))}
         </div>
         <div className="inline-block mx-auto mt-40px mb-60px">
