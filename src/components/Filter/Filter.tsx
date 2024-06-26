@@ -2,9 +2,9 @@ import { ko } from 'date-fns/locale';
 import { useEffect, useRef, useState } from 'react';
 import { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { LOCATIONS } from '@/constants/data-locations';
+import { LOCATIONS } from '@/constants/DataLocations';
 import { IconCloseBlack } from '@/utils/Icons';
-import DateSection from './DataSection';
+import DateSection from './DateSection';
 import Divider from './Divider';
 import LocationSection from './LocationSection';
 import PriceSection from './PriceSection';
@@ -17,6 +17,7 @@ export default function Filter() {
   const [inputPrice, setInputPrice] = useState<string>('');
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
   const FilterContainerRef = useRef<HTMLDivElement>(null);
+  const ButtonRef = useRef<HTMLButtonElement>(null);
 
   const handleLocationClick = (location: string) => {
     if (!selectedLocations.includes(location)) {
@@ -52,7 +53,9 @@ export default function Filter() {
     const handleOutsideClick = (event: MouseEvent) => {
       if (
         FilterContainerRef.current &&
-        !FilterContainerRef.current.contains(event.target as Node)
+        !FilterContainerRef.current.contains(event.target as Node) &&
+        ButtonRef.current &&
+        !ButtonRef.current.contains(event.target as Node)
       ) {
         setIsFilterOpen(false);
       }
@@ -66,12 +69,19 @@ export default function Filter() {
 
   return (
     <>
-      <button onClick={handleFilterClick}>버튼</button>
+      <button
+        className="font-bold text-white px-10px h-30px rounded-5px bg-red30 text-14px mb-10px"
+        ref={ButtonRef}
+        onClick={handleFilterClick}
+      >
+        상세 필터{' '}
+        {selectedLocations.length !== 0 && `(${selectedLocations.length})`}
+      </button>
       {isFilterOpen && (
         <div ref={FilterContainerRef}>
-          <div className="relative w-390px px-20px py-24px overflow-auto border border-solid border-gray20 rounded-10px bg-white">
-            <div className="flex items-center justify-between pb-[18px]">
-              <p className="font-bold text-[20px]">상세 필터</p>
+          <div className="relative overflow-auto bg-white border border-solid w-390px px-20px py-24px border-gray20 rounded-10px">
+            <div className="flex items-center justify-between pb-18px">
+              <p className="font-bold text-20px">상세 필터</p>
               <button onClick={() => setIsFilterOpen(false)}>
                 <IconCloseBlack />
               </button>
@@ -91,13 +101,13 @@ export default function Filter() {
             />
             <div className="flex justify-between mt-20px">
               <button
-                className="text-custom-orange py-14px rounded-6px w-80px border border-custom-orange font-bold"
+                className="font-bold border text-custom-orange py-14px rounded-6px w-80px border-custom-orange"
                 onClick={handleResetClick}
               >
                 초기화
               </button>
               <button
-                className="bg-custom-orange text-white py-2 px-4 rounded-lg w-260px"
+                className="px-4 py-2 text-white rounded-lg bg-custom-orange w-260px"
                 onClick={() => {
                   /* 적용하기 기능 */
                 }}

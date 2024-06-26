@@ -7,22 +7,22 @@ interface RateMapItem {
 const RATE_MAP: RateMapItem[] = [
   {
     range: [0, 0],
-    backgroundColor: 'tablet:bg-gray20 pc:bg-gray20',
+    backgroundColor: 'bg-gray20 tablet:bg-gray20 pc:bg-gray20',
     textColor: 'text-gray20',
   },
   {
     range: [1, 29],
-    backgroundColor: 'tablet:bg-red20 pc:bg-red20',
+    backgroundColor: 'bg-red20 tablet:bg-red20 pc:bg-red20',
     textColor: 'text-red20',
   },
   {
     range: [30, 60],
-    backgroundColor: 'tablet:bg-red30 pc:bg-red30',
+    backgroundColor: 'bg-red30 tablet:bg-red30 pc:bg-red30',
     textColor: 'text-red30',
   },
   {
     range: [61, 100],
-    backgroundColor: 'tablet:bg-red40 pc:bg-red40',
+    backgroundColor: 'bg-red40 tablet:bg-red40 pc:bg-red40',
     textColor: 'text-red40',
   },
 ];
@@ -41,7 +41,7 @@ function useColorByRate(rate: number) {
   // 지정한 범위에 rate가 없으면 반환
   return {
     backgroundColor: '',
-    textColor: 'text-white',
+    textColor: 'text-black',
   };
 }
 
