@@ -6,8 +6,8 @@ import TitleInfo from './TitleInfo';
 export default function ShopTitle({ shopData }: { shopData: Shops }) {
   return (
     <>
-      <ShopImageSection imageUrl={shopData.imageUrl} name={shopData.name}/>
-      <div className="flex flex-col justify-between pt-8px w-346px h-348px">
+      <ShopImageSection imageUrl={shopData.imageUrl} name={shopData.name} />
+      <div className="flex flex-col justify-between pt-8px w-full pc:w-346px h-348px">
         <div className="flex flex-col gap-12px">
           <TitleInfo
             category={shopData.category}
