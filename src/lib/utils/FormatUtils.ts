@@ -72,6 +72,32 @@ class FormatUtils {
 
     return { percentage, roundedPercentage };
   }
+
+  /**
+   * 주어진 URL에서 shopId, noticeId, applicantsId를 추출하고 형식화된 URL을 반환합니다.
+   *
+   * @param {string} url - 파싱할 URL  /api/6-12/the-julge/shops/[shop_id]/notices/[notice_id]/applicants/[applicant_id]
+   * @returns {{ formattedUrl: string, shopId: string, noticeId: string, applicantsId: string }} - 추출된 ID 객체와 형식화된 URL
+   */
+  static parseIDAndFormatUrl(url: string) {
+    const urlParts = url.split('/');
+
+    const shopId = urlParts[5];
+    const noticeId = urlParts[7];
+    const applicantsId = urlParts[9];
+
+    const formattedUrl =
+      `/shops/${shopId}` +
+      (noticeId ? `/notices/${noticeId}` : '') +
+      (applicantsId ? `/applicants/${applicantsId}` : '');
+
+    return {
+      formattedUrl,
+      shopId,
+      noticeId,
+      applicantsId,
+    };
+  }
 }
 
 export default FormatUtils;

@@ -25,6 +25,10 @@ const config: Config = {
     'text-red20',
     'text-red30',
     'text-red40',
+    'bg-gray20',
+    'bg-red20',
+    'bg-red30',
+    'bg-red40',
     'tablet:bg-gray20',
     'tablet:bg-red20',
     'tablet:bg-red30',
@@ -108,6 +112,10 @@ const config: Config = {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
+        },
+        // w-full을 적용하기위한 코드
+        '.w-full.button_medium_active': {
+          width: '100% !important',
         },
         '.button_large_active': {
           width: 'max-content',
