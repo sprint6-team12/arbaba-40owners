@@ -3,7 +3,10 @@ const nextConfig = {
   reactStrictMode: true,
 
   images: {
-    domains: ['content.surfit.io'],
+    domains: [
+      'content.surfit.io',
+      'bootcamp-project-api.s3.ap-northeast-2.amazonaws.com',
+    ],
   },
 
   webpack(config) {
@@ -15,6 +18,5 @@ const nextConfig = {
     return config;
   },
 };
-
 
 export default nextConfig;
