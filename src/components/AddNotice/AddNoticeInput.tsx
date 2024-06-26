@@ -19,40 +19,46 @@ export interface FormErrors {
   workHour: string | null;
 }
 
+const initialFormData: FormData = {
+  hourlyPay: '',
+  startsAt: '',
+  workHour: 0,
+  description: '',
+};
+
+const initialFormErrors: FormErrors = {
+  hourlyPay: null,
+  startsAt: null,
+  workHour: null,
+};
+
+const ConfirmModal = ({ ...rest }) => (
+  <ModalPrimary
+    optionType="confirm"
+    content="등록이 완료되었습니다."
+    {...rest}
+  />
+);
+
 export default function AddNoticeInput() {
   const { openModal } = useModal();
-  const [data, setData] = useState<FormData>({
-    hourlyPay: '',
-    startsAt: '',
-    workHour: 0,
-    description: '',
-  });
-  const [errors, setErrors] = useState<FormErrors>({
-    hourlyPay: null,
-    startsAt: null,
-    workHour: null,
-  });
+  const [data, setData] = useState<FormData>(initialFormData);
+  const [errors, setErrors] = useState<FormErrors>(initialFormErrors);
 
-  const handleData = (
+  const handleChangeData = (
     event:
       | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
       | React.MouseEvent<HTMLButtonElement>
   ) => {
     const target = event.target as HTMLInputElement | HTMLTextAreaElement;
     const { name, value } = target;
-
-    if (name === 'hourlyPay') {
-      const formattedPrice = FormatUtils.price(Number(value.replace(/,/g, '')));
-      setData((prev) => ({
-        ...prev,
-        [name]: formattedPrice,
-      }));
-    } else {
-      setData((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
-    }
+    setData((prev) => ({
+      ...prev,
+      [name]:
+        name === 'hourlyPay'
+          ? FormatUtils.price(Number(value.replace(/,/g, '')))
+          : value,
+    }));
 
     setErrors((prev) => ({
       ...prev,
@@ -60,16 +66,8 @@ export default function AddNoticeInput() {
     }));
   };
 
-  const ConfirmModal = ({ ...rest }) => (
-    <ModalPrimary
-      optionType="confirm"
-      content="등록이 완료되었습니다."
-      {...rest}
-    />
-  );
-
   const handleOpenConfirmModal = () => {
-    openModal('confirmModal', ConfirmModal, {
+    openModal('addNoticeConfirmModal', ConfirmModal, {
       // onConfirm: () => console.log(data),
     });
   };
@@ -88,10 +86,10 @@ export default function AddNoticeInput() {
   return (
     <div className="flex-center">
       <form onSubmit={handleSubmit} className="w-full">
-        <FormGroup>
-          <div className="tablet:flex tablet:justify-between tablet:gap-20px pc:flex pc:gap-20px">
-            <div className="pc:flex pc:justify-between pc:basis-2/3 gap-20px w-full">
-              <div className="mb-20px w-full">
+        <div className="tablet:flex tablet:justify-between tablet:gap-20px pc:flex pc:gap-20px">
+          <div className="pc:flex pc:justify-between pc:basis-2/3 gap-20px w-full">
+            <div className="mb-20px w-full">
+              <FormGroup>
                 <FormGroup.Label htmlFor="hourlyPay">시급*</FormGroup.Label>
                 <FormGroup.InputWrapper className="flex input-base">
                   <FormGroup.InputField
@@ -99,25 +97,29 @@ export default function AddNoticeInput() {
                     name="hourlyPay"
                     type="text"
                     value={data.hourlyPay}
-                    onChange={handleData}
+                    onChange={handleChangeData}
                   />
                   <span>원</span>
                 </FormGroup.InputWrapper>
                 <FormGroup.ErrorMessage errorMessage={errors.hourlyPay} />
-              </div>
-              <div className="mb-60px h-58px w-full">
+              </FormGroup>
+            </div>
+            <div className="mb-60px h-58px w-full">
+              <FormGroup>
                 <FormGroup.Label htmlFor="startsAt">시작 일시*</FormGroup.Label>
                 <FormGroup.InputField
                   id="startsAt"
                   name="startsAt"
                   type="datetime-local"
-                  onChange={handleData}
+                  onChange={handleChangeData}
                   className="input-base"
                 />
                 <FormGroup.ErrorMessage errorMessage={errors.startsAt} />
-              </div>
+              </FormGroup>
             </div>
-            <div className="mb-20px w-full pc:basis-1/3">
+          </div>
+          <div className="mb-20px w-full pc:basis-1/3">
+            <FormGroup>
               <FormGroup.Label htmlFor="workHour">업무 시간*</FormGroup.Label>
               <FormGroup.InputWrapper className="flex input-base">
                 <FormGroup.InputField
@@ -125,18 +127,20 @@ export default function AddNoticeInput() {
                   name="workHour"
                   type="number"
                   value={data.workHour}
-                  onChange={handleData}
+                  onChange={handleChangeData}
                 />
                 <span className="w-40px">시간</span>
               </FormGroup.InputWrapper>
               <FormGroup.ErrorMessage errorMessage={errors.workHour} />
-            </div>
+            </FormGroup>
           </div>
+        </div>
+        <FormGroup>
           <FormGroup.Label htmlFor="description">공고 설명</FormGroup.Label>
           <FormGroup.InputField.Textarea
             id="description"
             name="description"
-            onChange={handleData}
+            onChange={handleChangeData}
             placeholder="공고 설명을 입력하세요"
             className="h-153px"
           />
