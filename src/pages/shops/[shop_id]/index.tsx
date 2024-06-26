@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Post from '@/components/Post/Post';
 import ShopNoData from '@/components/ShopDetail/ShopNoData';
@@ -8,7 +9,10 @@ import { Notices, Shops } from '@/types/ShopDetail';
 export default function ShopDetail() {
   const [shopData, setShopData] = useState<Shops | null>(null);
   const [noticesData, setNoticesData] = useState<Notices | null>(null);
-  const shopId = '7367ccac-bcce-4203-9bb9-65098fffb05e'; // 실제론 로컬스토리지나 recoil에 저장된 userId값으로 내정보조회 api 돌려서 shopId 얻어내야됨 아니면 얘도 전역관리?
+  const router = useRouter();
+
+  const { shop_id } = router.query; // 실제론 얘 쓸듯
+  // const shopId = '7367ccac-bcce-4203-9bb9-65098fffb05e';
 
   const axiosInstance = axios.create({
     baseURL: 'https://bootcamp-api.codeit.kr/api/6-12/the-julge',
@@ -20,7 +24,7 @@ export default function ShopDetail() {
 
   const getNotices = async () => {
     try {
-      const res = await axiosInstance.get(`/shops/${shopId}/notices`);
+      const res = await axiosInstance.get(`/shops/${shop_id}/notices`);
       setNoticesData(res.data);
     } catch (error) {
       setShopData(null);
@@ -29,7 +33,7 @@ export default function ShopDetail() {
 
   const getShop = async () => {
     try {
-      const res = await axiosInstance.get(`/shops/${shopId}`);
+      const res = await axiosInstance.get(`/shops/${shop_id}`);
       setShopData(res.data.item);
     } catch (error) {
       setShopData(null);
@@ -39,7 +43,7 @@ export default function ShopDetail() {
   useEffect(() => {
     getShop();
     getNotices();
-  }, [shopId]);
+  }, [shop_id]);
 
   return (
     <div className="w-full flex flex-col">
@@ -78,7 +82,7 @@ export default function ShopDetail() {
                       address1={shopData.address1}
                       imageUrl={shopData.imageUrl}
                       originalHourlyPay={shopData.originalHourlyPay}
-                      href={item.item.id}
+                      href={`${router.asPath}/notice/${item.item.id}`}
                     />
                   ))}
                 </div>
