@@ -1,8 +1,7 @@
-// import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
-// import { useAuth } from '@/hooks/useAuth';
-// import authenticationAPI from '@/utils/api/authenticationAPI';
 import Button from '@/components/Button/Button';
+import { useAuth } from '@/hooks/useAuth';
+import authenticationAPI from '@/utils/api/authenticationAPI';
 import { SignInValidate } from '@/utils/validation';
 import InputComponent from './InputComponent';
 
@@ -12,7 +11,7 @@ const SignInForm = () => {
     loginPassWord: '',
   });
   const [errors, setErrors] = useState({ loginEmail: '', loginPassWord: '' });
-  // const { setUser } = useAuth();
+  const { setUser } = useAuth();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -24,19 +23,21 @@ const SignInForm = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!errors.loginEmail && !errors.loginPassWord) {
-      // try {
-      //   const res = await authenticationAPI.post({
-      //     email: loginEmail,
-      //     password: loginPassWord,
-      //   });
-      //   const token = res.item.token;
-      //   const userId = res.item.user.item.id;
-      //   const userType = res.item.user.item.type;
-      //   localStorage.setItem('testToken', token);
-      //   setUser(token, userId, userType);
-      // } catch (error) {
-      //   // error
-      // }
+      try {
+        const response = await authenticationAPI.postToken({
+          email: formData.loginEmail,
+          password: formData.loginPassWord,
+        });
+
+        const token = response.item.token;
+        const userId = response.item.user.item.id;
+        const userType = response.item.user.item.type;
+        localStorage.setItem('userJWT', token);
+        setUser(token, userId, userType);
+        // 여기다가 모달 닫는 함수 넣어줘야 할듯 !! 아니면 페이지 새로고침
+      } catch (error) {
+        alert(error);
+      }
     }
   };
 
