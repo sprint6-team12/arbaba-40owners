@@ -1,5 +1,5 @@
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { GetServerSideProps } from 'next';
+import { useState } from 'react';
 import PostCard from '@/components/Post/PostCard';
 import ShopNoData from '@/components/ShopDetail/ShopNoData';
 import ShopTitle from '@/components/ShopDetail/ShopTitle/ShopTitle';
@@ -7,39 +7,57 @@ import { Notices, Shops } from '@/types/ShopDetail';
 import noticeAPI from '@/utils/api/noticeAPI';
 import shopAPI from '@/utils/api/shopAPI';
 
-export default function ShopDetail() {
-  const [shopData, setShopData] = useState<Shops | null>(null);
-  const [noticesData, setNoticesData] = useState<Notices | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const router = useRouter();
+interface ShopDetailProps {
+  shopDatas: Shops | null;
+  noticesDatas: Notices | null;
+}
 
-  const { shop_id } = router.query;
-  // const shop_id = '7367ccac-bcce-4203-9bb9-65098fffb05e';
-
+export const getServerSideProps: GetServerSideProps<ShopDetailProps> = async (
+  context
+) => {
+  const { shop_id } = context.query;
   const shopId = shop_id as string;
 
-  useEffect(() => {
-    setIsLoading(true);
-    const fetchData = async () => {
-      try {
-        if (shopId) {
-          const shopData = await shopAPI.getShop(shopId);
-          setShopData(shopData.item);
-          const noticesData = await noticeAPI.getShopNoticeList(shopId, {
-            shop_id: shopId,
-            offset: 0,
-            limit: 10,
-          });
-          setNoticesData(noticesData);
-        }
-      } catch (error) {
-        alert(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchData();
-  }, [shop_id]);
+  let shopDatas: Shops | null = null;
+  let noticesDatas: Notices | null = null;
+
+  try {
+    if (shopId) {
+      const shopResponse = await shopAPI.getShop(shopId);
+      shopDatas = shopResponse.item ?? null;
+
+      const noticesResponse = await noticeAPI.getShopNoticeList(shopId, {
+        shop_id: shopId,
+        offset: 0,
+        limit: 6,
+      });
+      noticesDatas = noticesResponse ?? null;
+    }
+  } catch (error) {
+    // error
+  }
+
+  return {
+    props: {
+      shopDatas,
+      noticesDatas,
+    },
+  };
+};
+
+export default function ShopDetail({
+  shopDatas,
+  noticesDatas,
+}: ShopDetailProps) {
+  const [shopData] = useState<Shops | null>(shopDatas);
+  const [noticesData] = useState<Notices | null>(noticesDatas);
+  const [isLoading] = useState<boolean>(false);
+  // const router = useRouter();
+
+  // const { shop_id } = router.query;
+  // const shop_id = '7367ccac-bcce-4203-9bb9-65098fffb05e';
+
+  // const shopId = shop_id as string;
 
   return (
     <>
