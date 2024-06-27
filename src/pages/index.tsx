@@ -52,12 +52,13 @@ export default function Home({ data }: HomeProps) {
           <h1 className="text-20px tablet:text-28px pc:text-28px font-bold">
             맞춤 공고
           </h1>
-          <div className="flex flex-grow h-261px tablet:h-349px pc:h-349px gap-4px overflow-x-auto no-scrollbar">
-            {data.items.map((item: Item) => (
+          <div className="flex flex-grow h-270px tablet:h-378px pc:h-349px gap-4px tablet:gap-14px pc:gap-14px overflow-x-auto no-scrollbar">
+            {/*TODO: 맞춤 공고만 3개 필터해서 넣기 */}
+            {data.items.map(({ id, item }: Item) => (
               <PostCard
-                key={item.id}
-                item={item.item}
-                className="flex-none w-171px h-261px"
+                key={id}
+                item={item}
+                className="flex-none w-171px tablet:w-332px pc:w-312px"
               />
             ))}
           </div>
@@ -80,9 +81,15 @@ export default function Home({ data }: HomeProps) {
             </div>
           </div>
           {/* 필터 변경하면 랜더링 변경 */}
-          {/* {jobs.items.map((data: any) => (
-            <PostCard item={data.item} />
-          ))} */}
+          <div className="flex flex-wrap gap-8px tablet:gap-14px">
+            {data.items.map(({ id, item }: Item) => (
+              <PostCard
+                key={id}
+                item={item}
+                className="w-171px tablet:w-332px pc:w-312px mb-8px tablet:mb-18px pc:17px"
+              />
+            ))}
+          </div>
           <div className="inline-block mx-auto mt-40px mb-60px">
             <Pagination
               totalPages={10}
@@ -99,7 +106,7 @@ export default function Home({ data }: HomeProps) {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const res = await axios.get(
-    'https://bootcamp-api.codeit.kr/api/0-1/the-julge/notices?offset=0&limit=3',
+    'https://bootcamp-api.codeit.kr/api/0-1/the-julge/notices?offset=0&limit=6',
     {
       headers: {
         Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyZDg5MzlmYi1hOTQ3LTQzM2ItYTZiNi0wN2NlZjZmMDQ0OTYiLCJpYXQiOjE3MTk0MDA5NzB9.TN22rdNGWTSRB3EOF6JIeBxQWZ2Jmf6S2NCKmn2am2Y`,

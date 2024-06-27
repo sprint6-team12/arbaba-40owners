@@ -134,7 +134,7 @@ function WorkSchedule({
     );
 
   return (
-    <div className={`flex gap-6px justify-between ${className}`}>
+    <div className={`flex gap-6px ${className}`}>
       <div>{clockIcon}</div>
       {/* <div className="flex gap-4px flex-wrap leading-[22px] text-gray50 text-12px tablet:text-14px pc:text-14px font-[400] break-keep"> */}
       <div className="flex flex-wrap leading-[16px] text-gray50 text-12px tablet:text-14px pc:text-14px font-[400] break-keep">
@@ -188,7 +188,7 @@ function HourlyPayPercentBadge({
   );
 
   // return <RateBadge rate={roundedPercentage} bgNone />;
-  return <RateBadge rate={roundedPercentage} bgNone />;
+  return <RateBadge rate={roundedPercentage} />;
 }
 
 const Post = Object.assign(
