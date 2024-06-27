@@ -1,9 +1,9 @@
-import MyPage from '@/components/MyPage/MyPage';
+import UnregisteredMyPage from '@/components/pageComponents/MyPage/UnregisteredMyPage';
 
 export default function Home() {
   return (
     <main>
-      <MyPage />
+      <UnregisteredMyPage userProfileData={undefined} />
     </main>
   );
 }
