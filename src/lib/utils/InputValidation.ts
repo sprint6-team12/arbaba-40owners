@@ -1,34 +1,59 @@
 import {
-  FormData,
-  FormErrors,
-} from '@/components/pageComponents/AddNotice/AddNoticeInput';
-import { NOTICE_ERROR_MESSAGES } from '@/constants/errorMessage';
+  NOTICE_ERROR_MESSAGES,
+  MYPAGE_ERROR_MESSAGES,
+} from '@/constants/errorMessage';
+import {
+  AddNoticeFormData,
+  AddNoticeFormErrors,
+  MyPageFormData,
+  MyPageFormErrors,
+} from '@/types/FormData';
 
-export const AddNoticeValidation = (data: FormData): FormErrors => {
+// AddNotice 유효성 검사 함수
+export const validateAddNoticeForm = (
+  data: AddNoticeFormData
+): AddNoticeFormErrors => {
   const { hourlyPay, startsAt, workHour } = data;
-  const noticeErrors: FormErrors = {
+  const errors: AddNoticeFormErrors = {
     hourlyPay: null,
     startsAt: null,
     workHour: null,
   };
 
   if (!hourlyPay || parseFloat(hourlyPay) === 0) {
-    noticeErrors.hourlyPay = NOTICE_ERROR_MESSAGES.HOURLY_PAY_REQUIRED;
+    errors.hourlyPay = NOTICE_ERROR_MESSAGES.HOURLY_PAY_REQUIRED;
   }
   if (!startsAt) {
-    noticeErrors.startsAt = NOTICE_ERROR_MESSAGES.STARTS_AT_REQUIRED;
+    errors.startsAt = NOTICE_ERROR_MESSAGES.STARTS_AT_REQUIRED;
   } else {
     const startsAtDate = new Date(startsAt);
-
     if (startsAtDate < new Date()) {
-      noticeErrors.startsAt = NOTICE_ERROR_MESSAGES.STARTS_AT_PAST_DATE;
+      errors.startsAt = NOTICE_ERROR_MESSAGES.STARTS_AT_PAST_DATE;
     }
   }
   if (!workHour || workHour === 0) {
-    noticeErrors.workHour = NOTICE_ERROR_MESSAGES.WORK_HOUR_REQUIRED;
+    errors.workHour = NOTICE_ERROR_MESSAGES.WORK_HOUR_REQUIRED;
   } else if (workHour > 24) {
-    noticeErrors.workHour = NOTICE_ERROR_MESSAGES.WORK_HOUR_EXCEEDS_LIMIT;
+    errors.workHour = NOTICE_ERROR_MESSAGES.WORK_HOUR_EXCEEDS_LIMIT;
   }
 
-  return noticeErrors;
+  return errors;
+};
+
+// MyPage 유효성 검사 함수
+export const validateMyPageForm = (data: MyPageFormData): MyPageFormErrors => {
+  const { name, phone } = data;
+  const errors: MyPageFormErrors = {
+    name: null,
+    phone: null,
+  };
+
+  if (!name) {
+    errors.name = MYPAGE_ERROR_MESSAGES.NAME_REQUIRED;
+  }
+  if (!phone) {
+    errors.phone = MYPAGE_ERROR_MESSAGES.PHONE_REQUIRED;
+  }
+
+  return errors;
 };

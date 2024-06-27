@@ -1,44 +1,89 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState } from 'react';
 import Button from '@/components/Button/Button';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import FormGroup from '@/components/FormGroup/FormGroup';
+import ModalPrimary from '@/components/Modal/ModalPrimary';
 import { LOCATIONS } from '@/constants/DataLocations';
+import useModal from '@/hooks/useModal';
+import FormatUtils from '@/lib/utils/FormatUtils';
+import { validateMyPageForm } from '@/lib/utils/InputValidation';
+import { MyPageFormData, MyPageFormErrors } from '@/types/FormData';
 
-export interface FormData {
-  name: string;
-  phone: string;
-  address: string;
-  bio: string;
-}
+const initialFormData: MyPageFormData = {
+  name: '',
+  phone: '',
+  address: '',
+  bio: '',
+};
 
-interface MyPageInputProps {
-  initialData?: FormData;
-}
+const initialFormErrors: MyPageFormErrors = {
+  name: null,
+  phone: null,
+  address: null,
+  bio: null,
+};
 
-export default function MyPageInput({ initialData }: MyPageInputProps) {
-  const [formData, setFormData] = useState<FormData>(
-    initialData || {
-      name: '',
-      phone: '',
-      address: '',
-      bio: '',
-    }
-  );
+const ConfirmModal = ({ ...rest }) => (
+  <ModalPrimary
+    optionType="confirm"
+    content="등록이 완료되었습니다."
+    {...rest}
+  />
+);
 
-  const handleInputChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+export default function MyPageInput() {
+  const { openModal } = useModal();
+  const [data, setData] = useState<MyPageFormData>(initialFormData);
+  const [errors, setErrors] = useState<MyPageFormErrors>(initialFormErrors);
+
+  const handleChangeData = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    const target = event.target as HTMLInputElement | HTMLTextAreaElement;
+    const { name, value } = target;
+
+    if (name === 'phone') {
+      const cleanedValue = value.replace(/\D/g, '');
+      if (cleanedValue.length <= 11) {
+        setData((prev) => ({
+          ...prev,
+          [name]: FormatUtils.phoneNumber(cleanedValue),
+        }));
+      }
+    } else {
+      setData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
+
+    setErrors((prev) => ({
+      ...prev,
+      [name]: null,
+    }));
   };
 
-  const handleSelect = (value: string) => {
-    setFormData({ ...formData, address: value });
+  const handleSelect = (selectedOption: string) => {
+    setData((prev) => ({
+      ...prev,
+      address: selectedOption,
+    }));
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // form validation and submission logic here
+  const handleOpenConfirmModal = () => {
+    openModal('myPageConfirmModal', ConfirmModal, {
+      // onConfirm: () => //페이지로 이동
+    });
+  };
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    const validationErrors = validateMyPageForm(data);
+    if (Object.values(validationErrors).some((error) => error !== null)) {
+      setErrors(validationErrors);
+    } else {
+      handleOpenConfirmModal();
+    }
   };
 
   return (
@@ -55,10 +100,10 @@ export default function MyPageInput({ initialData }: MyPageInputProps) {
                   type="text"
                   placeholder="입력"
                   className="flex input-base"
-                  value={formData.name}
-                  onChange={handleInputChange}
+                  value={data.name}
+                  onChange={handleChangeData}
                 />
-                {/* <FormGroup.ErrorMessage errorMessage={errors.name} /> */}
+                <FormGroup.ErrorMessage errorMessage={errors.name} />
               </FormGroup>
             </div>
             <div className="mb-60px h-58px w-full">
@@ -70,10 +115,10 @@ export default function MyPageInput({ initialData }: MyPageInputProps) {
                   type="text"
                   placeholder="입력"
                   className="flex input-base"
-                  value={formData.phone}
-                  onChange={handleInputChange}
+                  value={data.phone}
+                  onChange={handleChangeData}
                 />
-                {/* <FormGroup.ErrorMessage errorMessage={errors.phone} /> */}
+                <FormGroup.ErrorMessage errorMessage={errors.phone} />
               </FormGroup>
             </div>
           </div>
@@ -92,8 +137,8 @@ export default function MyPageInput({ initialData }: MyPageInputProps) {
               name="bio"
               placeholder="소개를 입력하세요"
               className="h-153px"
-              value={formData.bio}
-              onChange={handleInputChange}
+              value={data.bio}
+              onChange={handleChangeData}
             />
           </FormGroup>
         </div>

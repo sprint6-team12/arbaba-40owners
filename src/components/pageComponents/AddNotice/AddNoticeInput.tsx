@@ -4,29 +4,17 @@ import FormGroup from '@/components/FormGroup/FormGroup';
 import ModalPrimary from '@/components/Modal/ModalPrimary';
 import useModal from '@/hooks/useModal';
 import FormatUtils from '@/lib/utils/FormatUtils';
-import { AddNoticeValidation } from '@/lib/utils/InputValidation';
+import { validateAddNoticeForm } from '@/lib/utils/InputValidation';
+import { AddNoticeFormData, AddNoticeFormErrors } from '@/types/FormData';
 
-export interface FormData {
-  hourlyPay: string;
-  startsAt: string;
-  workHour: number;
-  description: string;
-}
-
-export interface FormErrors {
-  hourlyPay: string | null;
-  startsAt: string | null;
-  workHour: string | null;
-}
-
-const initialFormData: FormData = {
+const initialFormData: AddNoticeFormData = {
   hourlyPay: '',
   startsAt: '',
   workHour: 0,
   description: '',
 };
 
-const initialFormErrors: FormErrors = {
+const initialFormErrors: AddNoticeFormErrors = {
   hourlyPay: null,
   startsAt: null,
   workHour: null,
@@ -42,8 +30,8 @@ const ConfirmModal = ({ ...rest }) => (
 
 export default function AddNoticeInput() {
   const { openModal } = useModal();
-  const [data, setData] = useState<FormData>(initialFormData);
-  const [errors, setErrors] = useState<FormErrors>(initialFormErrors);
+  const [data, setData] = useState<AddNoticeFormData>(initialFormData);
+  const [errors, setErrors] = useState<AddNoticeFormErrors>(initialFormErrors);
 
   const handleChangeData = (
     event:
@@ -74,7 +62,7 @@ export default function AddNoticeInput() {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    const validationErrors = AddNoticeValidation(data);
+    const validationErrors = validateAddNoticeForm(data);
     if (Object.values(validationErrors).some((error) => error !== null)) {
       setErrors(validationErrors);
     } else {

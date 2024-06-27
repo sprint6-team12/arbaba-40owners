@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Button from '@/components/Button/Button';
 import { IconCloseBlack } from '@/utils/Icons';
-import MyPageInput, { FormData } from './MyPageInput';
+import MyPageInput from './MyPageInput';
 
 export default function MyPageUnregistered({
   userProfileData,
@@ -40,7 +40,7 @@ export default function MyPageUnregistered({
         </div>
       ) : (
         <div>
-          <MyPageInput initialData={userProfileData} />
+          <MyPageInput />
         </div>
       )}
     </div>
