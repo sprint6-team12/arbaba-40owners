@@ -6,8 +6,8 @@ import { LOCATIONS } from '@/constants/DataLocations';
 
 export interface FormData {
   name: string;
-  contact: string;
-  location: string;
+  phone: string;
+  address: string;
   bio: string;
 }
 
@@ -19,8 +19,8 @@ export default function MyPageInput({ initialData }: MyPageInputProps) {
   const [formData, setFormData] = useState<FormData>(
     initialData || {
       name: '',
-      contact: '',
-      location: '',
+      phone: '',
+      address: '',
       bio: '',
     }
   );
@@ -33,7 +33,7 @@ export default function MyPageInput({ initialData }: MyPageInputProps) {
   };
 
   const handleSelect = (value: string) => {
-    setFormData({ ...formData, location: value });
+    setFormData({ ...formData, address: value });
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -63,23 +63,23 @@ export default function MyPageInput({ initialData }: MyPageInputProps) {
             </div>
             <div className="mb-60px h-58px w-full">
               <FormGroup>
-                <FormGroup.Label htmlFor="contact">연락처*</FormGroup.Label>
+                <FormGroup.Label htmlFor="phone">연락처*</FormGroup.Label>
                 <FormGroup.InputField
-                  id="contact"
-                  name="contact"
+                  id="phone"
+                  name="phone"
                   type="text"
                   placeholder="입력"
                   className="flex input-base"
-                  value={formData.contact}
+                  value={formData.phone}
                   onChange={handleInputChange}
                 />
-                {/* <FormGroup.ErrorMessage errorMessage={errors.contact} /> */}
+                {/* <FormGroup.ErrorMessage errorMessage={errors.phone} /> */}
               </FormGroup>
             </div>
           </div>
           <div className="mb-20px w-full pc:basis-1/3">
             <FormGroup>
-              <FormGroup.Label htmlFor="location">선호 지역</FormGroup.Label>
+              <FormGroup.Label htmlFor="address">선호 지역</FormGroup.Label>
               <Dropdown options={LOCATIONS} onSelect={handleSelect} />
             </FormGroup>
           </div>

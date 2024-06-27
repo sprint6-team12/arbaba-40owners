@@ -3,7 +3,7 @@ import Button from '@/components/Button/Button';
 import { IconCloseBlack } from '@/utils/Icons';
 import MyPageInput, { FormData } from './MyPageInput';
 
-export default function UnregisteredMyPage({
+export default function MyPageUnregistered({
   userProfileData,
 }: {
   userProfileData: FormData | undefined;
