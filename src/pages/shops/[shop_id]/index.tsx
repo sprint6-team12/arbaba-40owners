@@ -19,20 +19,16 @@ export const getServerSideProps: GetServerSideProps<ShopDetailProps> = async (
   let shopData: Shops | null = null;
   let noticesData: Notices | null = null;
 
-  try {
-    if (shopId) {
-      const shopResponse = await shopAPI.getShop(shopId);
-      shopData = shopResponse.item ?? null;
+  if (shopId) {
+    const shopResponse = await shopAPI.getShop(shopId);
+    shopData = shopResponse.item ?? null;
 
-      const noticesResponse = await noticeAPI.getShopNoticeList(shopId, {
-        shop_id: shopId,
-        offset: 0,
-        limit: 99,
-      });
-      noticesData = noticesResponse ?? null;
-    }
-  } catch (error) {
-    // error
+    const noticesResponse = await noticeAPI.getShopNoticeList(shopId, {
+      shop_id: shopId,
+      offset: 0,
+      limit: 99,
+    });
+    noticesData = noticesResponse ?? null;
   }
 
   return {
