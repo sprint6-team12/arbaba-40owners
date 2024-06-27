@@ -13,12 +13,11 @@ function Dropdown({
   options,
   onSelect,
   width = '300px',
-  defaultValue = '선택',
-  placeholder = '선택해주세요',
+  placeholder = '선택',
 }: DropdownProps) {
   const dropDownClickRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(defaultValue);
+  const [selectedOption, setSelectedOption] = useState('');
 
   const handleToggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -57,14 +56,16 @@ function Dropdown({
           <DropDown />
         </div>
         <button className="flex w-full px-20px py-16px items-center border bg-white border-gray30 rounded-md text-base">
-          {selectedOption || placeholder}
+          <span className={selectedOption ? '' : 'text-gray-400'}>
+            {selectedOption || placeholder}
+          </span>
         </button>
         {isOpen && (
           <div className="absolute inline-flex flex-col rounded-md border-2px items-center border-gray20 bg-white shadow-md z-5 mt-8px overflow-y-auto overflow-x-hidden max-h-200px z-dropdown right-7px left-7px">
             {options.map((option) => (
               <div
                 key={option}
-                className="w-full flex justify-center px-24px py-12px items-center gap-16px cursor-pointer text-base leading-26 tracking--0.16 hover:bg-gray-100 border border-gary-20"
+                className="w-full flex justify-center px-24px py-12px items-center gap-16px cursor-pointer text-base leading-26 tracking--0.16 hover:bg-gray-100 border border-gray20"
                 onClick={() => handleSelectOption(option)}
               >
                 {option}

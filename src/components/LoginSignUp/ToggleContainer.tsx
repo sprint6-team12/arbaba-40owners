@@ -29,7 +29,7 @@ const ToggleContainer = ({ isSignUp, onToggle }: ToggleContainerProps) => {
       }`}
     >
       <>
-        <Image src={Logo} className='mb-16px' alt="더줄게 로고" />
+        <Image src={Logo} className="mb-16px" alt="더줄게 로고" />
         <h1 className="mb-16px text-xl font-bold">{content.title}</h1>
         <p className="mb-32px">{content.text}</p>
         <Button className="button_medium_active" onClick={onToggle}>
