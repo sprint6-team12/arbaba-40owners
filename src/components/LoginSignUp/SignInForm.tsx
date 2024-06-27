@@ -33,7 +33,7 @@ const SignInForm = () => {
         const userId = response.item.user.item.id;
         const userType = response.item.user.item.type;
         localStorage.setItem('userJWT', token);
-        setUser(token, userId, userType);
+        setUser(token, userId, userType, true);
         // 여기다가 모달 닫는 함수 넣어줘야 할듯 !! 아니면 페이지 새로고침
       } catch (error) {
         alert(error);

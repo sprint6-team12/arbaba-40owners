@@ -4,6 +4,7 @@ interface User {
   token: string | null;
   id: string | null;
   type: string | null;
+  isLogin: boolean;
 }
 
 export const userState = atom<User>({
@@ -12,5 +13,6 @@ export const userState = atom<User>({
     token: null,
     id: null,
     type: null,
+    isLogin: false,
   },
 });
