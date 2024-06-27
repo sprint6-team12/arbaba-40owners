@@ -19,6 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <RecoilRoot>
       <ModalsWrapper />
       <PopupsWrapper />
+      {/* TODO: 전역 상태에서 유저타입 가져와서 전달하기 */}
       <Gnb userType="employee" onClick={handleGnbButtonsClick} />
       <Component {...pageProps} />
       <Footer />

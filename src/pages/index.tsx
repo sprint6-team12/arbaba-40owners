@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
 import { useRecoilValue } from 'recoil';
+import Dropdown from '@/components/Dropdown/Dropdown';
 import Filter from '@/components/Filter/Filter';
 import Pagination from '@/components/Pagination/Pagination';
 import PostCard from '@/components/Post/PostCard';
 import SearchPage from '@/components/SearchPage/searchPage';
 import keywordDataState from '@/recoil/atoms/searchAtom';
-// import { useEffect } from 'react';
 
 interface ItemDetails extends Notice {
   name: string;
@@ -33,17 +33,20 @@ interface HomeProps {
 }
 
 export default function Home({ data }: HomeProps) {
-  // useEffect(() => {
-  //   // 데이터 연결하기 위해 조회
-  // }, []);
-
+  // 페이진이션에 전달할 함수
   const onPageChange = (page: number) => {
     alert(page);
   };
 
-  const searchValue = useRecoilValue(keywordDataState);
+  //드롭다운에 전달할 함수
+  const onSelectClick = (value: string) => {
+    alert(value);
+  };
 
-  if (searchValue !== '') <SearchPage />;
+  const searchValue = useRecoilValue(keywordDataState);
+  if (searchValue !== '') {
+    return <SearchPage data={data} />;
+  }
 
   return (
     <main>
@@ -70,13 +73,12 @@ export default function Home({ data }: HomeProps) {
             <h1 className="mb-16px tablet:mb-32px pc:mb-32px text-20px tablet:text-28px pc:text-28px font-bold">
               전체 공고
             </h1>
-            <div className="filter_container mb-16px">
-              <select className="w-105px h-30px border-1px border-red40">
-                <option>마감임박순</option>
-                <option>시급많은순</option>
-                <option>시간적은순</option>
-                <option>가나다순</option>
-              </select>
+            <div className="filter_container flex items-center mb-16px">
+              <Dropdown
+                options={['마감임박순', '시급많은순', '시간적은순', '가나다순']}
+                onSelect={onSelectClick}
+                width="w-105px"
+              />
               <Filter />
             </div>
           </div>
