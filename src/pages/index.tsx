@@ -1,4 +1,5 @@
 import { GetServerSideProps } from 'next';
+import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import Filter from '@/components/Filter/Filter';
@@ -13,19 +14,17 @@ interface HomeProps {
 }
 
 export default function Home({ data }: HomeProps) {
-  // 화면 크기 감지
   const { isMobile } = useMediaQuery();
-  // 페이진이션에 전달할 함수
+  const router = useRouter();
 
-  // console.log('noticeData:', data.items[0].item);
-  // console.log('Shop:', data.items[0].item.shop.item);
+  // 페이진이션에 전달할 함수
   const handlePageChange = (page: number) => {
-    alert(page);
+    router.push(`${page}`);
   };
 
   //드롭다운에 전달할 함수
   const handleSelectClick = (value: string) => {
-    alert(value);
+    router.push(value);
   };
 
   const searchValue = useRecoilValue(keywordDataState);
@@ -48,7 +47,7 @@ export default function Home({ data }: HomeProps) {
               return (
                 <div
                   key={noticeData.id}
-                  className="flex-none min-w-171px tablet:max-w-[112px]"
+                  className="flex-none w-171px tablet:w-312px pc:w-312px"
                 >
                   <PostCard
                     noticeData={noticeData}
@@ -76,18 +75,21 @@ export default function Home({ data }: HomeProps) {
               <Filter />
             </div>
           </div>
-          {/* 필터 변경하면 랜더링 변경 */}
           <div className="flex flex-wrap gap-8px tablet:gap-14px">
             {data.items.map(({ item }) => {
               const noticeData = item;
               const shopData = item.shop.item;
               return (
-                <PostCard
+                <div
                   key={noticeData.id}
-                  noticeData={noticeData}
-                  shopData={shopData}
-                  className="w-171px tablet:w-332px pc:w-312px mb-8px tablet:mb-18px pc:17px"
-                />
+                  className="w-171px tablet:w-332px pc:w-312px mb-8px tablet:mb-18px pc:18px"
+                >
+                  <PostCard
+                    noticeData={noticeData}
+                    shopData={shopData}
+                    bgNone={isMobile}
+                  />
+                </div>
               );
             })}
           </div>

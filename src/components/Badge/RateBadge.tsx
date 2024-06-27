@@ -10,7 +10,7 @@ function RateBadge({ rate, bgNone }: RateBadgeProps) {
 
   return (
     <span
-      className={`${bgNone ? textColor : 'text-white tablet:text-white pc:text-white'} ${bgNone ? '' : backgroundColor} whitespace-nowrap rounded-20px tablet:rounded-20px pc:rounded-20px ${bgNone ? '' : `px-8px tablet:px-16px pc:px-16px py-12px tablet:py-8px pc:py-8px`} h-16px tablet:h-36px pc:h-36px text-12px tablet:text-14px pc:text-14px font-bold inline-flex items-center gap-2px`}
+      className={`${bgNone ? textColor : 'text-white tablet:text-white pc:text-white'} ${bgNone ? '' : backgroundColor} whitespace-nowrap rounded-20px tablet:rounded-20px pc:rounded-20px ${bgNone ? '' : `px-8px tablet:px-12px pc:px-12px py-12px tablet:py-8px pc:py-8px`} h-16px tablet:h-36px pc:h-36px text-12px tablet:text-14px pc:text-14px font-bold inline-flex items-center gap-2px`}
     >
       기존 시급보다 {rate}%
       <IconSmallArrow
