@@ -35,5 +35,4 @@ export const handleAxiosError = (error: unknown) => {
   } else {
     throw new Error('서버에서 네트워크가 오지 않습니다.');
   }
-
 };
