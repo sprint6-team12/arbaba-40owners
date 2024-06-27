@@ -1,16 +1,10 @@
-interface MyPage {
-  data: {
-    data: {
-      item: {
-        address?: string;
-        bio?: string;
-        name?: string;
-        phone?: string;
-        id: string;
-        email: string;
-        shop: Shop;
-        type: 'employee' | 'employer';
-      };
-    };
-  };
+export interface MyPageProfileData {
+  id: string;
+  email: string;
+  type: 'employee' | 'employer';
+  name?: string;
+  phone?: string;
+  address?: string;
+  bio?: string;
+  shop: Shop;
 }
