@@ -118,6 +118,9 @@ const config: Config = {
         '.w-full.button_medium_active': {
           width: '100% !important',
         },
+        '.w-full.button_medium_disActive': {
+          width: '100% !important',
+        },
         '.button_large_active': {
           width: 'max-content',
           height: '48px',
