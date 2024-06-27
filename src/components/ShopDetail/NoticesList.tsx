@@ -50,7 +50,7 @@ export default function NoticesList({
   }, [observerCallback, noticesRef.current]);
 
   return (
-    <div className="bg-[#fafafa]">
+    <div className="bg-gray05">
       <div className="mx-auto w-full px-32px py-60px max-w-[1000px]">
         {currentNoticesData.length === 0 ? (
           <ShopNoData title="공고를 등록해보세요." text="공고 등록하기" />
