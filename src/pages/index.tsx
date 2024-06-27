@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { GetServerSideProps } from 'next';
 import { useRecoilValue } from 'recoil';
 import Dropdown from '@/components/Dropdown/Dropdown';
@@ -8,6 +7,7 @@ import PostCard from '@/components/Post/PostCard';
 import SearchPage from '@/components/SearchPage/searchPage';
 import useMediaQuery from '@/lib/utils/useMediaQuery';
 import keywordDataState from '@/recoil/atoms/searchAtom';
+import noticeAPI from '@/utils/api/noticeAPI';
 interface HomeProps {
   data: Data;
 }
@@ -106,15 +106,8 @@ export default function Home({ data }: HomeProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await axios.get(
-    'https://bootcamp-api.codeit.kr/api/0-1/the-julge/notices?offset=0&limit=6',
-    {
-      headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyZDg5MzlmYi1hOTQ3LTQzM2ItYTZiNi0wN2NlZjZmMDQ0OTYiLCJpYXQiOjE3MTk0MDA5NzB9.TN22rdNGWTSRB3EOF6JIeBxQWZ2Jmf6S2NCKmn2am2Y`,
-      },
-    }
-  );
-  const data = res.data;
+  const data = await noticeAPI.getNoticeList({ offset: 0, limit: 6 });
+
   return {
     props: {
       data,
