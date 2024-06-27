@@ -1,6 +1,6 @@
 import LinkButton from '@/components/Button/LinkButton';
 
-export default function TitleButton() {
+export default function HeaderButton() {
   return (
     <>
       <LinkButton

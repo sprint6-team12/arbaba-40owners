@@ -7,7 +7,7 @@ interface shopDataProps {
   description: string;
 }
 
-export default function TitleInfo({
+export default function HeaderInfo({
   category,
   name,
   address1,
