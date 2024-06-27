@@ -1,3 +1,8 @@
+interface ShopData {
+  item: Shop;
+  href: string;
+}
+
 interface Shop {
   id: string;
   name: string;
@@ -7,9 +12,4 @@ interface Shop {
   description: string;
   imageUrl: string;
   originalHourlyPay: number;
-}
-
-interface ShopData {
-  item: Shop;
-  href: string;
 }

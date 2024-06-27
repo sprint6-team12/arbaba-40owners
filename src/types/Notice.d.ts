@@ -1,3 +1,29 @@
+interface NoticeResponse {
+  data: Data;
+}
+
+interface Data {
+  offset: number;
+  limit: number;
+  count: number;
+  hasNext: boolean;
+  address: string[];
+  keyword?: string;
+  items: NoticeItem[];
+}
+
+interface NoticeItem {
+  item: Notice;
+  links: Link[];
+}
+
+interface Link {
+  description: string;
+  href: string;
+  method: string;
+  rel: string;
+}
+
 interface Notice {
   id: string;
   hourlyPay: number;

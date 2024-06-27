@@ -178,17 +178,18 @@ function Location({
 function HourlyPayPercentBadge({
   hourlyPay,
   originalHourlyPay,
+  bgNone = false,
 }: {
   hourlyPay: number;
   originalHourlyPay: number;
+  bgNone?: boolean;
 }) {
   const { roundedPercentage } = FormatUtils.payIncreasePercent(
     hourlyPay,
     originalHourlyPay
   );
 
-  // return <RateBadge rate={roundedPercentage} bgNone />;
-  return <RateBadge rate={roundedPercentage} />;
+  return <RateBadge rate={roundedPercentage} bgNone={bgNone} />;
 }
 
 const Post = Object.assign(
