@@ -1,4 +1,5 @@
 import { GetServerSideProps } from 'next';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import PostCard from '@/components/Post/PostCard';
 import ShopNoData from '@/components/ShopDetail/ShopNoData';
 import ShopTitle from '@/components/ShopDetail/ShopTitle/ShopTitle';
@@ -8,7 +9,7 @@ import shopAPI from '@/utils/api/shopAPI';
 
 interface ShopDetailProps {
   shopData: Shops | null;
-  noticesDatas: Notices | null;
+  noticesData: Notices | null;
 }
 
 export const getServerSideProps: GetServerSideProps<ShopDetailProps> = async (
@@ -18,7 +19,7 @@ export const getServerSideProps: GetServerSideProps<ShopDetailProps> = async (
   const shopId = shop_id as string;
 
   let shopData: Shops | null = null;
-  let noticesDatas: Notices | null = null;
+  let noticesData: Notices | null = null;
 
   try {
     if (shopId) {
@@ -30,7 +31,7 @@ export const getServerSideProps: GetServerSideProps<ShopDetailProps> = async (
         offset: 0,
         limit: 99,
       });
-      noticesDatas = noticesResponse ?? null;
+      noticesData = noticesResponse ?? null;
     }
   } catch (error) {
     // error
@@ -39,78 +40,48 @@ export const getServerSideProps: GetServerSideProps<ShopDetailProps> = async (
   return {
     props: {
       shopData,
-      noticesDatas,
+      noticesData,
     },
   };
 };
 
-export default function ShopDetail({
-  shopData,
-  noticesDatas,
-}: ShopDetailProps) {
-  // const [noticesData, setNoticesData] = useState<Notices | null>(noticesDatas);
-  // const [offset, setOffset] = useState<number>(3);
-  // const router = useRouter();
+const NOTICES_PER_PAGE = 6;
 
-  // const observer = useRef<IntersectionObserver | null>(null);
-  // const observerRef = useRef<HTMLDivElement | null>(null);
+export default function ShopDetail({ shopData, noticesData }: ShopDetailProps) {
+  const [currentNoticesPage, setCurrentNoticesPage] = useState(1);
 
-  // const { shop_id } = router.query;
-  // const shop_id = '7367ccac-bcce-4203-9bb9-65098fffb05e';
+  const observer = useRef<IntersectionObserver | null>(null);
+  const noticesRef = useRef<HTMLDivElement | null>(null);
 
-  // const shopId = shop_id as string;
+  const currentNoticesData =
+    noticesData?.items.slice(0, currentNoticesPage * NOTICES_PER_PAGE) || [];
 
-  // const fetchMoreNotices = async () => {
-  //   if (!noticesData?.hasNext) return;
+  const observerCallback = useCallback(
+    (entries: IntersectionObserverEntry[]) => {
+      if (entries[0].isIntersecting) {
+        setCurrentNoticesPage((prevPage) => prevPage + 1);
+      }
+    },
+    []
+  );
 
-  //   console.log(`before: ${noticesData}`);
+  useEffect(() => {
+    if (observer.current) observer.current.disconnect();
 
-  //   try {
-  //     const newNoticesData = await noticeAPI.getShopNoticeList(shopId, {
-  //       shop_id: shopId,
-  //       offset: offset,
-  //       limit: 3,
-  //     });
-  //     setNoticesData((prevData) => ({
-  //       ...newNoticesData,
-  //       items: [...(prevData?.items || []), ...newNoticesData.items],
-  //     }));
-  //     setOffset((prev) => prev + 3);
-  //   } catch (error) {
-  //     // error
-  //   }
+    observer.current = new IntersectionObserver(observerCallback, {
+      root: null,
+      rootMargin: '0px',
+      threshold: 1.0,
+    });
 
-  //   console.log(`after: ${noticesData}`);
-  // };
+    if (noticesRef.current) {
+      observer.current.observe(noticesRef.current);
+    }
 
-  // useEffect(() => {
-  //   if (!noticesData?.hasNext) return;
-  //   if (observer.current) observer.current.disconnect();
-
-  //   if (typeof IntersectionObserver === 'undefined') {
-  //     // IntersectionObserver가 지원되지 않는 경우
-  //     return;
-  //   }
-
-  //   const handleObserver = (entries: IntersectionObserverEntry[]) => {
-  //     const target = entries[0];
-  //     if (target.isIntersecting) {
-  //       fetchMoreNotices();
-  //     }
-  //   };
-
-  //   observer.current = new IntersectionObserver(handleObserver);
-
-  //   if (observerRef.current) {
-  //     observer.current.observe(observerRef.current);
-  //   }
-
-  //   return () => {
-  //     if (observer.current) {
-  //       observer.current.disconnect();
-  //     }
-  //   };
-  // }, [noticesData?.hasNext]);
+    return () => {
+      if (observer.current) observer.current.disconnect();
+    };
+  }, [observerCallback, noticesRef.current]);
 
   return (
     <>
@@ -128,18 +99,19 @@ export default function ShopDetail({
             </div>
           )}
         </div>
-        {shopData && (
-          <div className="bg-[#fafafa]">
-            <div className="mx-auto w-full px-32px py-60px max-w-[1000px]">
-              <h1 className="font-bold text-start text-28px mb-24px pt-40px">
-                등록한 공고
-              </h1>
-              {!noticesDatas ? (
-                <ShopNoData title="공고를 등록해보세요." text="공고 등록하기" />
-              ) : (
+        <div className="bg-[#fafafa]">
+          <div className="mx-auto w-full px-32px py-60px max-w-[1000px]">
+            {shopData && currentNoticesData.length === 0 && (
+              <ShopNoData title="공고를 등록해보세요." text="공고 등록하기" />
+            )}
+            {shopData && currentNoticesData.length !== 0 && (
+              <>
+                <h1 className="font-bold text-start text-28px mb-24px pt-40px">
+                  등록한 공고
+                </h1>
                 <div className="flex gap-32px">
                   <div className="grid grid-cols-2 gap-x-8px gap-y-12px my-0 mx-auto pc:gap-x-36px pc:gap-y-26px pc:grid-cols-3">
-                    {noticesDatas.items.map((item) => (
+                    {currentNoticesData.map((item) => (
                       <PostCard
                         key={item.item.id}
                         noticeData={item.item}
@@ -148,12 +120,12 @@ export default function ShopDetail({
                     ))}
                   </div>
                 </div>
-              )}
-            </div>
+              </>
+            )}
           </div>
-        )}
+        </div>
+        <div ref={noticesRef}></div>
       </div>
-      {/* {noticesData?.hasNext && <div ref={observerRef}></div>} */}
     </>
   );
 }
