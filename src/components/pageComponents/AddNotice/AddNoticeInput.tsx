@@ -68,7 +68,7 @@ export default function AddNoticeInput() {
 
   const handleOpenConfirmModal = () => {
     openModal('addNoticeConfirmModal', ConfirmModal, {
-      // onConfirm: () => console.log(data),
+      // onConfirm: () => //공고상세페이지롤 이동
     });
   };
 
@@ -78,7 +78,6 @@ export default function AddNoticeInput() {
     if (Object.values(validationErrors).some((error) => error !== null)) {
       setErrors(validationErrors);
     } else {
-      // 유효성 검사를 통과한 경우, 확인 모달을 엽니다
       handleOpenConfirmModal();
     }
   };

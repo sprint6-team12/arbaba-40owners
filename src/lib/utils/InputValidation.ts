@@ -1,4 +1,7 @@
-import { FormData, FormErrors } from '@/components/AddNotice/AddNoticeInput';
+import {
+  FormData,
+  FormErrors,
+} from '@/components/pageComponents/AddNotice/AddNoticeInput';
 import { NOTICE_ERROR_MESSAGES } from '@/constants/errorMessage';
 
 export const AddNoticeValidation = (data: FormData): FormErrors => {

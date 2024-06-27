@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import AddNoticeInput from '@/components/AddNotice/AddNoticeInput';
+import AddNoticeInput from '@/components/pageComponents/AddNotice/AddNoticeInput';
 import { IconCloseBlack } from '@/utils/Icons';
 
-export default function AddNoticePage() {
+export default function AddNotice() {
   return (
     <div className="px-40px tablet:px-60px pc:px-[238px] py-12px tablet:py-32px pc:py-60px">
       <div className="flex justify-between">
