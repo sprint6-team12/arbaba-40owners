@@ -1,5 +1,9 @@
 import GnbUiButton from '@/components/Gnb/GnbUiButton';
 import NotificationButton from '@/components/Gnb/NotificationButton';
+import useModal from '@/hooks/useModal';
+import { IconCloseBlack } from '@/utils/Icons';
+import LoginSignUp from '../LoginSignUp/LoginSignUp';
+import ModalCustom from '../Modal/ModalCustom';
 
 interface GnbButtonType {
   name: string;
@@ -27,18 +31,54 @@ const EMPLOYEE_BUTTONS: GnbButtonType[] = [
   { name: '로그아웃', id: 'logout' },
 ];
 
+const SpecialModal = ({
+  onClose,
+  isLogin = false,
+}: {
+  onClose?: () => void;
+  isLogin?: boolean;
+}) => (
+  <ModalCustom
+    content={
+      <div className="relative min-w-[480px] border rounded-20px border-gray20 bg-white">
+        <LoginSignUp isLogin={isLogin} onClose={onClose} />
+        <IconCloseBlack
+          className="absolute top-20px right-20px cursor-pointer"
+          onClick={onClose}
+        />
+      </div>
+    }
+  />
+);
+
 export default function GnbButton({
   userType,
   onClick,
   hasNotification = false,
 }: GnbButtonProps) {
+  const { openModal } = useModal();
+
+  const openLoginModal = (isLogin: boolean) => {
+    openModal('LoginSignUpModal', SpecialModal, { isLogin });
+  };
+
   const renderButtons = (buttons: GnbButtonType[]) =>
     buttons.map((button) => (
       <GnbUiButton
         key={button.id}
         name={button.name}
         id={button.id}
-        handleClickButton={() => onClick(button.id)}
+        handleClickButton={() => {
+          if (userType === 'guest' || userType === undefined) {
+            if (button.name === '로그인') {
+              openLoginModal(false);
+            } else {
+              openLoginModal(true);
+            }
+          } else {
+            onClick(button.id);
+          }
+        }}
       />
     ));
 

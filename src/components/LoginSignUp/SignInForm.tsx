@@ -5,7 +5,7 @@ import authenticationAPI from '@/utils/api/authenticationAPI';
 import { SignInValidate } from '@/utils/validation';
 import InputComponent from './InputComponent';
 
-const SignInForm = () => {
+const SignInForm = ({ onClose }: { onClose?: () => void }) => {
   const [formData, setFormData] = useState({
     loginEmail: '',
     loginPassWord: '',
@@ -28,13 +28,17 @@ const SignInForm = () => {
           email: formData.loginEmail,
           password: formData.loginPassWord,
         });
-
         const token = response.item.token;
         const userId = response.item.user.item.id;
         const userType = response.item.user.item.type;
         localStorage.setItem('userJWT', token);
+        localStorage.setItem('userId', userId);
+        localStorage.setItem('userType', userType);
         setUser(token, userId, userType, true);
         // 여기다가 모달 닫는 함수 넣어줘야 할듯 !! 아니면 페이지 새로고침
+        if (onClose) {
+          onClose();
+        }
       } catch (error) {
         alert(error);
       }
@@ -42,7 +46,7 @@ const SignInForm = () => {
   };
 
   return (
-    <form className="flex flex-col" onSubmit={handleSubmit}>
+    <form className="flex flex-col " onSubmit={handleSubmit}>
       <h1 className="font-bold text-center mb-24px text-24px">로그인</h1>
       <InputComponent
         id="loginEmail"
