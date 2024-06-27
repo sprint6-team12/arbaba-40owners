@@ -42,7 +42,7 @@ export interface Notices {
   links: Link[];
 }
 
-interface Item3 {
+export interface Item3 {
   item: Item2;
   links: Link[];
 }
