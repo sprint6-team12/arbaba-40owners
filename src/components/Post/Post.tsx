@@ -61,7 +61,12 @@ function PostImage({
   return (
     <div className={`relative rounded-12px overflow-hidden ${className}`}>
       {statusText && ImageOverlay}
-      <Image src={imageUrl} className="rounded-12px" alt="가게 사진" fill />
+      <Image
+        src={imageUrl}
+        className="rounded-12px mix-blend-normal"
+        alt="가게 사진"
+        fill
+      />
     </div>
   );
 }
