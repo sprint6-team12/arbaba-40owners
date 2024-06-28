@@ -18,6 +18,7 @@ export const validateAddNoticeForm = (
     hourlyPay: null,
     startsAt: null,
     workHour: null,
+    description: null,
   };
 
   if (!hourlyPay || parseFloat(hourlyPay) === 0) {
@@ -46,6 +47,8 @@ export const validateMyPageForm = (data: MyPageFormData): MyPageFormErrors => {
   const errors: MyPageFormErrors = {
     name: null,
     phone: null,
+    address: null,
+    bio: null,
   };
 
   if (!name) {

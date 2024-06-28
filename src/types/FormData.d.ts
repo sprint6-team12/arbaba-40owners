@@ -9,6 +9,7 @@ export interface AddNoticeFormErrors {
   hourlyPay: string | null;
   startsAt: string | null;
   workHour: string | null;
+  description: null;
 }
 
 export interface MyPageFormData {

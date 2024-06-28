@@ -6,6 +6,7 @@ import useModal from '@/hooks/useModal';
 import FormatUtils from '@/lib/utils/FormatUtils';
 import { validateAddNoticeForm } from '@/lib/utils/InputValidation';
 import { AddNoticeFormData, AddNoticeFormErrors } from '@/types/FormData';
+import noticeAPI from '@/utils/api/noticeAPI';
 
 const initialFormData: AddNoticeFormData = {
   hourlyPay: '',
@@ -18,6 +19,7 @@ const initialFormErrors: AddNoticeFormErrors = {
   hourlyPay: null,
   startsAt: null,
   workHour: null,
+  description: null,
 };
 
 const ConfirmModal = ({ ...rest }) => (
@@ -56,17 +58,28 @@ export default function AddNoticeInput() {
 
   const handleOpenConfirmModal = () => {
     openModal('addNoticeConfirmModal', ConfirmModal, {
-      // onConfirm: () => //공고상세페이지롤 이동
+      // onConfirm: () => //공고상세페이지로 이동
     });
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     const validationErrors = validateAddNoticeForm(data);
     if (Object.values(validationErrors).some((error) => error !== null)) {
       setErrors(validationErrors);
     } else {
-      handleOpenConfirmModal();
+      try {
+        await noticeAPI.postShopNotice('shopId', {
+          hourlyPay: Number(data.hourlyPay.replace(/,/g, '')),
+          startsAt: data.startsAt,
+          workhour: data.workHour,
+          description: data.description,
+        });
+        alert('등록이 완료되었습니다');
+        handleOpenConfirmModal();
+      } catch (error) {
+        alert(error);
+      }
     }
   };
 
@@ -80,7 +93,6 @@ export default function AddNoticeInput() {
                 <FormGroup.Label htmlFor="hourlyPay">시급*</FormGroup.Label>
                 <FormGroup.InputWrapper className="flex input-base">
                   <FormGroup.InputField
-                    id="hourlyPay"
                     name="hourlyPay"
                     type="text"
                     value={data.hourlyPay}
@@ -98,6 +110,7 @@ export default function AddNoticeInput() {
                   id="startsAt"
                   name="startsAt"
                   type="datetime-local"
+                  value={data.startsAt}
                   onChange={handleChangeData}
                   className="input-base"
                 />
@@ -127,6 +140,7 @@ export default function AddNoticeInput() {
           <FormGroup.InputField.Textarea
             id="description"
             name="description"
+            value={data.description}
             onChange={handleChangeData}
             placeholder="공고 설명을 입력하세요"
             className="h-153px"
