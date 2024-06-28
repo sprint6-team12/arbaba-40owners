@@ -1,48 +1,70 @@
-function EmployeeTable() {
-  //임시데이터
-  const mockData = [
-    {
-      id: 1,
-      shopName: 'HS 과일주스',
-      startsAt: '2023-01-12 10:00 ~ 12:00',
-      hourlyPay: '15,000원',
-      supportStatus: 'accepted',
-      workhour: '2시간',
-    },
-    {
-      id: 2,
-      shopName: '써니 브런치 레스토랑',
-      startsAt: '2023-01-12 10:00 ~ 12:00',
-      hourlyPay: '15,000원',
-      supportStatus: 'accepted',
-      workhour: '2시간',
-    },
-    {
-      id: 3,
-      shopName: '수리 에스프레소 샵',
-      startsAt: '2023-01-12 10:00 ~ 12:00',
-      hourlyPay: '15,000원',
-      supportStatus: 'rejected',
-      workhour: '2시간',
-    },
-    {
-      id: 4,
-      shopName: '너구리네 라면집',
-      startsAt: '2023-01-12 10:00 ~ 12:00',
-      hourlyPay: '15,000원',
-      supportStatus: 'pending',
-      workhour: '2시간',
-    },
-    {
-      id: 5,
-      shopName: '초가을집',
-      startsAt: '2023-01-12 10:00 ~ 12:00',
-      hourlyPay: '15,000원',
-      supportStatus: 'pending',
-      workhour: '2시간',
-    },
-  ];
+import StatusBadge from '../Badge/StatusBadge';
 
+export interface EmployeeTableData {
+  offset: number;
+  limit: number;
+  count: number;
+  hasNext: boolean;
+  items: EmployeeTableItem[];
+  links: EmployeeTableLink[];
+}
+
+interface EmployeeTableItem {
+  item: EmployeeTableApplication;
+  links: EmployeeTableLink[];
+}
+
+interface EmployeeTableLink {
+  description: string;
+  href: string;
+  method: string;
+  rel: string;
+}
+
+interface EmployeeTableNoticeBase {
+  id: string;
+  hourlyPay: number;
+  startsAt: string;
+  workhour: number;
+  description: string;
+  closed: boolean;
+}
+
+interface EmployeeTableNoticeDetailItem {
+  item: EmployeeTableNoticeDetail;
+  href: string;
+}
+
+interface EmployeeTableNoticeDetail extends EmployeeTableNoticeBase {}
+
+interface EmployeeTableShopData {
+  id: string;
+  name: string;
+  category: string;
+  address1: string;
+  address2: string;
+  description: string;
+  imageUrl: string;
+  originalHourlyPay: number;
+}
+
+interface EmployeeTableApplication {
+  id: string;
+  status: 'pending' | 'accepted' | 'rejected' | 'canceled';
+  createdAt: string;
+  shop: EmployeeTableShop;
+  notice: EmployeeTableNoticeDetailItem;
+}
+
+interface EmployeeTableShop {
+  item: EmployeeTableShopData;
+  href: string;
+}
+interface EmployeeTableProps {
+  data: EmployeeTableData;
+}
+
+function EmployeeTable({ data }: EmployeeTableProps) {
   const baseThStyle =
     'border-gray20 border-1px bg-red10 text-left h-40px text-12px tablet:text-14px pc:text-14px';
   const baseTdStyle =
@@ -80,33 +102,32 @@ function EmployeeTable() {
           </tr>
         </thead>
         <tbody>
-          {mockData.map(
-            (
-              { shopName, startsAt, hourlyPay, supportStatus, workhour },
-              id
-            ) => (
+          {data.items.map(({ item }) => {
+            const { id, shop, notice, status } = item;
+
+            return (
               <tr key={id}>
                 <td
                   className={`${baseTdStyle} min-w-189px tablet:min-w-[228px] pc:w-228px sticky left-0px pl-8px`}
                 >
-                  {shopName}
+                  {shop.item.name}
                 </td>
                 <td
                   className={`${baseTdStyle} min-w-162px tablet:min-w-[300px] pl-8px`}
                 >
-                  {startsAt} ({workhour})
+                  {notice.item.startsAt} ({notice.item.workhour})
                 </td>
                 <td className={`${baseTdStyle} min-w-162px pl-8px`}>
-                  {hourlyPay}
+                  {notice.item.hourlyPay}
                 </td>
                 <td
                   className={`${baseTdStyle} min-w-162px tablet:min-w-[220px] pc:w-236px pl-12px`}
                 >
-                  {supportStatus}
+                  <StatusBadge status={status} />
                 </td>
               </tr>
-            )
-          )}
+            );
+          })}
         </tbody>
       </table>
     </div>
