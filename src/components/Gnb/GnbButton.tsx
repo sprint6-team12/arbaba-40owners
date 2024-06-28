@@ -1,6 +1,11 @@
+import { useRouter } from 'next/router';
+import { useState, useEffect } from 'react';
+import { useRecoilValue } from 'recoil';
 import GnbUiButton from '@/components/Gnb/GnbUiButton';
-import NotificationButton from '@/components/Gnb/NotificationButton';
+import { useAuth } from '@/hooks/useAuth';
 import useModal from '@/hooks/useModal';
+import { userState } from '@/recoil/atoms/AuthAtom';
+import userAPI from '@/utils/api/userAPI';
 import { IconCloseBlack } from '@/utils/Icons';
 import LoginSignUp from '../LoginSignUp/LoginSignUp';
 import ModalCustom from '../Modal/ModalCustom';
@@ -51,15 +56,54 @@ const SpecialModal = ({
   />
 );
 
-export default function GnbButton({
-  userType,
-  onClick,
-  hasNotification = false,
-}: GnbButtonProps) {
+export default function GnbButton({ userType, onClick }: GnbButtonProps) {
   const { openModal } = useModal();
+  const { id } = useRecoilValue(userState);
+  const [userShopId, setUserShopId] = useState('');
+  const router = useRouter();
+  const { setUser } = useAuth();
 
   const openLoginModal = (isLogin: boolean) => {
     openModal('LoginSignUpModal', SpecialModal, { isLogin });
+  };
+
+  const getUserShopId = async (userId: string) => {
+    try {
+      const response = await userAPI.getUserData(userId);
+      const shopId = response?.item?.shop?.item?.id;
+      setUserShopId(shopId);
+    } catch (error) {
+      //error
+    }
+  };
+
+  useEffect(() => {
+    if (id && userType === 'employer') {
+      getUserShopId(id);
+    }
+  }, [id]);
+
+  const handleGnbButtonsClick = (buttonId: string) => {
+    if (userType === 'guest' || userType === undefined) {
+      if (buttonId === 'signup') {
+        openLoginModal(true);
+      } else if (buttonId === 'signin') {
+        openLoginModal(false);
+      }
+    } else if (userType === 'employer' && buttonId === 'my-shop') {
+      router.push(`/shops/${userShopId}`);
+    } else if (userType === 'employee' && buttonId === 'my-profile') {
+      router.push(`/users/${id}`);
+    } else if (buttonId === 'logout') {
+      router.replace('/').then(() => {
+        localStorage.removeItem('userJWT');
+        localStorage.removeItem('userId');
+        localStorage.removeItem('userType');
+        setUser(null, null, 'guest', false);
+      });
+    } else {
+      onClick(buttonId);
+    }
   };
 
   const renderButtons = (buttons: GnbButtonType[]) =>
@@ -68,37 +112,19 @@ export default function GnbButton({
         key={button.id}
         name={button.name}
         id={button.id}
-        handleClickButton={() => {
-          if (userType === 'guest' || userType === undefined) {
-            if (button.name === '로그인') {
-              openLoginModal(false);
-            } else {
-              openLoginModal(true);
-            }
-          } else {
-            onClick(button.id);
-          }
-        }}
+        handleClickButton={() => handleGnbButtonsClick(button.id)}
       />
     ));
 
-  const getButtons = () => {
-    switch (userType) {
-      case 'employer':
-        return EMPLOYER_BUTTONS;
-      case 'employee':
-        return EMPLOYEE_BUTTONS;
-      default:
-        return GUEST_BUTTONS;
-    }
-  };
+  let buttonsToRender: GnbButtonType[] = [];
 
-  return (
-    <div className="flex justify-between items-center gap-16px tablet:gat-40px pc:gap-40px text-14px tablet:text-16px pc:text-16px font-[700]">
-      {renderButtons(getButtons())}
-      {userType !== 'guest' && (
-        <NotificationButton hasNotification={hasNotification} />
-      )}
-    </div>
-  );
+  if (userType === 'guest' || userType === undefined) {
+    buttonsToRender = GUEST_BUTTONS;
+  } else if (userType === 'employer') {
+    buttonsToRender = EMPLOYER_BUTTONS;
+  } else if (userType === 'employee') {
+    buttonsToRender = EMPLOYEE_BUTTONS;
+  }
+
+  return <>{renderButtons(buttonsToRender)}</>;
 }
