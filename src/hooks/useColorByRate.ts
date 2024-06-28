@@ -38,10 +38,10 @@ function useColorByRate(rate: number) {
       };
     }
   }
-  // 지정한 범위에 rate가 없으면 반환
+  // 지정한 범위에 rate가 없는 경우 100%와 같은 상태 유지
   return {
-    backgroundColor: '',
-    textColor: 'text-black',
+    backgroundColor: 'bg-red40 tablet:bg-red40 pc:bg-red40',
+    textColor: 'text-red40',
   };
 }
 

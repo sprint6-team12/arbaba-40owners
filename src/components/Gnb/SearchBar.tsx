@@ -1,11 +1,15 @@
 import { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import keywordDataState from '@/recoil/atoms/searchAtom';
 import { IconSearch } from '@/utils/Icons';
 
 export default function SearchBar() {
   const [searchInput, setSearchInput] = useState('');
+  const [, setKeyword] = useRecoilState(keywordDataState);
 
   const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(event.target.value);
+    setKeyword(event.target.value);
   };
 
   return (

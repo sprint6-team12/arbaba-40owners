@@ -5,12 +5,14 @@ interface PostCardProps {
   noticeData: NoticeBase;
   shopData: ShopBase;
   className?: string;
+  bgNone?: boolean;
 }
 
 export default function PostCard({
   noticeData,
   shopData,
   className,
+  bgNone,
 }: PostCardProps) {
   const { hourlyPay, startsAt, closed, workhour } = noticeData;
   const { name, address1, imageUrl, originalHourlyPay } = shopData;
@@ -51,6 +53,7 @@ export default function PostCard({
         <Post.IncreaseRateBadge
           hourlyPay={hourlyPay}
           originalHourlyPay={originalHourlyPay}
+          bgNone={bgNone}
         />
       </div>
     </Post.Wrapper>
