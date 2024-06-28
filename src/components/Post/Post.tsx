@@ -140,11 +140,12 @@ function WorkSchedule({
 
   return (
     <div className={`flex gap-6px ${className}`}>
-      {clockIcon}
-      <div className="flex gap-4px flex-wrap leading-[22px] text-gray50 text-12px tablet:text-14px pc:text-14px font-[400] break-keep">
+      <div>{clockIcon}</div>
+      {/* <div className="flex gap-4px flex-wrap leading-[22px] text-gray50 text-12px tablet:text-14px pc:text-14px font-[400] break-keep"> */}
+      <div className="flex flex-wrap leading-[16px] text-gray50 text-12px tablet:text-14px pc:text-14px font-[400] break-keep">
         <p>{formattedStartDate}</p>
         <p>
-          {formattedStartTime} ~ {formattedEndTime} ({durationHours}시간)
+          {formattedStartTime}~{formattedEndTime} ({durationHours}시간)
         </p>
       </div>
     </div>
@@ -182,16 +183,18 @@ function Location({
 function HourlyPayPercentBadge({
   hourlyPay,
   originalHourlyPay,
+  bgNone = false,
 }: {
   hourlyPay: number;
   originalHourlyPay: number;
+  bgNone?: boolean;
 }) {
   const { roundedPercentage } = FormatUtils.payIncreasePercent(
     hourlyPay,
     originalHourlyPay
   );
 
-  return <RateBadge rate={roundedPercentage} />;
+  return <RateBadge rate={roundedPercentage} bgNone={bgNone} />;
 }
 
 const Post = Object.assign(

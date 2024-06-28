@@ -1,3 +1,29 @@
+interface NoticeResponse {
+  data: Data;
+}
+
+interface Data {
+  offset: number;
+  limit: number;
+  count: number;
+  hasNext: boolean;
+  address: string[];
+  keyword?: string;
+  items: NoticeItem[];
+}
+
+interface NoticeItem {
+  item: Notice;
+  links: Link[];
+}
+
+interface Link {
+  description: string;
+  href: string;
+  method: string;
+  rel: string;
+}
+
 interface NoticeBase {
   id: string;
   hourlyPay: number;
@@ -7,7 +33,10 @@ interface NoticeBase {
   closed: boolean;
 }
 
-interface Notice extends NoticeBase {}
+interface Notice extends NoticeBase {
+  shop: ShopData;
+  currentUserApplication?: { item: currentUserApplication };
+}
 
 interface currentUserApplication {
   id: string; // application.id
