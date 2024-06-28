@@ -57,11 +57,11 @@ export const SignUpValidate = (
   return errorMessage;
 };
 
-export const validateShopInfo = (name: string, value: string) => {
+export const validateShopInfo = (id: string, value: string) => {
   let errorMessage = '';
 
-  switch (name) {
-    case 'shopName':
+  switch (id) {
+    case 'name':
       if (!value) {
         errorMessage = ERROR_MESSAGES.shopNameRequired;
       }
@@ -71,17 +71,17 @@ export const validateShopInfo = (name: string, value: string) => {
         errorMessage = ERROR_MESSAGES.categoryRequired;
       }
       break;
-    case 'address':
+    case 'address1':
       if (!value) {
         errorMessage = ERROR_MESSAGES.addressRequired;
       }
       break;
-    case 'detailedAddress':
+    case 'address2':
       if (!value) {
         errorMessage = ERROR_MESSAGES.addressDetailRequired;
       }
       break;
-    case 'hourlyPay':
+    case 'originalHourlyPay':
       if (!value) {
         errorMessage = ERROR_MESSAGES.hourlyPayRequired;
       }
