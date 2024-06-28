@@ -2,13 +2,24 @@ import { useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import NotificationModal from '@/components/NofiticationModal/NotificationModal';
 import { userState } from '@/recoil/atoms/AuthAtom';
-import { AlertItemProps } from '@/types/NotificationModal';
+import { NotificationProps } from '@/types/NotificationModal';
 import alertAPI from '@/utils/api/alertAPI';
 import { IconStatusActive, IconStatusInactive } from '@/utils/Icons';
 
+const initialNotificationData: NotificationProps = {
+  items: [],
+  offset: 0,
+  limit: 10,
+  count: 0,
+  hasNext: false,
+  links: [],
+};
+
 export default function NotificationButton() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [notificationData, setNotificationData] = useState(null);
+  const [notificationData, setNotificationData] = useState<NotificationProps>(
+    initialNotificationData
+  );
   const [unreadCount, setUnreadCount] = useState(0);
   const user = useRecoilValue(userState);
 
@@ -16,11 +27,11 @@ export default function NotificationButton() {
     const fetchNotifications = async () => {
       if (isModalOpen && user?.id) {
         try {
-          const data = await alertAPI.getAlerts({ user_id: user.id });
+          const data: NotificationProps = await alertAPI.getAlerts({
+            user_id: user.id,
+          });
           setNotificationData(data);
-          setUnreadCount(
-            data.items.filter((item: AlertItemProps) => !item.read).length
-          );
+          setUnreadCount(data.items.filter(({ item }) => !item.read).length);
         } catch (error) {
           error;
         }
@@ -29,16 +40,8 @@ export default function NotificationButton() {
     fetchNotifications();
   }, [isModalOpen, user?.id]);
 
-  const handleClickNotification = async () => {
+  const handleClickNotification = () => {
     setIsModalOpen(!isModalOpen);
-    if (!isModalOpen && user?.id && unreadCount > 0) {
-      try {
-        await alertAPI.putAlerts({ user_id: user.id, alert_id: 'all' }); // 'all'을 사용하여 모든 알림을 읽음 처리
-        setUnreadCount(0);
-      } catch (error) {
-        error;
-      }
-    }
   };
 
   return (
@@ -50,7 +53,7 @@ export default function NotificationButton() {
           <IconStatusInactive aria-label="알림 비활성화" />
         )}
       </button>
-      {isModalOpen && notificationData && (
+      {isModalOpen && (
         <div className="absolute top-full right-0 mt-2">
           <NotificationModal data={notificationData} />
         </div>
