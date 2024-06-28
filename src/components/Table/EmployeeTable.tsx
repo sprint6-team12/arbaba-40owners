@@ -104,21 +104,23 @@ function EmployeeTable({ data }: EmployeeTableProps) {
         <tbody>
           {data.items.map(({ item }) => {
             const { id, shop, notice, status } = item;
+            const { name } = shop.item;
+            const { hourlyPay, workhour, startsAt } = notice.item;
 
             return (
               <tr key={id}>
                 <td
                   className={`${baseTdStyle} min-w-189px tablet:min-w-[228px] pc:w-228px sticky left-0px pl-8px`}
                 >
-                  {shop.item.name}
+                  {name}
                 </td>
                 <td
                   className={`${baseTdStyle} min-w-162px tablet:min-w-[300px] pl-8px`}
                 >
-                  {notice.item.startsAt} ({notice.item.workhour})
+                  {startsAt} ({workhour})
                 </td>
                 <td className={`${baseTdStyle} min-w-162px pl-8px`}>
-                  {notice.item.hourlyPay}
+                  {hourlyPay}
                 </td>
                 <td
                   className={`${baseTdStyle} min-w-162px tablet:min-w-[220px] pc:w-236px pl-12px`}
