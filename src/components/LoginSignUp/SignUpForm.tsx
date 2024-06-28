@@ -1,7 +1,6 @@
-// import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-// import userAPI from '@/utils/api/userAPI';
 import Button from '@/components/Button/Button';
+import userAPI from '@/utils/api/userAPI';
 import { SignUpValidate } from '@/utils/validation';
 import InputComponent from './InputComponent';
 import MemberTypeToggle from './MemberTypeToggle';
@@ -18,7 +17,6 @@ const SignUpForm = ({ onSignUpSuccess }: { onSignUpSuccess: () => void }) => {
     signUpPassword: '',
     signUpPasswordConfirm: '',
   });
-  // const router = useRouter();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -34,21 +32,17 @@ const SignUpForm = ({ onSignUpSuccess }: { onSignUpSuccess: () => void }) => {
       !errors.signUpPassword &&
       !errors.signUpPasswordConfirm
     ) {
-      // 성공
-      // try {
-      //   const response = await userAPI.postUserData({
-      //     email: signUpEmail,
-      //     password: signUpPassword,
-      //     type: userType,
-      //   });
-      //   if (response.status === 201) {
-      //     onSignUpSuccess();
-      //   }
-      // } catch (error) {
-      //   // error
-      //   return;
-      // }
-      onSignUpSuccess(); // 임시
+      try {
+        await userAPI.postUserData({
+          email: formData.signUpEmail,
+          password: formData.signUpPassword,
+          type: userType,
+        });
+        alert('회원가입이 완료되었습니다.');
+        onSignUpSuccess();
+      } catch (error) {
+        alert(error);
+      }
     }
   };
 
