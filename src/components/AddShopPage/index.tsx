@@ -89,7 +89,7 @@ function AddShopPage() {
         });
         if (data) {
           alert('등록이 완료되었습니다');
-          router.push('myShopInfo');
+          router.push('/');
         }
       } else {
         alert('필수 입력 내용을 입력해주세요.');
@@ -143,7 +143,7 @@ function AddShopPage() {
             )}
           </div>
           <InputComponent
-            id="detailedAddress"
+            id="address2"
             name="상세 주소*"
             type="input"
             placeholder="입력"
@@ -167,9 +167,6 @@ function AddShopPage() {
               name="imageUrl"
               onChange={handleImageChange}
             />
-            {errors.imageUrl && (
-              <p className="text-red-500">{errors.imageUrl}</p>
-            )}
           </div>
           <InputComponent
             id="shopDescription"
@@ -178,6 +175,7 @@ function AddShopPage() {
             placeholder="입력"
             value={formData.shopDescription}
             onChangeTextArea={handleInputChange}
+            errorMessage=""
           />
           <div className="flex-center mt-8 px-200px">
             <Button

@@ -8,7 +8,7 @@ interface InputComponentProps {
   value: string | undefined;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeTextArea?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  errorMessage?: string;
+  errorMessage: string;
 }
 
 export default function InputComponent({
