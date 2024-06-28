@@ -73,7 +73,7 @@ export default function GnbButton({ userType, onClick }: GnbButtonProps) {
       const shopId = response?.item?.shop?.item?.id;
       setUserShopId(shopId);
     } catch (error) {
-      //error
+      error;
     }
   };
 
