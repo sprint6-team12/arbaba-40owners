@@ -106,7 +106,6 @@ const config: Config = {
     },
   },
   plugins: [
-    require('@tailwindcss/line-clamp'),
     function ({ addUtilities }: PluginAPI) {
       addUtilities({
         '.flex-center': {
@@ -116,6 +115,9 @@ const config: Config = {
         },
         // w-full을 적용하기위한 코드
         '.w-full.button_medium_active': {
+          width: '100% !important',
+        },
+        '.w-full.button_medium_disActive': {
           width: '100% !important',
         },
         '.button_large_active': {
