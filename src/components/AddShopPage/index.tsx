@@ -1,42 +1,43 @@
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { LOCATIONS, MENU_CATEGORIES } from '@/constants/DataLocations';
+import shopAPI from '@/utils/api/shopAPI';
 import { IconCloseBlack } from '@/utils/Icons';
 import { validateShopInfo } from '@/utils/validation';
 import Button from '../Button/Button';
 import Dropdown from '../Dropdown/Dropdown';
 import FormGroup from '../FormGroup/FormGroup';
-import Gnb from '../Gnb/Gnb';
+import imageAPI from './../../utils/api/imageAPI';
 import InputComponent from './InputComponents';
 
 interface ShopType {
   shopName: string;
   category: string;
   address1: string;
-  detailedAddress: string;
+  address2: string;
   hourlyPay: string;
-  shopDescription: string;
-  imageUrl: string;
+  shopDescription?: string | undefined;
+  imageUrl?: string | undefined;
 }
 
 function AddShopPage() {
+  const router = useRouter();
   const [formData, setFormData] = useState<ShopType>({
     shopName: '',
     category: '',
     address1: '',
-    detailedAddress: '',
+    address2: '',
     hourlyPay: '',
     shopDescription: '',
     imageUrl: '',
   });
-
+  const [disabled, setDisabled] = useState(false);
   const [errors, setErrors] = useState<ShopType>({
     shopName: '',
     category: '',
     address1: '',
-    detailedAddress: '',
+    address2: '',
     hourlyPay: '',
-    shopDescription: '',
-    imageUrl: '',
   });
 
   const handleInputChange = (
@@ -54,49 +55,52 @@ function AddShopPage() {
     setFormData((prevFormData) => ({ ...prevFormData, [id]: value }));
   };
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const base64String = reader.result as string;
-        setFormData((prevFormData) => ({
-          ...prevFormData,
-          imageUrl: base64String,
-        }));
-      };
-      reader.readAsDataURL(file);
-    } else {
-      setFormData((prevFormData) => ({ ...prevFormData, imageUrl: '' }));
-    }
+    if (file === undefined) return;
+    const imageUrl = await imageAPI(file);
+    setFormData((prevFormData) => ({ ...prevFormData, imageUrl: imageUrl }));
   };
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-
-    // 유효성 검사
-    let valid = true;
-    const newErrors: ShopType = { ...errors };
-
-    (Object.keys(formData) as (keyof ShopType)[]).forEach((key) => {
-      const errorMessage = validateShopInfo(key, formData[key]);
-      if (errorMessage) {
-        valid = false;
-        newErrors[key] = errorMessage;
+  };
+  const handleTotalSubmit = async () => {
+    const hourlyPayNumber = Number(formData.hourlyPay);
+    try {
+      if (
+        formData.shopName &&
+        formData.category &&
+        formData.address1 &&
+        formData.address2 &&
+        hourlyPayNumber
+      ) {
+        setDisabled(true);
+        const data = await shopAPI.postShop({
+          name: formData.shopName,
+          category: formData.category,
+          address1: formData.address1,
+          address2: formData.address2,
+          description: formData.shopDescription,
+          imageUrl: formData.imageUrl,
+          originalHourlyPay: hourlyPayNumber,
+        });
+        if (data) {
+          alert('등록이 완료되었습니다');
+          router.push('myShopInfo');
+        }
+      } else {
+        alert('필수 입력 내용을 입력해주세요.');
       }
-    });
-
-    setErrors(newErrors);
-
-    if (valid) {
-      // 여기서 폼 데이터를 제출하는 로직을 추가합니다.
-      //console.log('Form submitted:', formData);
+    } catch (error) {
+      alert(error);
     }
   };
 
   return (
     <>
-      <Gnb userType="employer" />
       <div className="flex flex-col pt-40px pb-80px px-12px gap-24px bg-gray05">
         <div className="w-full h-35 flex justify-between">
           <h1 className="w-112 h-35 text-20px font-[700]">가게 정보</h1>
@@ -143,9 +147,9 @@ function AddShopPage() {
             name="상세 주소*"
             type="input"
             placeholder="입력"
-            value={formData.detailedAddress}
+            value={formData.address2}
             onChange={handleInputChange}
-            errorMessage={errors.detailedAddress}
+            errorMessage={errors.address2}
           />
           <InputComponent
             id="hourlyPay"
@@ -173,11 +177,15 @@ function AddShopPage() {
             type="textarea"
             placeholder="입력"
             value={formData.shopDescription}
-            onChange={handleInputChange}
-            errorMessage={errors.shopDescription}
+            onChangeTextArea={handleInputChange}
           />
-          <div className="flex-center">
-            <Button className="button_large" type="submit">
+          <div className="flex-center mt-8 px-200px">
+            <Button
+              className="button_large"
+              type="submit"
+              onClick={() => handleTotalSubmit()}
+              disabled={disabled}
+            >
               등록하기
             </Button>
           </div>

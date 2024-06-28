@@ -5,9 +5,10 @@ interface InputComponentProps {
   name: string;
   type: 'input' | 'textarea';
   placeholder: string;
-  value: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  errorMessage: string;
+  value: string | undefined;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeTextArea?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  errorMessage?: string;
 }
 
 export default function InputComponent({
@@ -17,6 +18,7 @@ export default function InputComponent({
   placeholder,
   value,
   onChange,
+  onChangeTextArea,
   errorMessage,
 }: InputComponentProps) {
   return (
@@ -39,7 +41,7 @@ export default function InputComponent({
             name={name}
             placeholder={placeholder}
             value={value}
-            onChange={onChange}
+            onChange={onChangeTextArea}
             className="px-10px my-8px text-18px"
           />
         )}

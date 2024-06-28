@@ -41,7 +41,7 @@ function ErrorMessage({
   errorMessage,
 }: {
   className?: string;
-  errorMessage: string | null;
+  errorMessage: string;
 }) {
   return (
     <>
