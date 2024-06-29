@@ -65,5 +65,5 @@ export interface NotificationProps {
 }
 
 export interface NotificationModalProps {
-  data: NotificationProps;
+  data: NotificationProps | null;
 }
