@@ -5,6 +5,7 @@ import alertAPI from '@/lib/api/alertAPI';
 import { IconStatusActive, IconStatusInactive } from '@/lib/utils/Icons';
 import { userState } from '@/recoil/atoms/AuthAtom';
 import { NotificationProps } from '@/types/NotificationModal';
+
 const initialNotificationData: NotificationProps = {
   items: [],
   offset: 0,

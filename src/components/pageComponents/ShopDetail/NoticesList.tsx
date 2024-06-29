@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import NoData from '@/components/pageComponents/ShopDetail/NoData';
 import NoticesCardList from '@/components/pageComponents/ShopDetail/NoticesCardList';
 import type { Shop } from '@/types/Shop';
-import NoData from './NoData';
 
 interface NoticesListProps {
   noticesData: NoticeListResponseData | null;
