@@ -126,13 +126,11 @@ function EmployeeTable({ data }: EmployeeTableProps) {
                   {formattedSchedule}
                 </td>
                 <td className={`${baseTdStyle} min-w-162px pl-8px`}>
-                  {/* 시급 */}
                   {price}원
                 </td>
                 <td
                   className={`${baseTdStyle} min-w-162px tablet:min-w-[220px] pc:w-236px pl-12px`}
                 >
-                  {/* 상태 */}
                   <StatusBadge status={status} />
                 </td>
               </tr>
