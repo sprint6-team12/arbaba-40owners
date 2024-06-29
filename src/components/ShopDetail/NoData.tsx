@@ -1,4 +1,4 @@
-import LinkButton from '../Button/LinkButton';
+import LinkButton from '@/components/Button/LinkButton';
 
 export default function NoData({
   title,

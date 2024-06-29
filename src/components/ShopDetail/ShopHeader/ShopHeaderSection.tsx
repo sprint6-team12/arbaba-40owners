@@ -1,10 +1,10 @@
-import { Shops } from '@/types/ShopDetail';
+import type { Shop } from '@/types/Shop';
 import NoData from '../NoData';
 import ShopHeader from './ShopHeader';
 
 interface ShopTitleSectionProps {
   title: string;
-  shopData: Shops | null;
+  shopData: Shop | null;
 }
 
 export default function ShopTitleSection({

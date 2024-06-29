@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Button from '@/components/Button/Button';
-import userAPI from '@/utils/api/userAPI';
-import { SignUpValidate } from '@/utils/validation';
+import userAPI from '@/lib/api/userAPI';
+import { SignUpValidate } from '@/lib/utils/validation';
 import InputComponent from './InputComponent';
 import MemberTypeToggle from './MemberTypeToggle';
 

@@ -1,12 +1,12 @@
 import Link from 'next/link';
+import PostCard from '@/components/Post/PostCard';
 import removePrefix from '@/lib/utils/RemovePrefix';
-import { Item3, Shops } from '@/types/ShopDetail';
-import PostCard from '../Post/PostCard';
+import type { Shop } from '@/types/Shop';
 
 interface NoticesCardListProps {
   title: string;
-  noticesData: Item3[];
-  shopData: Shops;
+  noticesData: NoticeItem[];
+  shopData: Shop;
 }
 
 export default function NoticesCardList({
