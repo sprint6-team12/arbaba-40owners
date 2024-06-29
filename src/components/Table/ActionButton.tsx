@@ -1,4 +1,5 @@
 import applicationAPI from '@/lib/api/applicationAPI';
+import removePrefix from '@/lib/utils/RemovePrefix';
 
 interface ActionButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -17,7 +18,8 @@ function ActionButton({ href, ...rest }: ActionButtonProps) {
   const handleClick = (event: React.MouseEvent) => {
     const { value } = event.target as HTMLButtonElement;
     alert(`지원 요청을 ${applyResponseMap[value]}합니다.`);
-    applicationAPI.putShopApply(href, value);
+    const cleanUrl = removePrefix(href);
+    applicationAPI.putShopApply(cleanUrl, value);
   };
 
   return (
