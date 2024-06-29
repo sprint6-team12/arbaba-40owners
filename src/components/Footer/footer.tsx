@@ -2,7 +2,7 @@ import {
   IconEnvelopeSquare,
   IconFacebookSquare,
   IconInstagram,
-} from '@/utils/Icons';
+} from '@/lib/utils/Icons';
 
 export default function Footer() {
   return (

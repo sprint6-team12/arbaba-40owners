@@ -3,17 +3,14 @@ import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import Filter from '@/components/Filter/Filter';
+import SearchPage from '@/components/pageComponents/SearchPage/searchPage';
 import Pagination from '@/components/Pagination/Pagination';
 import PostCard from '@/components/Post/PostCard';
-import SearchPage from '@/components/SearchPage/searchPage';
+import noticeAPI from '@/lib/api/noticeAPI';
 import useMediaQuery from '@/lib/utils/useMediaQuery';
 import keywordDataState from '@/recoil/atoms/searchAtom';
-import noticeAPI from '@/utils/api/noticeAPI';
-interface HomeProps {
-  data: Data;
-}
 
-export default function Home({ data }: HomeProps) {
+export default function Home({ data }: NoticeListResponse) {
   const { isMobile } = useMediaQuery();
   const router = useRouter();
 
@@ -42,6 +39,7 @@ export default function Home({ data }: HomeProps) {
           <div className="flex flex-grow-0 flex-shrink-0 h-274px tablet:h-378px pc:h-349px gap-4px tablet:gap-14px pc:gap-14px overflow-x-auto no-scrollbar">
             {/*TODO: 맞춤 공고만 3개 필터해서 넣기 임시로 그냥 3개 자름 */}
             {data.items.slice(0, 3).map(({ item }) => {
+              if (!('shop' in item)) return null;
               const noticeData = item;
               const shopData = item.shop.item;
               return (
@@ -77,6 +75,7 @@ export default function Home({ data }: HomeProps) {
           </div>
           <div className="flex flex-wrap gap-8px tablet:gap-14px">
             {data.items.map(({ item }) => {
+              if (!('shop' in item)) return null;
               const noticeData = item;
               const shopData = item.shop.item;
               return (

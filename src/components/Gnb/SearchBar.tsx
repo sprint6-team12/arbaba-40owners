@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useRecoilState } from 'recoil';
+import { IconSearch } from '@/lib/utils/Icons';
 import keywordDataState from '@/recoil/atoms/searchAtom';
-import { IconSearch } from '@/utils/Icons';
 
 export default function SearchBar() {
   const [searchInput, setSearchInput] = useState('');

@@ -10,6 +10,7 @@ import { IconCloseBlack } from '@/utils/Icons';
 import LoginSignUp from '../LoginSignUp/LoginSignUp';
 import ModalCustom from '../Modal/ModalCustom';
 
+
 interface GnbButtonType {
   name: string;
   id: string;

@@ -1,9 +1,10 @@
 import Post from '@/components/Post/Post';
 import FormatUtils from '@/lib/utils/FormatUtils';
+import type { Shop } from '@/types/Shop';
 
 interface PostCardProps {
-  noticeData: NoticeBase;
-  shopData: ShopBase;
+  noticeData: Notice;
+  shopData: Shop;
   className?: string;
   bgNone?: boolean;
 }
