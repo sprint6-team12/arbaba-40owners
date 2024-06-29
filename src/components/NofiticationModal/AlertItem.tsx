@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { useRecoilValue } from 'recoil';
 import FormatUtils from '@/lib/utils/FormatUtils';
 import { getResultInfo } from '@/lib/utils/NotificationModal';
+import removePrefix from '@/lib/utils/RemovePrefix';
 import { userState } from '@/recoil/atoms/AuthAtom';
 import { AlertItemProps } from '@/types/NotificationModal';
 import alertAPI from '@/utils/api/alertAPI';
@@ -14,14 +15,6 @@ export default function AlertItem({ item }: { item: AlertItemProps }) {
 
   if (!resultInfo) {
     return null;
-  }
-
-  function removePrefix(url: string): string {
-    const prefix = '/api/6-12/the-julge';
-    if (url.startsWith(prefix)) {
-      return url.slice(prefix.length);
-    }
-    return url;
   }
 
   const linkHref = removePrefix(href);
