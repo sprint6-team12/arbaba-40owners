@@ -14,4 +14,9 @@ export const STATUS_MAP = {
     textColor: 'text-red40',
     text: '거절',
   },
+  canceled: {
+    backgroundColor: 'bg-gray10',
+    textColor: 'text-gray40',
+    text: '취소',
+  },
 } as const;
