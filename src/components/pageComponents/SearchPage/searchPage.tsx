@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
 import keywordDataState from '@/recoil/atoms/searchAtom';
-import Dropdown from '../Dropdown/Dropdown';
-import Filter from '../Filter/Filter';
-import Pagination from '../Pagination/Pagination';
+import Dropdown from '../../Dropdown/Dropdown';
+import Filter from '../../Filter/Filter';
+import Pagination from '../../Pagination/Pagination';
 // import PostCard from '../Post/PostCard';
 // import useMediaQuery from '@/lib/utils/useMediaQuery';
 // import { useEffect, useState } from 'react';
