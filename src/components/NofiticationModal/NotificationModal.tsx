@@ -2,7 +2,7 @@ import { NotificationModalProps } from '@/types/NotificationModal';
 import { IconCloseBlack } from '@/utils/Icons';
 import AlertItem from './AlertItem';
 
-export default function NotificationModal({ data }: NotificationModalProps) {
+export default function NotificationModal({ data, onClose }: NotificationModalProps) {
   const items = data?.items || [];
   const filteredItem = items.filter(({ item }) => {
     const oneWeekAgo = new Date();
@@ -17,7 +17,7 @@ export default function NotificationModal({ data }: NotificationModalProps) {
       <div className="flex flex-col w-full h-full gap-12px">
         <div className="flex items-center justify-between">
           <p className="font-bold text-20px">알림 {filteredItem.length}개</p>
-          <IconCloseBlack />
+          <IconCloseBlack onClick={onClose} className="cursor-pointer"/>
         </div>
         <div
           className={`flex flex-col gap-12px ${filteredItem.length > 2 && 'overflow-y-scroll'}`}

@@ -66,4 +66,5 @@ export interface NotificationProps {
 
 export interface NotificationModalProps {
   data: NotificationProps | null;
+  onClose: () => void;
 }
