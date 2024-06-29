@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import NoticesCardList from '@/components/ShopDetail/NoticesCardList';
-import ShopNoData from '@/components/ShopDetail/ShopNoData';
+import NoticesCardList from '@/components/pageComponents/ShopDetail/NoticesCardList';
+import ShopNoData from '@/components/pageComponents/ShopDetail/ShopNoData';
 import type { Shop } from '@/types/Shop';
 
 interface NoticesListProps {
