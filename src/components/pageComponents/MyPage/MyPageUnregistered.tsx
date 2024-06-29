@@ -1,14 +1,14 @@
 import { useState } from 'react';
+import NoData from '@/components/pageComponents/ShopDetail/NoData';
 import { IconCloseBlack } from '@/lib/utils/Icons';
-import NoData from '../ShopDetail/NoData';
 import MyPageInput from './MyPageInput';
 
-export default function MyPageUnregistered({
-  userProfileData,
-}: {
-  userProfileData: FormData | undefined;
-}) {
+export default function MyPageUnregistered() {
   const [showInputForm, setShowInputForm] = useState(false);
+
+  const handleShowInputForm = () => {
+    setShowInputForm(true);
+  };
 
   return (
     <div className="px-40px tablet:px-60px pc:px-[238px] py-12px tablet:py-32px pc:py-60px">
@@ -22,10 +22,11 @@ export default function MyPageUnregistered({
           </button>
         )}
       </div>
-      {!userProfileData && !showInputForm ? (
+      {!showInputForm ? (
         <NoData
           title="내 프로필을 등록하고 원하는 가게에 지원해 보세요."
           text="내 프로필 등록하기"
+          onClick={handleShowInputForm}
         />
       ) : (
         <div>

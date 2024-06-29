@@ -1,6 +1,6 @@
 import LinkButton from '@/components/Button/LinkButton';
+import { IconLocation, IconPhone } from '@/lib/utils/Icons';
 import { MyPageProfileData } from '@/types/MyPage';
-import { IconLocation, IconPhone } from '@/utils/Icons';
 
 export default function MyPageProfile({
   ProfileData,
@@ -26,7 +26,6 @@ export default function MyPageProfile({
       </div>
       <div className="w-108px tablet:w-169px pc:w-169px">
         <LinkButton href="/" className="w-full button_medium_disActive">
-          {/* 프로필등록(?) */}
           편집하기
         </LinkButton>
       </div>
