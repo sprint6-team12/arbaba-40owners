@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Button from '@/components/Button/Button';
-import userAPI from '@/utils/api/userAPI';
-import { SignUpValidate } from '@/utils/validation';
+import userAPI from '@/lib/api/userAPI';
+import { SignUpValidate } from '@/lib/utils/validation';
 import InputComponent from './InputComponent';
 import MemberTypeToggle from './MemberTypeToggle';
 
@@ -53,7 +53,11 @@ const SignUpForm = ({ onSignUpSuccess }: { onSignUpSuccess: () => void }) => {
   };
 
   return (
-    <form className="flex flex-col" autoComplete="off" onSubmit={handleSubmit}>
+    <form
+      className="flex flex-col w-full max-w-[300px]"
+      autoComplete="off"
+      onSubmit={handleSubmit}
+    >
       <h1 className="font-bold text-center mb-24px text-24px">회원가입</h1>
       <InputComponent
         id="signUpEmail"

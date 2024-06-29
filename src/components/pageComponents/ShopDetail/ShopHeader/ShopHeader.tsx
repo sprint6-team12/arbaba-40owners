@@ -1,9 +1,9 @@
-import { Shops } from '@/types/ShopDetail';
+import type { Shop } from '@/types/Shop';
 import HeaderButton from './HeaderButton';
 import ShopImageSection from './HeaderImage';
 import HeaderInfo from './HeaderInfo';
 
-export default function ShopHeader({ shopData }: { shopData: Shops }) {
+export default function ShopHeader({ shopData }: { shopData: Shop }) {
   return (
     <>
       <ShopImageSection imageUrl={shopData.imageUrl} name={shopData.name} />

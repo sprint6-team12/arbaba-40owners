@@ -2,16 +2,16 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
-import NoticesList from '@/components/ShopDetail/NoticesList';
-import ShopHeaderSection from '@/components/ShopDetail/ShopHeader/ShopHeaderSection';
+import NoticesList from '@/components/pageComponents/ShopDetail/NoticesList';
+import ShopHeaderSection from '@/components/pageComponents/ShopDetail/ShopHeader/ShopHeaderSection';
+import noticeAPI from '@/lib/api/noticeAPI';
+import shopAPI from '@/lib/api/shopAPI';
 import { userState } from '@/recoil/atoms/AuthAtom';
-import { Notices, Shops } from '@/types/ShopDetail';
-import noticeAPI from '@/utils/api/noticeAPI';
-import shopAPI from '@/utils/api/shopAPI';
+import type { Shop } from '@/types/Shop';
 
 interface ShopDetailProps {
-  shopData: Shops | null;
-  noticesData: Notices | null;
+  shopData: Shop | null;
+  noticesData: NoticeListResponseData | null;
   APIerror?: string | null;
 }
 
@@ -21,8 +21,8 @@ export const getServerSideProps: GetServerSideProps<ShopDetailProps> = async (
   const { shop_id } = context.query;
   const shopId = shop_id as string;
 
-  let shopData: Shops | null = null;
-  let noticesData: Notices | null = null;
+  let shopData: Shop | null = null;
+  let noticesData: NoticeListResponseData | null = null;
   let APIerror: string | null = null;
 
   try {

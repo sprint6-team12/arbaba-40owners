@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { useRecoilValue } from 'recoil';
+import alertAPI from '@/lib/api/alertAPI';
 import FormatUtils from '@/lib/utils/FormatUtils';
 import { getResultInfo } from '@/lib/utils/NotificationModal';
 import removePrefix from '@/lib/utils/RemovePrefix';
 import { userState } from '@/recoil/atoms/AuthAtom';
 import { AlertItemProps } from '@/types/NotificationModal';
-import alertAPI from '@/utils/api/alertAPI';
 
 export default function AlertItem({ item }: { item: AlertItemProps }) {
   const { notice, result, shop, read } = item;

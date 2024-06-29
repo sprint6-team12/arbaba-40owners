@@ -1,4 +1,21 @@
-import StatusBadge from '../Badge/StatusBadge';
+import StatusBadge from '@/components/Badge/StatusBadge';
+import type { ShopData } from '@/types/Shop';
+
+interface EmployeeTableApplication {
+  id: string;
+  status: UserApplicationStatus;
+  createdAt: string;
+  shop: ShopData;
+  notice: {
+    item: Notice;
+    href: string;
+  };
+}
+
+interface EmployeeTableItem {
+  item: EmployeeTableApplication;
+  links: Link[];
+}
 
 export interface EmployeeTableData {
   offset: number;
@@ -6,60 +23,9 @@ export interface EmployeeTableData {
   count: number;
   hasNext: boolean;
   items: EmployeeTableItem[];
-  links: EmployeeTableLink[];
+  links: Link[];
 }
 
-interface EmployeeTableItem {
-  item: EmployeeTableApplication;
-  links: EmployeeTableLink[];
-}
-
-interface EmployeeTableLink {
-  description: string;
-  href: string;
-  method: string;
-  rel: string;
-}
-
-interface EmployeeTableNoticeBase {
-  id: string;
-  hourlyPay: number;
-  startsAt: string;
-  workhour: number;
-  description: string;
-  closed: boolean;
-}
-
-interface EmployeeTableNoticeDetailItem {
-  item: EmployeeTableNoticeDetail;
-  href: string;
-}
-
-interface EmployeeTableNoticeDetail extends EmployeeTableNoticeBase {}
-
-interface EmployeeTableShopData {
-  id: string;
-  name: string;
-  category: string;
-  address1: string;
-  address2: string;
-  description: string;
-  imageUrl: string;
-  originalHourlyPay: number;
-}
-
-interface EmployeeTableApplication {
-  id: string;
-  status: 'pending' | 'accepted' | 'rejected' | 'canceled';
-  createdAt: string;
-  shop: EmployeeTableShop;
-  notice: EmployeeTableNoticeDetailItem;
-}
-
-interface EmployeeTableShop {
-  item: EmployeeTableShopData;
-  href: string;
-}
 interface EmployeeTableProps {
   data: EmployeeTableData;
 }

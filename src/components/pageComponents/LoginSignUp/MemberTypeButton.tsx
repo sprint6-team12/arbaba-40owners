@@ -1,4 +1,4 @@
-import { IconChecked } from '@/utils/Icons';
+import { IconChecked } from '@/lib/utils/Icons';
 
 export interface TypeButtonProps {
   userType: 'employee' | 'employer';

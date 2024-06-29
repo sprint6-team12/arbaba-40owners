@@ -29,9 +29,15 @@ interface ShopNoticeData {
   description?: string;
 }
 const noticeAPI = {
-  getNoticeList: async (params: GetNoticeListData) => {
+  getNoticeList: async (params: GetNoticeListData | URLSearchParams) => {
     try {
-      const response = await axiosInstance.get(`/notices`, { params });
+      const config = {
+        params:
+          params instanceof URLSearchParams
+            ? Object.fromEntries(params.entries())
+            : params,
+      };
+      const response = await axiosInstance.get(`/notices`, config);
       return response.data;
     } catch (error) {
       handleAxiosError(error);
