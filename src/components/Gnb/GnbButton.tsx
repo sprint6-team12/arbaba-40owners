@@ -4,12 +4,11 @@ import { useRecoilValue } from 'recoil';
 import GnbUiButton from '@/components/Gnb/GnbUiButton';
 import { useAuth } from '@/hooks/useAuth';
 import useModal from '@/hooks/useModal';
+import userAPI from '@/lib/api/userAPI';
+import { IconCloseBlack } from '@/lib/utils/Icons';
 import { userState } from '@/recoil/atoms/AuthAtom';
-import userAPI from '@/utils/api/userAPI';
-import { IconCloseBlack } from '@/utils/Icons';
-import LoginSignUp from '../LoginSignUp/LoginSignUp';
 import ModalCustom from '../Modal/ModalCustom';
-
+import LoginSignUp from '../pageComponents/LoginSignUp/LoginSignUp';
 
 interface GnbButtonType {
   name: string;

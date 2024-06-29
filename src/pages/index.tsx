@@ -29,6 +29,14 @@ export default function Home({ data }: NoticeListResponse) {
     return <SearchPage />;
   }
 
+  const fetchFilterData = async (params: URLSearchParams) => {
+    try {
+      noticeAPI.getNoticeList(params);
+    } catch (error) {
+      error;
+    }
+  };
+
   return (
     <main>
       <div className="bg-red10 h-381px tablet:h-[535px] pc:h-[535px] pt-40px">
@@ -70,7 +78,7 @@ export default function Home({ data }: NoticeListResponse) {
                 onSelect={handleSelectClick}
                 width="w-105px"
               />
-              <Filter />
+              <Filter onApplyFilters={fetchFilterData} />
             </div>
           </div>
           <div className="flex flex-wrap gap-8px tablet:gap-14px">

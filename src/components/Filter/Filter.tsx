@@ -11,7 +11,11 @@ import PriceSection from './PriceSection';
 
 registerLocale('ko', ko);
 
-export default function Filter() {
+interface FilterProps {
+  onApplyFilters: (filters: URLSearchParams) => void;
+}
+
+export default function Filter({ onApplyFilters }: FilterProps) {
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
   const [inputPrice, setInputPrice] = useState<string>('');
@@ -49,6 +53,25 @@ export default function Filter() {
     setIsFilterOpen((prev) => !prev);
   };
 
+  const handleApplyFilter = () => {
+    const searchParams = new URLSearchParams();
+
+    if (selectedLocations.length > 0) {
+      selectedLocations.forEach((location) =>
+        searchParams.append('address', location)
+      );
+    }
+    if (startDate) {
+      searchParams.append('startsAtGte', startDate.toISOString());
+    }
+    if (inputPrice) {
+      searchParams.append('hourlyPayGte', inputPrice.replace(/,/g, ''));
+    }
+
+    onApplyFilters(searchParams);
+    setIsFilterOpen(false);
+  };
+
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
       if (
@@ -78,42 +101,45 @@ export default function Filter() {
         {selectedLocations.length !== 0 && `(${selectedLocations.length})`}
       </button>
       {isFilterOpen && (
-        <div ref={FilterContainerRef}>
-          <div className="relative overflow-auto bg-white border border-solid w-390px px-20px py-24px border-gray20 rounded-10px">
-            <div className="flex items-center justify-between pb-18px">
-              <p className="font-bold text-20px">상세 필터</p>
-              <button onClick={() => setIsFilterOpen(false)}>
-                <IconCloseBlack />
-              </button>
-            </div>
-            <LocationSection
-              locations={SHOP_LOCATIONS_ARRAY}
-              selectedLocations={selectedLocations}
-              onLocationClick={handleLocationClick}
-              onRemoveLocation={handleRemoveLocation}
-            />
-            <Divider />
-            <DateSection startDate={startDate} setStartDate={setStartDate} />
-            <Divider />
-            <PriceSection
-              inputPrice={inputPrice}
-              onPriceChange={handlePriceChange}
-            />
-            <div className="flex justify-between mt-20px">
-              <button
-                className="font-bold border text-custom-orange py-14px rounded-6px w-80px border-custom-orange"
-                onClick={handleResetClick}
-              >
-                초기화
-              </button>
-              <button
-                className="px-4 py-2 text-white rounded-lg bg-custom-orange w-260px"
-                onClick={() => {
-                  /* 적용하기 기능 */
-                }}
-              >
-                적용하기
-              </button>
+        <div className="fixed tablet:relative pc:relative inset-0 flex z-50">
+          <div
+            className="relative w-full h-full tablet:right-0 pc:right-0 tablet:top-24px pc:top-24px tablet:absolute pc:absolute tablet:w-390px tablet:h-auto pc:w-390px pc:h-auto bg-white border rounded-10px overflow-y-auto"
+            ref={FilterContainerRef}
+          >
+            <div className="flex flex-col w-full h-full gap-12px py-24px px-20px">
+              <div className="flex items-center justify-between pb-18px">
+                <p className="font-bold text-20px">상세 필터</p>
+                <button onClick={() => setIsFilterOpen(false)}>
+                  <IconCloseBlack />
+                </button>
+              </div>
+              <LocationSection
+                locations={SHOP_LOCATIONS_ARRAY}
+                selectedLocations={selectedLocations}
+                onLocationClick={handleLocationClick}
+                onRemoveLocation={handleRemoveLocation}
+              />
+              <Divider />
+              <DateSection startDate={startDate} setStartDate={setStartDate} />
+              <Divider />
+              <PriceSection
+                inputPrice={inputPrice}
+                onPriceChange={handlePriceChange}
+              />
+              <div className="flex justify-between mt-20px">
+                <button
+                  className="font-bold border text-custom-orange py-14px rounded-6px w-80px border-custom-orange"
+                  onClick={handleResetClick}
+                >
+                  초기화
+                </button>
+                <button
+                  className="px-4 py-2 text-white rounded-lg bg-custom-orange w-260px"
+                  onClick={handleApplyFilter}
+                >
+                  적용하기
+                </button>
+              </div>
             </div>
           </div>
         </div>

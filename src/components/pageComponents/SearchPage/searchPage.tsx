@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
+import noticeAPI from '@/lib/api/noticeAPI';
 import keywordDataState from '@/recoil/atoms/searchAtom';
 import Dropdown from '../../Dropdown/Dropdown';
 import Filter from '../../Filter/Filter';
@@ -21,6 +22,14 @@ function SearchPage() {
   //드롭다운에 전달할 함수
   const onSelectClick = (value: string) => {
     router.push(value);
+  };
+
+  const fetchFilterData = async (params: URLSearchParams) => {
+    try {
+      noticeAPI.getNoticeList(params);
+    } catch (error) {
+      error;
+    }
   };
 
   const searchValue = useRecoilValue(keywordDataState);
@@ -67,7 +76,7 @@ function SearchPage() {
               onSelect={onSelectClick}
               width="w-105px"
             />
-            <Filter />
+            <Filter onApplyFilters={fetchFilterData} />
           </div>
         </div>
         {/* 필터 변경하면 랜더링 변경 */}
