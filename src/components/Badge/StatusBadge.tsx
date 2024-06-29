@@ -1,6 +1,6 @@
 import { STATUS_MAP } from '@/constants/statusMap';
 
-type Status = 'pending' | 'accepted' | 'rejected';
+type Status = 'pending' | 'accepted' | 'rejected' | 'canceled';
 interface StatusBadgeProps {
   status: Status;
 }
