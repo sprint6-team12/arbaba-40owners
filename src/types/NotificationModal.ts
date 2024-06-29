@@ -1,22 +1,4 @@
-export interface Shop {
-  id: string;
-  name: string;
-  category: string;
-  address1: string;
-  address2: string;
-  description: string;
-  imageUrl: string;
-  originalHourlyPay: number;
-}
-
-export interface Notice {
-  id: string;
-  hourlyPay: number;
-  description: string;
-  startsAt: string;
-  workhour: number;
-  closed: boolean;
-}
+import { ShopData } from './Shop';
 
 export interface Application {
   id: string;
@@ -32,20 +14,12 @@ export interface AlertItemProps {
     item: Application;
     href: string;
   };
-  shop: {
-    item: Shop;
-    href: string;
-  };
+  shop: ShopData;
   notice: {
     item: Notice;
     href: string;
   };
-  links: {
-    rel: string;
-    description: string;
-    method: string;
-    href: string;
-  }[];
+  links: Link[];
 }
 
 export interface NotificationProps {
@@ -56,12 +30,7 @@ export interface NotificationProps {
   items: {
     item: AlertItemProps;
   }[];
-  links: {
-    rel: string;
-    description: string;
-    method: string;
-    href: string;
-  }[];
+  links: Link[];
 }
 
 export interface NotificationModalProps {

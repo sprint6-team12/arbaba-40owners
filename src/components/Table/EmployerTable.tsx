@@ -1,83 +1,28 @@
 import FormatUtils from '@/lib/utils/FormatUtils';
+import type { ShopData } from '@/types/Shop';
 import StatusBadge from '../Badge/StatusBadge';
 import ActionButton from './ActionButton';
 
+
+interface EmployerTableApplication {
+  id: string;
+  status: UserApplicationStatus;
+  createdAt: string;
+  user: UserData;
+  shop: ShopData;
+  notice: NoticeData;
+}
+interface EmployerTableItem {
+  item: EmployerTableApplication;
+  links: Link[];
+}
 export interface EmployerTableData {
   offset: number;
   limit: number;
   count: number;
   hasNext: boolean;
   items: EmployerTableItem[];
-  links: EmployerTableLink[];
-}
-
-interface EmployerTableItem {
-  item: EmployerTableApplication;
-  links: EmployerTableLink[];
-}
-
-interface EmployerTableLink {
-  description: string;
-  href: string;
-  method: string;
-  rel: string;
-  body: {
-    status: 'accepted' | 'rejected';
-  };
-}
-
-interface EmployerTableUser {
-  item: EmployerTableUserData;
-  href: string;
-}
-
-interface EmployerTableUserData {
-  id: string;
-  email: string;
-  type: 'employer' | 'employee';
-  name?: string; // optional
-  phone?: string; // optional
-  address?: string; // optional
-  bio?: string; // optional
-}
-
-interface EmployerTableShop {
-  item: EmployerTableShopData;
-  href: string;
-}
-
-interface EmployerTableShopData {
-  id: string;
-  name: string;
-  category: string;
-  address1: string;
-  address2: string;
-  description: string;
-  imageUrl: string;
-  originalHourlyPay: number;
-}
-
-interface EmployerTableNotice {
-  item: EmployerTableNoticeData;
-  href: string;
-}
-
-interface EmployerTableNoticeData {
-  id: string;
-  hourlyPay: number;
-  description: string;
-  startsAt: string;
-  workhour: number;
-  closed: boolean;
-}
-
-interface EmployerTableApplication {
-  id: string;
-  status: 'pending' | 'accepted' | 'rejected' | 'canceled';
-  createdAt: string;
-  user: EmployerTableUser;
-  shop: EmployerTableShop;
-  notice: EmployerTableNotice;
+  links: Link[];
 }
 
 interface EmployerTableProps {

@@ -10,9 +10,9 @@ export default function LocationSection({
   onRemoveLocation: (location: string) => void;
 }) {
   return (
-    <div className="flex flex-col pb-18px gap-16px">
+    <div className="flex flex-col gap-16px">
       <p>위치</p>
-      <div className="p-36px border border-solid rounded-6px grid grid-cols-2 gap-32px overflow-y-scroll h-350px">
+      <div className="p-36px border border-solid rounded-6px grid grid-cols-2 gap-32px overflow-y-scroll h-280px">
         {locations.map((item) => (
           <button
             key={item}

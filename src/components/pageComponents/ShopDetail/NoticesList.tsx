@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import ShopNoData from '@/components/ShopDetail/ShopNoData';
-import { Notices, Shops } from '@/types/ShopDetail';
-import NoticesCardList from './NoticesCardList';
+import NoData from '@/components/pageComponents/ShopDetail/NoData';
+import NoticesCardList from '@/components/pageComponents/ShopDetail/NoticesCardList';
+import type { Shop } from '@/types/Shop';
 
 interface NoticesListProps {
-  noticesData: Notices | null;
-  shopData: Shops;
+  noticesData: NoticeListResponseData | null;
+  shopData: Shop;
 }
 
 const NOTICES_PER_PAGE = 6;
@@ -53,7 +53,7 @@ export default function NoticesList({
     <div className="bg-gray05">
       <div className="mx-auto w-full px-32px py-60px max-w-[1000px]">
         {currentNoticesData.length === 0 ? (
-          <ShopNoData title="공고를 등록해보세요." text="공고 등록하기" />
+          <NoData title="공고를 등록해보세요." text="공고 등록하기" href="/" />
         ) : (
           <NoticesCardList
             title="등록한 공고"

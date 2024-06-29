@@ -1,5 +1,5 @@
 import BaseInput from '@/components/Input/BaseInput';
-import { IconCamera } from '@/utils/Icons';
+import { IconCamera } from '@/lib/utils/Icons';
 
 interface ImageInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;

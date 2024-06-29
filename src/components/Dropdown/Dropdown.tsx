@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
-import DropDown from '/public/images/icon-dropdown.svg';
+import { useState, useRef, useEffect } from 'react';
+import { IconDropdown } from '@/lib/utils/Icons';
 
 interface DropdownProps {
   options: string[];
@@ -53,7 +53,7 @@ function Dropdown({
         onClick={handleToggleDropdown}
       >
         <div className="absolute top-1/2 right-16px transform -translate-y-1/2 w-16px h-16px flex-shrink-0">
-          <DropDown />
+          <IconDropdown />
         </div>
         <button className="flex w-full px-20px py-16px items-center border bg-white border-gray30 rounded-md text-base">
           <span className={selectedOption ? '' : 'text-gray-400'}>

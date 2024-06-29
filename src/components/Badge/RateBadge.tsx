@@ -1,5 +1,5 @@
 import useColorByRate from '@/hooks/useColorByRate';
-import { IconSmallArrow, IconLargeArrow } from '@/utils/Icons';
+import { IconSmallArrow, IconLargeArrow } from '@/lib/utils/Icons';
 interface RateBadgeProps {
   rate: number;
   bgNone?: boolean;

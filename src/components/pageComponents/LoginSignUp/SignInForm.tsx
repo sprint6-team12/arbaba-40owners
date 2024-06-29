@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Button from '@/components/Button/Button';
 import { useAuth } from '@/hooks/useAuth';
-import authenticationAPI from '@/utils/api/authenticationAPI';
-import { SignInValidate } from '@/utils/validation';
+import authenticationAPI from '@/lib/api/authenticationAPI';
+import { SignInValidate } from '@/lib/utils/validation';
 import InputComponent from './InputComponent';
 
 const SignInForm = ({ onClose }: { onClose?: () => void }) => {
@@ -46,7 +46,10 @@ const SignInForm = ({ onClose }: { onClose?: () => void }) => {
   };
 
   return (
-    <form className="flex flex-col " onSubmit={handleSubmit}>
+    <form
+      className="flex flex-col w-full max-w-[300px]"
+      onSubmit={handleSubmit}
+    >
       <h1 className="font-bold text-center mb-24px text-24px">로그인</h1>
       <InputComponent
         id="loginEmail"

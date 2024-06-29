@@ -1,6 +1,5 @@
-import React from 'react';
 import ReactPaginate from 'react-paginate';
-import { IconPrevArrow, IconNextArrow } from '@/utils/Icons';
+import { IconPrevArrow, IconNextArrow } from '@/lib/utils/Icons';
 
 interface PaginationProps {
   totalPages: number;

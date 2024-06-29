@@ -1,6 +1,6 @@
 import { useState, forwardRef } from 'react';
 import BaseInput from '@/components/Input/BaseInput';
-import { IconEye, IconEyeOff } from '@/utils/Icons';
+import { IconEye, IconEyeOff } from '@/lib/utils/Icons';
 
 function InputPassword(
   { className, ...rest }: React.InputHTMLAttributes<HTMLInputElement>,
@@ -13,16 +13,17 @@ function InputPassword(
   };
 
   return (
-    <div className={`relative input-base ${className}`}>
+    <div className={`relative input-base flex items-center ${className}`}>
       <BaseInput
         type={isPasswordVisible ? 'text' : 'password'}
         ref={ref}
+        className="bg-transparent"
         {...rest}
       />
       <button
         type="button"
         onClick={handleTogglePasswordVisibility}
-        className="absolute -translate-x-full h-24px w-24px bg-transparent"
+        className="absolute right-0 -translate-x-1/2 h-24px w-24px bg-transparent"
       >
         {isPasswordVisible ? <IconEyeOff /> : <IconEye />}
       </button>
