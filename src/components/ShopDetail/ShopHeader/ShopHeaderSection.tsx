@@ -1,5 +1,5 @@
 import type { Shop } from '@/types/Shop';
-import ShopNoData from '../ShopNoData';
+import NoData from '../NoData';
 import ShopHeader from './ShopHeader';
 
 interface ShopTitleSectionProps {
@@ -15,7 +15,7 @@ export default function ShopTitleSection({
     <div className="mx-auto w-full my-20px px-32px py-60px max-w-[1000px]">
       <h1 className="font-bold text-start text-28px mb-24px">{title}</h1>
       {!shopData ? (
-        <ShopNoData
+        <NoData
           title="내 가게를 소개하고 공고도 등록해 보세요."
           text="내 가게 등록하기"
         />
