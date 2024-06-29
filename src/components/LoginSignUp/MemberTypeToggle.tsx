@@ -1,4 +1,3 @@
-import React from 'react';
 import MemberTypeButton from './MemberTypeButton';
 
 export interface UserTypeProps {

@@ -1,9 +1,9 @@
 import GnbUiButton from '@/components/Gnb/GnbUiButton';
 import NotificationButton from '@/components/Gnb/NotificationButton';
+import LoginSignUp from '@/components/LoginSignUp/LoginSignUp';
+import ModalCustom from '@/components/Modal/ModalCustom';
 import useModal from '@/hooks/useModal';
-import { IconCloseBlack } from '@/utils/Icons';
-import LoginSignUp from '../LoginSignUp/LoginSignUp';
-import ModalCustom from '../Modal/ModalCustom';
+import { IconCloseBlack } from '@/lib/utils/Icons';
 
 interface GnbButtonType {
   name: string;

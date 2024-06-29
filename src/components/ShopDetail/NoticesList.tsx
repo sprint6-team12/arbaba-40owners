@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import NoticesCardList from '@/components/ShopDetail/NoticesCardList';
 import ShopNoData from '@/components/ShopDetail/ShopNoData';
-import { Notices, Shops } from '@/types/ShopDetail';
-import NoticesCardList from './NoticesCardList';
+import type { Shop } from '@/types/Shop';
 
 interface NoticesListProps {
-  noticesData: Notices | null;
-  shopData: Shops;
+  noticesData: NoticeListResponseData | null;
+  shopData: Shop;
 }
 
 const NOTICES_PER_PAGE = 6;

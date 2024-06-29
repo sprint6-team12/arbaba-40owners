@@ -5,11 +5,7 @@ function InputText(
   ref: React.Ref<HTMLInputElement>
 ) {
   return (
-    <input
-      className={`input-base h-full w-full ${className}`}
-      ref={ref}
-      {...rest}
-    />
+    <input className={`input-base w-full ${className}`} ref={ref} {...rest} />
   );
 }
 

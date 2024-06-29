@@ -7,7 +7,7 @@ import {
   IconClockActive,
   IconLocation,
   IconLocationActive,
-} from '@/utils/Icons';
+} from '@/lib/utils/Icons';
 
 export const POST_IMAGE_STATUS_TEXT = {
   open: null,

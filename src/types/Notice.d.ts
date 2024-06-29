@@ -1,29 +1,3 @@
-interface NoticeResponse {
-  data: Data;
-}
-
-interface Data {
-  offset: number;
-  limit: number;
-  count: number;
-  hasNext: boolean;
-  address: string[];
-  keyword?: string;
-  items: NoticeItem[];
-}
-
-interface NoticeItem {
-  item: Notice;
-  links: Link[];
-}
-
-interface Link {
-  description: string;
-  href: string;
-  method: string;
-  rel: string;
-}
-
 interface NoticeBase {
   id: string;
   hourlyPay: number;
@@ -31,11 +5,6 @@ interface NoticeBase {
   workhour: number;
   description: string;
   closed: boolean;
-}
-
-interface Notice extends NoticeBase {
-  shop: ShopData;
-  currentUserApplication?: { item: currentUserApplication };
 }
 
 interface currentUserApplication {
@@ -50,3 +19,29 @@ interface NoticeEmployee extends NoticeBase {
 }
 
 interface NoticeEmployer extends NoticeBase {}
+
+type Notice = NoticeEmployee | NoticeEmployer;
+
+interface NoticeData {
+  item: Notice;
+  href?: string;
+}
+
+interface NoticeItem {
+  item: Notice;
+  links: Link[];
+}
+interface NoticeListResponseData {
+  offset: number;
+  limit: number;
+  count: number;
+  hasNext: boolean;
+  address: string[];
+  keyword?: string;
+  items: NoticeItem[];
+  links?: Link[];
+}
+
+interface NoticeListResponse {
+  data: NoticeListResponseData;
+}
