@@ -1,4 +1,4 @@
-import { IconLocation } from '@/utils/Icons';
+import { IconLocation } from '@/lib/utils/Icons';
 
 interface shopDataProps {
   category: string;

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { IconStatusActive, IconStatusInactive } from '@/utils/Icons';
+import { IconStatusActive, IconStatusInactive } from '@/lib/utils/Icons';
 
 interface NotificationButtonProps {
   hasNotification: boolean;

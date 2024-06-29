@@ -21,7 +21,7 @@ export default function InputComponent({
 }: InputComponentProps) {
   return (
     <>
-      <FormGroup className="my-4px">
+      <FormGroup className="pb-16px [&_input]:h-42px [&_input]:px-10px">
         <FormGroup.Label htmlFor={id}>{placeholder}</FormGroup.Label>
         {type === 'email' ? (
           <FormGroup.InputField.Text
@@ -31,7 +31,6 @@ export default function InputComponent({
             placeholder={placeholder}
             value={value}
             onChange={onChange}
-            className="px-10px my-8px text-18px"
           />
         ) : (
           <FormGroup.InputField.Password
@@ -40,7 +39,7 @@ export default function InputComponent({
             placeholder={placeholder}
             value={value}
             onChange={onChange}
-            className="px-10px my-8px text-18px"
+            className="h-42px p-0"
           />
         )}
         {errorMessage === '' ? (

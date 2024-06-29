@@ -1,6 +1,6 @@
 import Button from '@/components/Button/Button';
 import ModalWrapper from '@/components/Modal/ModalWrapper';
-import { IconCheck, IconExclamationMark } from '@/utils/Icons';
+import { IconCheck, IconExclamationMark } from '@/lib/utils/Icons';
 
 type ModalOptionType = 'confirm' | 'actions';
 
