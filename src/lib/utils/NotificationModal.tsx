@@ -7,7 +7,7 @@ export const getResultInfo = (result: string) => {
     case 'canceled':
       return {
         icon: <IconEllipseGray />,
-        text: <span className="text-gray20">취소</span>,
+        text: <span className="text-gray30">취소</span>,
       };
     case 'rejected':
       return {
@@ -17,7 +17,7 @@ export const getResultInfo = (result: string) => {
     case 'accepted':
       return {
         icon: <IconEllipseBlue />,
-        text: <span className="text-blue10">승인</span>,
+        text: <span className="text-blue20">승인</span>,
       };
     default:
       return null;
