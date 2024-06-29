@@ -2,15 +2,17 @@ import Post from '@/components/Post/Post';
 import FormatUtils from '@/lib/utils/FormatUtils';
 
 interface PostCardProps {
-  noticeData: Notice;
-  shopData: Shop;
+  noticeData: NoticeBase;
+  shopData: ShopBase;
   className?: string;
+  bgNone?: boolean;
 }
 
 export default function PostCard({
   noticeData,
   shopData,
   className,
+  bgNone,
 }: PostCardProps) {
   const { hourlyPay, startsAt, closed, workhour } = noticeData;
   const { name, address1, imageUrl, originalHourlyPay } = shopData;
@@ -51,6 +53,7 @@ export default function PostCard({
         <Post.IncreaseRateBadge
           hourlyPay={hourlyPay}
           originalHourlyPay={originalHourlyPay}
+          bgNone={bgNone}
         />
       </div>
     </Post.Wrapper>

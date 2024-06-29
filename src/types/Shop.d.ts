@@ -1,4 +1,4 @@
-interface Shop {
+interface ShopBase {
   id: string;
   name: string;
   category: string;
@@ -9,7 +9,14 @@ interface Shop {
   originalHourlyPay: number;
 }
 
+interface Shop extends ShopBase {}
+
+interface ShopEmployee extends ShopBase {}
+interface ShopEmployer extends ShopBase {
+  user: unknown;
+}
+
 interface ShopData {
-  item: Shop;
+  item: ShopBase;
   href: string;
 }

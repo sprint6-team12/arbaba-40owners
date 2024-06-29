@@ -26,7 +26,7 @@ function Pagination({
   };
 
   return (
-    <div className="flex justify-center mt-8">
+    <div className="flex justify-center">
       <ReactPaginate
         previousLabel={
           <IconPrevArrow

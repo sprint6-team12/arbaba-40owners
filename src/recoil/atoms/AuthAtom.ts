@@ -1,9 +1,12 @@
 import { atom } from 'recoil';
+import { recoilPersist } from 'recoil-persist';
+
+const { persistAtom } = recoilPersist();
 
 interface User {
   token: string | null;
   id: string | null;
-  type: string | null;
+  type: 'employee' | 'employer' | 'guest';
   isLogin: boolean;
 }
 
@@ -12,7 +15,8 @@ export const userState = atom<User>({
   default: {
     token: null,
     id: null,
-    type: null,
+    type: 'guest',
     isLogin: false,
   },
+  effects_UNSTABLE: [persistAtom],
 });

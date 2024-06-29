@@ -3,23 +3,29 @@ import SignInForm from './SignInForm';
 import SignUpForm from './SignUpForm';
 import ToggleContainer from './ToggleContainer';
 
-export default function LoginSignUp() {
-  const [isSignUp, setIsSignUp] = useState(false);
+export default function LoginSignUp({
+  isLogin = false,
+  onClose,
+}: {
+  isLogin: boolean;
+  onClose?: () => void;
+}) {
+  const [isSignUp, setIsSignUp] = useState(isLogin);
 
   const toggleSignUp = () => {
     setIsSignUp((prev) => !prev);
   };
 
   return (
-    <div className="flex-center min-h-screen bg-gray-200">
-      <div className="relative flex justify-between w-full max-w-[900px] mx-auto overflow-hidden bg-white shadow-lg rounded-24px">
+    <div className="flex-center">
+      <div className="relative flex justify-between tablet:w-[700px] pc:w-[900px] mx-auto overflow-x-hidden rounded-24px">
         <div
-          className={`w-full p-10 transition-transform duration-500 ease-in-out ${isSignUp ? '-translate-x-full' : ''}`}
+          className={`flex-center w-full p-10 transition-transform duration-500 ease-in-out ${isSignUp ? '-translate-x-full' : ''} ${isSignUp ? 'collapse' : ''}`}
         >
-          <SignInForm />
+          <SignInForm onClose={onClose} />
         </div>
         <div
-          className={`w-full p-10 transition-transform duration-500 ease-in-out ${isSignUp ? '' : 'translate-x-full'}`}
+          className={`flex-center w-full p-10 transition-transform duration-500 ease-in-out ${isSignUp ? '' : 'translate-x-full'} ${isSignUp ? '' : 'collapse'}`}
         >
           <SignUpForm onSignUpSuccess={toggleSignUp} />
         </div>

@@ -2,6 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
+    domains: ['bootcamp-project-api.s3.ap-northeast-2.amazonaws.com'],
     remotePatterns: [
       {
         protocol: 'https',
@@ -17,6 +18,7 @@ const nextConfig = {
       },
     ],
   },
+
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
@@ -26,6 +28,5 @@ const nextConfig = {
     return config;
   },
 };
-
 
 export default nextConfig;

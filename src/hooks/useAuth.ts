@@ -5,9 +5,9 @@ export const useAuth = () => {
   const setUserState = useSetRecoilState(userState);
 
   const setUser = (
-    token: string,
-    id: string,
-    type: string,
+    token: string | null,
+    id: string | null,
+    type: 'employee' | 'employer' | 'guest',
     isLogin: boolean
   ) => {
     setUserState({
