@@ -46,7 +46,10 @@ const SignInForm = ({ onClose }: { onClose?: () => void }) => {
   };
 
   return (
-    <form className="flex flex-col max-w-250px" onSubmit={handleSubmit}>
+    <form
+      className="flex flex-col w-full max-w-[300px]"
+      onSubmit={handleSubmit}
+    >
       <h1 className="font-bold text-center mb-24px text-24px">로그인</h1>
       <InputComponent
         id="loginEmail"
