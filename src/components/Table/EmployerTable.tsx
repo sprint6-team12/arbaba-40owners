@@ -1,3 +1,7 @@
+import FormatUtils from '@/lib/utils/FormatUtils';
+import StatusBadge from '../Badge/StatusBadge';
+import ActionButton from './ActionButton';
+
 export interface EmployerTableData {
   offset: number;
   limit: number;
@@ -17,6 +21,9 @@ interface EmployerTableLink {
   href: string;
   method: string;
   rel: string;
+  body: {
+    status: 'accepted' | 'rejected';
+  };
 }
 
 interface EmployerTableUser {
@@ -116,6 +123,7 @@ function EmployerTable({ data }: EmployerTableProps) {
             const { id, status, user, notice } = item;
             const { name, phone } = user.item;
             const { description } = notice.item;
+            const formPhone = FormatUtils.phoneNumber(phone || '연락처 없음');
 
             return (
               <tr key={id}>
@@ -130,12 +138,16 @@ function EmployerTable({ data }: EmployerTableProps) {
                   <p className="line-clamp-2">{description}</p>
                 </td>
                 <td className={`${baseTdStyle} min-w-162px h-46px pl-8px`}>
-                  {phone}
+                  {formPhone}
                 </td>
                 <td
                   className={`${baseTdStyle} min-w-162px tablet:min-w-[220px] pc:w-236px h-46px pl-12px`}
                 >
-                  {status}
+                  {status === 'pending' ? (
+                    <ActionButton />
+                  ) : (
+                    <StatusBadge status={status} />
+                  )}
                 </td>
               </tr>
             );
