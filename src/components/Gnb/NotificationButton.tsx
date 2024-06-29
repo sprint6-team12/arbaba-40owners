@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
+import NotificationModal from '@/components/NotificationModal/NotificationModal';
+import alertAPI from '@/lib/api/alertAPI';
+import { IconStatusActive, IconStatusInactive } from '@/lib/utils/Icons';
 import { userState } from '@/recoil/atoms/AuthAtom';
 import { NotificationProps } from '@/types/NotificationModal';
-import NotificationModal from '@/components/NofiticationModal/NotificationModal';
-import alertAPI from '@/utils/api/alertAPI';
-import { IconStatusActive, IconStatusInactive } from '@/utils/Icons';
-
 const initialNotificationData: NotificationProps = {
   items: [],
   offset: 0,

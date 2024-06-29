@@ -2,13 +2,13 @@ import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import GnbUiButton from '@/components/Gnb/GnbUiButton';
+import ModalCustom from '@/components/Modal/ModalPrimary';
+import LoginSignUp from '@/components/pageComponents/LoginSignUp/LoginSignUp';
 import { useAuth } from '@/hooks/useAuth';
 import useModal from '@/hooks/useModal';
+import userAPI from '@/lib/api/userAPI';
+import { IconCloseBlack } from '@/lib/utils/Icons';
 import { userState } from '@/recoil/atoms/AuthAtom';
-import LoginSignUp from '../LoginSignUp/LoginSignUp';
-import ModalCustom from '../Modal/ModalCustom';
-import userAPI from '@/utils/api/userAPI';
-import { IconCloseBlack } from '@/utils/Icons';
 
 interface GnbButtonType {
   name: string;

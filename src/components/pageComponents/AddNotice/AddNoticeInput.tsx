@@ -3,10 +3,10 @@ import Button from '@/components/Button/Button';
 import FormGroup from '@/components/FormGroup/FormGroup';
 import ModalPrimary from '@/components/Modal/ModalPrimary';
 import useModal from '@/hooks/useModal';
+import noticeAPI from '@/lib/api/noticeAPI';
 import FormatUtils from '@/lib/utils/FormatUtils';
 import { validateAddNoticeForm } from '@/lib/utils/InputValidation';
 import { AddNoticeFormData, AddNoticeFormErrors } from '@/types/FormData';
-import noticeAPI from '@/utils/api/noticeAPI';
 
 const initialFormData: AddNoticeFormData = {
   hourlyPay: '',

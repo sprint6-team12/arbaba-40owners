@@ -3,11 +3,11 @@ import Button from '@/components/Button/Button';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import FormGroup from '@/components/FormGroup/FormGroup';
 import ModalPrimary from '@/components/Modal/ModalPrimary';
-import { LOCATIONS } from '@/constants/DataLocations';
 import useModal from '@/hooks/useModal';
 import FormatUtils from '@/lib/utils/FormatUtils';
 import { validateMyPageForm } from '@/lib/utils/InputValidation';
 import { MyPageFormData, MyPageFormErrors } from '@/types/FormData';
+import { SHOP_LOCATIONS_ARRAY } from '@/types/ShopOption';
 
 const initialFormData: MyPageFormData = {
   name: '',
@@ -125,7 +125,10 @@ export default function MyPageInput() {
           <div className="mb-20px w-full pc:basis-1/3">
             <FormGroup>
               <FormGroup.Label htmlFor="address">선호 지역</FormGroup.Label>
-              <Dropdown options={LOCATIONS} onSelect={handleSelect} />
+              <Dropdown
+                options={SHOP_LOCATIONS_ARRAY}
+                onSelect={handleSelect}
+              />
             </FormGroup>
           </div>
         </div>

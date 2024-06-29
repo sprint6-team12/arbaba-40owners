@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import ShopNoData from '@/components/ShopDetail/ShopNoData';
-import { IconCloseBlack } from '@/utils/Icons';
+import { IconCloseBlack } from '@/lib/utils/Icons';
+import NoData from '../ShopDetail/NoData';
 import MyPageInput from './MyPageInput';
 
 export default function MyPageUnregistered({
@@ -23,10 +23,10 @@ export default function MyPageUnregistered({
         )}
       </div>
       {!userProfileData && !showInputForm ? (
-        <ShopNoData
+        <NoData
           title="내 프로필을 등록하고 원하는 가게에 지원해 보세요."
           text="내 프로필 등록하기"
-        /> //내프로필등록하기버튼누르면입력폼이떠야됨
+        />
       ) : (
         <div>
           <MyPageInput />
