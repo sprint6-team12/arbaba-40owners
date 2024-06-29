@@ -3,7 +3,6 @@ import type { ShopData } from '@/types/Shop';
 import StatusBadge from '../Badge/StatusBadge';
 import ActionButton from './ActionButton';
 
-
 interface EmployerTableApplication {
   id: string;
   status: UserApplicationStatus;
@@ -64,7 +63,7 @@ function EmployerTable({ data }: EmployerTableProps) {
           </tr>
         </thead>
         <tbody>
-          {data.items.map(({ item }) => {
+          {data.items.map(({ item, links }) => {
             const { id, status, user, notice } = item;
             const { name, phone } = user.item;
             const { description } = notice.item;
@@ -89,7 +88,7 @@ function EmployerTable({ data }: EmployerTableProps) {
                   className={`${baseTdStyle} min-w-162px tablet:min-w-[220px] pc:w-236px h-46px pl-12px`}
                 >
                   {status === 'pending' ? (
-                    <ActionButton />
+                    <ActionButton href={links[0].href} />
                   ) : (
                     <StatusBadge status={status} />
                   )}
