@@ -9,11 +9,11 @@ import {
   IconLocationActive,
 } from '@/lib/utils/Icons';
 
-export const POST_IMAGE_STATUS_TEXT = {
+const POST_IMAGE_STATUS_TEXT = {
   open: null,
   closed: '마감 완료',
   passed: '지난 공고',
-} as const;
+};
 
 interface PostProps {
   status: NoticeStatus;
@@ -53,7 +53,7 @@ function PostImage({
 }) {
   const statusText = POST_IMAGE_STATUS_TEXT[status];
   const ImageOverlay = (
-    <div className="absolute inset-0 flex-center text-16px tablet:text-28px pc:text-28px font-bold text-gray30 bg-black opacity-20">
+    <div className="absolute inset-0 flex-center text-16px tablet:text-28px pc:text-28px font-bold text-gray30 bg-black bg-opacity-50 z-[1]">
       {statusText}
     </div>
   );
@@ -63,7 +63,7 @@ function PostImage({
       {statusText && ImageOverlay}
       <Image
         src={imageUrl}
-        className="rounded-12px mix-blend-normal"
+        className="rounded-12px object-cover"
         alt="가게 사진"
         fill
       />
@@ -132,7 +132,7 @@ function WorkSchedule({
   } = FormatUtils.workSchedule(startsAt, workHour);
 
   const clockIcon =
-    status === 'closed' ? (
+    status !== 'open' ? (
       <IconClockActive aria-label="시간 비활성화" />
     ) : (
       <IconClock aria-label="시간 활성화" />
@@ -141,8 +141,7 @@ function WorkSchedule({
   return (
     <div className={`flex gap-6px ${className}`}>
       <div>{clockIcon}</div>
-      {/* <div className="flex gap-4px flex-wrap leading-[22px] text-gray50 text-12px tablet:text-14px pc:text-14px font-[400] break-keep"> */}
-      <div className="flex flex-wrap leading-[16px] text-gray50 text-12px tablet:text-14px pc:text-14px font-[400] break-keep">
+      <div className="flex flex-wrap leading-[21.5px] text-gray50 text-12px tablet:text-14px pc:text-14px font-[400] break-keep">
         <p>{formattedStartDate}</p>
         <p>
           {formattedStartTime}~{formattedEndTime} ({durationHours}시간)
@@ -162,7 +161,7 @@ function Location({
   status?: NoticeStatus;
 }) {
   const locationIcon =
-    status === 'closed' ? (
+    status !== 'open' ? (
       <IconLocationActive aria-label="장소 비활성화" />
     ) : (
       <IconLocation aria-label="장소 활성화" />
@@ -170,9 +169,9 @@ function Location({
 
   return (
     <div className={`flex items-center gap-6px ${className}`}>
-      {locationIcon}
+      <div className="w-20px h-20px flex-center">{locationIcon}</div>
       <p
-        className={`text-gray50 text-12px tablet:text-14px pc:text-14px font-[400] leading-[22px]`}
+        className={`text-gray50 text-12px tablet:text-14px pc:text-14px font-normal leading-[21.5px]`}
       >
         {address}
       </p>
