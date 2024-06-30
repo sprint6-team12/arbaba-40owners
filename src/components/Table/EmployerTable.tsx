@@ -1,4 +1,7 @@
+import FormatUtils from '@/lib/utils/FormatUtils';
 import type { ShopData } from '@/types/Shop';
+import StatusBadge from '../Badge/StatusBadge';
+import ActionButton from './ActionButton';
 
 interface EmployerTableApplication {
   id: string;
@@ -20,6 +23,7 @@ export interface EmployerTableData {
   items: EmployerTableItem[];
   links: Link[];
 }
+
 interface EmployerTableProps {
   data: EmployerTableData;
 }
@@ -59,10 +63,11 @@ function EmployerTable({ data }: EmployerTableProps) {
           </tr>
         </thead>
         <tbody>
-          {data.items.map(({ item }) => {
+          {data.items.map(({ item, links }) => {
             const { id, status, user, notice } = item;
             const { name, phone } = user.item;
             const { description } = notice.item;
+            const formPhone = FormatUtils.phoneNumber(phone || '연락처 없음');
 
             return (
               <tr key={id}>
@@ -77,12 +82,16 @@ function EmployerTable({ data }: EmployerTableProps) {
                   <p className="line-clamp-2">{description}</p>
                 </td>
                 <td className={`${baseTdStyle} min-w-162px h-46px pl-8px`}>
-                  {phone}
+                  {formPhone}
                 </td>
                 <td
                   className={`${baseTdStyle} min-w-162px tablet:min-w-[220px] pc:w-236px h-46px pl-12px`}
                 >
-                  {status}
+                  {status === 'pending' ? (
+                    <ActionButton href={links[0].href} />
+                  ) : (
+                    <StatusBadge status={status} />
+                  )}
                 </td>
               </tr>
             );

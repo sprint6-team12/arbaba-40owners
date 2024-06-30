@@ -1,4 +1,5 @@
 import StatusBadge from '@/components/Badge/StatusBadge';
+import FormatUtils from '@/lib/utils/FormatUtils';
 import type { ShopData } from '@/types/Shop';
 
 interface EmployeeTableApplication {
@@ -72,6 +73,11 @@ function EmployeeTable({ data }: EmployeeTableProps) {
             const { id, shop, notice, status } = item;
             const { name } = shop.item;
             const { hourlyPay, workhour, startsAt } = notice.item;
+            const price = FormatUtils.price(hourlyPay);
+            const { formattedSchedule } = FormatUtils.workSchedule(
+              startsAt,
+              workhour
+            );
 
             return (
               <tr key={id}>
@@ -83,10 +89,10 @@ function EmployeeTable({ data }: EmployeeTableProps) {
                 <td
                   className={`${baseTdStyle} min-w-162px tablet:min-w-[300px] pl-8px`}
                 >
-                  {startsAt} ({workhour})
+                  {formattedSchedule}
                 </td>
                 <td className={`${baseTdStyle} min-w-162px pl-8px`}>
-                  {hourlyPay}
+                  {price}원
                 </td>
                 <td
                   className={`${baseTdStyle} min-w-162px tablet:min-w-[220px] pc:w-236px pl-12px`}
