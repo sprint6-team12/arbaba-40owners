@@ -1,4 +1,3 @@
-import type { Shop } from '@/types/Shop';
 import HeaderButton from './HeaderButton';
 import ShopImageSection from './HeaderImage';
 import HeaderInfo from './HeaderInfo';

@@ -23,14 +23,12 @@ const applicationAPI = {
     limit,
   }: ShopApplyData) => {
     const params = {
-      shop_id,
-      notice_id,
       offset,
       limit,
     };
     try {
       const response = await axiosInstance.get(
-        `/shops/${shop_id}/notices/${notice_id}/application`,
+        `/shops/${shop_id}/notices/${notice_id}/applications`,
         { params }
       );
       return response.data;

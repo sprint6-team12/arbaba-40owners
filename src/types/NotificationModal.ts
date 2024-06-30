@@ -1,5 +1,3 @@
-import { ShopData } from './Shop';
-
 export interface Application {
   id: string;
   status: string;
@@ -34,5 +32,6 @@ export interface NotificationProps {
 }
 
 export interface NotificationModalProps {
-  data: NotificationProps;
+  data: NotificationProps | null;
+  onClose: () => void;
 }

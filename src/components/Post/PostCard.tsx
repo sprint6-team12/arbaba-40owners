@@ -1,6 +1,5 @@
 import Post from '@/components/Post/Post';
 import FormatUtils from '@/lib/utils/FormatUtils';
-import type { Shop } from '@/types/Shop';
 
 interface PostCardProps {
   noticeData: Notice;

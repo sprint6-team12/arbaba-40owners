@@ -2,8 +2,8 @@ import { ko } from 'date-fns/locale';
 import { useEffect, useRef, useState } from 'react';
 import { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { SHOP_LOCATIONS } from '@/constants/shopOptions';
 import { IconCloseBlack } from '@/lib/utils/Icons';
-import { SHOP_LOCATIONS_ARRAY } from '@/types/ShopOption';
 import DateSection from './DateSection';
 import Divider from './Divider';
 import LocationSection from './LocationSection';
@@ -114,7 +114,7 @@ export default function Filter({ onApplyFilters }: FilterProps) {
                 </button>
               </div>
               <LocationSection
-                locations={SHOP_LOCATIONS_ARRAY}
+                locations={SHOP_LOCATIONS}
                 selectedLocations={selectedLocations}
                 onLocationClick={handleLocationClick}
                 onRemoveLocation={handleRemoveLocation}

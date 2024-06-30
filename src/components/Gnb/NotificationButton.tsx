@@ -3,10 +3,9 @@ import { useRecoilValue } from 'recoil';
 import alertAPI from '@/lib/api/alertAPI';
 import { IconStatusActive, IconStatusInactive } from '@/lib/utils/Icons';
 import { userState } from '@/recoil/atoms/AuthAtom';
-import { NotificationProps } from '@/types/NotificationModal';
 import NotificationModal from '../NotificationModal/NotificationModal';
 
-const initialNotificationData: NotificationProps = {
+const initialNotificationData: NotificationListResponseData = {
   items: [],
   offset: 0,
   limit: 10,
@@ -17,9 +16,8 @@ const initialNotificationData: NotificationProps = {
 
 export default function NotificationButton() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [notificationData, setNotificationData] = useState<NotificationProps>(
-    initialNotificationData
-  );
+  const [notificationData, setNotificationData] =
+    useState<NotificationListResponseData>(initialNotificationData);
   const [unreadCount, setUnreadCount] = useState(0);
   const user = useRecoilValue(userState);
 
@@ -27,7 +25,7 @@ export default function NotificationButton() {
     const fetchNotifications = async () => {
       if (isModalOpen && user?.id) {
         try {
-          const data: NotificationProps = await alertAPI.getAlerts({
+          const data: NotificationListResponseData = await alertAPI.getAlerts({
             user_id: user.id,
           });
           setNotificationData(data);
@@ -55,7 +53,10 @@ export default function NotificationButton() {
       </button>
       {isModalOpen && (
         <div className="absolute top-full right-0 mt-2">
-          <NotificationModal data={notificationData} />
+          <NotificationModal
+            data={notificationData}
+            onClose={handleClickNotification}
+          />
         </div>
       )}
     </div>

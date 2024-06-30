@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import PostCard from '@/components/Post/PostCard';
 import removePrefix from '@/lib/utils/RemovePrefix';
-import type { Shop } from '@/types/Shop';
 
 interface NoticesCardListProps {
   title: string;
