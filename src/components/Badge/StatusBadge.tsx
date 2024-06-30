@@ -22,7 +22,7 @@ const STATUS_MAP = {
 };
 
 interface StatusBadgeProps {
-  status: UserApplicationStatus;
+  status: ApplicationStatus;
 }
 
 function StatusBadge({ status }: StatusBadgeProps) {

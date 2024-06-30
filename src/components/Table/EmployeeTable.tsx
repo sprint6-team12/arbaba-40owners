@@ -1,33 +1,8 @@
 import StatusBadge from '@/components/Badge/StatusBadge';
-import type { ShopData } from '@/types/Shop';
-
-interface EmployeeTableApplication {
-  id: string;
-  status: UserApplicationStatus;
-  createdAt: string;
-  shop: ShopData;
-  notice: {
-    item: Notice;
-    href: string;
-  };
-}
-
-interface EmployeeTableItem {
-  item: EmployeeTableApplication;
-  links: Link[];
-}
-
-export interface EmployeeTableData {
-  offset: number;
-  limit: number;
-  count: number;
-  hasNext: boolean;
-  items: EmployeeTableItem[];
-  links: Link[];
-}
+import FormatUtils from '@/lib/utils/FormatUtils';
 
 interface EmployeeTableProps {
-  data: EmployeeTableData;
+  data: ApplicationListResponseData;
 }
 
 function EmployeeTable({ data }: EmployeeTableProps) {
@@ -72,6 +47,11 @@ function EmployeeTable({ data }: EmployeeTableProps) {
             const { id, shop, notice, status } = item;
             const { name } = shop.item;
             const { hourlyPay, workhour, startsAt } = notice.item;
+            const price = FormatUtils.price(hourlyPay);
+            const { formattedSchedule } = FormatUtils.workSchedule(
+              startsAt,
+              workhour
+            );
 
             return (
               <tr key={id}>
@@ -83,10 +63,10 @@ function EmployeeTable({ data }: EmployeeTableProps) {
                 <td
                   className={`${baseTdStyle} min-w-162px tablet:min-w-[300px] pl-8px`}
                 >
-                  {startsAt} ({workhour})
+                  {formattedSchedule}
                 </td>
                 <td className={`${baseTdStyle} min-w-162px pl-8px`}>
-                  {hourlyPay}
+                  {price}원
                 </td>
                 <td
                   className={`${baseTdStyle} min-w-162px tablet:min-w-[220px] pc:w-236px pl-12px`}

@@ -1,3 +1,3 @@
 type NoticeStatus = 'open' | 'closed' | 'passed';
 
-type UserApplicationStatus = 'pending' | 'accepted' | 'rejected' | 'canceled';
+type ApplicationStatus = 'pending' | 'accepted' | 'rejected' | 'canceled';

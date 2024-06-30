@@ -1,27 +1,9 @@
-import type { ShopData } from '@/types/Shop';
+import FormatUtils from '@/lib/utils/FormatUtils';
+import StatusBadge from '../Badge/StatusBadge';
+import ActionButton from './ActionButton';
 
-interface EmployerTableApplication {
-  id: string;
-  status: UserApplicationStatus;
-  createdAt: string;
-  user: UserData;
-  shop: ShopData;
-  notice: NoticeData;
-}
-interface EmployerTableItem {
-  item: EmployerTableApplication;
-  links: Link[];
-}
-export interface EmployerTableData {
-  offset: number;
-  limit: number;
-  count: number;
-  hasNext: boolean;
-  items: EmployerTableItem[];
-  links: Link[];
-}
 interface EmployerTableProps {
-  data: EmployerTableData;
+  data: ApplicationListResponseData;
 }
 
 function EmployerTable({ data }: EmployerTableProps) {
@@ -59,10 +41,13 @@ function EmployerTable({ data }: EmployerTableProps) {
           </tr>
         </thead>
         <tbody>
-          {data.items.map(({ item }) => {
+          {data.items.map(({ item, links }) => {
+            if (!('user' in item)) return null;
+
             const { id, status, user, notice } = item;
             const { name, phone } = user.item;
             const { description } = notice.item;
+            const formPhone = FormatUtils.phoneNumber(phone || '연락처 없음');
 
             return (
               <tr key={id}>
@@ -77,12 +62,16 @@ function EmployerTable({ data }: EmployerTableProps) {
                   <p className="line-clamp-2">{description}</p>
                 </td>
                 <td className={`${baseTdStyle} min-w-162px h-46px pl-8px`}>
-                  {phone}
+                  {formPhone}
                 </td>
                 <td
                   className={`${baseTdStyle} min-w-162px tablet:min-w-[220px] pc:w-236px h-46px pl-12px`}
                 >
-                  {status}
+                  {status === 'pending' && links ? (
+                    <ActionButton href={links[0].href} />
+                  ) : (
+                    <StatusBadge status={status} />
+                  )}
                 </td>
               </tr>
             );

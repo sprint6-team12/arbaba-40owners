@@ -1,4 +1,3 @@
-import type { Shop } from '@/types/Shop';
 import NoData from '../NoData';
 import ShopHeader from './ShopHeader';
 

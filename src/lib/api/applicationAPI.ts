@@ -23,14 +23,12 @@ const applicationAPI = {
     limit,
   }: ShopApplyData) => {
     const params = {
-      shop_id,
-      notice_id,
       offset,
       limit,
     };
     try {
       const response = await axiosInstance.get(
-        `/shops/${shop_id}/notices/${notice_id}/application`,
+        `/shops/${shop_id}/notices/${notice_id}/applications`,
         { params }
       );
       return response.data;
@@ -57,25 +55,13 @@ const applicationAPI = {
       handleAxiosError(error);
     }
   },
-  putShopApply: async ({
-    shop_id,
-    notice_id,
-    application_id,
-  }: ShopApplyData) => {
+  putShopApply: async (href: string, applyStatus: string) => {
     const headers = {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     };
-    const body = {
-      shop_id,
-      notice_id,
-      application_id,
-    };
+    const body = { status: applyStatus };
     try {
-      const response = await axiosInstance.put(
-        `/shop/${shop_id}/notices/${notice_id}/applications/${application_id}`,
-        { body },
-        { headers }
-      );
+      const response = await axiosInstance.put(href, { body }, { headers });
       return response.data;
     } catch (error) {
       handleAxiosError(error);

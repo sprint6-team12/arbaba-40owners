@@ -9,7 +9,7 @@ interface NoticeBase {
 
 interface currentUserApplication {
   id: string; // application.id
-  status: UserApplicationStatus; // application.status
+  status: ApplicationStatus; // application.status
   createdAt: string; // application.createdAt
 }
 
