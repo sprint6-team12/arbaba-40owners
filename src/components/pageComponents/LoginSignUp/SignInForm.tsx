@@ -31,11 +31,10 @@ const SignInForm = ({ onClose }: { onClose?: () => void }) => {
         const token = response.item.token;
         const userId = response.item.user.item.id;
         const userType = response.item.user.item.type;
-        localStorage.setItem('userJWT', token);
+        localStorage.setItem('token', token);
         localStorage.setItem('userId', userId);
         localStorage.setItem('userType', userType);
         setUser(token, userId, userType, true);
-        // 여기다가 모달 닫는 함수 넣어줘야 할듯 !! 아니면 페이지 새로고침
         if (onClose) {
           onClose();
         }
