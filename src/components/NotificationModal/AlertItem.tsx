@@ -8,7 +8,7 @@ import { userState } from '@/recoil/atoms/AuthAtom';
 
 export default function AlertItem({ item }: { item: NotificationItem }) {
   const { notice, result, shop, read } = item;
-  const href = item.notice.href ?? '';
+  const href = item.notice.href ?? ''; // 없으면 '' 안하면에러남 ㅠ
   const resultInfo = getResultInfo(result);
   const { id } = useRecoilValue(userState);
 

@@ -3,7 +3,7 @@ import { IconCloseBlack } from '@/lib/utils/Icons';
 
 interface NotificationModalProps {
   data: NotificationListResponseData;
-  onClose: () => void;
+  onClose: () => void; // onClose 함수
 }
 
 export default function NotificationModal({
