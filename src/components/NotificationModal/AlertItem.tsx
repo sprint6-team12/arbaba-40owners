@@ -1,8 +1,7 @@
 import FormatUtils from '@/lib/utils/FormatUtils';
 import { getResultInfo } from '@/lib/utils/NotificationModal';
-import { AlertItemProps } from '@/types/NotificationModal';
 
-export default function AlertItem({ item }: { item: AlertItemProps }) {
+export default function AlertItem({ item }: { item: NotificationItem }) {
   const { notice, result, shop } = item;
   const resultInfo = getResultInfo(result);
 
