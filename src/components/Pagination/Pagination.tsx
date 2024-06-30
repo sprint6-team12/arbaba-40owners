@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import { IconPrevArrow, IconNextArrow } from '@/lib/utils/Icons';
-import paginationUtils from './paginationUtils';
+import paginationUtils from '../../lib/utils/paginationUtils';
 
 interface PaginationProps {
   count: number;
@@ -18,13 +17,8 @@ function Pagination({
   hasNext,
   onPageChange,
 }: PaginationProps) {
-  paginationUtils.values = { count, limit };
-  const [totalPages, setTotalPages] = useState(paginationUtils.totalPages);
-  const [pageRangeDisplayed, setPageRangeDisplayed] = useState(
-    paginationUtils.pageRange
-  );
-
-  const isFewPages = totalPages <= 7;
+  paginationUtils.setValues = { count, limit };
+  const isFewPages = paginationUtils.totalPages <= 7;
   const isFirstPage = currentPage === 1;
 
   const handlePageClick = (data: { selected: number }) => {
@@ -32,16 +26,6 @@ function Pagination({
 
     onPageChange(selectedPage);
   };
-
-  const updatePagination = () => {
-    paginationUtils.values = { count, limit };
-    setTotalPages(paginationUtils.totalPages);
-    setPageRangeDisplayed(paginationUtils.pageRange);
-  };
-
-  useEffect(() => {
-    updatePagination();
-  }, [count, limit]);
 
   return (
     <div className="flex justify-center">
@@ -57,8 +41,8 @@ function Pagination({
           />
         } // 다음 페이지 버튼의 라벨
         breakLabel={null} // 표시할 페이지 외 다른 페이지 축약 표기
-        pageCount={totalPages} // 총 페이지 수 설정
-        pageRangeDisplayed={pageRangeDisplayed} // 표시할 페이지 번호의 범위
+        pageCount={paginationUtils.totalPages} // 총 페이지 수 설정
+        pageRangeDisplayed={paginationUtils.pageRange} // 표시할 페이지 번호의 범위
         marginPagesDisplayed={0} // 표시할 페이지 이외에여백에 표시할 페이지 수
         onPageChange={handlePageClick} // 페이지 변경 시 호출될 핸들러
         containerClassName={'flex gap-2px'} // 페이지네이션 컨테이너의 클래스명

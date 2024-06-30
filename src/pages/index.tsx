@@ -6,6 +6,7 @@ import Filter from '@/components/Filter/Filter';
 import Pagination from '@/components/Pagination/Pagination';
 import PostCard from '@/components/Post/PostCard';
 import noticeAPI from '@/lib/api/noticeAPI';
+import paginationUtils from '@/lib/utils/paginationUtils';
 import useMediaQuery from '@/lib/utils/useMediaQuery';
 
 export default function Home({
@@ -24,10 +25,7 @@ export default function Home({
   });
   const { isMobile } = useMediaQuery();
   const router = useRouter();
-  const calculateCurrentPage = (offset: number, limit: number): number => {
-    return Math.floor(offset / limit) + 1;
-  };
-  const calculatedCurrentPage = calculateCurrentPage(offset, limit);
+  paginationUtils.setValues = { limit, offset };
 
   const handlePageChange = async (page: number) => {
     const limit = noticeData.limit;
@@ -116,7 +114,7 @@ export default function Home({
             <Pagination
               count={noticeData.count}
               limit={noticeData.limit}
-              currentPage={calculatedCurrentPage}
+              currentPage={paginationUtils.currentPage}
               hasNext={noticeData.hasNext}
               onPageChange={handlePageChange}
             />
