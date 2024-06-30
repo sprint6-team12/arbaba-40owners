@@ -53,7 +53,10 @@ export default function NotificationButton() {
       </button>
       {isModalOpen && (
         <div className="absolute top-full right-0 mt-2">
-          <NotificationModal data={notificationData} />
+          <NotificationModal
+            data={notificationData}
+            onClose={handleClickNotification}
+          />
         </div>
       )}
     </div>
