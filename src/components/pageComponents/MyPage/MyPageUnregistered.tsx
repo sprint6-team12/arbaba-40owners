@@ -12,7 +12,7 @@ export default function MyPageUnregistered() {
 
   return (
     <div className="px-40px tablet:px-60px pc:px-[238px] py-12px tablet:py-32px pc:py-60px">
-      <div className="flex justify-between mb-16px">
+      <div className="flex justify-between gap-10px mb-60px">
         <span className="font-[700] text-20px tablet:text-28px pc:text-28px">
           내 프로필
         </span>

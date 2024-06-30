@@ -1,62 +1,84 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import LinkButton from '@/components/Button/LinkButton';
-import EmployeeTable, { EmployeeTableData } from '@/components/Table/EmployeeTable';
-import userAPI from '@/lib/api/userAPI';
-import { MyPageProfileData } from '@/types/MyPage';
+import EmployeeTable, {
+  EmployeeTableData,
+} from '@/components/Table/EmployeeTable';
+import { UserInfo } from '@/lib/api/userAPI';
+import { IconCloseBlack } from '@/lib/utils/Icons';
+import MyPageInput from './MyPageInput';
 import MyPageProfile from './MyPageProfile';
+
+interface MyPageRegisteredProps {
+  profileData: UserInfo;
+}
+
+const dummyEmployeeTableData: EmployeeTableData = {
+  offset: 0,
+  limit: 10,
+  count: 0,
+  hasNext: false,
+  items: [],
+  links: [],
+};
 
 export default function MyPageRegistered({
   profileData,
-}: {
-  profileData: MyPageProfileData;
-}) {
-  const [employeeTableData, setEmployeeTableData] =
-    useState<EmployeeTableData | null>(null);
-  const [hasApplications, setHasApplications] = useState(false);
+}: MyPageRegisteredProps) {
+  const [isEditing, setIsEditing] = useState(false);
+  // const [hasApplications, setHasApplications] = useState(false);
 
-  useEffect(() => {
-    const fetchEmployeeTableData = async () => {
-      if (profileData) {
-        const data = await userAPI.getUserData(profileData.id);
-        if (data && data.applications) {
-          setEmployeeTableData(data.applications);
-          setHasApplications(data.applications.length > 0);
-        }
-      }
-    };
-
-    fetchEmployeeTableData();
-  }, [profileData]);
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+  const handleCloseClick = () => {
+    setIsEditing(false);
+  };
 
   return (
-    <div className="px-40px tablet:px-60px pc:px-[245px] py-12px tablet:py-32px pc:py-60px">
-      <div className="pc:flex justify-between gap-10px mb-60px">
-        <span className="font-[700] text-20px tablet:text-28px pc:text-28px text-nowrap">
+    <div className="px-10 tablet:px-16 pc:px-60 py-3 tablet:py-8 pc:py-15">
+      <div className="flex justify-between items-center gap-2.5">
+        <span className="font-bold text-20 tablet:text-28 pc:text-28">
           내 프로필
         </span>
-        <MyPageProfile ProfileData={profileData} />
+        {isEditing && (
+          <button onClick={handleCloseClick}>
+            <IconCloseBlack alt="닫기" />
+          </button>
+        )}
       </div>
-      <span className="font-[700] text-20px tablet:text-28px pc:text-28px">
-        신청 내역
-      </span>
-
-      {hasApplications && employeeTableData ? (
-        <div className="mt-32px w-full">
-          <EmployeeTable data={employeeTableData} />
-        </div>
+      {isEditing ? (
+        <MyPageInput />
       ) : (
-        <div className="border rounded-12px w-full h-195px tablet:h-217px pc:h-217px">
-          <div className="text-center px-24px py-60px">
-            <span className="font-[400] text-14px tablet:text-16px pc:text-16px">
-              아직 신청 내역이 없어요.
+        <>
+          <MyPageProfile ProfileData={profileData} onClick={handleEditClick} />
+          <div className="mt-8 mb-8">
+            <span className="font-bold text-20 tablet:text-28 pc:text-28">
+              신청 내역
             </span>
-            <div className="flex-center mt-16px tablet:mt-24px pc:mt-24px">
-              <LinkButton href="/" className="button_large_active text-nowrap">
-                공고 보러가기
-              </LinkButton>
+          </div>
+
+          {/* {hasApplications ? ( */}
+          <div className="mt-8 w-full">
+            <EmployeeTable data={dummyEmployeeTableData} />
+          </div>
+          {/* ) : ( */}
+          <div className="border rounded-3 w-full h-48 tablet:h-54 pc:h-54 flex flex-col justify-center items-center">
+            <div className="text-center px-6 py-15">
+              <span className="font-normal text-14 tablet:text-16 pc:text-16">
+                아직 신청 내역이 없어요.
+              </span>
+              <div className="flex justify-center mt-4 tablet:mt-6 pc:mt-6">
+                <LinkButton
+                  href="/"
+                  className="button_large_active text-nowrap"
+                >
+                  공고 보러가기
+                </LinkButton>
+              </div>
             </div>
           </div>
-        </div>
+          {/* )} */}
+        </>
       )}
     </div>
   );

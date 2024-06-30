@@ -1,27 +1,25 @@
+import { ShopNoticeFormErrors } from '@/components/pageComponents/AddNotice/AddNoticeInput';
+import { UserInfoFormErrors } from '@/components/pageComponents/MyPage/MyPageInput';
 import {
   NOTICE_ERROR_MESSAGES,
   MYPAGE_ERROR_MESSAGES,
 } from '@/constants/errorMessage';
-import {
-  AddNoticeFormData,
-  AddNoticeFormErrors,
-  MyPageFormData,
-  MyPageFormErrors,
-} from '@/types/FormData';
+import { ShopNoticeData } from '@/lib/api/noticeAPI';
+import { UserInfo } from '@/lib/api/userAPI';
 
 // AddNotice 유효성 검사 함수
 export const validateAddNoticeForm = (
-  data: AddNoticeFormData
-): AddNoticeFormErrors => {
-  const { hourlyPay, startsAt, workHour } = data;
-  const errors: AddNoticeFormErrors = {
+  data: ShopNoticeData
+): ShopNoticeFormErrors => {
+  const { hourlyPay, startsAt, workhour } = data;
+  const errors: ShopNoticeFormErrors = {
     hourlyPay: null,
     startsAt: null,
-    workHour: null,
+    workhour: null,
     description: null,
   };
 
-  if (!hourlyPay || parseFloat(hourlyPay) === 0) {
+  if (!hourlyPay || hourlyPay === 0) {
     errors.hourlyPay = NOTICE_ERROR_MESSAGES.HOURLY_PAY_REQUIRED;
   }
   if (!startsAt) {
@@ -32,19 +30,19 @@ export const validateAddNoticeForm = (
       errors.startsAt = NOTICE_ERROR_MESSAGES.STARTS_AT_PAST_DATE;
     }
   }
-  if (!workHour || workHour === 0) {
-    errors.workHour = NOTICE_ERROR_MESSAGES.WORK_HOUR_REQUIRED;
-  } else if (workHour > 24) {
-    errors.workHour = NOTICE_ERROR_MESSAGES.WORK_HOUR_EXCEEDS_LIMIT;
+  if (!workhour || workhour === 0) {
+    errors.workhour = NOTICE_ERROR_MESSAGES.WORK_HOUR_REQUIRED;
+  } else if (workhour > 24) {
+    errors.workhour = NOTICE_ERROR_MESSAGES.WORK_HOUR_EXCEEDS_LIMIT;
   }
 
   return errors;
 };
 
 // MyPage 유효성 검사 함수
-export const validateMyPageForm = (data: MyPageFormData): MyPageFormErrors => {
+export const validateMyPageForm = (data: UserInfo): UserInfoFormErrors => {
   const { name, phone } = data;
-  const errors: MyPageFormErrors = {
+  const errors: UserInfoFormErrors = {
     name: null,
     phone: null,
     address: null,

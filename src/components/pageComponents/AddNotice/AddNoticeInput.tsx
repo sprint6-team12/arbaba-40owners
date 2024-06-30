@@ -1,24 +1,31 @@
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
 import Button from '@/components/Button/Button';
 import FormGroup from '@/components/FormGroup/FormGroup';
 import ModalPrimary from '@/components/Modal/ModalPrimary';
 import useModal from '@/hooks/useModal';
-import noticeAPI from '@/lib/api/noticeAPI';
+import noticeAPI, { ShopNoticeData } from '@/lib/api/noticeAPI';
 import FormatUtils from '@/lib/utils/FormatUtils';
 import { validateAddNoticeForm } from '@/lib/utils/InputValidation';
-import { AddNoticeFormData, AddNoticeFormErrors } from '@/types/FormData';
 
-const initialFormData: AddNoticeFormData = {
-  hourlyPay: '',
+export interface ShopNoticeFormErrors {
+  hourlyPay: string | null;
+  startsAt: string | null;
+  workhour: string | null;
+  description: string | null;
+}
+
+const initialFormData: ShopNoticeData = {
+  hourlyPay: 0,
   startsAt: '',
-  workHour: 0,
+  workhour: 0,
   description: '',
 };
 
-const initialFormErrors: AddNoticeFormErrors = {
+const initialFormErrors: ShopNoticeFormErrors = {
   hourlyPay: null,
   startsAt: null,
-  workHour: null,
+  workhour: null,
   description: null,
 };
 
@@ -31,17 +38,18 @@ const ConfirmModal = ({ ...rest }) => (
 );
 
 export default function AddNoticeInput() {
+  const router = useRouter();
+  const { shop_id } = router.query;
   const { openModal } = useModal();
-  const [data, setData] = useState<AddNoticeFormData>(initialFormData);
-  const [errors, setErrors] = useState<AddNoticeFormErrors>(initialFormErrors);
+  const [data, setData] = useState<ShopNoticeData>(initialFormData);
+  const [errors, setErrors] = useState<ShopNoticeFormErrors>(initialFormErrors);
 
   const handleChangeData = (
-    event:
-      | React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-      | React.MouseEvent<HTMLButtonElement>
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const target = event.target as HTMLInputElement | HTMLTextAreaElement;
     const { name, value } = target;
+
     setData((prev) => ({
       ...prev,
       [name]:
@@ -69,14 +77,18 @@ export default function AddNoticeInput() {
       setErrors(validationErrors);
     } else {
       try {
-        await noticeAPI.postShopNotice('shopId', {
-          hourlyPay: Number(data.hourlyPay.replace(/,/g, '')),
-          startsAt: data.startsAt,
-          workhour: data.workHour,
-          description: data.description,
-        });
-        alert('등록이 완료되었습니다');
-        handleOpenConfirmModal();
+        if (typeof shop_id === 'string') {
+          await noticeAPI.postShopNotice(shop_id, {
+            hourlyPay: data.hourlyPay,
+            startsAt: data.startsAt,
+            workhour: data.workhour,
+            description: data.description,
+          });
+          alert('등록이 완료되었습니다');
+          handleOpenConfirmModal();
+        } else {
+          throw new Error('유효하지않은 id');
+        }
       } catch (error) {
         alert(error);
       }
@@ -120,18 +132,18 @@ export default function AddNoticeInput() {
           </div>
           <div className="mb-20px w-full pc:basis-1/3">
             <FormGroup>
-              <FormGroup.Label htmlFor="workHour">업무 시간*</FormGroup.Label>
+              <FormGroup.Label htmlFor="workhour">업무 시간*</FormGroup.Label>
               <FormGroup.InputWrapper className="flex input-base">
                 <FormGroup.InputField
-                  id="workHour"
-                  name="workHour"
+                  id="workhour"
+                  name="workhour"
                   type="number"
-                  value={data.workHour}
+                  value={data.workhour}
                   onChange={handleChangeData}
                 />
                 <span className="w-40px">시간</span>
               </FormGroup.InputWrapper>
-              <FormGroup.ErrorMessage errorMessage={errors.workHour} />
+              <FormGroup.ErrorMessage errorMessage={errors.workhour} />
             </FormGroup>
           </div>
         </div>

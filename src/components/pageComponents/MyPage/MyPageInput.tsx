@@ -1,22 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useRecoilValue } from 'recoil';
 import Button from '@/components/Button/Button';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import FormGroup from '@/components/FormGroup/FormGroup';
 import ModalPrimary from '@/components/Modal/ModalPrimary';
+import { SHOP_LOCATIONS } from '@/constants/shopOptions';
 import useModal from '@/hooks/useModal';
+import userAPI, { UserInfo } from '@/lib/api/userAPI';
 import FormatUtils from '@/lib/utils/FormatUtils';
 import { validateMyPageForm } from '@/lib/utils/InputValidation';
-import { MyPageFormData, MyPageFormErrors } from '@/types/FormData';
-import { SHOP_LOCATIONS_ARRAY } from '@/types/ShopOption';
+import { userState } from '@/recoil/atoms/AuthAtom';
 
-const initialFormData: MyPageFormData = {
+export interface UserInfoFormErrors {
+  name: string | null;
+  phone: string | null;
+  address?: string | null;
+  bio?: string | null;
+}
+
+const initialFormData: UserInfo = {
   name: '',
   phone: '',
   address: '',
   bio: '',
 };
 
-const initialFormErrors: MyPageFormErrors = {
+const initialFormErrors: UserInfoFormErrors = {
   name: null,
   phone: null,
   address: null,
@@ -32,9 +41,20 @@ const ConfirmModal = ({ ...rest }) => (
 );
 
 export default function MyPageInput() {
+  const { id, token } = useRecoilValue(userState);
   const { openModal } = useModal();
-  const [data, setData] = useState<MyPageFormData>(initialFormData);
-  const [errors, setErrors] = useState<MyPageFormErrors>(initialFormErrors);
+  const [data, setData] = useState<UserInfo>(initialFormData);
+  const [errors, setErrors] = useState<UserInfoFormErrors>(initialFormErrors);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (id) {
+        const userData = await userAPI.getUserData(id);
+        setData(userData);
+      }
+    };
+    fetchUserData();
+  }, [id]);
 
   const handleChangeData = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -72,17 +92,29 @@ export default function MyPageInput() {
 
   const handleOpenConfirmModal = () => {
     openModal('myPageConfirmModal', ConfirmModal, {
-      // onConfirm: () => //페이지로 이동
+      // onConfirm: () => 페이지이동
     });
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     const validationErrors = validateMyPageForm(data);
     if (Object.values(validationErrors).some((error) => error !== null)) {
       setErrors(validationErrors);
-    } else {
+      return;
+    }
+    if (!id) {
+      alert(errors);
+      return;
+    }
+    try {
+      await userAPI.putUserData(id, token, {
+        ...data,
+        phone: data.phone.replace(/\D/g, ''),
+      });
       handleOpenConfirmModal();
+    } catch (error) {
+      alert(error);
     }
   };
 
@@ -123,13 +155,12 @@ export default function MyPageInput() {
             </div>
           </div>
           <div className="mb-20px w-full pc:basis-1/3">
-            <FormGroup>
-              <FormGroup.Label htmlFor="address">선호 지역</FormGroup.Label>
-              <Dropdown
-                options={SHOP_LOCATIONS_ARRAY}
-                onSelect={handleSelect}
-              />
-            </FormGroup>
+            <h2>선호 지역</h2>
+            <Dropdown
+              options={SHOP_LOCATIONS}
+              onSelect={handleSelect}
+              defaultValue={data.address}
+            />
           </div>
         </div>
         <div className="mb-20px">
