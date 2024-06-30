@@ -33,7 +33,7 @@ const NOTICE_DETAIL_BUTTON_PROPS = {
 interface NoticeDetailCardButtonProps {
   noticeState: NoticeStatus;
   userType: UserType;
-  userApplicationState: UserApplicationStatus | null;
+  userApplicationState: ApplicationStatus | null;
   apiRequestList?: { [key: string]: () => Promise<unknown> };
 }
 

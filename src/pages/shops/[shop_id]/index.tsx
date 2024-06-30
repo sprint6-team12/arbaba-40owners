@@ -7,7 +7,6 @@ import ShopHeaderSection from '@/components/pageComponents/ShopDetail/ShopHeader
 import noticeAPI from '@/lib/api/noticeAPI';
 import shopAPI from '@/lib/api/shopAPI';
 import { userState } from '@/recoil/atoms/AuthAtom';
-import type { Shop } from '@/types/Shop';
 
 interface ShopDetailProps {
   shopData: Shop | null;

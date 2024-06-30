@@ -1,34 +1,8 @@
 import StatusBadge from '@/components/Badge/StatusBadge';
 import FormatUtils from '@/lib/utils/FormatUtils';
-import type { ShopData } from '@/types/Shop';
-
-interface EmployeeTableApplication {
-  id: string;
-  status: UserApplicationStatus;
-  createdAt: string;
-  shop: ShopData;
-  notice: {
-    item: Notice;
-    href: string;
-  };
-}
-
-interface EmployeeTableItem {
-  item: EmployeeTableApplication;
-  links: Link[];
-}
-
-export interface EmployeeTableData {
-  offset: number;
-  limit: number;
-  count: number;
-  hasNext: boolean;
-  items: EmployeeTableItem[];
-  links: Link[];
-}
 
 interface EmployeeTableProps {
-  data: EmployeeTableData;
+  data: ApplicationListResponseData;
 }
 
 function EmployeeTable({ data }: EmployeeTableProps) {

@@ -1,6 +1,9 @@
 import AlertItem from '@/components/NotificationModal/AlertItem';
 import { IconCloseBlack } from '@/lib/utils/Icons';
-import { NotificationModalProps } from '@/types/NotificationModal';
+
+interface NotificationModalProps {
+  data: NotificationListResponseData;
+}
 
 export default function NotificationModal({ data }: NotificationModalProps) {
   const { items } = data;
