@@ -7,6 +7,8 @@ export const ERROR_MESSAGES = {
   passwordRequired: '비밀번호를 입력해주세요.',
   passwordTooShort: `비밀번호는 최소 ${PASSWORD_MIN_LENGTH}자 이상이어야 합니다.`,
   passwordMismatch: '비밀번호가 일치하지 않습니다.',
+};
+export const ERROR_MESSAGES_SHOP = {
   shopNameRequired: '가게 이름을 작성해주세요',
   categoryRequired: '분류를 선택해주세요',
   addressRequired: '주소를 선택해주세요',
