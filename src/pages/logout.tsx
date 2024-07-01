@@ -7,7 +7,7 @@ export default function Logout() {
   const router = useRouter();
 
   useEffect(() => {
-    setUser(null, null, 'guest', false);
+    setUser(null, null, null, 'guest', false);
     router.push('/');
   });
 }
