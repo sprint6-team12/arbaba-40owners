@@ -33,8 +33,11 @@ const SignInForm = ({ onClose }: { onClose?: () => void }) => {
         const userId = responsePostToken.item.user.item.id;
         const userType = responsePostToken.item.user.item.type;
 
-        const responseGetUsers = await userAPI.getUserData(userId);
-        const shopId = responseGetUsers.item.shop?.item.id ?? null;
+        let shopId = null;
+        if (userType === 'employer') {
+          const responseGetUsers = await userAPI.getUserData(userId);
+          shopId = responseGetUsers.item.shop?.item.id ?? null;
+        }
 
         localStorage.setItem('token', token);
         setUser(token, userId, shopId, userType, true);
