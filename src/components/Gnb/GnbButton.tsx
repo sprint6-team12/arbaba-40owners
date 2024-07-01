@@ -58,7 +58,7 @@ const SpecialModal = ({
 
 export default function GnbButton({ userType, onClick }: GnbButtonProps) {
   const { openModal } = useModal();
-  const { id } = useRecoilValue(userState);
+  const { userId } = useRecoilValue(userState);
   const [userShopId, setUserShopId] = useState('');
   const router = useRouter();
   const { setUser } = useAuth();
@@ -78,10 +78,10 @@ export default function GnbButton({ userType, onClick }: GnbButtonProps) {
   };
 
   useEffect(() => {
-    if (id && userType === 'employer') {
-      getUserShopId(id);
+    if (userId && userType === 'employer') {
+      getUserShopId(userId);
     }
-  }, [id]);
+  }, [userId]);
 
   const handleGnbButtonsClick = (buttonId: string) => {
     if (userType === 'guest' || userType === undefined) {
@@ -93,13 +93,11 @@ export default function GnbButton({ userType, onClick }: GnbButtonProps) {
     } else if (userType === 'employer' && buttonId === 'my-shop') {
       router.push(`/shops/${userShopId}`);
     } else if (userType === 'employee' && buttonId === 'my-profile') {
-      router.push(`/users/${id}`);
+      router.push(`/users/${userId}`);
     } else if (buttonId === 'logout') {
       router.replace('/').then(() => {
-        localStorage.removeItem('userJWT');
-        localStorage.removeItem('userId');
-        localStorage.removeItem('userType');
-        setUser(null, null, 'guest', false);
+        localStorage.removeItem('token');
+        setUser(null, null, null, 'guest', false);
       });
     } else {
       onClick(buttonId);

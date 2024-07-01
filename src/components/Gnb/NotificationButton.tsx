@@ -23,10 +23,10 @@ export default function NotificationButton() {
 
   useEffect(() => {
     const fetchNotifications = async () => {
-      if (isModalOpen && user?.id) {
+      if (isModalOpen && user?.userId) {
         try {
           const data: NotificationListResponseData = await alertAPI.getAlerts({
-            user_id: user.id,
+            user_id: user.userId,
           });
           setNotificationData(data);
           setUnreadCount(data.items.filter(({ item }) => !item.read).length);
@@ -36,7 +36,7 @@ export default function NotificationButton() {
       }
     };
     fetchNotifications();
-  }, [isModalOpen, user?.id]);
+  }, [isModalOpen, user?.userId]);
 
   const handleClickNotification = () => {
     setIsModalOpen(!isModalOpen);
