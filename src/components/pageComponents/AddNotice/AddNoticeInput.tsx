@@ -5,7 +5,11 @@ import FormGroup from '@/components/FormGroup/FormGroup';
 import ConfirmModal from '@/components/pageComponents/MyPage/ConfirmModal';
 import useModal from '@/hooks/useModal';
 import noticeAPI, { ShopNoticeData } from '@/lib/api/noticeAPI';
-import FormatUtils from '@/lib/utils/FormatUtils';
+import {
+  clearError,
+  hasErrors,
+  handleInputChange,
+} from '@/lib/utils/FormUtils';
 import { validateAddNoticeForm } from '@/lib/utils/InputValidation';
 import { userState } from '@/recoil/atoms/AuthAtom';
 
@@ -39,33 +43,20 @@ export default function AddNoticeInput() {
   const handleChangeData = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const target = event.target as HTMLInputElement | HTMLTextAreaElement;
-    const { name, value } = target;
-
-    setData((prev) => ({
-      ...prev,
-      [name]:
-        name === 'hourlyPay'
-          ? FormatUtils.price(Number(value.replace(/,/g, '')))
-          : value,
-    }));
-
-    setErrors((prev) => ({
-      ...prev,
-      [name]: null,
-    }));
+    const { name, value } = event.target;
+    handleInputChange(setData, name, value);
+    clearError(setErrors, name as keyof ShopNoticeFormErrors);
   };
-
   const handleOpenConfirmModal = () => {
     openModal('addNoticeConfirmModal', ConfirmModal, {
-      // onConfirm: () => //공고상세페이지로 이동
+      // onConfirm: () => // 공고 상세 페이지로 이동
     });
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     const validationErrors = validateAddNoticeForm(data);
-    if (Object.values(validationErrors).some((error) => error !== null)) {
+    if (hasErrors(validationErrors)) {
       setErrors(validationErrors);
     } else {
       try {
@@ -78,7 +69,7 @@ export default function AddNoticeInput() {
           });
           handleOpenConfirmModal();
         } else {
-          throw new Error('유효하지않은 id');
+          throw new Error('유효하지 않은 ID');
         }
       } catch (error) {
         alert(error);

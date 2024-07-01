@@ -1,16 +1,21 @@
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import Button from '@/components/Button/Button';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import FormGroup from '@/components/FormGroup/FormGroup';
-import ModalPrimary from '@/components/Modal/ModalPrimary';
 import { SHOP_LOCATIONS } from '@/constants/shopOptions';
 import useModal from '@/hooks/useModal';
 import userAPI, { UserInfo } from '@/lib/api/userAPI';
 import FormatUtils from '@/lib/utils/FormatUtils';
+import {
+  clearError,
+  hasErrors,
+  handleInputChange,
+} from '@/lib/utils/FormUtils';
 import { validateMyPageForm } from '@/lib/utils/InputValidation';
 import { userState } from '@/recoil/atoms/AuthAtom';
+import ConfirmModal from './ConfirmModal';
 
 export interface UserInfoFormErrors {
   name: string | null;
@@ -33,14 +38,6 @@ const initialFormErrors: UserInfoFormErrors = {
   bio: null,
 };
 
-const ConfirmModal = ({ ...rest }) => (
-  <ModalPrimary
-    optionType="confirm"
-    content="등록이 완료되었습니다."
-    {...rest}
-  />
-);
-
 export default function MyPageInput() {
   const { userId, token } = useRecoilValue(userState);
   const router = useRouter();
@@ -49,40 +46,38 @@ export default function MyPageInput() {
   const [errors, setErrors] = useState<UserInfoFormErrors>(initialFormErrors);
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      if (userId) {
-        const userData = await userAPI.getUserData(userId);
-        setData(userData.item);
-      }
-    };
-    fetchUserData();
+    if (userId) {
+      fetchUserData(userId);
+    }
   }, [userId]);
+
+  const fetchUserData = async (userId: string) => {
+    const userData = await userAPI.getUserData(userId);
+    setData(userData.item);
+  };
 
   const handleChangeData = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    const target = event.target as HTMLInputElement | HTMLTextAreaElement;
-    const { name, value } = target;
+    const { name, value } = event.target;
 
     if (name === 'phone') {
-      const cleanedValue = value.replace(/\D/g, '');
-      if (cleanedValue.length <= 11) {
-        setData((prev) => ({
-          ...prev,
-          [name]: FormatUtils.phoneNumber(cleanedValue),
-        }));
-      }
+      handlePhoneChange(value);
     } else {
-      setData((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
+      handleInputChange(setData, name, value);
     }
 
-    setErrors((prev) => ({
-      ...prev,
-      [name]: null,
-    }));
+    clearError(setErrors, name as keyof UserInfoFormErrors);
+  };
+
+  const handlePhoneChange = (value: string) => {
+    const cleanedValue = value.replace(/\D/g, '');
+    if (cleanedValue.length <= 11) {
+      setData((prev) => ({
+        ...prev,
+        phone: FormatUtils.phoneNumber(cleanedValue),
+      }));
+    }
   };
 
   const handleDropdownSelect = (selectedOption: string) => {
@@ -95,7 +90,9 @@ export default function MyPageInput() {
   const handleOpenConfirmModal = () => {
     openModal('myPageConfirmModal', ConfirmModal, {
       onConfirm: () => {
-        router.push(`/users/${userId}`);
+        if (userId) {
+          router.push(`/users/${userId}`);
+        }
       },
     });
   };
@@ -103,19 +100,20 @@ export default function MyPageInput() {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     const validationErrors = validateMyPageForm(data);
-    if (Object.values(validationErrors).some((error) => error !== null)) {
+    if (hasErrors(validationErrors)) {
       setErrors(validationErrors);
       return;
-    }
-    if (!userId) {
-      alert(errors);
-      return;
-    }
-    try {
-      await userAPI.putUserData(userId, token, data);
-      handleOpenConfirmModal();
-    } catch (error) {
-      alert(error);
+    } else {
+      try {
+        if (userId) {
+          await userAPI.putUserData(userId, token!, data);
+          handleOpenConfirmModal();
+        } else {
+          throw new Error('유효하지 않은 사용자 ID');
+        }
+      } catch (error) {
+        alert(error);
+      }
     }
   };
 
