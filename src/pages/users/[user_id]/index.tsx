@@ -6,17 +6,17 @@ import userAPI, { UserInfo } from '@/lib/api/userAPI';
 import { userState } from '@/recoil/atoms/AuthAtom';
 
 export default function MyPage() {
-  const { id } = useRecoilValue(userState);
+  const { userId } = useRecoilValue(userState);
   const [profileData, setProfileData] = useState<UserInfo | null>(null);
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        if (!id) {
-          alert('Error: 사용자 ID가 없습니다.');
+        if (!userId) {
+          alert('Error: 사용자 userId가 없습니다.');
           return;
         }
-        const response = await userAPI.getUserData(id);
+        const response = await userAPI.getUserData(userId);
         setProfileData(response.item);
       } catch (error) {
         alert('사용자 데이터를 가져오는 중 오류가 발생했습니다.');
@@ -24,7 +24,7 @@ export default function MyPage() {
     };
 
     fetchUserData();
-  }, [id]);
+  }, [userId]);
 
   return (
     <div>

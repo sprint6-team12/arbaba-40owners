@@ -1,5 +1,5 @@
-import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import Button from '@/components/Button/Button';
 import FormGroup from '@/components/FormGroup/FormGroup';
 import ModalPrimary from '@/components/Modal/ModalPrimary';
@@ -7,6 +7,7 @@ import useModal from '@/hooks/useModal';
 import noticeAPI, { ShopNoticeData } from '@/lib/api/noticeAPI';
 import FormatUtils from '@/lib/utils/FormatUtils';
 import { validateAddNoticeForm } from '@/lib/utils/InputValidation';
+import { userState } from '@/recoil/atoms/AuthAtom';
 
 export interface ShopNoticeFormErrors {
   hourlyPay: string | null;
@@ -38,8 +39,7 @@ const ConfirmModal = ({ ...rest }) => (
 );
 
 export default function AddNoticeInput() {
-  const router = useRouter();
-  const { shop_id } = router.query;
+  const { shopId } = useRecoilValue(userState);
   const { openModal } = useModal();
   const [data, setData] = useState<ShopNoticeData>(initialFormData);
   const [errors, setErrors] = useState<ShopNoticeFormErrors>(initialFormErrors);
@@ -77,8 +77,8 @@ export default function AddNoticeInput() {
       setErrors(validationErrors);
     } else {
       try {
-        if (typeof shop_id === 'string') {
-          await noticeAPI.postShopNotice(shop_id, {
+        if (typeof shopId === 'string') {
+          await noticeAPI.postShopNotice(shopId, {
             hourlyPay: data.hourlyPay,
             startsAt: data.startsAt,
             workhour: data.workhour,

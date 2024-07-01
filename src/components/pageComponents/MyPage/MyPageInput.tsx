@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import Button from '@/components/Button/Button';
@@ -41,22 +42,21 @@ const ConfirmModal = ({ ...rest }) => (
 );
 
 export default function MyPageInput() {
-  const { id, token } = useRecoilValue(userState);
+  const { userId, token } = useRecoilValue(userState);
+  const router = useRouter();
   const { openModal } = useModal();
   const [data, setData] = useState<UserInfo>(initialFormData);
   const [errors, setErrors] = useState<UserInfoFormErrors>(initialFormErrors);
-  const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchUserData = async () => {
-      if (id) {
-        const userData = await userAPI.getUserData(id);
+      if (userId) {
+        const userData = await userAPI.getUserData(userId);
         setData(userData.item);
-        setUserId(userData.item.id);
       }
     };
     fetchUserData();
-  }, [id]);
+  }, [userId]);
 
   const handleChangeData = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -94,7 +94,9 @@ export default function MyPageInput() {
 
   const handleOpenConfirmModal = () => {
     openModal('myPageConfirmModal', ConfirmModal, {
-      // onConfirm: () =>
+      onConfirm: () => {
+        router.push(`/users/${userId}`);
+      },
     });
   };
 

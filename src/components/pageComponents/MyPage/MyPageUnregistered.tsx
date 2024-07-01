@@ -1,13 +1,18 @@
+import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import NoData from '@/components/pageComponents/ShopDetail/NoData';
 import { IconCloseBlack } from '@/lib/utils/Icons';
+import { userState } from '@/recoil/atoms/AuthAtom';
 import MyPageInput from './MyPageInput';
 
 export default function MyPageUnregistered() {
   const [showInputForm, setShowInputForm] = useState(false);
+  const userId = useRecoilValue(userState);
+  const router = useRouter();
 
-  const handleShowInputForm = () => {
-    setShowInputForm(true);
+  const handleRegisterClick = () => {
+    router.push(`/users/${userId}/editProfile`);
   };
 
   return (
@@ -26,7 +31,7 @@ export default function MyPageUnregistered() {
         <NoData
           title="내 프로필을 등록하고 원하는 가게에 지원해 보세요."
           text="내 프로필 등록하기"
-          onClick={handleShowInputForm}
+          onClick={handleRegisterClick}
         />
       ) : (
         <div>

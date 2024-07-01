@@ -21,6 +21,8 @@ export const validateAddNoticeForm = (
 
   if (!hourlyPay || hourlyPay === 0) {
     errors.hourlyPay = NOTICE_ERROR_MESSAGES.HOURLY_PAY_REQUIRED;
+  } else if (hourlyPay <= 1000) {
+    errors.hourlyPay = NOTICE_ERROR_MESSAGES.HOURLY_PAY_TOO_LOW;
   }
   if (!startsAt) {
     errors.startsAt = NOTICE_ERROR_MESSAGES.STARTS_AT_REQUIRED;
