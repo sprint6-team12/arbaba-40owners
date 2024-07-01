@@ -10,7 +10,7 @@ export default function AlertItem({ item }: { item: NotificationItem }) {
   const { notice, result, shop, read } = item;
   const href = item.notice.href ?? ''; // 없으면 '' 안하면에러남 ㅠ
   const resultInfo = getResultInfo(result);
-  const { id } = useRecoilValue(userState);
+  const { userId } = useRecoilValue(userState);
 
   if (!resultInfo) {
     return null;
@@ -23,8 +23,8 @@ export default function AlertItem({ item }: { item: NotificationItem }) {
   const formattedDate = FormatUtils.distanceToNow(item.createdAt);
 
   const handleOnclickAlert = async (alertId: string) => {
-    if (id && !read) {
-      await alertAPI.putAlerts({ user_id: id, alert_id: alertId });
+    if (userId && !read) {
+      await alertAPI.putAlerts({ user_id: userId, alert_id: alertId });
     }
   };
 

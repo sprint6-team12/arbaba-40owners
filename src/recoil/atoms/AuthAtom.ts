@@ -5,7 +5,8 @@ const { persistAtom } = recoilPersist();
 
 interface User {
   token: string | null;
-  id: string | null;
+  userId: string | null;
+  shopId: string | null;
   type: 'employee' | 'employer' | 'guest';
   isLogin: boolean;
 }
@@ -14,7 +15,8 @@ export const userState = atom<User>({
   key: 'userState',
   default: {
     token: null,
-    id: null,
+    userId: null,
+    shopId: null,
     type: 'guest',
     isLogin: false,
   },
