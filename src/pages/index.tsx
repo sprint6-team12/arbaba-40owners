@@ -19,10 +19,9 @@ export default function Home({ data }: NoticeListResponse) {
     router.push(`${page}`);
   };
 
-  //드롭다운에 전달할 함수
-  // const handleSelectClick = (value: string) => {
-  //   router.push(value);
-  // };
+  const handleSortClick = (value: string) => {
+    router.push(value);
+  };
 
   const searchValue = useRecoilValue(keywordDataState);
   if (searchValue !== '') {
@@ -73,7 +72,7 @@ export default function Home({ data }: NoticeListResponse) {
               전체 공고
             </h1>
             <div className="flex items-center mb-16px gap-10px">
-              <SortDropdown />
+              <SortDropdown onClick={handleSortClick} />
               <div className="[&_>button]:m-0">
                 <Filter onApplyFilters={fetchFilterData} />
               </div>
