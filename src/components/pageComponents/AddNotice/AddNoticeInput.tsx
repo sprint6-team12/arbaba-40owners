@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import Button from '@/components/Button/Button';
 import FormGroup from '@/components/FormGroup/FormGroup';
-import ModalPrimary from '@/components/Modal/ModalPrimary';
+import ConfirmModal from '@/components/pageComponents/MyPage/ConfirmModal';
 import useModal from '@/hooks/useModal';
 import noticeAPI, { ShopNoticeData } from '@/lib/api/noticeAPI';
 import FormatUtils from '@/lib/utils/FormatUtils';
@@ -29,14 +29,6 @@ const initialFormErrors: ShopNoticeFormErrors = {
   workhour: null,
   description: null,
 };
-
-const ConfirmModal = ({ ...rest }) => (
-  <ModalPrimary
-    optionType="confirm"
-    content="등록이 완료되었습니다."
-    {...rest}
-  />
-);
 
 export default function AddNoticeInput() {
   const { shopId } = useRecoilValue(userState);

@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import LinkButton from '@/components/Button/LinkButton';
 import MyPageProfile from '@/components/pageComponents/MyPage/MyPageProfile';
@@ -10,15 +10,6 @@ import { userState } from '@/recoil/atoms/AuthAtom';
 interface MyPageRegisteredProps {
   profileData: UserInfo;
 }
-
-// const dummyEmployeeTableData: EmployeeTableData = {
-//   offset: 0,
-//   limit: 10,
-//   count: 0,
-//   hasNext: false,
-//   items: [],
-//   links: [],
-// };
 
 export default function MyPageRegistered({
   profileData,
