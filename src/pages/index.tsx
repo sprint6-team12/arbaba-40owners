@@ -1,11 +1,11 @@
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { useRecoilValue } from 'recoil';
-import Dropdown from '@/components/Dropdown/Dropdown';
 import Filter from '@/components/Filter/Filter';
 import SearchPage from '@/components/pageComponents/SearchPage/searchPage';
 import Pagination from '@/components/Pagination/Pagination';
 import PostCard from '@/components/Post/PostCard';
+import SortDropdown from '@/components/SortDropdown/SortDropdown';
 import noticeAPI from '@/lib/api/noticeAPI';
 import useMediaQuery from '@/lib/utils/useMediaQuery';
 import keywordDataState from '@/recoil/atoms/searchAtom';
@@ -20,9 +20,9 @@ export default function Home({ data }: NoticeListResponse) {
   };
 
   //드롭다운에 전달할 함수
-  const handleSelectClick = (value: string) => {
-    router.push(value);
-  };
+  // const handleSelectClick = (value: string) => {
+  //   router.push(value);
+  // };
 
   const searchValue = useRecoilValue(keywordDataState);
   if (searchValue !== '') {
@@ -72,13 +72,11 @@ export default function Home({ data }: NoticeListResponse) {
             <h1 className="mb-16px tablet:mb-32px pc:mb-32px text-20px tablet:text-28px pc:text-28px font-bold">
               전체 공고
             </h1>
-            <div className="filter_container flex items-center mb-16px">
-              <Dropdown
-                options={['마감임박순', '시급많은순', '시간적은순', '가나다순']}
-                onSelect={handleSelectClick}
-                width="w-105px"
-              />
-              <Filter onApplyFilters={fetchFilterData} />
+            <div className="flex items-center mb-16px gap-10px">
+              <SortDropdown />
+              <div className="[&_>button]:m-0">
+                <Filter onApplyFilters={fetchFilterData} />
+              </div>
             </div>
           </div>
           <div className="flex flex-wrap gap-8px tablet:gap-14px">
