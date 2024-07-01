@@ -41,7 +41,6 @@ interface NoticeDetailCardButtonProps {
 }
 
 // todo 중복지원 막기
-// todo employer case - 공고상세페이지에서 리로드시 하이드레이션 오류
 function NoticeDetailCardButton({
   noticeState,
   userApplicationState,
@@ -52,6 +51,12 @@ function NoticeDetailCardButton({
   const { type } = useRecoilValue(userState);
   const [applicationState, setApplicationState] =
     useState(userApplicationState);
+  const [buttonProps, setButtonProps] = useState<{
+    className: string;
+    disabled: boolean;
+    children: string;
+    onClick?: () => void;
+  } | null>(null);
   const [apiLinks, setApiLinks] = useState(links);
   const apiRequestList = useTestLink(apiLinks);
 
@@ -82,38 +87,43 @@ function NoticeDetailCardButton({
     }
   };
 
-  let buttonProps;
+  // 상태에따라 버튼 세팅하는 useEffect
+  useEffect(() => {
+    let buttonProps;
 
-  switch (true) {
-    case noticeState === 'closed' || noticeState === 'passed':
-      buttonProps = {
-        ...NOTICE_DETAIL_BUTTON_PROPS.closed,
-      };
-      break;
-    case type === 'employee' && applicationState === 'pending':
-      buttonProps = {
-        ...NOTICE_DETAIL_BUTTON_PROPS.pending,
-        onClick: () => {
-          openModal('CancelApplicationModal', CancelApplicationModal, {
-            onConfirm: handleCancelApplication,
-          });
-        },
-      };
-      break;
-    case type === 'employer':
-      buttonProps = {
-        ...NOTICE_DETAIL_BUTTON_PROPS.employer,
-        onClick: () => {
-          router.push('/edit');
-        },
-      };
-      break;
-    default:
-      buttonProps = {
-        ...NOTICE_DETAIL_BUTTON_PROPS.open,
-        onClick: handleCreateApplication,
-      };
-  }
+    switch (true) {
+      case noticeState === 'closed' || noticeState === 'passed':
+        buttonProps = {
+          ...NOTICE_DETAIL_BUTTON_PROPS.closed,
+        };
+        break;
+      case type === 'employee' && applicationState === 'pending':
+        buttonProps = {
+          ...NOTICE_DETAIL_BUTTON_PROPS.pending,
+          onClick: () => {
+            openModal('CancelApplicationModal', CancelApplicationModal, {
+              onConfirm: handleCancelApplication,
+            });
+          },
+        };
+        break;
+      case type === 'employer':
+        buttonProps = {
+          ...NOTICE_DETAIL_BUTTON_PROPS.employer,
+          onClick: () => {
+            router.push('/edit');
+          },
+        };
+        break;
+      default:
+        buttonProps = {
+          ...NOTICE_DETAIL_BUTTON_PROPS.open,
+          onClick: handleCreateApplication,
+        };
+    }
+
+    setButtonProps(buttonProps);
+  }, [type, noticeState, applicationState]);
 
   // employee case 일때 현재 유저의 지원상태로 업데이트해주는 useEffect
   useEffect(() => {
@@ -132,7 +142,9 @@ function NoticeDetailCardButton({
     };
 
     updateNoticeStatus();
-  }, [type]);
+  }, [type, noticeState]);
+
+  if (!buttonProps) return null;
 
   return <Button {...buttonProps} />;
 }
