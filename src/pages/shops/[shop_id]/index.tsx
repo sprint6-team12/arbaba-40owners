@@ -56,7 +56,7 @@ export default function ShopDetail({
   noticesData,
   APIerror,
 }: ShopDetailProps) {
-  const { token, id, type, isLogin } = useRecoilValue(userState);
+  const { token, userId, type, isLogin } = useRecoilValue(userState);
   const router = useRouter();
 
   useEffect(() => {
@@ -71,7 +71,7 @@ export default function ShopDetail({
       router.push('/');
       return;
     }
-    if (!token || !id) {
+    if (!token || !userId) {
       alert('로그인을 다시 해주세요.');
       // 여기에 setUser 초기화 함수 넣어야될듯
       router.push('/');
@@ -82,7 +82,7 @@ export default function ShopDetail({
       router.push('/');
       return;
     }
-  }, [isLogin, type, token, id, APIerror, router]);
+  }, [isLogin, type, token, userId, APIerror, router]);
 
   return (
     <>

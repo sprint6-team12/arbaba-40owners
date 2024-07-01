@@ -3,7 +3,7 @@ import IconPrevArrow from '/public/images/icon-arrow-prev-pagination.svg';
 import IconArrowUpBold from '/public/images/icon-arrow-up-bold.svg';
 import IconLargeArrow from '/public/images/icon-arrow-up-large.svg';
 import IconGrayArrow from '/public/images/icon-arrow-up-gray.svg';
-import IconSmallArrow from '/public/Images/icon-arrow-up-small.svg';
+import IconSmallArrow from '/public/images/icon-arrow-up-small.svg';
 import IconRedArrow from '/public/images/icon-arrow-up-red.svg';
 import IconCamera from '/public/images/icon-camera.svg';
 import IconCheck from '/public/images/icon-check.svg';
