@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Button from '@/components/Button/Button';
 import { useAuth } from '@/hooks/useAuth';
 import authenticationAPI from '@/lib/api/authenticationAPI';
+import userAPI from '@/lib/api/userAPI';
 import { SignInValidate } from '@/lib/utils/validation';
 import InputComponent from './InputComponent';
 
@@ -24,17 +25,19 @@ const SignInForm = ({ onClose }: { onClose?: () => void }) => {
     event.preventDefault();
     if (!errors.loginEmail && !errors.loginPassWord) {
       try {
-        const response = await authenticationAPI.postToken({
+        const responsePostToken = await authenticationAPI.postToken({
           email: formData.loginEmail,
           password: formData.loginPassWord,
         });
-        const token = response.item.token;
-        const userId = response.item.user.item.id;
-        const userType = response.item.user.item.type;
+        const token = responsePostToken.item.token;
+        const userId = responsePostToken.item.user.item.id;
+        const userType = responsePostToken.item.user.item.type;
+
+        const responseGetUsers = await userAPI.getUserData(userId);
+        const shopId = responseGetUsers.item.shop?.item.id ?? null;
+
         localStorage.setItem('token', token);
-        localStorage.setItem('userId', userId);
-        localStorage.setItem('userType', userType);
-        setUser(token, userId, userType, true);
+        setUser(token, userId, shopId, userType, true);
         if (onClose) {
           onClose();
         }
