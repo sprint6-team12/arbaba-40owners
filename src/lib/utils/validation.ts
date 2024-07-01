@@ -2,7 +2,7 @@ import {
   EMAIL_REGEX,
   ERROR_MESSAGES,
   PASSWORD_MIN_LENGTH,
-} from '@/constants/validation';
+} from '@/constants/errorMessage';
 
 interface PasswordFormData {
   signUpEmail: string;
