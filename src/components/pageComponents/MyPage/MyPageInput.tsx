@@ -45,12 +45,14 @@ export default function MyPageInput() {
   const { openModal } = useModal();
   const [data, setData] = useState<UserInfo>(initialFormData);
   const [errors, setErrors] = useState<UserInfoFormErrors>(initialFormErrors);
+  const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchUserData = async () => {
       if (id) {
         const userData = await userAPI.getUserData(id);
-        setData(userData);
+        setData(userData.item);
+        setUserId(userData.item.id);
       }
     };
     fetchUserData();
@@ -83,7 +85,7 @@ export default function MyPageInput() {
     }));
   };
 
-  const handleSelect = (selectedOption: string) => {
+  const handleDropdownSelect = (selectedOption: string) => {
     setData((prev) => ({
       ...prev,
       address: selectedOption,
@@ -92,7 +94,7 @@ export default function MyPageInput() {
 
   const handleOpenConfirmModal = () => {
     openModal('myPageConfirmModal', ConfirmModal, {
-      // onConfirm: () => 페이지이동
+      // onConfirm: () =>
     });
   };
 
@@ -103,15 +105,12 @@ export default function MyPageInput() {
       setErrors(validationErrors);
       return;
     }
-    if (!id) {
+    if (!userId) {
       alert(errors);
       return;
     }
     try {
-      await userAPI.putUserData(id, token, {
-        ...data,
-        phone: data.phone.replace(/\D/g, ''),
-      });
+      await userAPI.putUserData(userId, token, data);
       handleOpenConfirmModal();
     } catch (error) {
       alert(error);
@@ -158,8 +157,8 @@ export default function MyPageInput() {
             <h2>선호 지역</h2>
             <Dropdown
               options={SHOP_LOCATIONS}
-              onSelect={handleSelect}
-              defaultValue={data.address}
+              onSelect={handleDropdownSelect}
+              defaultValue={data.address || '선택'}
             />
           </div>
         </div>

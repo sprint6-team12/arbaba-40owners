@@ -8,14 +8,12 @@ import { userState } from '@/recoil/atoms/AuthAtom';
 export default function MyPage() {
   const { id } = useRecoilValue(userState);
   const [profileData, setProfileData] = useState<UserInfo | null>(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         if (!id) {
           alert('Error: 사용자 ID가 없습니다.');
-          setLoading(false);
           return;
         }
         const response = await userAPI.getUserData(id);
@@ -27,10 +25,6 @@ export default function MyPage() {
 
     fetchUserData();
   }, [id]);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div>

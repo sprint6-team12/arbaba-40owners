@@ -84,7 +84,6 @@ export default function AddNoticeInput() {
             workhour: data.workhour,
             description: data.description,
           });
-          alert('등록이 완료되었습니다');
           handleOpenConfirmModal();
         } else {
           throw new Error('유효하지않은 id');

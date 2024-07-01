@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import GnbUiButton from '@/components/Gnb/GnbUiButton';
-import ModalCustom from '@/components/Modal/ModalPrimary';
+import ModalCustom from '@/components/Modal/ModalCustom';
 import LoginSignUp from '@/components/pageComponents/LoginSignUp/LoginSignUp';
 import { useAuth } from '@/hooks/useAuth';
 import useModal from '@/hooks/useModal';
