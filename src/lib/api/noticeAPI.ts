@@ -20,6 +20,7 @@ interface GetShopNoticeListData {
 interface GetShopNoticeData {
   shop_id: string;
   notice_id: string;
+  token?: string;
 }
 
 export interface ShopNoticeData {
@@ -53,10 +54,14 @@ const noticeAPI = {
       handleAxiosError(error);
     }
   },
-  getShopNotice: async ({ shop_id, notice_id }: GetShopNoticeData) => {
+  getShopNotice: async ({ shop_id, notice_id, token }: GetShopNoticeData) => {
+    const headers = {
+      Authorization: token ? `Bearer ${token}` : '',
+    };
     try {
       const response = await axiosInstance.get(
-        `/shops/${shop_id}/notices/${notice_id}`
+        `/shops/${shop_id}/notices/${notice_id}`,
+        { headers }
       );
       return response.data;
     } catch (error) {
