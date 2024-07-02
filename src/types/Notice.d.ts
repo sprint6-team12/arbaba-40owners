@@ -15,7 +15,7 @@ interface currentUserApplication {
 
 interface NoticeEmployee extends NoticeBase {
   shop: ShopData;
-  currentUserApplication: { item: currentUserApplication };
+  currentUserApplication: { item: currentUserApplication } | null;
 }
 
 interface NoticeEmployer extends NoticeBase {}
