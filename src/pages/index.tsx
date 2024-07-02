@@ -6,6 +6,7 @@ import Pagination from '@/components/Pagination/Pagination';
 import PostCard from '@/components/Post/PostCard';
 import SortDropdown from '@/components/SortDropdown/SortDropdown';
 import { SORT_OPTION_MAP } from '@/constants/sortOptionMap';
+import useCustomizedNotices from '@/hooks/useCustomizedNotices';
 import noticeAPI from '@/lib/api/noticeAPI';
 import paginationUtils from '@/lib/utils/paginationUtils';
 import useMediaQuery from '@/lib/utils/useMediaQuery';
@@ -16,6 +17,7 @@ export default function Home({
   offset,
   limit,
   hasNext,
+  address,
 }: NoticeListResponseData) {
   const [noticeData, setNoticeData] = useState({
     items,
@@ -23,12 +25,15 @@ export default function Home({
     offset,
     limit,
     hasNext,
+    address,
   });
-
   const { isMobile } = useMediaQuery();
   //const router = useRouter();
   paginationUtils.setValues = { limit, offset };
+  const customizedNotices = useCustomizedNotices();
 
+  // TODO: 리팩토링 API호출 후 반환 값 상태데이터로 업데이트하는 함수 (공통로직)
+  // TODO: 리팩토링 각 함수들의 필요한 데이터를 세팅하는 함수 (개별로직)
   const handlePageChange = async (page: number) => {
     const limit = noticeData.limit;
     const offset = (page - 1) * limit;
@@ -54,14 +59,14 @@ export default function Home({
 
   return (
     <main>
+      {/* TODO: 맞춤공고 컴포넌트 분리 */}
       <div className="bg-red10 h-381px tablet:h-[535px] pc:h-[535px] pt-40px">
         <div className="flex flex-col gap-16px tablet:gap-32px pc:gap-32px ml-12px tablet:ml-32px pc:m-auto pc:w-[964px]">
           <h1 className="text-20px tablet:text-28px pc:text-28px font-bold">
             맞춤 공고
           </h1>
-          <div className="flex flex-grow-0 flex-shrink-0 h-274px tablet:h-378px pc:h-349px gap-4px tablet:gap-14px pc:gap-14px overflow-x-auto no-scrollbar">
-            {/*TODO: 맞춤 공고만 3개 필터해서 넣기 임시로 그냥 3개 자름 */}
-            {noticeData.items.slice(0, 3).map(({ item }) => {
+          <div className="flex pc:flex-center flex-grow-0 flex-shrink-0 h-274px tablet:h-378px pc:h-349px gap-4px tablet:gap-14px pc:gap-14px overflow-x-auto no-scrollbar">
+            {customizedNotices.items.map(({ item }) => {
               if (!('shop' in item)) return null;
               const noticeData = item;
               const shopData = item.shop.item;
@@ -81,6 +86,7 @@ export default function Home({
           </div>
         </div>
       </div>
+      {/* TODO: 전체공고 컴포넌트 분리 */}
       <div className="pt-40px tablet:pt-60px pc:pt-60px">
         <div className="flex flex-col w-351px tablet:w-[678px] pc:w-[964px] m-auto">
           <div className="flex flex-col tablet:flex-row pc:flex-row tablet:justify-between pc: justify-between">
