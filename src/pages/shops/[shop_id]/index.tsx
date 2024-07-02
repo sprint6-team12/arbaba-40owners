@@ -67,7 +67,7 @@ export default function ShopDetail({ shopData, noticesData }: ShopDetailProps) {
     }
     if (!token || !userId) {
       alert('로그인을 다시 해주세요.');
-      setUser(null, null, null, 'guest', false);
+      setUser(null, null, null, 'guest', false, '');
       router.push('/');
       return;
     }
