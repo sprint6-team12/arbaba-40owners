@@ -57,7 +57,6 @@ function AddShopPage() {
     setErrors((prevErrors) => ({ ...prevErrors, [id]: errorMessage }));
     setFormData((prevFormData) => ({ ...prevFormData, [id]: value }));
   };
-
   const handleImageChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -118,7 +117,7 @@ function AddShopPage() {
 
   return (
     <>
-      <div className="flex w-full py-24px px-12px flex-col items-start gap-8px bg-gray-50 tablet:px-12 tablet:py-12 pc:px-24 pc:py-16">
+      <div className="flex w-full py-24px px-12px flex-col items-start gap-8px bg-gray50 tablet:px-12 tablet:py-12 pc:px-24 pc:py-16">
         <form
           onSubmit={handleSubmit}
           className="flex w-full flex-col items-center gap-8"
