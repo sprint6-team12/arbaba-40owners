@@ -11,9 +11,7 @@ import PriceSection from './PriceSection';
 
 registerLocale('ko', ko);
 
-const INITIAL_TIME = new Date(
-  Date.now() - new Date().getTimezoneOffset() * 60000
-);
+const INITIAL_TIME = new Date();
 
 interface FilterProps {
   onApplyFilters: (filters: URLSearchParams) => void;
@@ -69,7 +67,11 @@ export default function Filter({ onApplyFilters }: FilterProps) {
       );
     }
     if (startDate) {
-      searchParams.append('startsAtGte', startDate.toISOString());
+      const adjustedDate = new Date(startDate);
+      adjustedDate.setTime(
+        adjustedDate.getTime() - adjustedDate.getTimezoneOffset() * 60000
+      );
+      searchParams.append('startsAtGte', adjustedDate.toISOString());
     }
     if (inputPrice) {
       searchParams.append('hourlyPayGte', inputPrice.replace(/,/g, ''));
