@@ -12,6 +12,7 @@ export default function DateSection({
       <p>시작일</p>
       <DatePicker
         selected={startDate}
+        minDate={new Date()}
         onChange={(date) => setStartDate(date)}
         dateFormat="yyyy년 MM월 dd일 (eee)"
         locale="ko"
