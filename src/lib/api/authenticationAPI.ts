@@ -17,6 +17,7 @@ const authenticationAPI = {
       const { token, user } = response.data.item;
       const userId = user.item.id;
       const userType = user.item.type;
+      localStorage.setItem('token', token);
 
       if (token && userId) {
         setAuthState((prevState: User) => ({

@@ -25,16 +25,13 @@ const SignInForm = ({ onClose }: { onClose?: () => void }) => {
     event.preventDefault();
     if (!errors.loginEmail && !errors.loginPassWord) {
       try {
-        const responsePostToken = await authenticationAPI.postToken(
+        await authenticationAPI.postToken(
           {
             email: formData.loginEmail,
             password: formData.loginPassWord,
           },
           setAuthState
         );
-        const token = responsePostToken.item.token;
-
-        localStorage.setItem('token', token);
 
         if (onClose) {
           onClose();
