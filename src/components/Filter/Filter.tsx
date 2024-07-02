@@ -51,6 +51,9 @@ export default function Filter({ onApplyFilters }: FilterProps) {
     setStartDate(INITIAL_TIME);
     setSelectedLocations([]);
     setInputPrice('');
+    const searchParams = new URLSearchParams();
+    onApplyFilters(searchParams);
+    setIsFilterOpen(false);
   };
 
   const handleFilterClick = () => {
