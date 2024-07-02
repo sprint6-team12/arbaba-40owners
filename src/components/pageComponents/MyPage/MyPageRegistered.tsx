@@ -27,9 +27,9 @@ export default function MyPageRegistered({
   };
 
   return (
-    <div className="px-10 tablet:px-16 pc:px-60 py-3 tablet:py-8 pc:py-15">
-      <div className="flex justify-between items-center gap-2.5">
-        <span className="font-bold text-20 tablet:text-28 pc:text-28">
+    <div className="px-[10px] tablet:px-[16px] pc:px-[60px] py-[3px] tablet:py-[8px] pc:py-[15px]">
+      <div className="flex justify-between items-center gap-[2.5px]">
+        <span className="font-bold text-[20px] tablet:text-[28px] pc:text-[28px]">
           내 프로필
         </span>
         {isEditing && (
@@ -40,22 +40,22 @@ export default function MyPageRegistered({
       </div>
       <>
         <MyPageProfile ProfileData={profileData} onClick={handleEditClick} />
-        <div className="mt-8 mb-8">
-          <span className="font-bold text-20 tablet:text-28 pc:text-28">
+        <div className="mt-[8px] mb-[8px]">
+          <span className="font-bold text-[20px] tablet:text-[28px] pc:text-[28px]">
             신청 내역
           </span>
         </div>
         {/* {hasApplications ? ( */}
-        <div className="mt-8 w-full">
+        <div className="mt-[8px] w-full">
           {/* <EmployeeTable data={dummyEmployeeTableData} /> */}
         </div>
         {/* ) : ( */}
-        <div className="border rounded-3 w-full h-48 tablet:h-54 pc:h-54 flex flex-col justify-center items-center">
-          <div className="text-center px-6 py-15">
-            <span className="font-normal text-14 tablet:text-16 pc:text-16">
+        <div className="border rounded-[3px] w-full h-[48px] tablet:h-[54px] pc:h-[54px] flex flex-col justify-center items-center">
+          <div className="text-center px-[6px] py-[15px]">
+            <span className="font-normal text-[14px] tablet:text-[16px] pc:text-[16px]">
               아직 신청 내역이 없어요.
             </span>
-            <div className="flex justify-center mt-4 tablet:mt-6 pc:mt-6">
+            <div className="flex justify-center mt-[4px] tablet:mt-[6px] pc:mt-[6px]">
               <LinkButton href="/" className="button_large_active text-nowrap">
                 공고 보러가기
               </LinkButton>

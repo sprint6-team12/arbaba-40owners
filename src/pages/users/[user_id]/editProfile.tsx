@@ -11,9 +11,9 @@ export default function EditProfile() {
     router.push(`/users/${userId}`);
   };
   return (
-    <div className="px-10 tablet:px-16 pc:px-60 py-3 tablet:py-8 pc:py-15">
-      <div className="flex justify-between items-center gap-2.5">
-        <span className="font-bold text-20 tablet:text-28 pc:text-28">
+    <div className="px-[10px] tablet:px-[16px] pc:px-[60px] py-[3px] tablet:py-[8px] pc:py-[15px]">
+      <div className="flex justify-between items-center gap-[3px]">
+        <span className="font-bold text-[20px] tablet:text-[28px] pc:text-[28px]">
           내 프로필
         </span>
         <button onClick={handleClose}>
