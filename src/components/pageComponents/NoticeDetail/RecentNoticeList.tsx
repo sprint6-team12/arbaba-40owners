@@ -31,9 +31,9 @@ function RecentNoticeList({ list }: { list: Notice[] }) {
       {list.map((notice: Notice) => {
         if (!('shop' in notice)) return;
 
-        const shopId = notice.shop.item.id.toString();
-        const noticeId = notice.id.toString();
-        const href = `/shops/${shopId}/notices/${noticeId}`;
+        const shop_id = notice.shop.item.id.toString();
+        const notice_id = notice.id.toString();
+        const href = `/shops/${shop_id}/notices/${notice_id}`;
 
         return (
           <Link
