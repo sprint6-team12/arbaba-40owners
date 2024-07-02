@@ -85,33 +85,32 @@ function AddShopPage() {
 
   const handleTotalSubmit = async () => {
     const hourlyPayNumber = Number(formData.hourlyPay);
+
+    if (
+      !formData.shopName ||
+      !formData.category ||
+      !formData.address1 ||
+      !formData.address2 ||
+      !hourlyPayNumber
+    ) {
+      alert('필수 입력 내용을 입력해주세요.');
+      return;
+    }
+
     try {
-      if (
-        formData.shopName &&
-        formData.category &&
-        formData.address1 &&
-        formData.address2 &&
-        hourlyPayNumber
-      ) {
-        setDisabled(true);
-        const data = await shopAPI.postShop({
-          name: formData.shopName,
-          category: formData.category,
-          address1: formData.address1,
-          address2: formData.address2,
-          description: formData.shopDescription,
-          imageUrl: formData.imageUrl,
-          originalHourlyPay: hourlyPayNumber,
-        });
-        if (data) {
-          alert('등록이 완료되었습니다');
-          router.push('/');
-        }
-      } else {
-        alert('필수 입력 내용을 입력해주세요.');
+      setDisabled(true);
+      const data = await shopAPI.postShop({
+        ...formData,
+        originalHourlyPay: hourlyPayNumber,
+      });
+      if (data) {
+        alert('등록이 완료되었습니다');
+        router.push('/');
       }
     } catch (error) {
       alert(error);
+    } finally {
+      setDisabled(false);
     }
   };
 
