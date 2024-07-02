@@ -13,7 +13,7 @@ import {
   hasErrors,
   handleInputChange,
 } from '@/lib/utils/FormUtils';
-import { validateMyPageForm } from '@/lib/utils/InputValidation';
+import { validateMyPageForm } from '@/lib/utils/validation';
 import { userState } from '@/recoil/atoms/AuthAtom';
 import ConfirmModal from './ConfirmModal';
 
