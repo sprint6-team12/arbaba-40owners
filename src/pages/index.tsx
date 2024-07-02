@@ -64,7 +64,7 @@ export default function Home({
           </h1>
           <div className="flex flex-grow-0 flex-shrink-0 h-274px tablet:h-378px pc:h-349px gap-4px tablet:gap-14px pc:gap-14px overflow-x-auto no-scrollbar">
             {/*TODO: 맞춤 공고만 3개 필터해서 넣기 임시로 그냥 3개 자름 */}
-            {customizedNotices.items.slice(0, 3).map(({ item }) => {
+            {noticeData.items.slice(0, 3).map(({ item }) => {
               if (!('shop' in item)) return null;
               const noticeData = item;
               const shopData = item.shop.item;
