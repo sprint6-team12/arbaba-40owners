@@ -40,11 +40,8 @@ export default function Home({
   };
 
   const fetchFilterData = async (params: URLSearchParams) => {
-    try {
-      noticeAPI.getNoticeList(params);
-    } catch (error) {
-      error;
-    }
+    const data: NoticeListResponseData = await noticeAPI.getNoticeList(params);
+    setNoticeData(data);
   };
 
   return (
