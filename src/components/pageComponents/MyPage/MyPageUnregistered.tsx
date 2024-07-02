@@ -1,14 +1,17 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { useRecoilValue } from 'recoil';
 import NoData from '@/components/pageComponents/ShopDetail/NoData';
 import { IconCloseBlack } from '@/lib/utils/Icons';
-import { userState } from '@/recoil/atoms/AuthAtom';
 import MyPageInput from './MyPageInput';
 
-export default function MyPageUnregistered() {
+interface MyPageUnregisteredProps {
+  userId: string | null;
+}
+
+export default function MyPageUnregistered({
+  userId,
+}: MyPageUnregisteredProps) {
   const [showInputForm, setShowInputForm] = useState(false);
-  const userId = useRecoilValue(userState);
   const router = useRouter();
 
   const handleRegisterClick = () => {

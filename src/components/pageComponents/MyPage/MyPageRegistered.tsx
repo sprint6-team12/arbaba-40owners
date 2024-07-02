@@ -1,23 +1,22 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { useRecoilValue } from 'recoil';
 import LinkButton from '@/components/Button/LinkButton';
 import MyPageProfile from '@/components/pageComponents/MyPage/MyPageProfile';
 import { UserInfo } from '@/lib/api/userAPI';
 import { IconCloseBlack } from '@/lib/utils/Icons';
-import { userState } from '@/recoil/atoms/AuthAtom';
 
 interface MyPageRegisteredProps {
   profileData: UserInfo;
+  userId: string | null;
 }
 
 export default function MyPageRegistered({
+  userId,
   profileData,
 }: MyPageRegisteredProps) {
   const [isEditing, setIsEditing] = useState(false);
   // const [hasApplications, setHasApplications] = useState(false);
   const router = useRouter();
-  const userId = useRecoilValue(userState);
 
   const handleEditClick = () => {
     router.push(`/users/${userId}/editProfile`);

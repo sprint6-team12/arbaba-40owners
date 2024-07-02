@@ -29,9 +29,9 @@ export default function MyPage() {
   return (
     <div>
       {profileData ? (
-        <MyPageRegistered profileData={profileData} />
+        <MyPageRegistered profileData={profileData} userId={userId} />
       ) : (
-        <MyPageUnregistered />
+        <MyPageUnregistered userId={userId} />
       )}
     </div>
   );
