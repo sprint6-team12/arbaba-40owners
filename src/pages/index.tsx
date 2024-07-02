@@ -1,32 +1,51 @@
 import { GetServerSideProps } from 'next';
-import { useRouter } from 'next/router';
-import { useRecoilValue } from 'recoil';
+//import { useRouter } from 'next/router';
+import { useState } from 'react';
 import Filter from '@/components/Filter/Filter';
-import SearchPage from '@/components/pageComponents/SearchPage/searchPage';
 import Pagination from '@/components/Pagination/Pagination';
 import PostCard from '@/components/Post/PostCard';
 import SortDropdown from '@/components/SortDropdown/SortDropdown';
+import { SORT_OPTION_MAP } from '@/constants/sortOptionMap';
 import noticeAPI from '@/lib/api/noticeAPI';
+import paginationUtils from '@/lib/utils/paginationUtils';
 import useMediaQuery from '@/lib/utils/useMediaQuery';
-import keywordDataState from '@/recoil/atoms/searchAtom';
 
-export default function Home({ data }: NoticeListResponse) {
+export default function Home({
+  items,
+  count,
+  offset,
+  limit,
+  hasNext,
+}: NoticeListResponseData) {
+  const [noticeData, setNoticeData] = useState({
+    items,
+    count,
+    offset,
+    limit,
+    hasNext,
+  });
+
   const { isMobile } = useMediaQuery();
-  const router = useRouter();
+  //const router = useRouter();
+  paginationUtils.setValues = { limit, offset };
 
-  // 페이진이션에 전달할 함수
-  const handlePageChange = (page: number) => {
-    router.push(`${page}`);
+  const handlePageChange = async (page: number) => {
+    const limit = noticeData.limit;
+    const offset = (page - 1) * limit;
+
+    const newNoticeData = await noticeAPI.getNoticeList({ offset, limit });
+    setNoticeData(newNoticeData);
   };
 
-  const handleSortClick = (value: string) => {
-    router.push(value);
+  const handleSortClick = async (value: string) => {
+    const sortValue =
+      SORT_OPTION_MAP[value as keyof typeof SORT_OPTION_MAP] || 'time';
+    const data: NoticeListResponseData = await noticeAPI.getNoticeList({
+      limit: 6,
+      sort: sortValue,
+    });
+    setNoticeData(data);
   };
-
-  const searchValue = useRecoilValue(keywordDataState);
-  if (searchValue !== '') {
-    return <SearchPage />;
-  }
 
   const fetchFilterData = async (params: URLSearchParams) => {
     try {
@@ -45,7 +64,7 @@ export default function Home({ data }: NoticeListResponse) {
           </h1>
           <div className="flex flex-grow-0 flex-shrink-0 h-274px tablet:h-378px pc:h-349px gap-4px tablet:gap-14px pc:gap-14px overflow-x-auto no-scrollbar">
             {/*TODO: 맞춤 공고만 3개 필터해서 넣기 임시로 그냥 3개 자름 */}
-            {data.items.slice(0, 3).map(({ item }) => {
+            {customizedNotices.items.slice(0, 3).map(({ item }) => {
               if (!('shop' in item)) return null;
               const noticeData = item;
               const shopData = item.shop.item;
@@ -79,7 +98,7 @@ export default function Home({ data }: NoticeListResponse) {
             </div>
           </div>
           <div className="flex flex-wrap gap-8px tablet:gap-14px">
-            {data.items.map(({ item }) => {
+            {noticeData.items.map(({ item }) => {
               if (!('shop' in item)) return null;
               const noticeData = item;
               const shopData = item.shop.item;
@@ -99,9 +118,10 @@ export default function Home({ data }: NoticeListResponse) {
           </div>
           <div className="inline-block mx-auto mt-40px mb-60px">
             <Pagination
-              totalPages={10}
-              currentPage={1}
-              hasNext={true}
+              count={noticeData.count}
+              limit={noticeData.limit}
+              currentPage={paginationUtils.currentPage}
+              hasNext={noticeData.hasNext}
               onPageChange={handlePageChange}
             />
           </div>
@@ -116,7 +136,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
   return {
     props: {
-      data,
+      items: data.items,
+      count: data.count,
+      offset: data.offset,
+      limit: data.limit,
+      hasNext: data.hasNext,
     },
   };
 };
