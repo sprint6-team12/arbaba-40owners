@@ -1,17 +1,20 @@
 import axios from 'axios';
 import { handleAxiosError } from '@/lib/api/ApiError';
 
-type PromiseAPIFunction = (config?: Record<string, unknown>) => Promise<any>;
+type ApiRequestFunction = <T>(config?: Record<string, unknown>) => Promise<T>;
 
-type ApiRequestListType = {
-  notice: Record<string, PromiseAPIFunction>;
-  user: Record<string, PromiseAPIFunction>;
-  shop: Record<string, PromiseAPIFunction>;
-  application: Record<string, PromiseAPIFunction>;
+type ApiCategory = 'notice' | 'user' | 'shop' | 'application';
+type ApiRequestList = Record<ApiCategory, Record<string, ApiRequestFunction>>;
+
+const descriptionMap: Record<ApiCategory, string> = {
+  notice: '공고',
+  user: '사용자',
+  shop: '가게',
+  application: '지원',
 };
 
 const useTestLink = (links: Link[]) => {
-  const apiRequestList: ApiRequestListType = {
+  const apiRequestList: ApiRequestList = {
     notice: {},
     user: {},
     shop: {},
@@ -19,33 +22,31 @@ const useTestLink = (links: Link[]) => {
   };
 
   links.map(({ rel, description, method, href }) => {
-    let index: keyof ApiRequestListType | undefined = undefined;
-
-    if (description.includes('공고')) index = 'notice';
-    else if (description.includes('사용자')) index = 'user';
-    else if (description.includes('가게')) index = 'shop';
-    else if (description.includes('지원')) index = 'application';
+    const index = (Object.keys(descriptionMap) as ApiCategory[]).find((key) =>
+      description.includes(descriptionMap[key])
+    );
 
     if (!index) return;
 
-    apiRequestList[index][rel] = async (config = {}) => {
+    apiRequestList[index][rel] = async <T>(config = {}) => {
       const combinedConfig = {
         baseURL: 'https://bootcamp-api.codeit.kr/',
         url: href,
         method: method.toLowerCase(),
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('userJWT')}`,
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
         withCredentials: false,
         ...config,
       };
 
       try {
-        const response = await axios.request(combinedConfig);
+        const response = await axios.request<T>(combinedConfig);
         return response.data;
       } catch (error) {
         handleAxiosError(error);
+        throw error;
       }
     };
   });

@@ -65,7 +65,8 @@ function NoticeDetailCardButton({
       return openModal('ProfileRegistrationModal', ProfileRegistrationModal);
 
     try {
-      const { item, links } = await apiRequestList.application.create();
+      const { item, links } =
+        await apiRequestList.application.create<ApplicationItem>();
       setApiLinks((prevLinks) => [...prevLinks, ...links]);
       setApplicationState(item.status);
       openPopup('ProfileRegistrationModal', '신청했어요', 3000);
@@ -76,9 +77,11 @@ function NoticeDetailCardButton({
 
   const handleCancelApplication = async () => {
     try {
-      const { item } = await apiRequestList.application.update({
-        data: { status: 'canceled' },
-      });
+      const { item } = await apiRequestList.application.update<ApplicationItem>(
+        {
+          data: { status: 'canceled' },
+        }
+      );
 
       setApplicationState(item.status);
       openPopup('CancelApplicationModal', '취소했어요', 3000);
@@ -130,12 +133,14 @@ function NoticeDetailCardButton({
     if (type !== 'employee') return;
 
     const updateNoticeStatus = async () => {
-      const { item, links } = await apiRequestList.notice.self();
+      const { item, links } = await apiRequestList.notice.self<NoticeItem>();
+      if (!('currentUserApplication' in item)) return;
       setApiLinks(links);
-      setApplicationState(item?.currentUserApplication?.item?.status);
+      setApplicationState(item.currentUserApplication.item.status);
 
       if (item?.currentUserApplication?.item?.status === 'pending') {
-        const { item, links } = await apiRequestList.application.create();
+        const { item, links } =
+          await apiRequestList.application.create<ApplicationItem>();
         setApiLinks((prevLinks) => [...prevLinks, ...links]);
         setApplicationState(item.status);
       }
