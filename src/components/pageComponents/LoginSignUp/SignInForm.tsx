@@ -6,7 +6,7 @@ import userAPI from '@/lib/api/userAPI';
 import { SignInValidate } from '@/lib/utils/validation';
 import InputComponent from './InputComponent';
 
-const SignInForm = ({ onClose }: { onClose?: () => void }) => {
+export default function SignInForm({ onClose }: { onClose?: () => void }) {
   const [formData, setFormData] = useState({
     loginEmail: '',
     loginPassWord: '',
@@ -20,30 +20,17 @@ const SignInForm = ({ onClose }: { onClose?: () => void }) => {
     setErrors((prevErrors) => ({ ...prevErrors, [name]: errorMessage }));
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!errors.loginEmail && !errors.loginPassWord) {
       try {
-        const responsePostToken = await authenticationAPI.postToken({
-          email: formData.loginEmail,
-          password: formData.loginPassWord,
-        });
-        const token = responsePostToken.item.token;
-        const userId = responsePostToken.item.user.item.id;
-        const userType = responsePostToken.item.user.item.type;
-
-        let shopId = null;
-        if (userType === 'employer') {
-          const responseGetUsers = await userAPI.getUserData(userId);
-          shopId = responseGetUsers.item.shop?.item.id ?? null;
-        }
-
+        const { token, userId, userType, shopId } = await signIn(
+          formData.loginEmail,
+          formData.loginPassWord
+        );
         localStorage.setItem('token', token);
         setUser(token, userId, shopId, userType, true);
-        if (onClose) {
-          onClose();
-        }
+        onClose?.();
       } catch (error) {
         alert(error);
       }
@@ -79,6 +66,22 @@ const SignInForm = ({ onClose }: { onClose?: () => void }) => {
       </Button>
     </form>
   );
-};
+}
 
-export default SignInForm;
+const signIn = async (email: string, password: string) => {
+  const responsePostToken = await authenticationAPI.postToken({
+    email,
+    password,
+  });
+  const token = responsePostToken.item.token;
+  const userId = responsePostToken.item.user.item.id;
+  const userType = responsePostToken.item.user.item.type;
+
+  let shopId = null;
+  if (userType === 'employer') {
+    const responseGetUsers = await userAPI.getUserData(userId);
+    shopId = responseGetUsers.item.shop?.item.id ?? null;
+  }
+
+  return { token, userId, userType, shopId };
+};
