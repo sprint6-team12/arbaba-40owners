@@ -11,12 +11,14 @@ import PriceSection from './PriceSection';
 
 registerLocale('ko', ko);
 
+const INITIAL_TIME = new Date();
+
 interface FilterProps {
   onApplyFilters: (filters: URLSearchParams) => void;
 }
 
 export default function Filter({ onApplyFilters }: FilterProps) {
-  const [startDate, setStartDate] = useState<Date | null>(new Date());
+  const [startDate, setStartDate] = useState<Date | null>(INITIAL_TIME);
   const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
   const [inputPrice, setInputPrice] = useState<string>('');
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
@@ -44,9 +46,12 @@ export default function Filter({ onApplyFilters }: FilterProps) {
   };
 
   const handleResetClick = () => {
-    setStartDate(new Date());
+    setStartDate(INITIAL_TIME);
     setSelectedLocations([]);
     setInputPrice('');
+    const searchParams = new URLSearchParams();
+    onApplyFilters(searchParams);
+    setIsFilterOpen(false);
   };
 
   const handleFilterClick = () => {
@@ -62,7 +67,11 @@ export default function Filter({ onApplyFilters }: FilterProps) {
       );
     }
     if (startDate) {
-      searchParams.append('startsAtGte', startDate.toISOString());
+      const adjustedDate = new Date(startDate);
+      adjustedDate.setTime(
+        adjustedDate.getTime() - adjustedDate.getTimezoneOffset() * 60000
+      );
+      searchParams.append('startsAtGte', adjustedDate.toISOString());
     }
     if (inputPrice) {
       searchParams.append('hourlyPayGte', inputPrice.replace(/,/g, ''));

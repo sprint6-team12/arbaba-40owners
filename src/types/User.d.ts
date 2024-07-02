@@ -15,5 +15,5 @@ interface User {
 
 interface UserData {
   item: User;
-  href?: string;
+  href: string;
 }

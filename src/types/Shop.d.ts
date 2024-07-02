@@ -55,5 +55,5 @@ type Shop = ShopEmployee | ShopEmployer;
 
 interface ShopData {
   item: Shop;
-  href?: string;
+  href: string;
 }
