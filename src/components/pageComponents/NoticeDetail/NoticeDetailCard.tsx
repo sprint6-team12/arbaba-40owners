@@ -1,14 +1,17 @@
+import { useRecoilValue } from 'recoil';
 import NoticeDetailCardButton from '@/components/pageComponents/NoticeDetail/NoticeDetailCardButton';
 import Post from '@/components/Post/Post';
 import FormatUtils from '@/lib/utils/FormatUtils';
+import { userState } from '@/recoil/atoms/AuthAtom';
 
 interface NoticeDetailCardProps {
   data: NoticeItem;
 }
 
 function NoticeDetailCard({ data }: NoticeDetailCardProps) {
-  if (!('shop' in data.item)) return null;
+  const { shopId, type } = useRecoilValue(userState);
 
+  if (!('shop' in data.item)) return null;
   const {
     hourlyPay,
     startsAt,
@@ -17,14 +20,18 @@ function NoticeDetailCard({ data }: NoticeDetailCardProps) {
     shop,
     currentUserApplication,
   } = data.item;
-  const { address1, imageUrl, description, originalHourlyPay } = shop.item;
+  const {
+    id: shop_id,
+    address1,
+    imageUrl,
+    description,
+    originalHourlyPay,
+  } = shop.item;
 
   const isPassed = new Date() > new Date(startsAt);
   const currentNoticeState = closed ? 'closed' : isPassed ? 'passed' : 'open';
-
-  // employee일때만 존재하는 데이터 currentUserApplication를 통해 지원상태값 획득
-  const currentUserApplicationState =
-    currentUserApplication?.item?.status || null;
+  const currentUserApplicationData = currentUserApplication?.item || null;
+  const userType = shop_id === shopId ? 'author' : type;
 
   const formattedPay = FormatUtils.price(hourlyPay) + '원';
 
@@ -59,8 +66,9 @@ function NoticeDetailCard({ data }: NoticeDetailCardProps) {
 
         <div className="flex flex-col w-full h-full [&_>button]:px-0 [&_>button]:w-full pc:[&_>button]:flex-grow-0 pc:[&_>button]:flex-center pc:[&_>button]:mt-auto">
           <NoticeDetailCardButton
+            userType={userType}
             noticeState={currentNoticeState}
-            userApplicationState={currentUserApplicationState}
+            userApplicationData={currentUserApplicationData}
             links={data.links}
           />
         </div>

@@ -13,7 +13,7 @@ const descriptionMap: Record<ApiCategory, string> = {
   application: '지원',
 };
 
-const useTestLink = (links: Link[]) => {
+const useApiLinksData = (links: Link[]) => {
   const apiRequestList: ApiRequestList = {
     notice: {},
     user: {},
@@ -54,4 +54,4 @@ const useTestLink = (links: Link[]) => {
   return apiRequestList;
 };
 
-export default useTestLink;
+export default useApiLinksData;
