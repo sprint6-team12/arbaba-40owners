@@ -20,12 +20,13 @@ interface GetShopNoticeListData {
 interface GetShopNoticeData {
   shop_id: string;
   notice_id: string;
+  token?: string;
 }
 
-interface ShopNoticeData {
-  hourlyPay?: number;
-  startsAt?: string;
-  workhour?: number;
+export interface ShopNoticeData {
+  hourlyPay: number;
+  startsAt: string;
+  workhour: number;
   description?: string;
 }
 const noticeAPI = {
@@ -53,23 +54,27 @@ const noticeAPI = {
       handleAxiosError(error);
     }
   },
-  getShopNotice: async ({ shop_id, notice_id }: GetShopNoticeData) => {
+  getShopNotice: async ({ shop_id, notice_id, token }: GetShopNoticeData) => {
+    const headers = {
+      Authorization: token ? `Bearer ${token}` : '',
+    };
     try {
       const response = await axiosInstance.get(
-        `/shops/${shop_id}/notices/${notice_id}`
+        `/shops/${shop_id}/notices/${notice_id}`,
+        { headers }
       );
       return response.data;
     } catch (error) {
       handleAxiosError(error);
     }
   },
-  postShopNotice: async (shops_id: string, body: ShopNoticeData) => {
+  postShopNotice: async (shop_id: string, body: ShopNoticeData) => {
     const headers = {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     };
     try {
       const response = await axiosInstance.post(
-        `/shops/${shops_id}/notices`,
+        `/shops/${shop_id}/notices`,
         { body },
         { headers }
       );

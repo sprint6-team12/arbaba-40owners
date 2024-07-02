@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import NoticesList from '@/components/pageComponents/ShopDetail/NoticesList';
 import ShopHeaderSection from '@/components/pageComponents/ShopDetail/ShopHeader/ShopHeaderSection';
+import { useAuth } from '@/hooks/useAuth';
 import noticeAPI from '@/lib/api/noticeAPI';
 import shopAPI from '@/lib/api/shopAPI';
 import { userState } from '@/recoil/atoms/AuthAtom';
@@ -22,7 +23,6 @@ export const getServerSideProps: GetServerSideProps<ShopDetailProps> = async (
 
   let shopData: Shop | null = null;
   let noticesData: NoticeListResponseData | null = null;
-  let APIerror: string | null = null;
 
   try {
     if (shopId) {
@@ -36,27 +36,22 @@ export const getServerSideProps: GetServerSideProps<ShopDetailProps> = async (
       });
       noticesData = noticesResponse ?? null;
     }
-  } catch (error: any) {
+  } catch (errors) {
     shopData = null;
     noticesData = null;
-    APIerror = error.message || String(error);
   }
 
   return {
     props: {
       shopData,
       noticesData,
-      APIerror,
     },
   };
 };
 
-export default function ShopDetail({
-  shopData,
-  noticesData,
-  APIerror,
-}: ShopDetailProps) {
+export default function ShopDetail({ shopData, noticesData }: ShopDetailProps) {
   const { token, userId, type, isLogin } = useRecoilValue(userState);
+  const { setUser } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
@@ -67,33 +62,23 @@ export default function ShopDetail({
     }
     if (type !== 'employer') {
       alert('내 가게가 아닙니다.');
-      // 아니면 id값이랑 가게의 id값이 안맞으면 ?? 이경우에는 APIerror 보다 밑에 있어야할듯
       router.push('/');
       return;
     }
     if (!token || !userId) {
       alert('로그인을 다시 해주세요.');
-      // 여기에 setUser 초기화 함수 넣어야될듯
+      setUser(null, null, null, 'guest', false);
       router.push('/');
       return;
     }
-    if (APIerror) {
-      alert(APIerror);
-      router.push('/');
-      return;
-    }
-  }, [isLogin, type, token, userId, APIerror, router]);
+  }, [isLogin, type, token, userId, router, setUser]);
 
   return (
-    <>
-      {shopData && (
-        <div className="w-full flex flex-col">
-          <ShopHeaderSection title="내 가게" shopData={shopData} />
-          {noticesData && (
-            <NoticesList noticesData={noticesData} shopData={shopData} />
-          )}
-        </div>
+    <div className="w-full flex flex-col">
+      <ShopHeaderSection title="내 가게" shopData={shopData} />
+      {noticesData && shopData && (
+        <NoticesList noticesData={noticesData} shopData={shopData} />
       )}
-    </>
+    </div>
   );
 }

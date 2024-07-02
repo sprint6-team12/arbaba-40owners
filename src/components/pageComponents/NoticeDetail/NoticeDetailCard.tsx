@@ -1,15 +1,17 @@
+import { useRecoilValue } from 'recoil';
 import NoticeDetailCardButton from '@/components/pageComponents/NoticeDetail/NoticeDetailCardButton';
 import Post from '@/components/Post/Post';
 import FormatUtils from '@/lib/utils/FormatUtils';
+import { userState } from '@/recoil/atoms/AuthAtom';
 
 interface NoticeDetailCardProps {
-  item: Notice;
-  user: User | null;
+  data: NoticeItem;
 }
 
-function NoticeDetailCard({ item, user }: NoticeDetailCardProps) {
-  if (!('shop' in item)) return null;
+function NoticeDetailCard({ data }: NoticeDetailCardProps) {
+  const { shopId, type } = useRecoilValue(userState);
 
+  if (!('shop' in data.item)) return null;
   const {
     hourlyPay,
     startsAt,
@@ -17,16 +19,19 @@ function NoticeDetailCard({ item, user }: NoticeDetailCardProps) {
     closed,
     shop,
     currentUserApplication,
-  } = item;
-  const { address1, imageUrl, description, originalHourlyPay } = shop.item;
-  const userType = user?.type || 'guest';
+  } = data.item;
+  const {
+    id: shop_id,
+    address1,
+    imageUrl,
+    description,
+    originalHourlyPay,
+  } = shop.item;
 
   const isPassed = new Date() > new Date(startsAt);
   const currentNoticeState = closed ? 'closed' : isPassed ? 'passed' : 'open';
-
-  // employee일때만 존재하는 데이터 currentUserApplication를 통해 지원상태값 획득
-  const currentUserApplicationState =
-    currentUserApplication?.item?.status || null;
+  const currentUserApplicationData = currentUserApplication?.item || null;
+  const userType = shop_id === shopId ? 'author' : type;
 
   const formattedPay = FormatUtils.price(hourlyPay) + '원';
 
@@ -59,11 +64,12 @@ function NoticeDetailCard({ item, user }: NoticeDetailCardProps) {
         <Post.Location address={address1} status={currentNoticeState} />
         <p className="mt-12px mb-24px">{description}</p>
 
-        <div className="flex flex-col w-full h-full [&_>button]:px-0 [&_>button]:w-full pc:[&_>button]:flex-grow-0 pc:[&_>button]:px-136px pc:[&_>button]:py-14px pc:[&_>button]:mt-auto">
+        <div className="flex flex-col w-full h-full [&_>button]:px-0 [&_>button]:w-full pc:[&_>button]:flex-grow-0 pc:[&_>button]:flex-center pc:[&_>button]:mt-auto">
           <NoticeDetailCardButton
-            noticeState={currentNoticeState}
             userType={userType}
-            userApplicationState={currentUserApplicationState}
+            noticeState={currentNoticeState}
+            userApplicationData={currentUserApplicationData}
+            links={data.links}
           />
         </div>
       </div>
