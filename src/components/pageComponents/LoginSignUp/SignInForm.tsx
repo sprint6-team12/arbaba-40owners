@@ -1,9 +1,9 @@
 import { useState } from 'react';
+import { useSetRecoilState } from 'recoil';
 import Button from '@/components/Button/Button';
-import { useAuth } from '@/hooks/useAuth';
 import authenticationAPI from '@/lib/api/authenticationAPI';
-import userAPI from '@/lib/api/userAPI';
 import { SignInValidate } from '@/lib/utils/validation';
+import { userState } from '@/recoil/atoms/AuthAtom'; // 경로 확인
 import InputComponent from './InputComponent';
 
 const SignInForm = ({ onClose }: { onClose?: () => void }) => {
@@ -12,7 +12,7 @@ const SignInForm = ({ onClose }: { onClose?: () => void }) => {
     loginPassWord: '',
   });
   const [errors, setErrors] = useState({ loginEmail: '', loginPassWord: '' });
-  const { setUser } = useAuth();
+  const setAuthState = useSetRecoilState(userState);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -25,22 +25,17 @@ const SignInForm = ({ onClose }: { onClose?: () => void }) => {
     event.preventDefault();
     if (!errors.loginEmail && !errors.loginPassWord) {
       try {
-        const responsePostToken = await authenticationAPI.postToken({
-          email: formData.loginEmail,
-          password: formData.loginPassWord,
-        });
+        const responsePostToken = await authenticationAPI.postToken(
+          {
+            email: formData.loginEmail,
+            password: formData.loginPassWord,
+          },
+          setAuthState
+        );
         const token = responsePostToken.item.token;
-        const userId = responsePostToken.item.user.item.id;
-        const userType = responsePostToken.item.user.item.type;
-
-        let shopId = null;
-        if (userType === 'employer') {
-          const responseGetUsers = await userAPI.getUserData(userId);
-          shopId = responseGetUsers.item.shop?.item.id ?? null;
-        }
 
         localStorage.setItem('token', token);
-        setUser(token, userId, shopId, userType, true);
+
         if (onClose) {
           onClose();
         }
