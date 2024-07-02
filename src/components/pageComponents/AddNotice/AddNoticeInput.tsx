@@ -10,7 +10,7 @@ import {
   hasErrors,
   handleInputChange,
 } from '@/lib/utils/FormUtils';
-import { validateAddNoticeForm } from '@/lib/utils/InputValidation';
+import { validateAddNoticeForm } from '@/lib/utils/validation';
 import { userState } from '@/recoil/atoms/AuthAtom';
 
 export interface ShopNoticeFormErrors {
