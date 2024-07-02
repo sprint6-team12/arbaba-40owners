@@ -13,7 +13,7 @@ export default function MyPage() {
     const fetchUserData = async () => {
       try {
         if (!userId) {
-          alert('Error: 사용자 userId가 없습니다.');
+          alert('사용자 Id가 없습니다.');
           return;
         }
         const response = await userAPI.getUserData(userId);

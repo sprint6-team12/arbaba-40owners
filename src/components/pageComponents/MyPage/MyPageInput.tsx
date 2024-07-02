@@ -109,10 +109,10 @@ export default function MyPageInput() {
           await userAPI.putUserData(userId, token!, data);
           handleOpenConfirmModal();
         } else {
-          throw new Error('유효하지 않은 사용자 ID');
+          throw new Error('유효하지 않은 사용자 ID입니다.');
         }
       } catch (error) {
-        alert(error);
+        alert('데이터를 저장하는 중 오류가 발생했습니다.');
       }
     }
   };
