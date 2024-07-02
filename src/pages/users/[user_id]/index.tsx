@@ -26,9 +26,13 @@ export default function MyPage() {
     fetchUserData();
   }, [userId]);
 
+  const isProfileDataValid = (data: UserInfo | null): data is UserInfo => {
+    return data !== null && !!data.name && !!data.phone;
+  };
+
   return (
     <div>
-      {profileData ? (
+      {isProfileDataValid(profileData) ? (
         <MyPageRegistered profileData={profileData} userId={userId} />
       ) : (
         <MyPageUnregistered userId={userId} />
