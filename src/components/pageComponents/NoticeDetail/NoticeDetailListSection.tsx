@@ -14,7 +14,7 @@ interface NoticeDetailListSectionProps {
 function NoticeDetailListSection({ noticeData }: NoticeDetailListSectionProps) {
   const router = useRouter();
   const { shop_id, notice_id } = router.query;
-  const { type } = useRecoilValue(userState);
+  const { shopId, type } = useRecoilValue(userState);
   const [applicantListData, setApplicantListData] =
     useState<ApplicationListResponseData>();
   const [isLoading, setIsLoading] = useState(true);
@@ -24,9 +24,8 @@ function NoticeDetailListSection({ noticeData }: NoticeDetailListSectionProps) {
 
   // 내 가게일 경우 지원자 목록을 가져오는 useState
   useEffect(() => {
-    // todo/case.employer 공고작성자와 접근하는 사용자가 동일한 사용자가 아닐 경우 접근 막기
-    if (type !== 'employer') return setIsLoading(false);
     if (!shop_id || !notice_id) return setIsLoading(false);
+    if (type !== 'employer' || shop_id !== shopId) return setIsLoading(false);
 
     const fetchData = async () => {
       try {

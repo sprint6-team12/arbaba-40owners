@@ -40,7 +40,6 @@ interface NoticeDetailCardButtonProps {
   links: Link[];
 }
 
-// todo 중복지원 막기
 function NoticeDetailCardButton({
   noticeState,
   userApplicationState,
