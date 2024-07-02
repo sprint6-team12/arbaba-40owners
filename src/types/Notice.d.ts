@@ -15,7 +15,7 @@ interface currentUserApplication {
 
 interface NoticeEmployee extends NoticeBase {
   shop: ShopData;
-  currentUserApplication?: { item: currentUserApplication };
+  currentUserApplication: { item: currentUserApplication };
 }
 
 interface NoticeEmployer extends NoticeBase {}
@@ -39,7 +39,7 @@ interface NoticeListResponseData {
   address: string[];
   keyword?: string;
   items: NoticeItem[];
-  links?: Link[];
+  links: Link[];
 }
 
 interface NoticeListResponse {

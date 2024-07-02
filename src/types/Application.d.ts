@@ -15,7 +15,7 @@ type Application = ApplicationEmployee | ApplicationEmployer;
 
 interface ApplicationItem {
   item: Application;
-  links?: Link[];
+  links: Link[];
 }
 
 interface ApplicationListResponseData {
@@ -24,5 +24,5 @@ interface ApplicationListResponseData {
   count?: number;
   hasNext?: boolean;
   items: ApplicationItem[];
-  links?: Link[];
+  links: Link[];
 }
