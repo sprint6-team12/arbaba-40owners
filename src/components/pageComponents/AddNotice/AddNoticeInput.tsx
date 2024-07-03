@@ -61,10 +61,11 @@ export default function AddNoticeInput() {
     } else {
       try {
         if (typeof shopId === 'string') {
+          const formattedStartsAt = new Date(data.startsAt).toISOString();
           await noticeAPI.postShopNotice(shopId, {
             hourlyPay: data.hourlyPay,
-            startsAt: data.startsAt,
-            workhour: data.workhour,
+            startsAt: formattedStartsAt,
+            workhour: Number(data.workhour),
             description: data.description,
           });
           handleOpenConfirmModal();
