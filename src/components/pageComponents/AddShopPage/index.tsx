@@ -125,7 +125,7 @@ function AddShopPage() {
 
   return (
     <>
-      <div className="flex w-full py-24px px-12px flex-col items-start gap-8px bg-gray50 tablet:px-48px tablet:py-48px pc:px-96px pc:py-64px">
+      <div className="flex w-full py-24px px-12px flex-col items-start gap-8px bg-gray05 tablet:px-48px tablet:py-48px pc:px-96px pc:py-64px">
         <form
           onSubmit={handleSubmit}
           className="flex w-full flex-col items-center gap-32px"
