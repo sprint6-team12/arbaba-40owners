@@ -21,6 +21,7 @@ interface ModalPrimaryProps {
   onClose?: () => void;
   onConfirm?: () => void;
   onCancel?: () => void;
+  autoClose?: boolean;
 }
 
 /**
@@ -44,6 +45,7 @@ function ModalPrimary({
   onClose = () => {},
   onConfirm = () => {},
   onCancel = () => {},
+  autoClose = false,
 }: ModalPrimaryProps) {
   const handleConfirm = () => {
     onClose();
@@ -70,7 +72,7 @@ function ModalPrimary({
   );
 
   return (
-    <ModalWrapper>
+    <ModalWrapper autoClose={autoClose} onClose={onClose}>
       <div
         className={`flex-center flex-col min-w-[298px] min-h-[183px] rounded-12px bg-white p-24px ${className}`}
       >
