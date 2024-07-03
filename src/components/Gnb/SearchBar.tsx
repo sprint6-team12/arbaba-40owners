@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import noticeAPI from '@/lib/api/noticeAPI';
-import { IconSearch } from '@/lib/utils/Icons';
+import { IconCloseBlack, IconSearch } from '@/lib/utils/Icons';
 import keywordDataState from '@/recoil/atoms/searchAtom';
 import searchResultState from '@/recoil/atoms/SearchResultAtom';
 
@@ -9,6 +9,23 @@ export default function SearchBar() {
   const [searchInput, setSearchInput] = useState('');
   const setKeyword = useSetRecoilState(keywordDataState);
   const setSearchResult = useSetRecoilState(searchResultState);
+
+  const initiateSearch = async () => {
+    const results = await noticeAPI.getNoticeList({
+      keyword: searchInput,
+      limit: 6,
+    });
+    setSearchResult(results);
+  };
+
+  const resetSearchResult = async () => {
+    setSearchInput('');
+    setKeyword('');
+    const result = await noticeAPI.getNoticeList({
+      limit: 6,
+    });
+    setSearchResult(result);
+  };
 
   const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
@@ -18,13 +35,14 @@ export default function SearchBar() {
   const handleKeyPress = async (
     event: React.KeyboardEvent<HTMLInputElement>
   ) => {
-    if (event.key === 'Enter') {
-      const results = await noticeAPI.getNoticeList({
-        keyword: searchInput,
-        limit: 6,
-      });
-      setSearchResult(results);
-      setKeyword(searchInput);
+    switch (event.key) {
+      case 'Enter':
+        initiateSearch();
+        setKeyword(searchInput);
+        break;
+      case 'Escape':
+        resetSearchResult();
+        break;
     }
   };
 
@@ -38,6 +56,12 @@ export default function SearchBar() {
         onKeyDown={handleKeyPress}
         className="px-[32px] py-[8px] ml-8px rounded-[10px] bg-gray10 w-full"
       />
+      {searchInput && (
+        <IconCloseBlack
+          className="absolute right-10px"
+          onClick={() => resetSearchResult()}
+        />
+      )}
     </div>
   );
 }

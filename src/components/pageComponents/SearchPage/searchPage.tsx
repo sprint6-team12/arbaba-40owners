@@ -39,7 +39,6 @@ function SearchPage({ data }: SearchPageProps) {
   }, [data]);
   const searchValue = useRecoilValue(keywordDataState);
   const [currentPage, setCurrentPage] = useState(1);
-  // 정렬, 필터, 검색의 모든 현재 값을 보관하고 있다가 어느 쪽이든 api 호출을 한다면 현재 값을 전달해야 함
   const [currentSettings, setCurrentSettings] = useState({
     offset: 0,
     limit: 6,
@@ -50,7 +49,6 @@ function SearchPage({ data }: SearchPageProps) {
     sort: 'time',
   });
 
-  // API 호출을 위한 helper 함수
   const callAPI = async (settings: typeof currentSettings, page: number) => {
     const params = new URLSearchParams();
     Object.entries(settings).forEach(([key, value]) => {
@@ -109,7 +107,7 @@ function SearchPage({ data }: SearchPageProps) {
 
   return (
     <div className="pt-40px tablet:pt-60px pc:pt-60px">
-      <div className="flex flex-col w-351px tablet:w-[678px] pc:w-[964px] m-auto">
+      <div className="relative flex flex-col w-351px tablet:w-[678px] pc:w-[964px] m-auto">
         <div className="flex flex-col tablet:flex-row pc:flex-row tablet:justify-between pc: justify-between">
           <h1 className="mb-16px tablet:mb-32px pc:mb-32px text-20px tablet:text-28px pc:text-28px font-bold">
             <span className="text-red40">{searchValue}</span>에 대한 공고 목록
