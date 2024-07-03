@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next';
 import { useRecoilValue } from 'recoil';
 import CustomizedNoticeList from '@/components/pageComponents/NoticeList/CustomizedNoticeList';
 import NoticeListView from '@/components/pageComponents/NoticeList/NoticeListView';
-import SearchPage from '@/components/pageComponents/SearchPage/searchPage';
+import SearchPage from '@/components/pageComponents/SearchPage/SearchPage';
 import noticeAPI from '@/lib/api/noticeAPI';
 import keywordDataState from '@/recoil/atoms/searchAtom';
 
