@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import NoData from '@/components/pageComponents/ShopDetail/NoData';
 import NoticesCardList from '@/components/pageComponents/ShopDetail/NoticesCardList';
+import { userState } from '@/recoil/atoms/AuthAtom';
 
 interface NoticesListProps {
   noticesData: NoticeListResponseData | null;
@@ -14,6 +16,7 @@ export default function NoticesList({
   shopData,
 }: NoticesListProps) {
   const [currentNoticesPage, setCurrentNoticesPage] = useState(1);
+  const { shopId } = useRecoilValue(userState);
 
   const observer = useRef<IntersectionObserver | null>(null);
   const noticesRef = useRef<HTMLDivElement | null>(null);
@@ -52,7 +55,7 @@ export default function NoticesList({
     <div className="bg-gray05">
       <div className="mx-auto w-full px-32px py-60px max-w-[1000px]">
         {currentNoticesData.length === 0 ? (
-          <NoData href="/" title="공고를 등록해보세요." text="공고 등록하기" />
+          <NoData href={`/shops/${shopId}/notices`} title="공고를 등록해보세요." text="공고 등록하기" />
         ) : (
           <NoticesCardList
             title="등록한 공고"
