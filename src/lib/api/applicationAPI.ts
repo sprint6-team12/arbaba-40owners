@@ -40,14 +40,10 @@ const applicationAPI = {
     const headers = {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     };
-    const body = {
-      shop_id,
-      notice_id,
-    };
     try {
       const response = await axiosInstance.post(
-        `/shop/${shop_id}/notices/${notice_id}/applications`,
-        { body },
+        `/shops/${shop_id}/notices/${notice_id}/applications`,
+        {},
         { headers }
       );
       return response.data;
@@ -61,7 +57,7 @@ const applicationAPI = {
     };
     const body = { status: applyStatus };
     try {
-      const response = await axiosInstance.put(href, { body }, { headers });
+      const response = await axiosInstance.put(href, body, { headers });
       return response.data;
     } catch (error) {
       handleAxiosError(error);

@@ -12,7 +12,11 @@ const uploadImageToS3 = async (url: string, fileObject: File) => {
 
 const imageAPI = async (
   fileObject: File,
+<<<<<<< HEAD
   token = localStorage.getItem('token')
+=======
+  token = localStorage.getItem('userJWT')
+>>>>>>> cc5127c41a23d9d1c5dff02ec7276f1a14e22fec
 ) => {
   try {
     const response = await axiosInstance.post(
