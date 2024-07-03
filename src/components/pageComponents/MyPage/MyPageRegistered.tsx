@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import LinkButton from '@/components/Button/LinkButton';
 import MyPageProfile from '@/components/pageComponents/MyPage/MyPageProfile';
+import Pagination from '@/components/Pagination/Pagination';
 import EmployeeTable, {
   EmployeeTableData,
 } from '@/components/Table/EmployeeTable';
@@ -20,6 +21,8 @@ export default function MyPageRegistered({
 }: MyPageRegisteredProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [data, setData] = useState<EmployeeTableData | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const limit = 5;
   const router = useRouter();
 
   useEffect(() => {
@@ -28,8 +31,8 @@ export default function MyPageRegistered({
         try {
           const result = await applicationAPI.getUserApply({
             user_id: userId,
-            offset: 0,
-            limit: 5,
+            offset: (currentPage - 1) * limit,
+            limit: limit,
           });
           setData(result);
         } catch (error) {
@@ -39,13 +42,18 @@ export default function MyPageRegistered({
     };
 
     fetchData();
-  }, [userId]);
+  }, [userId, currentPage]);
 
   const handleEditClick = () => {
     router.push(`/users/${userId}/editProfile`);
   };
+
   const handleCloseClick = () => {
     setIsEditing(false);
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
   };
 
   return (
@@ -69,9 +77,18 @@ export default function MyPageRegistered({
       </div>
       <div className="mt-[8px] w-full">
         {data ? (
-          <div className="[&_>div]:w-full">
-            <EmployeeTable data={data} />
-          </div>
+          <>
+            <div className="[&_>div]:w-full mb-12px">
+              <EmployeeTable data={data} />
+            </div>
+            <Pagination
+              count={data.count}
+              limit={limit}
+              currentPage={currentPage}
+              hasNext={data.hasNext}
+              onPageChange={handlePageChange}
+            />
+          </>
         ) : (
           <div className="border rounded-12px w-full h-195px tablet:h-217px pc:h-217px flex flex-col justify-center items-center">
             <div className="text-center px-[6px] py-[15px]">
