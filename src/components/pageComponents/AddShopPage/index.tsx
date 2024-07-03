@@ -5,10 +5,12 @@ import Button from '@/components/Button/Button';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import FormGroup from '@/components/FormGroup/FormGroup';
 import { SHOP_LOCATIONS, SHOP_MENU_CATEGORIES } from '@/constants/shopOptions';
+import useModal from '@/hooks/useModal';
 import imageAPI from '@/lib/api/imageAPI';
 import shopAPI from '@/lib/api/shopAPI';
 import { IconCloseBlack } from '@/lib/utils/Icons';
 import { validateShopInfo } from '@/lib/utils/validation';
+import ConfirmModal from './ConfirmModal';
 import InputComponent from './InputComponents';
 
 interface ShopType {
@@ -41,6 +43,7 @@ function AddShopPage() {
     hourlyPay: '',
   });
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const { openModal } = useModal();
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleInputChange = (
@@ -83,6 +86,12 @@ function AddShopPage() {
     setImagePreview('');
   };
 
+  const handleOpenConfirmModal = (content: string) => {
+    openModal('addShopConfirmModal', ConfirmModal, {
+      content: content,
+    });
+  };
+
   const handleTotalSubmit = async () => {
     const hourlyPayNumber = Number(formData.hourlyPay);
 
@@ -93,7 +102,7 @@ function AddShopPage() {
       !formData.address2 ||
       !hourlyPayNumber
     ) {
-      alert('필수 입력 내용을 입력해주세요.');
+      handleOpenConfirmModal('필수 입력 내용을 입력해주세요.');
       return;
     }
 
@@ -104,7 +113,7 @@ function AddShopPage() {
         originalHourlyPay: hourlyPayNumber,
       });
       if (data) {
-        alert('등록이 완료되었습니다');
+        handleOpenConfirmModal('등록이완료되었습니다.');
         router.push('/');
       }
     } catch (error) {
