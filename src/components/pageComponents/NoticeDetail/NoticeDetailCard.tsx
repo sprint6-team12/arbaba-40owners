@@ -69,7 +69,6 @@ function NoticeDetailCard({ data }: NoticeDetailCardProps) {
             userType={userType}
             noticeState={currentNoticeState}
             userApplicationData={currentUserApplicationData}
-            links={data.links}
           />
         </div>
       </div>
