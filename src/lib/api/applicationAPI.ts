@@ -69,16 +69,15 @@ const applicationAPI = {
       offset,
       limit,
     };
-    // 로컬스토리지의 토큰을 사용하여 인증하는 경우
-    // const headers = {
-    //   Authorization: `Bearer ${localStorage.getItem('token')}`,
-    // };
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    };
     try {
       const response = await axiosInstance.get(
         `/users/${user_id}/applications`,
         {
           params,
-          // headers
+          headers,
         }
       );
       return response.data;
