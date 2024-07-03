@@ -4,6 +4,7 @@ import { useRecoilValue } from 'recoil';
 import Button from '@/components/Button/Button';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import FormGroup from '@/components/FormGroup/FormGroup';
+import ConfirmModal from '@/components/pageComponents/AddShopPage/ConfirmModal';
 import { SHOP_LOCATIONS } from '@/constants/shopOptions';
 import useModal from '@/hooks/useModal';
 import userAPI, { UserInfo } from '@/lib/api/userAPI';
@@ -15,7 +16,6 @@ import {
 } from '@/lib/utils/FormUtils';
 import { validateMyPageForm } from '@/lib/utils/validation';
 import { userState } from '@/recoil/atoms/AuthAtom';
-import ConfirmModal from './ConfirmModal';
 
 export interface UserInfoFormErrors {
   name: string | null;
@@ -39,7 +39,7 @@ const initialFormErrors: UserInfoFormErrors = {
 };
 
 export default function MyPageInput() {
-  const { userId, token } = useRecoilValue(userState);
+  const { userId } = useRecoilValue(userState);
   const router = useRouter();
   const { openModal } = useModal();
   const [data, setData] = useState<UserInfo>(initialFormData);
@@ -87,8 +87,9 @@ export default function MyPageInput() {
     }));
   };
 
-  const handleOpenConfirmModal = () => {
+  const handleOpenConfirmModal = (content: string) => {
     openModal('myPageConfirmModal', ConfirmModal, {
+      content: content,
       onConfirm: () => {
         if (userId) {
           router.push(`/users/${userId}`);
@@ -106,8 +107,9 @@ export default function MyPageInput() {
     } else {
       try {
         if (userId) {
+          const token = localStorage.getItem('token');
           await userAPI.putUserData(userId, token!, data);
-          handleOpenConfirmModal();
+          handleOpenConfirmModal('등록이 완료되었습니다.');
         } else {
           throw new Error('유효하지 않은 사용자 ID입니다.');
         }

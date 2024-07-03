@@ -17,7 +17,7 @@ interface GetShopNoticeListData {
   limit: number;
 }
 
-interface GetShopNoticeData {
+export interface GetShopNoticeData {
   shop_id: string;
   notice_id: string;
   token?: string;
@@ -83,7 +83,11 @@ const noticeAPI = {
       handleAxiosError(error);
     }
   },
-  putShopNotice: async (shop_id: string, notice_id: string, body: string) => {
+  putShopNotice: async (
+    shop_id: string,
+    notice_id: string,
+    body: ShopNoticeData
+  ) => {
     const headers = {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     };

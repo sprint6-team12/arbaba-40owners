@@ -21,6 +21,7 @@ export interface ShopNoticeFormErrors {
   workhour: string | null;
   description: string | null;
 }
+
 const currentDateTime = new Date(
   Date.now() - new Date().getTimezoneOffset() * 60000
 )
@@ -43,10 +44,11 @@ const initialFormErrors: ShopNoticeFormErrors = {
 
 export default function AddNoticeInput() {
   const { shopId } = useRecoilValue(userState);
+  const router = useRouter();
+  const { notice_id } = router.query;
   const { openModal } = useModal();
   const [data, setData] = useState<ShopNoticeData>(initialFormData);
   const [errors, setErrors] = useState<ShopNoticeFormErrors>(initialFormErrors);
-  const router = useRouter();
 
   const handleChangeData = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -75,9 +77,9 @@ export default function AddNoticeInput() {
       setErrors(validationErrors);
     } else {
       try {
-        if (typeof shopId === 'string') {
+        if (typeof shopId === 'string' && typeof notice_id === 'string') {
           const formattedStartsAt = new Date(data.startsAt).toISOString();
-          await noticeAPI.postShopNotice(shopId, {
+          await noticeAPI.putShopNotice(shopId, notice_id, {
             hourlyPay: data.hourlyPay,
             startsAt: formattedStartsAt,
             workhour: Number(data.workhour),
