@@ -67,12 +67,11 @@ export default function GnbButton({ userType, onClick }: GnbButtonProps) {
     openModal('LoginSignUpModal', SpecialModal, { isLogin });
   };
 
-  const getUserShopId = async (userId: string, type: string) => {
-    await userAPI.getUserData(userId, type, setAuthState);
-  };
-
   useEffect(() => {
     if (userId) {
+      const getUserShopId = async (userId: string, type: string) => {
+        await userAPI.getUserData(userId, type, setAuthState);
+      };
       getUserShopId(userId, type);
     }
   }, []);

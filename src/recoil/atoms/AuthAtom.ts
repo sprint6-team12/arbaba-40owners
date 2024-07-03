@@ -10,6 +10,7 @@ export interface User {
   type: 'employee' | 'employer' | 'guest';
   isLogin: boolean;
   address: string;
+  DetailAddress:string;
 }
 
 export const userState = atom<User>({
@@ -21,6 +22,7 @@ export const userState = atom<User>({
     type: 'guest',
     isLogin: false,
     address: '',
+    DetailAddress: "",
   },
   effects_UNSTABLE: [persistAtom],
 });
