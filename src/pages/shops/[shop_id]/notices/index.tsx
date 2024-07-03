@@ -4,8 +4,6 @@ import AddNoticeInput from '@/components/pageComponents/AddNotice/AddNoticeInput
 import { IconCloseBlack } from '@/lib/utils/Icons';
 import { userState } from '@/recoil/atoms/AuthAtom';
 
-
-
 export default function AddNotice() {
   const { shopId } = useRecoilValue(userState);
   return (

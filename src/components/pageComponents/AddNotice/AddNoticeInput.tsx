@@ -70,7 +70,7 @@ export default function AddNoticeInput() {
             description: data.description,
           });
           handleOpenConfirmModal();
-          router.push('/')
+          router.push('/');
         } else {
           throw new Error('유효하지 않은 ID');
         }

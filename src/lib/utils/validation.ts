@@ -11,7 +11,6 @@ import {
 import { ShopNoticeData } from '@/lib/api/noticeAPI';
 import { UserInfo } from '@/lib/api/userAPI';
 
-
 interface PasswordFormData {
   signUpEmail: string;
   signUpPassword: string;
@@ -100,7 +99,7 @@ export const validateShopInfo = (id: string, value: string) => {
       break;
   }
   return errorMessage;
-}
+};
 //공고등록(AddNotice) 유효성 검사
 export const validateAddNoticeForm = (
   data: ShopNoticeData

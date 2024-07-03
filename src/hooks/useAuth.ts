@@ -22,7 +22,8 @@ export const useAuth = () => {
     userId: string | null,
     shopId: string | null,
     type: 'employee' | 'employer' | 'guest',
-    isLogin: boolean
+    isLogin: boolean,
+    address: string
   ) => {
     setUserState({
       token,
@@ -30,6 +31,7 @@ export const useAuth = () => {
       shopId,
       type,
       isLogin,
+      address,
     });
   };
 

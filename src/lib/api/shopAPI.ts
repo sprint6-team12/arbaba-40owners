@@ -26,11 +26,7 @@ const shopAPI = {
     };
 
     try {
-      const response = await axiosInstance.post(
-        `/shops`,
-         body ,
-        { headers }
-      );
+      const response = await axiosInstance.post(`/shops`, body, { headers });
       return response.data;
     } catch (error) {
       handleAxiosError(error);
@@ -41,11 +37,9 @@ const shopAPI = {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     };
     try {
-      const response = await axiosInstance.put(
-        `/shops/${shop_id}`,
-         body ,
-        { headers }
-      );
+      const response = await axiosInstance.put(`/shops/${shop_id}`, body, {
+        headers,
+      });
       return response.data;
     } catch (error) {
       handleAxiosError(error);

@@ -24,12 +24,12 @@ export default function SignInForm({ onClose }: { onClose?: () => void }) {
     event.preventDefault();
     if (!errors.loginEmail && !errors.loginPassWord) {
       try {
-        const { token, userId, userType, shopId } = await signIn(
+        const { token, userId, userType, shopId, address } = await signIn(
           formData.loginEmail,
           formData.loginPassWord
         );
         localStorage.setItem('token', token);
-        setUser(token, userId, shopId, userType, true);
+        setUser(token, userId, shopId, userType, true, address);
         onClose?.();
       } catch (error) {
         alert(error);
@@ -76,6 +76,7 @@ const signIn = async (email: string, password: string) => {
   const token = responsePostToken.item.token;
   const userId = responsePostToken.item.user.item.id;
   const userType = responsePostToken.item.user.item.type;
+  const address = responsePostToken.item.user.item.address;
 
   let shopId = null;
   if (userType === 'employer') {
@@ -83,5 +84,5 @@ const signIn = async (email: string, password: string) => {
     shopId = responseGetUsers.item.shop?.item.id ?? null;
   }
 
-  return { token, userId, userType, shopId };
+  return { token, userId, userType, shopId, address };
 };
