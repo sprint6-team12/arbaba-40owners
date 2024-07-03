@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import MyPageRegistered from '@/components/pageComponents/MyPage/MyPageRegistered';
@@ -8,18 +9,21 @@ import { userState } from '@/recoil/atoms/AuthAtom';
 export default function MyPage() {
   const { userId } = useRecoilValue(userState);
   const [profileData, setProfileData] = useState<UserInfo | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         if (!userId) {
           alert('사용자 Id가 없습니다.');
+          router.push('/login');
           return;
         }
         const response = await userAPI.getUserData(userId);
         setProfileData(response.item);
       } catch (error) {
         alert('사용자 데이터를 가져오는 중 오류가 발생했습니다.');
+        router.push('/');
       }
     };
 

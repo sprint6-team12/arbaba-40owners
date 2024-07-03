@@ -1,148 +1,182 @@
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import Button from '@/components/Button/Button';
+import Dropdown from '@/components/Dropdown/Dropdown';
 import FormGroup from '@/components/FormGroup/FormGroup';
-import ConfirmModal from '@/components/pageComponents/MyPage/ConfirmModal';
+import ConfirmModal from '@/components/pageComponents/AddShopPage/ConfirmModal';
+import { SHOP_LOCATIONS } from '@/constants/shopOptions';
 import useModal from '@/hooks/useModal';
-import noticeAPI, { ShopNoticeData } from '@/lib/api/noticeAPI';
+import userAPI, { UserInfo } from '@/lib/api/userAPI';
+import FormatUtils from '@/lib/utils/FormatUtils';
 import {
   clearError,
   hasErrors,
   handleInputChange,
 } from '@/lib/utils/FormUtils';
-import { validateAddNoticeForm } from '@/lib/utils/validation';
+import { validateMyPageForm } from '@/lib/utils/validation';
 import { userState } from '@/recoil/atoms/AuthAtom';
 
-export interface ShopNoticeFormErrors {
-  hourlyPay: string | null;
-  startsAt: string | null;
-  workhour: string | null;
-  description: string | null;
+export interface UserInfoFormErrors {
+  name: string | null;
+  phone: string | null;
+  address?: string | null;
+  bio?: string | null;
 }
 
-const initialFormData: ShopNoticeData = {
-  hourlyPay: 0,
-  startsAt: '',
-  workhour: 0,
-  description: '',
+const initialFormData: UserInfo = {
+  name: '',
+  phone: '',
+  address: '',
+  bio: '',
 };
 
-const initialFormErrors: ShopNoticeFormErrors = {
-  hourlyPay: null,
-  startsAt: null,
-  workhour: null,
-  description: null,
+const initialFormErrors: UserInfoFormErrors = {
+  name: null,
+  phone: null,
+  address: null,
+  bio: null,
 };
 
-export default function AddNoticeInput() {
-  const { shopId } = useRecoilValue(userState);
-  const { openModal } = useModal();
-  const [data, setData] = useState<ShopNoticeData>(initialFormData);
-  const [errors, setErrors] = useState<ShopNoticeFormErrors>(initialFormErrors);
+export default function MyPageInput() {
+  const { userId } = useRecoilValue(userState);
   const router = useRouter();
+  const { openModal } = useModal();
+  const [data, setData] = useState<UserInfo>(initialFormData);
+  const [errors, setErrors] = useState<UserInfoFormErrors>(initialFormErrors);
+
+  useEffect(() => {
+    if (userId) {
+      fetchUserData(userId);
+    }
+  }, [userId]);
+
+  const fetchUserData = async (userId: string) => {
+    const userData = await userAPI.getUserData(userId);
+    setData(userData.item);
+  };
+
   const handleChangeData = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = event.target;
-    handleInputChange(setData, name, value);
-    clearError(setErrors, name as keyof ShopNoticeFormErrors);
+
+    if (name === 'phone') {
+      handlePhoneChange(value);
+    } else {
+      handleInputChange(setData, name, value);
+    }
+
+    clearError(setErrors, name as keyof UserInfoFormErrors);
   };
-  const handleOpenConfirmModal = () => {
-    openModal('addNoticeConfirmModal', ConfirmModal, {
-      // onConfirm: () => // 공고 상세 페이지로 이동
+
+  const handlePhoneChange = (value: string) => {
+    const cleanedValue = value.replace(/\D/g, '');
+    if (cleanedValue.length <= 11) {
+      setData((prev) => ({
+        ...prev,
+        phone: FormatUtils.phoneNumber(cleanedValue),
+      }));
+    }
+  };
+
+  const handleDropdownSelect = (selectedOption: string) => {
+    setData((prev) => ({
+      ...prev,
+      address: selectedOption,
+    }));
+  };
+
+  const handleOpenConfirmModal = (content: string) => {
+    openModal('myPageConfirmModal', ConfirmModal, {
+      content: content,
+      onConfirm: () => {
+        if (userId) {
+          router.push(`/users/${userId}`);
+        }
+      },
     });
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    const validationErrors = validateAddNoticeForm(data);
+    const validationErrors = validateMyPageForm(data);
     if (hasErrors(validationErrors)) {
       setErrors(validationErrors);
+      return;
     } else {
       try {
-        if (typeof shopId === 'string') {
-          const formattedStartsAt = new Date(data.startsAt).toISOString();
-          await noticeAPI.postShopNotice(shopId, {
-            hourlyPay: data.hourlyPay,
-            startsAt: formattedStartsAt,
-            workhour: Number(data.workhour),
-            description: data.description,
-          });
-          handleOpenConfirmModal();
-          router.push('/')
+        if (userId) {
+          const token = localStorage.getItem('token');
+          await userAPI.putUserData(userId, token!, data);
+          handleOpenConfirmModal('등록이 완료되었습니다.');
         } else {
-          throw new Error('유효하지 않은 ID');
+          throw new Error('유효하지 않은 사용자 ID입니다.');
         }
       } catch (error) {
-        alert(error);
+        alert('데이터를 저장하는 중 오류가 발생했습니다.');
       }
     }
   };
 
   return (
-    <div className="flex-center">
-      <form onSubmit={handleSubmit} className="w-full">
+    <div className="flex-center mt-32px">
+      <form className="w-full" onSubmit={handleSubmit}>
         <div className="tablet:flex tablet:justify-between tablet:gap-20px pc:flex pc:gap-20px">
           <div className="pc:flex pc:justify-between pc:basis-2/3 gap-20px w-full">
             <div className="mb-20px w-full">
               <FormGroup>
-                <FormGroup.Label htmlFor="hourlyPay">시급*</FormGroup.Label>
-                <FormGroup.InputWrapper className="flex input-base">
-                  <FormGroup.InputField
-                    name="hourlyPay"
-                    type="text"
-                    value={data.hourlyPay}
-                    onChange={handleChangeData}
-                  />
-                  <span>원</span>
-                </FormGroup.InputWrapper>
-                <FormGroup.ErrorMessage errorMessage={errors.hourlyPay} />
+                <FormGroup.Label htmlFor="name">이름*</FormGroup.Label>
+                <FormGroup.InputField
+                  id="name"
+                  name="name"
+                  type="text"
+                  placeholder="입력"
+                  className="flex input-base"
+                  value={data.name}
+                  onChange={handleChangeData}
+                />
+                <FormGroup.ErrorMessage errorMessage={errors.name} />
               </FormGroup>
             </div>
             <div className="mb-60px h-58px w-full">
               <FormGroup>
-                <FormGroup.Label htmlFor="startsAt">시작 일시*</FormGroup.Label>
+                <FormGroup.Label htmlFor="phone">연락처*</FormGroup.Label>
                 <FormGroup.InputField
-                  id="startsAt"
-                  name="startsAt"
-                  type="datetime-local"
-                  value={data.startsAt}
+                  id="phone"
+                  name="phone"
+                  type="text"
+                  placeholder="입력"
+                  className="flex input-base"
+                  value={data.phone}
                   onChange={handleChangeData}
-                  className="input-base"
                 />
-                <FormGroup.ErrorMessage errorMessage={errors.startsAt} />
+                <FormGroup.ErrorMessage errorMessage={errors.phone} />
               </FormGroup>
             </div>
           </div>
           <div className="mb-20px w-full pc:basis-1/3">
-            <FormGroup>
-              <FormGroup.Label htmlFor="workhour">업무 시간*</FormGroup.Label>
-              <FormGroup.InputWrapper className="flex input-base">
-                <FormGroup.InputField
-                  id="workhour"
-                  name="workhour"
-                  type="number"
-                  value={data.workhour}
-                  onChange={handleChangeData}
-                />
-                <span className="w-40px">시간</span>
-              </FormGroup.InputWrapper>
-              <FormGroup.ErrorMessage errorMessage={errors.workhour} />
-            </FormGroup>
+            <h2>선호 지역</h2>
+            <Dropdown
+              options={SHOP_LOCATIONS}
+              onSelect={handleDropdownSelect}
+              defaultValue={data.address || '선택'}
+            />
           </div>
         </div>
-        <FormGroup>
-          <FormGroup.Label htmlFor="description">공고 설명</FormGroup.Label>
-          <FormGroup.InputField.Textarea
-            id="description"
-            name="description"
-            value={data.description}
-            onChange={handleChangeData}
-            placeholder="공고 설명을 입력하세요"
-            className="h-153px"
-          />
-        </FormGroup>
+        <div className="mb-20px">
+          <FormGroup>
+            <FormGroup.Label htmlFor="bio">소개</FormGroup.Label>
+            <FormGroup.InputField.Textarea
+              id="bio"
+              name="bio"
+              placeholder="소개를 입력하세요"
+              className="h-153px"
+              value={data.bio}
+              onChange={handleChangeData}
+            />
+          </FormGroup>
+        </div>
 
         <div className="mt-24px text-center">
           <Button className="button_large_active" type="submit">
