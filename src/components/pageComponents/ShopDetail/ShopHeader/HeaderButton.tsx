@@ -5,7 +5,6 @@ import { userState } from '@/recoil/atoms/AuthAtom';
 export default function HeaderButton() {
   const { shopId } = useRecoilValue(userState);
 
-
   return (
     <>
       <LinkButton

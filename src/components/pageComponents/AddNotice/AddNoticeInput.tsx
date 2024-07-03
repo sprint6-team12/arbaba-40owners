@@ -71,6 +71,7 @@ export default function AddNoticeInput() {
             description: data.description,
           });
           handleOpenConfirmModal('등록이 완료되었습니다.');
+
           router.push('/');
         } else {
           throw new Error('유효하지 않은 ID');

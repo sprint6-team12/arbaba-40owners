@@ -94,7 +94,7 @@ function AddShopPage() {
   };
 
   const handleTotalSubmit = async () => {
-   if (
+    if (
       !formData.name ||
       !formData.category ||
       !formData.address1 ||
@@ -114,7 +114,7 @@ function AddShopPage() {
         originalHourlyPay: hourlyPayNumber,
       });
       if (data) {
-        const shopId = data.item.id
+        const shopId = data.item.id;
         handleOpenConfirmModal('등록이 완료되었습니다.');
         router.push(`/shops/${shopId}`);
       }

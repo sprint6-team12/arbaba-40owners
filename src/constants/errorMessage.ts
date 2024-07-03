@@ -17,7 +17,6 @@ export const ERROR_MESSAGES_SHOP = {
   hourlyPayRequired: '기본 시급을 작성해주세요',
 };
 
-
 export const NOTICE_ERROR_MESSAGES = {
   HOURLY_PAY_REQUIRED: '시급을 입력해주세요.',
   STARTS_AT_REQUIRED: '시작 일시를 입력해주세요.',
@@ -31,5 +30,3 @@ export const MYPAGE_ERROR_MESSAGES = {
   NAME_REQUIRED: '이름을 입력해주세요.',
   PHONE_REQUIRED: '연락처를 입력해주세요.',
 };
-
-
