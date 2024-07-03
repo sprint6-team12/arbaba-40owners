@@ -137,7 +137,7 @@ function EditShopPage() {
         });
         if (data) {
           alert('수정이 완료되었습니다');
-          router.push('/my-shop');
+          router.push(`/shops/${shopId}`);
         }
       } else {
         alert('필수 입력 내용을 입력해주세요.');
