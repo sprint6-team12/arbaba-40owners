@@ -13,7 +13,7 @@ export function ProfileRegistrationModal({ ...rest }) {
 
 export function CancelApplicationModal({ ...rest }) {
   return Modal({
-    content: '신청을 취소하시겠어요?',
+    content: '취소하면 다시 신청할 수 없어요',
     optionType: 'actions',
     confirmButtonText: '취소하기',
     className: modalSizeStyle,
