@@ -64,7 +64,7 @@ export default function MyPageRegistered({
         </span>
         {isEditing && (
           <button onClick={handleCloseClick}>
-            <IconCloseBlack alt="닫기" />
+            <IconCloseBlack aria-label="닫기" />
           </button>
         )}
         <MyPageProfile ProfileData={profileData} onClick={handleEditClick} />

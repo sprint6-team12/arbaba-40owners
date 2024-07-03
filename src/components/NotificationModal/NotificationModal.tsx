@@ -25,7 +25,11 @@ export default function NotificationModal({
         <div className="flex flex-col w-full h-full gap-12px py-24px px-20px">
           <div className="flex items-center justify-between">
             <p className="font-bold text-20px">알림 {filteredItem.length}개</p>
-            <IconCloseBlack onClick={onClose} className="cursor-pointer" />
+            <IconCloseBlack
+              onClick={onClose}
+              className="cursor-pointer"
+              aria-label="닫기"
+            />
           </div>
           <div
             className={`flex flex-col gap-12px ${filteredItem.length > 2 && 'overflow-y-scroll'}`}

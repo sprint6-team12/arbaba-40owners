@@ -25,7 +25,11 @@ function InputPassword(
         onClick={handleTogglePasswordVisibility}
         className="absolute right-0 -translate-x-1/2 h-24px w-24px bg-transparent"
       >
-        {isPasswordVisible ? <IconEyeOff /> : <IconEye />}
+        {isPasswordVisible ? (
+          <IconEyeOff aria-label="비밀번호 보기" />
+        ) : (
+          <IconEye aria-label="비밀번호 숨기기" />
+        )}
       </button>
     </div>
   );

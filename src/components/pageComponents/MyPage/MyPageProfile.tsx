@@ -19,13 +19,13 @@ export default function MyPageProfile({
         </div>
         {phone && (
           <div className="flex items-center gap-6px text-gray50">
-            <IconPhone />
+            <IconPhone aria-label="전화번호" />
             {phone}
           </div>
         )}
         {address && (
           <div className="flex items-center gap-6px text-gray50">
-            <IconLocation />
+            <IconLocation aria-label="지역" />
             선호지역: {address}
           </div>
         )}
