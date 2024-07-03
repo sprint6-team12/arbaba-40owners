@@ -22,8 +22,8 @@ const authenticationAPI = {
       if (token && userId) {
         setAuthState((prevState: User) => ({
           ...prevState,
-          token,
-          userId,
+          token : token,
+          userId : userId,
           type: userType,
           isLogin: true,
         }));

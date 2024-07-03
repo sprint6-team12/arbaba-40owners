@@ -17,15 +17,16 @@ interface GetShopNoticeListData {
   limit: number;
 }
 
-interface GetShopNoticeData {
+export interface GetShopNoticeData {
   shop_id: string;
   notice_id: string;
+  token?: string;
 }
 
-interface ShopNoticeData {
-  hourlyPay?: number;
-  startsAt?: string;
-  workhour?: number;
+export interface ShopNoticeData {
+  hourlyPay: number;
+  startsAt: string;
+  workhour: number;
   description?: string;
 }
 const noticeAPI = {
@@ -53,24 +54,13 @@ const noticeAPI = {
       handleAxiosError(error);
     }
   },
-  getShopNotice: async ({ shop_id, notice_id }: GetShopNoticeData) => {
-    try {
-      const response = await axiosInstance.get(
-        `/shops/${shop_id}/notices/${notice_id}`
-      );
-      return response.data;
-    } catch (error) {
-      handleAxiosError(error);
-    }
-  },
-  postShopNotice: async (shops_id: string, body: ShopNoticeData) => {
+  getShopNotice: async ({ shop_id, notice_id, token }: GetShopNoticeData) => {
     const headers = {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      Authorization: token ? `Bearer ${token}` : '',
     };
     try {
-      const response = await axiosInstance.post(
-        `/shops/${shops_id}/notices`,
-        { body },
+      const response = await axiosInstance.get(
+        `/shops/${shop_id}/notices/${notice_id}`,
         { headers }
       );
       return response.data;
@@ -78,7 +68,26 @@ const noticeAPI = {
       handleAxiosError(error);
     }
   },
-  putShopNotice: async (shop_id: string, notice_id: string, body: string) => {
+  postShopNotice: async (shop_id: string, body: ShopNoticeData) => {
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    };
+    try {
+      const response = await axiosInstance.post(
+        `/shops/${shop_id}/notices`,
+        body,
+        { headers }
+      );
+      return response.data;
+    } catch (error) {
+      handleAxiosError(error);
+    }
+  },
+  putShopNotice: async (
+    shop_id: string,
+    notice_id: string,
+    body: ShopNoticeData
+  ) => {
     const headers = {
       Authorization: `Bearer ${localStorage.getItem('token')}`,
     };

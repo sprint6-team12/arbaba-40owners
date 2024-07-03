@@ -1,14 +1,14 @@
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useEffect } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import GnbUiButton from '@/components/Gnb/GnbUiButton';
+import ModalCustom from '@/components/Modal/ModalCustom';
+import LoginSignUp from '@/components/pageComponents/LoginSignUp/LoginSignUp';
 import { useAuth } from '@/hooks/useAuth';
 import useModal from '@/hooks/useModal';
 import userAPI from '@/lib/api/userAPI';
 import { IconCloseBlack } from '@/lib/utils/Icons';
 import { userState } from '@/recoil/atoms/AuthAtom';
-import ModalCustom from '../Modal/ModalCustom';
-import LoginSignUp from '../pageComponents/LoginSignUp/LoginSignUp';
 
 interface GnbButtonType {
   name: string;
@@ -58,30 +58,24 @@ const SpecialModal = ({
 
 export default function GnbButton({ userType, onClick }: GnbButtonProps) {
   const { openModal } = useModal();
-  const { userId } = useRecoilValue(userState);
-  const [userShopId, setUserShopId] = useState('');
+  const { userId, type, shopId } = useRecoilValue(userState);
   const router = useRouter();
   const { setUser } = useAuth();
+  const setAuthState = useSetRecoilState(userState);
 
   const openLoginModal = (isLogin: boolean) => {
     openModal('LoginSignUpModal', SpecialModal, { isLogin });
   };
 
-  const getUserShopId = async (userId: string) => {
-    try {
-      const response = await userAPI.getUserData(userId);
-      const shopId = response?.item?.shop?.item?.id;
-      setUserShopId(shopId);
-    } catch (error) {
-      error;
-    }
+  const getUserShopId = async (userId: string, type: string) => {
+    await userAPI.getUserData(userId, type, setAuthState);
   };
 
   useEffect(() => {
-    if (userId && userType === 'employer') {
-      getUserShopId(userId);
+    if (userId) {
+      getUserShopId(userId, type);
     }
-  }, [userId]);
+  }, []);
 
   const handleGnbButtonsClick = (buttonId: string) => {
     if (userType === 'guest' || userType === undefined) {
@@ -91,13 +85,13 @@ export default function GnbButton({ userType, onClick }: GnbButtonProps) {
         openLoginModal(false);
       }
     } else if (userType === 'employer' && buttonId === 'my-shop') {
-      router.push(`/shops/${userShopId}`);
+      router.push(`/shops/${shopId}`);
     } else if (userType === 'employee' && buttonId === 'my-profile') {
       router.push(`/users/${userId}`);
     } else if (buttonId === 'logout') {
       router.replace('/').then(() => {
         localStorage.removeItem('token');
-        setUser(null, null, null, 'guest', false);
+        setUser(null, null, null, 'guest', false, '');
       });
     } else {
       onClick(buttonId);

@@ -1,3 +1,4 @@
+import { User } from '@/recoil/atoms/AuthAtom';
 import { handleAxiosError } from './ApiError';
 import { axiosInstance } from './axiosInstance';
 
@@ -7,17 +8,43 @@ interface UserInput {
   type?: string;
 }
 
-interface UserInfo {
+export interface UserInfo {
   name: string;
   phone: string;
-  address: string;
-  bio: string;
+  address?: string;
+  bio?: string;
 }
 
 const userAPI = {
-  getUserData: async (user_id: string) => {
+  getUserData: async (
+    user_id: string,
+    type: string,
+    setAuthState: (update: (prevState: User) => User) => void
+  ) => {
     try {
       const response = await axiosInstance.get(`/users/${user_id}`);
+
+      if (type == 'employer') {
+        const shopId = response?.data?.item?.shop?.item?.id;
+        const address = response?.data?.item?.shop?.items?.address1;
+        const DetailAddress = response?.data?.item?.shop?.items?.address2;
+          setAuthState((prevState: User) => ({
+            ...prevState,
+            shopId: shopId,
+            isLogin: true,
+            address: address,
+            DetailAddress: DetailAddress,
+          }));
+      } else if (type === 'employee') {
+        const address = response?.data?.item?.address;
+        if (address) {
+          setAuthState((prevState: User) => ({
+            ...prevState,
+            isLogin: true,
+            address: address,
+          }));
+        }
+      }
       return response.data;
     } catch (error) {
       handleAxiosError(error);

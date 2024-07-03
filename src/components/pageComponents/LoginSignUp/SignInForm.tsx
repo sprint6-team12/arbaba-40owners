@@ -6,7 +6,7 @@ import { SignInValidate } from '@/lib/utils/validation';
 import { userState } from '@/recoil/atoms/AuthAtom'; // 경로 확인
 import InputComponent from './InputComponent';
 
-const SignInForm = ({ onClose }: { onClose?: () => void }) => {
+export default function SignInForm({ onClose }: { onClose?: () => void }) {
   const [formData, setFormData] = useState({
     loginEmail: '',
     loginPassWord: '',
@@ -21,26 +21,27 @@ const SignInForm = ({ onClose }: { onClose?: () => void }) => {
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (!errors.loginEmail && !errors.loginPassWord) {
-      try {
-        await authenticationAPI.postToken(
-          {
-            email: formData.loginEmail,
-            password: formData.loginPassWord,
-          },
-          setAuthState
-        );
 
-        if (onClose) {
-          onClose();
-        }
-      } catch (error) {
-        alert(error);
+const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+  if (!errors.loginEmail && !errors.loginPassWord) {
+    try {
+      await authenticationAPI.postToken(
+        {
+          email: formData.loginEmail,
+          password: formData.loginPassWord,
+        },
+        setAuthState
+      );
+
+      if (onClose) {
+        onClose();
       }
+    } catch (error) {
+      alert(error);
     }
-  };
+  }
+};
 
   return (
     <form
@@ -71,6 +72,4 @@ const SignInForm = ({ onClose }: { onClose?: () => void }) => {
       </Button>
     </form>
   );
-};
-
-export default SignInForm;
+}
