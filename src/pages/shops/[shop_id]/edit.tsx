@@ -148,23 +148,23 @@ function EditShopPage() {
   };
 
   return (
-    <div className="flex w-full py-24px px-12px flex-col items-start gap-8px bg-gray-50 tablet:px-12 tablet:py-12 pc:px-24 pc:py-16">
+    <div className="flex w-full py-24px px-12px flex-col items-start gap-8px bg-gray05 tablet:px-48px tablet:py-48px pc:px-96px pc:py-64px">
       <form
         onSubmit={handleSubmit}
         className="flex w-full flex-col items-center gap-8"
       >
-        <div className="flex flex-col items-start gap-6 w-full tablet:gap-8 pc:gap-10">
+        <div className="flex flex-col items-start gap-24px w-full tablet:gap-32px pc:gap-40px">
           <div className="flex w-full justify-between items-center">
-            <p className="text-black text-xl font-bold tablet:text-2xl pc:text-3xl">
+            <p className="text-black text-20px font-bold tablet:text-24px pc:text-30px">
               가게 정보 수정
             </p>
             <button onClick={handleClose}>
               <IconCloseBlack />
             </button>
           </div>
-          <div className="flex flex-col gap-5 w-full tablet:flex-row tablet:flex-wrap tablet:gap-6 pc:gap-8">
+          <div className="flex flex-col gap-20px w-full tablet:flex-row tablet:flex-wrap tablet:gap-24px pc:gap-32px">
             <div className="tablet:flex tablet:w-full tablet:h-92px tablet:gap-20px">
-              <div className="flex flex-col gap-2 w-full tablet:w-1/2">
+              <div className="flex flex-col gap-8px w-full tablet:w-1/2">
                 <InputComponent
                   id="shopName"
                   name="가게 이름*"
@@ -175,7 +175,7 @@ function EditShopPage() {
                   errorMessage={errors.shopName || ''}
                 />
               </div>
-              <div className="flex flex-col gap-2 w-full tablet:w-1/2">
+              <div className="flex flex-col gap-8px w-full tablet:w-1/2">
                 <h1 className="mt-8px mb-4px">분류*</h1>
                 <Dropdown
                   options={SHOP_MENU_CATEGORIES}
@@ -213,7 +213,7 @@ function EditShopPage() {
                 />
               </div>
             </div>
-            <div className="flex flex-col gap-2 w-full pr-10px tablet:w-1/2">
+            <div className="flex flex-col gap-8px w-full pr-10px tablet:w-1/2">
               <InputComponent
                 id="hourlyPay"
                 name="기본 시급*"
@@ -224,7 +224,7 @@ function EditShopPage() {
                 errorMessage={errors.hourlyPay || ''}
               />
             </div>
-            <div className="flex flex-col gap-2 w-full">
+            <div className="flex flex-col gap-8px w-full">
               <h1>가게 이미지</h1>
               <div className="inline-block relative">
                 <div onClick={handleClick}>
@@ -235,7 +235,7 @@ function EditShopPage() {
                       </button>
                       <Image
                         src={imagePreview}
-                        alt="Uploaded Image"
+                        alt="업로드된 이미지"
                         layout="responsive"
                         width={483}
                         height={276}
@@ -243,19 +243,19 @@ function EditShopPage() {
                       />
                     </>
                   ) : (
-                    <div className="flex justify-center items-center flex-shrink-0 rounded-[5px] border border-solid border-gray-30 bg-gray-10 h-276px w-483px">
+                    <div className="flex-center flex-shrink-0 rounded-5px border border-solid border-gray30 bg-gray10 h-276px w-483px">
                       <FormGroup.InputField.Image
                         id="imageUrl"
                         name="imageUrl"
                         onChange={handleImageChange}
-                        className="border border-gray-300 bg-gray-200 rounded-md"
+                        className="border border-gray30 bg-gray20 rounded-md"
                       />
                     </div>
                   )}
                 </div>
               </div>
             </div>
-            <div className="flex flex-col gap-2 w-full h-187px">
+            <div className="flex flex-col gap-8px w-full h-187px">
               <InputComponent
                 id="shopDescription"
                 name="가게 설명"
@@ -266,7 +266,7 @@ function EditShopPage() {
                 errorMessage=""
               />
             </div>
-            <div className="flex justify-center w-full mt-8">
+            <div className="flex justify-center w-full mt-32px">
               <Button
                 className="button_large"
                 type="submit"

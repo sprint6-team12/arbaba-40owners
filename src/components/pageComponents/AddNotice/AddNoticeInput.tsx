@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import Button from '@/components/Button/Button';
@@ -39,7 +40,7 @@ export default function AddNoticeInput() {
   const { openModal } = useModal();
   const [data, setData] = useState<ShopNoticeData>(initialFormData);
   const [errors, setErrors] = useState<ShopNoticeFormErrors>(initialFormErrors);
-
+  const router = useRouter();
   const handleChangeData = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -69,6 +70,7 @@ export default function AddNoticeInput() {
             description: data.description,
           });
           handleOpenConfirmModal();
+          router.push('/')
         } else {
           throw new Error('유효하지 않은 ID');
         }
