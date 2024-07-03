@@ -1,4 +1,5 @@
-import AddShopPage from '@/components/AddShopPage/index';
+import AddShopPage from '@/components/pageComponents/AddShopPage';
+
 function AddShop() {
   return (
     <div>

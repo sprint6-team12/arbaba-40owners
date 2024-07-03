@@ -11,6 +11,7 @@ import {
 import { ShopNoticeData } from '@/lib/api/noticeAPI';
 import { UserInfo } from '@/lib/api/userAPI';
 
+
 interface PasswordFormData {
   signUpEmail: string;
   signUpPassword: string;

@@ -75,7 +75,7 @@ const noticeAPI = {
     try {
       const response = await axiosInstance.post(
         `/shops/${shop_id}/notices`,
-        { body },
+        body,
         { headers }
       );
       return response.data;

@@ -28,7 +28,7 @@ const shopAPI = {
     try {
       const response = await axiosInstance.post(
         `/shops`,
-        { body },
+         body ,
         { headers }
       );
       return response.data;
@@ -43,7 +43,7 @@ const shopAPI = {
     try {
       const response = await axiosInstance.put(
         `/shops/${shop_id}`,
-        { body },
+         body ,
         { headers }
       );
       return response.data;

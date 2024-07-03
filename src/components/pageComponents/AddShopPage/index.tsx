@@ -14,29 +14,29 @@ import ConfirmModal from './ConfirmModal';
 import InputComponent from './InputComponents';
 
 interface ShopType {
-  shopName: string;
+  name: string;
   category: string;
   address1: string;
   hourlyPay: string;
   address2: string;
-  shopDescription?: string | undefined;
+  description?: string | undefined;
   imageUrl?: string | undefined;
 }
 
 function AddShopPage() {
   const router = useRouter();
   const [formData, setFormData] = useState<ShopType>({
-    shopName: '',
+    name: '',
     category: '',
     address1: '',
     address2: '',
     hourlyPay: '',
-    shopDescription: '',
+    description: '',
     imageUrl: '',
   });
   const [disabled, setDisabled] = useState(false);
   const [errors, setErrors] = useState<ShopType>({
-    shopName: '',
+    name: '',
     category: '',
     address1: '',
     address2: '',
@@ -60,6 +60,7 @@ function AddShopPage() {
     setErrors((prevErrors) => ({ ...prevErrors, [id]: errorMessage }));
     setFormData((prevFormData) => ({ ...prevFormData, [id]: value }));
   };
+
   const handleImageChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -93,14 +94,12 @@ function AddShopPage() {
   };
 
   const handleTotalSubmit = async () => {
-    const hourlyPayNumber = Number(formData.hourlyPay);
-
-    if (
-      !formData.shopName ||
+   if (
+      !formData.name ||
       !formData.category ||
       !formData.address1 ||
       !formData.address2 ||
-      !hourlyPayNumber
+      !formData.hourlyPay
     ) {
       handleOpenConfirmModal('필수 입력 내용을 입력해주세요.');
       return;
@@ -108,13 +107,16 @@ function AddShopPage() {
 
     try {
       setDisabled(true);
+      const { hourlyPay, ...restFormData } = formData; // hourlyPay를 분해할당
+      const hourlyPayNumber = Number(hourlyPay);
       const data = await shopAPI.postShop({
-        ...formData,
+        ...restFormData,
         originalHourlyPay: hourlyPayNumber,
       });
       if (data) {
-        handleOpenConfirmModal('등록이완료되었습니다.');
-        router.push('/');
+        const shopId = data.item.id
+        handleOpenConfirmModal('등록이 완료되었습니다.');
+        router.push(`/shops/${shopId}`);
       }
     } catch (error) {
       alert(error);
@@ -125,7 +127,7 @@ function AddShopPage() {
 
   return (
     <>
-      <div className="flex w-full py-24px px-12px flex-col items-start gap-8px bg-gray50 tablet:px-48px tablet:py-48px pc:px-96px pc:py-64px">
+      <div className="flex w-full py-24px px-12px flex-col items-start gap-8px bg-gray05 tablet:px-48px tablet:py-48px pc:px-96px pc:py-64px">
         <form
           onSubmit={handleSubmit}
           className="flex w-full flex-col items-center gap-32px"
@@ -143,13 +145,13 @@ function AddShopPage() {
               <div className="tablet:flex tablet:w-full tablet:h-92px tablet:gap-20px">
                 <div className="flex flex-col gap-8px w-full tablet:w-1/2">
                   <InputComponent
-                    id="shopName"
+                    id="name"
                     name="가게 이름*"
                     type="input"
                     placeholder="입력"
-                    value={formData.shopName}
+                    value={formData.name}
                     onChange={handleInputChange}
-                    errorMessage={errors.shopName}
+                    errorMessage={errors.name}
                   />
                 </div>
                 <div className="flex flex-col gap-8px w-full tablet:w-1/2">
@@ -242,11 +244,11 @@ function AddShopPage() {
               </div>
               <div className="flex flex-col gap-8px w-full h-187px">
                 <InputComponent
-                  id="shopDescription"
+                  id="description"
                   name="가게 설명"
                   type="textarea"
                   placeholder="입력"
-                  value={formData.shopDescription}
+                  value={formData.description}
                   onChangeTextArea={handleInputChange}
                   errorMessage=""
                 />
