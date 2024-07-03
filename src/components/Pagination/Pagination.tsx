@@ -47,6 +47,9 @@ function Pagination({
         onPageChange={handlePageClick} // 페이지 변경 시 호출될 핸들러
         containerClassName={'flex gap-2px'} // 페이지네이션 컨테이너의 클래스명
         pageClassName={'flex-center w-40px h-40px'} // 개별 페이지 항목의 클래스명
+        pageLinkClassName={
+          'w-full h-full flex items-center justify-center hover:border-1px hover:border-red10 hover:font-black rounded-4px'
+        }
         previousClassName={`flex-center mr-10px`} // 이전 페이지 버튼의 클래스명
         nextClassName={'flex-center ml-10px'} // 다음 페이지 버튼의 클래스명
         activeClassName={
