@@ -36,7 +36,7 @@ function NoticeDetailCard({ data }: NoticeDetailCardProps) {
   const formattedPay = FormatUtils.price(hourlyPay) + '원';
 
   return (
-    <div className="min-w-[351px] w-full flex flex-col gap-8px min-h-[356px] pc:flex-row pc:gap-16px border border-gray20 bg-white rounded-12px p-24px">
+    <div className="min-w-[315px] w-full flex flex-col gap-8px min-h-[356px] pc:flex-row pc:gap-16px border border-gray20 bg-white rounded-12px p-24px">
       <Post.Image
         imageUrl={imageUrl}
         status={currentNoticeState}

@@ -21,8 +21,8 @@ interface ApplicationItem {
 interface ApplicationListResponseData {
   offset: number;
   limit: number;
-  count?: number;
-  hasNext?: boolean;
+  count: number;
+  hasNext: boolean;
   items: ApplicationItem[];
   links: Link[];
 }

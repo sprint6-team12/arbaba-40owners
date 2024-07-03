@@ -7,7 +7,7 @@ interface EmployerTableProps {
 
 function EmployerTable({ data }: EmployerTableProps) {
   return (
-    <div className="border-1px border-gray20 rounded-tr-10px rounded-tl-10px overflow-x-auto m-auto w-351px tablet:min-w-[680px] pc:min-w-[964px]">
+    <div className="border-1px border-gray20 rounded-tr-10px rounded-tl-10px overflow-x-auto m-auto min-w-[351px] w-full">
       <table className="table-auto min-w-full">
         <EmployerHeader />
         <EmployerBody items={data.items} />
