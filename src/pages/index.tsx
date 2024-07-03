@@ -2,7 +2,9 @@ import { GetServerSideProps } from 'next';
 //import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import Filter from '@/components/Filter/Filter';
+import SearchPage from '@/components/pageComponents/SearchPage/searchPage';
 import Pagination from '@/components/Pagination/Pagination';
 import PostCard from '@/components/Post/PostCard';
 import SortDropdown from '@/components/SortDropdown/SortDropdown';
@@ -12,6 +14,8 @@ import noticeAPI from '@/lib/api/noticeAPI';
 import paginationUtils from '@/lib/utils/paginationUtils';
 import removePrefix from '@/lib/utils/RemovePrefix';
 import useMediaQuery from '@/lib/utils/useMediaQuery';
+import keywordDataState from '@/recoil/atoms/searchAtom';
+import searchResultState from '@/recoil/atoms/SearchResultAtom';
 
 export default function Home({
   items,
@@ -33,6 +37,8 @@ export default function Home({
   //const router = useRouter();
   paginationUtils.setValues = { limit, offset };
   const customizedNotices = useCustomizedNotices();
+  const searchResults = useRecoilValue(searchResultState);
+  const keyword = useRecoilValue(keywordDataState);
 
   // TODO: 리팩토링 API호출 후 반환 값 상태데이터로 업데이트하는 함수 (공통로직)
   // TODO: 리팩토링 각 함수들의 필요한 데이터를 세팅하는 함수 (개별로직)
@@ -59,6 +65,7 @@ export default function Home({
     setNoticeData(data);
   };
 
+  if (keyword !== '') return <SearchPage data={searchResults} />;
   return (
     <main>
       {/* TODO: 맞춤공고 컴포넌트 분리 */}
