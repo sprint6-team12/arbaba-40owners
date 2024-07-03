@@ -1,14 +1,11 @@
-// import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-// import Dropdown from '../../Dropdown/Dropdown';
 import Pagination from '@/components/Pagination/Pagination';
 import PostCard from '@/components/Post/PostCard';
 import SortDropdown from '@/components/SortDropdown/SortDropdown';
 import { SORT_OPTION_MAP } from '@/constants/sortOptionMap';
 import noticeAPI from '@/lib/api/noticeAPI';
-import paginationUtils from '@/lib/utils/paginationUtils';
 import removePrefix from '@/lib/utils/RemovePrefix';
 import useMediaQuery from '@/lib/utils/useMediaQuery';
 import keywordDataState from '@/recoil/atoms/searchAtom';
@@ -20,7 +17,6 @@ interface SearchPageProps {
 
 function SearchPage({ data }: SearchPageProps) {
   const { isMobile } = useMediaQuery();
-  // const router = useRouter();
   const [noticeData, setNoticeData] = useState<NoticeListResponseData>({
     items: [],
     count: 0,
@@ -41,36 +37,75 @@ function SearchPage({ data }: SearchPageProps) {
       links: data.links,
     });
   }, [data]);
+  const searchValue = useRecoilValue(keywordDataState);
+  const [currentPage, setCurrentPage] = useState(1);
+  // 정렬, 필터, 검색의 모든 현재 값을 보관하고 있다가 어느 쪽이든 api 호출을 한다면 현재 값을 전달해야 함
+  const [currentSettings, setCurrentSettings] = useState({
+    offset: 0,
+    limit: 6,
+    keyword: '',
+    address: [] as string[],
+    startsAtGte: '',
+    hourlyPayGte: '',
+    sort: 'time',
+  });
 
-  const handlePageChange = async (page: number) => {
-    const limit = noticeData.limit;
-    const offset = (page - 1) * limit;
-
-    const newNoticeData = await noticeAPI.getNoticeList({ offset, limit });
+  // API 호출을 위한 helper 함수
+  const callAPI = async (settings: typeof currentSettings, page: number) => {
+    const params = new URLSearchParams();
+    Object.entries(settings).forEach(([key, value]) => {
+      if (Array.isArray(value)) {
+        value.forEach((v) => params.append(key, v));
+      } else if (value !== '') {
+        params.append(key, value.toString());
+      }
+    });
+    params.set('offset', ((page - 1) * settings.limit).toString());
+    const newNoticeData = await noticeAPI.getNoticeList(params);
     setNoticeData(newNoticeData);
+    setCurrentPage(page);
   };
 
-  // console.log(noticeData);
-
   const handleSortClick = async (value: string) => {
-    // 검색 결과를 정렬해서 업데이트
     const sortValue =
       SORT_OPTION_MAP[value as keyof typeof SORT_OPTION_MAP] || 'time';
-    const sortedData = await noticeAPI.getNoticeList({
+    const newSettings = {
+      ...currentSettings,
       sort: sortValue,
-      keyword: searchValue,
-    });
-    setNoticeData(sortedData);
-    handlePageChange(1);
+    };
+    setCurrentSettings(newSettings);
+    await callAPI(newSettings, 1);
   };
 
   const fetchFilterData = async (params: URLSearchParams) => {
-    // 검색 결과를 필터해서 업데이트
-    const filteredData = await noticeAPI.getNoticeList(params);
-    setNoticeData(filteredData);
+    const newAddresses = params.getAll('address');
+    const newSettings = {
+      ...currentSettings,
+      address: newAddresses,
+      startsAtGte: params.get('startsAtGte') || '',
+      hourlyPayGte: params.get('hourlyPayGte') || '',
+    };
+
+    if (newAddresses.length === 0) {
+      newSettings.address = [];
+    }
+
+    setCurrentSettings(newSettings);
+    await callAPI(newSettings, 1);
   };
 
-  const searchValue = useRecoilValue(keywordDataState);
+  const handlePageChange = async (page: number) => {
+    await callAPI(currentSettings, page);
+  };
+
+  useEffect(() => {
+    const newSettings = {
+      ...currentSettings,
+      keyword: searchValue,
+    };
+    setCurrentSettings(newSettings);
+    callAPI(newSettings, 1);
+  }, [searchValue]);
 
   return (
     <div className="pt-40px tablet:pt-60px pc:pt-60px">
@@ -112,7 +147,7 @@ function SearchPage({ data }: SearchPageProps) {
           <Pagination
             count={noticeData.count}
             limit={noticeData.limit}
-            currentPage={paginationUtils.currentPage}
+            currentPage={currentPage}
             hasNext={noticeData.hasNext}
             onPageChange={handlePageChange}
           />
