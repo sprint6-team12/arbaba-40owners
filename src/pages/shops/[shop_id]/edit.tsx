@@ -25,8 +25,7 @@ interface ShopType {
 
 function EditShopPage() {
   const router = useRouter();
-  const { shop_id } = router.query;
-  const { isLogin } = useRecoilValue(userState);
+  const { isLogin, shoopId } = useRecoilValue(userState);
 
   const [formData, setFormData] = useState<ShopType>({
     shopName: '',
@@ -108,7 +107,7 @@ function EditShopPage() {
   };
 
   const handleClose = () => {
-    router.push('/');
+    router.push(`/shops/${shopId}`);
   };
 
   const handleImageReset = () => {
@@ -230,7 +229,7 @@ function EditShopPage() {
                 <div onClick={handleClick}>
                   {imagePreview ? (
                     <>
-                      <button className='absolute pc:ml-[450px] pc:mt-2px border-solid border-2px border-black'>
+                      <button className="absolute pc:ml-[450px] pc:mt-2px border-solid border-2px border-black">
                         <IconCloseBlack onClick={handleImageReset} />
                       </button>
                       <Image

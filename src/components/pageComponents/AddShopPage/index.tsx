@@ -9,7 +9,7 @@ import useModal from '@/hooks/useModal';
 import imageAPI from '@/lib/api/imageAPI';
 import shopAPI from '@/lib/api/shopAPI';
 import { IconCloseBlack } from '@/lib/utils/Icons';
-import { validateShopInfo } from '@/lib/utils/validation';
+import {validateShopInfo} from '@/lib/utils/validation';
 import ConfirmModal from './ConfirmModal';
 import InputComponent from './InputComponents';
 
@@ -80,7 +80,7 @@ function AddShopPage() {
   };
 
   const handleClose = () => {
-    router.push('/my-shop');
+    router.push(`/shops/${shopId}`);
   };
 
   const handleImageReset = () => {
