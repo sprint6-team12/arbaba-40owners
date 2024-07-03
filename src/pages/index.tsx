@@ -1,5 +1,6 @@
 import { GetServerSideProps } from 'next';
 //import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { useState } from 'react';
 import Filter from '@/components/Filter/Filter';
 import Pagination from '@/components/Pagination/Pagination';
@@ -9,6 +10,7 @@ import { SORT_OPTION_MAP } from '@/constants/sortOptionMap';
 import useCustomizedNotices from '@/hooks/useCustomizedNotices';
 import noticeAPI from '@/lib/api/noticeAPI';
 import paginationUtils from '@/lib/utils/paginationUtils';
+import removePrefix from '@/lib/utils/RemovePrefix';
 import useMediaQuery from '@/lib/utils/useMediaQuery';
 
 export default function Home({
@@ -66,12 +68,15 @@ export default function Home({
             맞춤 공고
           </h1>
           <div className="flex pc:flex-center flex-grow-0 flex-shrink-0 h-274px tablet:h-378px pc:h-349px gap-4px tablet:gap-14px pc:gap-14px overflow-x-auto no-scrollbar">
-            {customizedNotices.items.map(({ item }) => {
+            {customizedNotices.items.map(({ item, links }) => {
               if (!('shop' in item)) return null;
               const noticeData = item;
               const shopData = item.shop.item;
+              const hrefValue = removePrefix(links[0].href);
+
               return (
-                <div
+                <Link
+                  href={hrefValue}
                   key={noticeData.id}
                   className="flex-none w-171px tablet:w-312px pc:w-312px"
                 >
@@ -80,7 +85,7 @@ export default function Home({
                     shopData={shopData}
                     bgNone={isMobile}
                   />
-                </div>
+                </Link>
               );
             })}
           </div>
@@ -101,12 +106,15 @@ export default function Home({
             </div>
           </div>
           <div className="flex flex-wrap gap-8px tablet:gap-14px">
-            {noticeData.items.map(({ item }) => {
+            {noticeData.items.map(({ item, links }) => {
               if (!('shop' in item)) return null;
               const noticeData = item;
               const shopData = item.shop.item;
+              const hrefValue = removePrefix(links[0].href);
+
               return (
-                <div
+                <Link
+                  href={hrefValue}
                   key={noticeData.id}
                   className="w-171px tablet:w-332px pc:w-312px mb-8px tablet:mb-18px pc:18px"
                 >
@@ -115,7 +123,7 @@ export default function Home({
                     shopData={shopData}
                     bgNone={isMobile}
                   />
-                </div>
+                </Link>
               );
             })}
           </div>
