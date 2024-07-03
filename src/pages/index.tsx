@@ -1,71 +1,35 @@
 import { GetServerSideProps } from 'next';
-//import { useRouter } from 'next/router';
 import Link from 'next/link';
-import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import Filter from '@/components/Filter/Filter';
 import SearchPage from '@/components/pageComponents/SearchPage/searchPage';
 import Pagination from '@/components/Pagination/Pagination';
 import PostCard from '@/components/Post/PostCard';
 import SortDropdown from '@/components/SortDropdown/SortDropdown';
-import { SORT_OPTION_MAP } from '@/constants/sortOptionMap';
 import useCustomizedNotices from '@/hooks/useCustomizedNotices';
+import useNoticeList from '@/hooks/useNoticeList';
 import noticeAPI from '@/lib/api/noticeAPI';
-import paginationUtils from '@/lib/utils/paginationUtils';
 import removePrefix from '@/lib/utils/RemovePrefix';
 import useMediaQuery from '@/lib/utils/useMediaQuery';
 import keywordDataState from '@/recoil/atoms/searchAtom';
 import searchResultState from '@/recoil/atoms/SearchResultAtom';
 
-export default function Home({
-  items,
-  count,
-  offset,
-  limit,
-  hasNext,
-  address,
-}: NoticeListResponseData) {
-  const [noticeData, setNoticeData] = useState({
-    items,
-    count,
-    offset,
-    limit,
-    hasNext,
-    address,
-  });
+export default function Home(data: NoticeListResponseData) {
   const { isMobile } = useMediaQuery();
-  //const router = useRouter();
-  paginationUtils.setValues = { limit, offset };
   const customizedNotices = useCustomizedNotices();
   const searchResults = useRecoilValue(searchResultState);
   const keyword = useRecoilValue(keywordDataState);
+  const isSearchData = keyword !== '';
+  const {
+    noticeData,
+    currentPage,
+    handlePageChange,
+    handleSortClick,
+    fetchFilterData,
+  } = useNoticeList(data);
 
-  // TODO: 리팩토링 API호출 후 반환 값 상태데이터로 업데이트하는 함수 (공통로직)
-  // TODO: 리팩토링 각 함수들의 필요한 데이터를 세팅하는 함수 (개별로직)
-  const handlePageChange = async (page: number) => {
-    const limit = noticeData.limit;
-    const offset = (page - 1) * limit;
+  isSearchData && <SearchPage data={searchResults} />;
 
-    const newNoticeData = await noticeAPI.getNoticeList({ offset, limit });
-    setNoticeData(newNoticeData);
-  };
-
-  const handleSortClick = async (value: string) => {
-    const sortValue =
-      SORT_OPTION_MAP[value as keyof typeof SORT_OPTION_MAP] || 'time';
-    const data: NoticeListResponseData = await noticeAPI.getNoticeList({
-      limit: 6,
-      sort: sortValue,
-    });
-    setNoticeData(data);
-  };
-
-  const fetchFilterData = async (params: URLSearchParams) => {
-    const data: NoticeListResponseData = await noticeAPI.getNoticeList(params);
-    setNoticeData(data);
-  };
-
-  if (keyword !== '') return <SearchPage data={searchResults} />;
   return (
     <main>
       {/* TODO: 맞춤공고 컴포넌트 분리 */}
@@ -138,7 +102,7 @@ export default function Home({
             <Pagination
               count={noticeData.count}
               limit={noticeData.limit}
-              currentPage={paginationUtils.currentPage}
+              currentPage={currentPage}
               hasNext={noticeData.hasNext}
               onPageChange={handlePageChange}
             />
@@ -153,12 +117,6 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const data = await noticeAPI.getNoticeList({ offset: 0, limit: 6 });
 
   return {
-    props: {
-      items: data.items,
-      count: data.count,
-      offset: data.offset,
-      limit: data.limit,
-      hasNext: data.hasNext,
-    },
+    props: data,
   };
 };

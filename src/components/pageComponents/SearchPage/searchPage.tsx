@@ -1,11 +1,9 @@
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import Pagination from '@/components/Pagination/Pagination';
 import PostCard from '@/components/Post/PostCard';
 import SortDropdown from '@/components/SortDropdown/SortDropdown';
-import { SORT_OPTION_MAP } from '@/constants/sortOptionMap';
-import noticeAPI from '@/lib/api/noticeAPI';
+import useNoticeList from '@/hooks/useNoticeList';
 import removePrefix from '@/lib/utils/RemovePrefix';
 import useMediaQuery from '@/lib/utils/useMediaQuery';
 import keywordDataState from '@/recoil/atoms/searchAtom';
@@ -17,93 +15,14 @@ interface SearchPageProps {
 
 function SearchPage({ data }: SearchPageProps) {
   const { isMobile } = useMediaQuery();
-  const [noticeData, setNoticeData] = useState<NoticeListResponseData>({
-    items: [],
-    count: 0,
-    offset: 0,
-    limit: 6,
-    hasNext: false,
-    address: [],
-    links: [],
-  });
-  useEffect(() => {
-    setNoticeData({
-      items: data.items,
-      count: data.count,
-      offset: data.offset,
-      limit: data.limit,
-      hasNext: data.hasNext,
-      address: data.address,
-      links: data.links,
-    });
-  }, [data]);
+  const {
+    noticeData,
+    currentPage,
+    handlePageChange,
+    handleSortClick,
+    fetchFilterData,
+  } = useNoticeList(data);
   const searchValue = useRecoilValue(keywordDataState);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [currentSettings, setCurrentSettings] = useState({
-    offset: 0,
-    limit: 6,
-    keyword: '',
-    address: [] as string[],
-    startsAtGte: '',
-    hourlyPayGte: '',
-    sort: 'time',
-  });
-
-  const callAPI = async (settings: typeof currentSettings, page: number) => {
-    const params = new URLSearchParams();
-    Object.entries(settings).forEach(([key, value]) => {
-      if (Array.isArray(value)) {
-        value.forEach((v) => params.append(key, v));
-      } else if (value !== '') {
-        params.append(key, value.toString());
-      }
-    });
-    params.set('offset', ((page - 1) * settings.limit).toString());
-    const newNoticeData = await noticeAPI.getNoticeList(params);
-    setNoticeData(newNoticeData);
-    setCurrentPage(page);
-  };
-
-  const handleSortClick = async (value: string) => {
-    const sortValue =
-      SORT_OPTION_MAP[value as keyof typeof SORT_OPTION_MAP] || 'time';
-    const newSettings = {
-      ...currentSettings,
-      sort: sortValue,
-    };
-    setCurrentSettings(newSettings);
-    await callAPI(newSettings, 1);
-  };
-
-  const fetchFilterData = async (params: URLSearchParams) => {
-    const newAddresses = params.getAll('address');
-    const newSettings = {
-      ...currentSettings,
-      address: newAddresses,
-      startsAtGte: params.get('startsAtGte') || '',
-      hourlyPayGte: params.get('hourlyPayGte') || '',
-    };
-
-    if (newAddresses.length === 0) {
-      newSettings.address = [];
-    }
-
-    setCurrentSettings(newSettings);
-    await callAPI(newSettings, 1);
-  };
-
-  const handlePageChange = async (page: number) => {
-    await callAPI(currentSettings, page);
-  };
-
-  useEffect(() => {
-    const newSettings = {
-      ...currentSettings,
-      keyword: searchValue,
-    };
-    setCurrentSettings(newSettings);
-    callAPI(newSettings, 1);
-  }, [searchValue]);
 
   return (
     <div className="pt-40px tablet:pt-60px pc:pt-60px">
