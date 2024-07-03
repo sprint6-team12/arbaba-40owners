@@ -127,6 +127,7 @@ export default function AddNoticeInput() {
                   name="startsAt"
                   type="datetime-local"
                   value={data.startsAt}
+                  min={currentDateTime}
                   onChange={handleChangeData}
                   className="input-base"
                 />
