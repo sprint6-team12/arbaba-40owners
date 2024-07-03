@@ -4,10 +4,9 @@ import {
   EMAIL_REGEX,
   ERROR_MESSAGES,
   PASSWORD_MIN_LENGTH,
+
   NOTICE_ERROR_MESSAGES,
-  MYPAGE_ERROR_MESSAGES,
-  ERROR_MESSAGES_SHOP,
-} from '@/constants/errorMessage';
+  MYPAGE_ERROR_MESSAGES} from '@/constants/errorMessage';
 import { ShopNoticeData } from '@/lib/api/noticeAPI';
 import { UserInfo } from '@/lib/api/userAPI';
 
@@ -68,7 +67,6 @@ export const SignUpValidate = (
 
 export const validateShopInfo = (id: string, value: string) => {
   let errorMessage = '';
-
   switch (id) {
     case 'name':
       if (!value) {
@@ -100,6 +98,7 @@ export const validateShopInfo = (id: string, value: string) => {
   }
   return errorMessage;
 };
+
 //공고등록(AddNotice) 유효성 검사
 export const validateAddNoticeForm = (
   data: ShopNoticeData
@@ -114,7 +113,7 @@ export const validateAddNoticeForm = (
 
   if (!hourlyPay || hourlyPay === 0) {
     errors.hourlyPay = NOTICE_ERROR_MESSAGES.HOURLY_PAY_REQUIRED;
-  } else if (hourlyPay <= 9860) {
+  } else if (hourlyPay <= 1000) {
     errors.hourlyPay = NOTICE_ERROR_MESSAGES.HOURLY_PAY_TOO_LOW;
   }
   if (!startsAt) {
