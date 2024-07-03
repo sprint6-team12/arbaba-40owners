@@ -25,7 +25,7 @@ interface ShopType {
 
 function EditShopPage() {
   const router = useRouter();
-  const { isLogin, shoopId } = useRecoilValue(userState);
+  const { isLogin, shopId } = useRecoilValue(userState);
 
   const [formData, setFormData] = useState<ShopType>({
     shopName: '',
@@ -40,7 +40,7 @@ function EditShopPage() {
   const [errors, setErrors] = useState<Partial<ShopType>>({});
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-
+  const shop_id = shopId
   useEffect(() => {
     if (!isLogin) {
       alert('로그인이 필요합니다.');

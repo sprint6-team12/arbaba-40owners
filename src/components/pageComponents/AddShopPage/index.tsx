@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import Button from '@/components/Button/Button';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import FormGroup from '@/components/FormGroup/FormGroup';
@@ -10,6 +11,7 @@ import imageAPI from '@/lib/api/imageAPI';
 import shopAPI from '@/lib/api/shopAPI';
 import { IconCloseBlack } from '@/lib/utils/Icons';
 import {validateShopInfo} from '@/lib/utils/validation';
+import { userState } from '@/recoil/atoms/AuthAtom';
 import ConfirmModal from './ConfirmModal';
 import InputComponent from './InputComponents';
 
@@ -45,6 +47,7 @@ function AddShopPage() {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const { openModal } = useModal();
   const inputRef = useRef<HTMLInputElement>(null);
+  const { shopId } = useRecoilValue(userState);
 
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
