@@ -32,11 +32,13 @@ function Pagination({
       <ReactPaginate
         previousLabel={
           <IconPrevArrow
+            aria-label="이전페이지"
             className={`${isFirstPage ? 'text-gray30 pointer-events-none' : 'text-black pointer-events-auto'} ${isFewPages && 'hidden'}`}
           />
         }
         nextLabel={
           <IconNextArrow
+            aria-label="다음페이지"
             className={`${hasNext ? 'text-black' : 'hidden'} ${isFewPages && 'hidden'}`}
           />
         } // 다음 페이지 버튼의 라벨

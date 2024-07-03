@@ -11,7 +11,7 @@ function FilterBadge({ children, ...rest }: FilterBadgeProps) {
     <span className="px-10px py-6px rounded-20px font-bold text-14px text-custom-orange tablet:text-14px pc:text-14px inline-flex justify-center items-center gap-4px bg-red10">
       {children}
       <button {...rest}>
-        <IconCloseOrange />
+        <IconCloseOrange aria-label="닫기" />
       </button>
     </span>
   );

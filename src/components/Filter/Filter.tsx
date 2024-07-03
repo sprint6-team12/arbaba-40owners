@@ -119,7 +119,7 @@ export default function Filter({ onApplyFilters }: FilterProps) {
               <div className="flex items-center justify-between pb-18px">
                 <p className="font-bold text-20px">상세 필터</p>
                 <button onClick={() => setIsFilterOpen(false)}>
-                  <IconCloseBlack />
+                  <IconCloseBlack aria-label="닫기" />
                 </button>
               </div>
               <LocationSection
