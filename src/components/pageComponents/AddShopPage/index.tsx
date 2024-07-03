@@ -132,7 +132,7 @@ function AddShopPage() {
           onSubmit={handleSubmit}
           className="flex w-full flex-col items-center gap-32px"
         >
-          <div className="flex flex-col items-start gap-24px w-full tablet:gap-32px pc:gap-40">
+          <div className="flex flex-col items-start gap-24px w-full tablet:gap-32px pc:gap-40px">
             <div className="flex w-full justify-between items-center">
               <p className="text-black text-xl font-bold tablet:text-24px pc:text-30px">
                 가게 정보
@@ -141,8 +141,8 @@ function AddShopPage() {
                 <IconCloseBlack />
               </button>
             </div>
-            <div className="flex flex-col gap-20px w-full tablet:flex-row tablet:flex-wrap tablet:gap-24px pc:gap-32px">
-              <div className="tablet:flex tablet:w-full tablet:h-92px tablet:gap-20px">
+            <div className="flex flex-col gap-20px w-full tablet:flex-row tablet:flex-wrap tablet:gap-24px  pc:flex-row pc:flex-wrap pc:gap-32px">
+              <div className="tablet:flex tablet:w-full tablet:h-92px tablet:gap-20px pc:flex pc:w-full pc:h-92px pc:gap-20px">
                 <div className="flex flex-col gap-8px w-full tablet:w-1/2">
                   <InputComponent
                     id="name"
@@ -170,8 +170,8 @@ function AddShopPage() {
                   )}
                 </div>
               </div>
-              <div className="tablet:flex tablet:w-full tablet:h-92px tablet:gap-20px">
-                <div className="flex flex-col gap-8px w-full tablet:w-1/2">
+              <div className="tablet:flex tablet:w-full tablet:h-92px tablet:gap-20px  pc:flex pc:w-full pc:h-92px pc:gap-20px">
+                <div className="flex flex-col gap-8px w-full tablet:w-1/2 ">
                   <h1 className="mt-8px mb-4px">주소*</h1>
                   <Dropdown
                     options={SHOP_LOCATIONS}
@@ -197,7 +197,7 @@ function AddShopPage() {
                   />
                 </div>
               </div>
-              <div className="flex flex-col gap-8px w-full pr-10px tablet:w-1/2">
+              <div className="flex flex-col gap-8px w-full pr-10px tablet:w-1/2 pc:w-1/2">
                 <InputComponent
                   id="hourlyPay"
                   name="기본 시급*"
@@ -210,7 +210,7 @@ function AddShopPage() {
               </div>
               <div className="flex flex-col gap-8px w-full">
                 <h1>가게 이미지</h1>
-                <div className="inline-block relative">
+                <div className="inline-block relative pc:w-1/2">
                   <div onClick={handleClick}>
                     {imagePreview ? (
                       <>
@@ -224,13 +224,12 @@ function AddShopPage() {
                           src={imagePreview}
                           alt="Uploaded Image"
                           layout="responsive"
-                          width={483}
-                          height={276}
-                          className="max-w-[483px] max-h-[276px] rounded-md"
+                          fill
+                          className="rounded-md"
                         />
                       </>
                     ) : (
-                      <div className="flex justify-center items-center flex-shrink-0 rounded-[5px] border border-solid border-gray30 bg-gray10 h-276px w-483px">
+                      <div className="flex-center flex-shrink-0 rounded-[5px] border border-solid border-gray30 bg-gray10 h-276px w-483px">
                         <FormGroup.InputField.Image
                           id="imageUrl"
                           name="imageUrl"
