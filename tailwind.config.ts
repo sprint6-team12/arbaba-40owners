@@ -42,6 +42,7 @@ const config: Config = {
     'pc:bg-red20',
     'pc:bg-red30',
     'pc:bg-red40',
+    'button_large_disApply',
   ],
   theme: {
     extend: {
