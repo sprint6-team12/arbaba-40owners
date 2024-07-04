@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { RiLoader2Fill } from 'react-icons/ri';
 import { useRecoilValue } from 'recoil';
+import NoticeListView from '@/components/pageComponents/NoticeList/NoticeListView';
 import keywordDataState from '@/recoil/atoms/searchAtom';
 import searchResultState from '@/recoil/atoms/SearchResultAtom';
-import NoticeListView from '../NoticeList/NoticeListView';
 
 function SearchPage() {
   const searchValue = useRecoilValue(keywordDataState);
@@ -11,7 +11,15 @@ function SearchPage() {
   const [isSearchComplete, setIsSearchComplete] = useState(false);
 
   useEffect(() => {
-    if (searchResults && searchResults.items.length > 0) {
+    setIsSearchComplete(false);
+  }, [searchValue]);
+
+  useEffect(() => {
+    if (
+      searchResults &&
+      searchResults.items &&
+      searchResults.items.length > 0
+    ) {
       setIsSearchComplete(true);
     }
   }, [searchResults]);
