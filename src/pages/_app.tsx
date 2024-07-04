@@ -15,7 +15,7 @@ const initializeState = ({ set }: MutableSnapshot) => {
     shopId: null,
     type: 'guest',
     isLogin: false,
-    address : null,
+    address: null,
     userName: null,
     DetailAddress: null,
   };

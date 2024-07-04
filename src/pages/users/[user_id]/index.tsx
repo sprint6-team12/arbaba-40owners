@@ -1,7 +1,6 @@
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import MyPageRegistered from '@/components/pageComponents/MyPage/MyPageRegistered';
 import MyPageUnregistered from '@/components/pageComponents/MyPage/MyPageUnregistered';
 import userAPI, { UserInfo } from '@/lib/api/userAPI';

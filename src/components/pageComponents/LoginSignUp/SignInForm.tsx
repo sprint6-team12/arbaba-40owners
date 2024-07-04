@@ -21,27 +21,26 @@ export default function SignInForm({ onClose }: { onClose?: () => void }) {
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
 
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!errors.loginEmail && !errors.loginPassWord) {
+      try {
+        await authenticationAPI.postToken(
+          {
+            email: formData.loginEmail,
+            password: formData.loginPassWord,
+          },
+          setAuthState
+        );
 
-const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-  event.preventDefault();
-  if (!errors.loginEmail && !errors.loginPassWord) {
-    try {
-      await authenticationAPI.postToken(
-        {
-          email: formData.loginEmail,
-          password: formData.loginPassWord,
-        },
-        setAuthState
-      );
-
-      if (onClose) {
-        onClose();
+        if (onClose) {
+          onClose();
+        }
+      } catch (error) {
+        alert(error);
       }
-    } catch (error) {
-      alert(error);
     }
-  }
-};
+  };
 
   return (
     <form
