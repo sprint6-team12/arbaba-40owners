@@ -113,6 +113,7 @@ const config: Config = {
         fadeIn: 'fadeIn 0.5s ease-out',
         fadeOut: 'fadeOut 0.5s ease-out',
         spin: 'spin 1s linear infinite',
+        'spin-slow': 'spin 10s linear infinite',
       },
     },
   },
