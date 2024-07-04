@@ -47,7 +47,6 @@ export default function AddNoticeInput() {
   const [data, setData] = useState<ShopNoticeData>(initialFormData);
   const [errors, setErrors] = useState<ShopNoticeFormErrors>(initialFormErrors);
   const router = useRouter();
-  const { notice_id } = router.query;
 
   const handleChangeData = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -66,7 +65,7 @@ export default function AddNoticeInput() {
     openModal('addNoticeConfirmModal', ConfirmModal, {
       content: content,
       onConfirm: () => {
-        router.push(`/shops/${shopId}/notices/${notice_id}`);
+        router.push(`/shops/${shopId}`);
       },
     });
   };
@@ -87,7 +86,7 @@ export default function AddNoticeInput() {
             description: data.description,
           });
           handleOpenConfirmModal('등록이 완료되었습니다.');
-          router.push('/');
+          router.push(`/shops/${shopId}`);
         } else {
           handleOpenConfirmModal('유효하지 않은 ID입니다.');
         }
@@ -95,7 +94,7 @@ export default function AddNoticeInput() {
         handleOpenConfirmModal(
           '등록 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.'
         );
-        router.push(`/shops/${shopId}/notices/${notice_id}`);
+        router.push('/');
       }
     }
   };
