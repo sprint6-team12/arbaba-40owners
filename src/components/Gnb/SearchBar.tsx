@@ -7,12 +7,11 @@ import keywordDataState from '@/recoil/atoms/searchAtom';
 import searchResultState from '@/recoil/atoms/SearchResultAtom';
 
 export default function SearchBar() {
-  const [searchInput, setSearchInput] = useState(''); // 검색창에 입력된 값, 검색창에 보여주거나 api keyword에 전달
-  const setKeyword = useSetRecoilState(keywordDataState); // 검색창에 입력된 값을 전역 상태로 만든다.
-  const setSearchResult = useSetRecoilState(searchResultState); // api 함수로 반환된 결과를 전역 상태로 만든다
+  const [searchInput, setSearchInput] = useState('');
+  const setKeyword = useSetRecoilState(keywordDataState);
+  const setSearchResult = useSetRecoilState(searchResultState);
   const { handleSearch } = useNoticeList(INITIAL_NOTICE_DATA);
 
-  // recoil atoms에 있는 전역상태 값 변경
   const setSearchAtoms = useCallback(
     (keyword: string, results: NoticeListResponseData) => {
       setKeyword(keyword);
@@ -21,27 +20,22 @@ export default function SearchBar() {
     [setKeyword, setSearchResult]
   );
 
-  // 검색 실행 함수
   const initiateSearch = async () => {
     const results = await handleSearch(searchInput);
     setSearchAtoms(searchInput, results);
   };
 
-  // 검색 초기화 함수
   const resetSearchResult = async () => {
-    // 검색어 없는 상태의 리스트를 받아옴
     const results = await handleSearch('');
     setSearchAtoms('', results);
     setSearchInput('');
   };
 
-  // 검색창의 이벤트 감지
   const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setSearchInput(value);
   };
 
-  // 검색창의 키입력 감지
   const handleKeyPress = async (
     event: React.KeyboardEvent<HTMLInputElement>
   ) => {
@@ -71,13 +65,13 @@ export default function SearchBar() {
       {searchInput && (
         <IconCloseBlack
           className="absolute right-10px"
-          onClick={() => resetSearchResult()}
+          onClick={resetSearchResult}
         />
       )}
       {searchInput && (
         <IconCloseBlack
           className="absolute right-10px"
-          onClick={() => resetSearchResult()}
+          onClick={resetSearchResult}
         />
       )}
     </div>
