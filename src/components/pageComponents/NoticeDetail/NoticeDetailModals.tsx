@@ -2,6 +2,15 @@ import Modal from '@/components/Modal/ModalPrimary';
 
 const modalSizeStyle = 'w-[30vw] aspect-video';
 
+export function GuestModal({ ...rest }) {
+  return Modal({
+    content: '로그인 후 이용해주세요',
+    optionType: 'confirm',
+    className: modalSizeStyle,
+    ...rest,
+  });
+}
+
 export function ProfileRegistrationModal({ ...rest }) {
   return Modal({
     content: '내 프로필을 먼저 등록해주세요',
