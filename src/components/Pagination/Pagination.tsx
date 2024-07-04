@@ -23,7 +23,6 @@ function Pagination({
 
   const handlePageClick = (data: { selected: number }) => {
     const selectedPage = data.selected + 1;
-
     onPageChange(selectedPage);
   };
 
@@ -57,7 +56,7 @@ function Pagination({
         activeClassName={
           'bg-red30 flex-center w-40px h-40px rounded-4px text-white'
         } // 현재 선택된 페이지 항목의 클래스명
-        initialPage={currentPage - 1} // 초기 페이지 설정 (0부터 시작하므로 currentPage - 1)
+        forcePage={currentPage - 1}
         disableInitialCallback={true} // 초기에 onPageChange 호출 방지
       />
     </div>
