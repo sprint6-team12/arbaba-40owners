@@ -1,13 +1,16 @@
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
+import { useRecoilValue } from 'recoil';
 import {
   ProfileRegistrationModal,
   CancelApplicationModal,
+  GuestModal,
 } from '@/components/pageComponents/NoticeDetail/NoticeDetailModals';
 import NOTICE_DETAIL_BUTTON_PROPS from '@/constants/noticeDetailButtonMap';
 import useApplicationActions from '@/hooks/useApplicationActions';
 import useModal from '@/hooks/useModal';
 import noticeAPI from '@/lib/api/noticeAPI';
+import { userState } from '@/recoil/atoms/AuthAtom';
 
 interface NoticeDetailButtonProps {
   className: string;
@@ -21,6 +24,7 @@ const useNoticeDetailCardButton = (
   noticeState: NoticeStatus,
   userApplicationData: currentUserApplication | null
 ): NoticeDetailButtonProps | null => {
+  const { userName } = useRecoilValue(userState);
   const { openModal } = useModal();
   const [applicationData, setApplicationData] = useState(userApplicationData);
   const [buttonProps, setButtonProps] =
@@ -49,7 +53,8 @@ const useNoticeDetailCardButton = (
 
   // 지원 버튼 클릭 핸들러
   const handleClickCreateApplicationButton = () => {
-    if (userType === 'guest')
+    if (userType === 'guest') return openModal('GuestModal', GuestModal);
+    if (!userName)
       return openModal('ProfileRegistrationModal', ProfileRegistrationModal);
     createApplication('신청했어요');
   };
