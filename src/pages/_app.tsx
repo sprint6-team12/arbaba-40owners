@@ -7,11 +7,12 @@ import PopupsWrapper from '@/components/Popup/PopupsWrapper';
 import '@/styles/globals.css';
 
 export default function App({ Component, pageProps }: AppProps) {
+  const is404 = Component.name === 'Error404';
   return (
     <RecoilRoot>
       <ModalsWrapper />
       <PopupsWrapper />
-      <Gnb />
+      {!is404 && <Gnb />}
       <Component {...pageProps} />
       <Footer />
     </RecoilRoot>
