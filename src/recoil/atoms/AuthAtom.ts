@@ -3,7 +3,7 @@ import { recoilPersist } from 'recoil-persist';
 
 const { persistAtom } = recoilPersist();
 
-interface User {
+export interface User {
   token: string | null;
   userId: string | null;
   shopId: string | null;
