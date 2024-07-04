@@ -19,7 +19,7 @@ function useNoticeList(initialData: NoticeListResponseData) {
   const [currentSettings, setCurrentSettings] = useState<NoticeSettings>({
     offset: 0,
     limit: 6,
-    keyword: '',
+    keyword: initialData.keyword || '',
     address: [],
     startsAtGte: '',
     hourlyPayGte: '',
@@ -36,10 +36,17 @@ function useNoticeList(initialData: NoticeListResponseData) {
           params.append(key, value.toString());
         }
       });
+
       params.set('offset', ((page - 1) * settings.limit).toString());
+
+      if (settings.keyword) {
+        params.set('keyword', settings.keyword);
+      }
+
       const newNoticeData = await noticeAPI.getNoticeList(params);
       setNoticeData(newNoticeData);
       setCurrentPage(page);
+      return newNoticeData;
     },
     []
   );
@@ -85,6 +92,19 @@ function useNoticeList(initialData: NoticeListResponseData) {
     [currentSettings, fetchNotices]
   );
 
+  const handleSearch = useCallback(
+    async (keyword: string) => {
+      const newSettings = {
+        ...currentSettings,
+        keyword: keyword,
+        offset: 0,
+      };
+      setCurrentSettings(newSettings);
+      return await fetchNotices(newSettings, 1);
+    },
+    [currentSettings, fetchNotices]
+  );
+
   return {
     noticeData,
     currentPage,
@@ -94,6 +114,7 @@ function useNoticeList(initialData: NoticeListResponseData) {
     handlePageChange,
     handleSortClick,
     fetchFilterData,
+    handleSearch,
   };
 }
 

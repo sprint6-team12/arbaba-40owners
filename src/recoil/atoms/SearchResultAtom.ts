@@ -1,17 +1,9 @@
 import { atom } from 'recoil';
+import { INITIAL_NOTICE_DATA } from '@/constants/initialNoticeData';
 
 const searchResultState = atom<NoticeListResponseData>({
   key: 'searchResultState',
-  default: {
-    offset: 0,
-    limit: 6,
-    count: 0,
-    hasNext: false,
-    address: [],
-    keyword: '',
-    items: [],
-    links: [],
-  },
+  default: INITIAL_NOTICE_DATA,
 });
 
 export default searchResultState;
