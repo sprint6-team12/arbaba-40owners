@@ -49,12 +49,10 @@ function NoticeDetailCard({ data }: NoticeDetailCardProps) {
             text={formattedPay}
             className="shrink-0 text-24px tablet:text-28px"
           />
-          {currentNoticeState !== 'closed' && (
-            <Post.IncreaseRateBadge
-              hourlyPay={hourlyPay}
-              originalHourlyPay={originalHourlyPay}
-            />
-          )}
+          <Post.IncreaseRateBadge
+            hourlyPay={hourlyPay}
+            originalHourlyPay={originalHourlyPay}
+          />
         </div>
         <Post.WorkSchedule
           startsAt={startsAt}
