@@ -3,7 +3,8 @@ import { atom } from 'recoil';
 export type PopupDataType = {
   id: string;
   message: string;
-  onClose: (() => void) | null;
+  duration?: number;
+  onClose: () => void;
 };
 
 const popupsDataState = atom<PopupDataType[]>({

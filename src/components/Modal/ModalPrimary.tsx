@@ -66,7 +66,7 @@ function ModalPrimary({
         </Button>
       )}
       <Button className="button_medium_fill" onClick={handleConfirm}>
-        {confirmButtonText || optionType === 'actions' ? '예' : '확인'}
+        {confirmButtonText || (optionType === 'actions' ? '예' : '확인')}
       </Button>
     </>
   );
