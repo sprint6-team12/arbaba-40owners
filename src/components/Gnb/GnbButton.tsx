@@ -91,7 +91,7 @@ export default function GnbButton({ userType, onClick }: GnbButtonProps) {
     } else if (buttonId === 'logout') {
       router.replace('/').then(() => {
         localStorage.removeItem('token');
-        setUser(null, null, null, 'guest', false, '');
+        setUser(null, null, null, 'guest', false, '', '', '');
       });
     } else {
       onClick(buttonId);

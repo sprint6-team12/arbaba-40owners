@@ -4,7 +4,7 @@ import { axiosInstance } from './axiosInstance';
 interface GetNoticeListData {
   offset?: number;
   limit?: number;
-  address?: string;
+  address?: string | null;
   keyword?: string;
   startsAtGte?: string;
   hourlyPayGte?: number;

@@ -28,20 +28,22 @@ const userAPI = {
         const shopId = response?.data?.item?.shop?.item?.id;
         const address = response?.data?.item?.shop?.items?.address1;
         const DetailAddress = response?.data?.item?.shop?.items?.address2;
-          setAuthState((prevState: User) => ({
-            ...prevState,
-            shopId: shopId,
-            isLogin: true,
-            address: address,
-            DetailAddress: DetailAddress,
-          }));
+        setAuthState((prevState: User) => ({
+          ...prevState,
+          shopId: shopId,
+          isLogin: true,
+          address: address,
+          DetailAddress: DetailAddress,
+        }));
       } else if (type === 'employee') {
         const address = response?.data?.item?.address;
+        const userName = response?.data?.item?.name;
         if (address) {
           setAuthState((prevState: User) => ({
             ...prevState,
             isLogin: true,
             address: address,
+            userName: userName,
           }));
         }
       }
@@ -61,7 +63,8 @@ const userAPI = {
   putUserData: async (
     user_id: string,
     token = localStorage.getItem('token'),
-    body: UserInfo
+    body: UserInfo,
+    setAuthState: (update: (prevState: User) => User) => void
   ) => {
     try {
       const headers = {
@@ -70,6 +73,14 @@ const userAPI = {
       const response = await axiosInstance.put(`/users/${user_id}`, body, {
         headers,
       });
+      const userName = response?.data?.item?.name;
+      const address = response?.data?.item?.address1;
+      setAuthState((prevState: User) => ({
+        ...prevState,
+        userName: userName,
+        isLogin: true,
+        address: address,
+      }));
       return response.data;
     } catch (error) {
       handleAxiosError(error);
