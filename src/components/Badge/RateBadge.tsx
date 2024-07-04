@@ -14,9 +14,11 @@ function RateBadge({ rate, bgNone }: RateBadgeProps) {
     >
       기존 시급보다 {rate}%
       <IconSmallArrow
+        aria-label="가격인상"
         className={`${bgNone && textColor} tablet:hidden pc:hidden`}
       />
       <IconLargeArrow
+        aria-label="가격인상"
         className={`${bgNone && textColor} hidden tablet:block pc:block`}
       />
     </span>

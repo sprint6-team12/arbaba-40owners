@@ -48,7 +48,10 @@ export default function SearchBar() {
 
   return (
     <div className="relative flex items-center w-335px tablet:w-344px pc:w-450px">
-      <IconSearch className="absolute w-[20px] h-[20px] ml-[15px]" />
+      <IconSearch
+        className="absolute w-[20px] h-[20px] ml-[15px]"
+        aria-label="돋보기아이콘"
+      />
       <input
         value={searchInput}
         placeholder="가게 이름으로 찾아보세요"

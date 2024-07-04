@@ -50,6 +50,7 @@ const SpecialModal = ({
         <IconCloseBlack
           className="absolute top-20px right-20px cursor-pointer"
           onClick={onClose}
+          aria-label="닫기"
         />
       </div>
     }

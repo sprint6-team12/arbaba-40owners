@@ -6,9 +6,9 @@ type ModalOptionType = 'confirm' | 'actions';
 
 function ModalPrimaryIcon(optionType: ModalOptionType) {
   return optionType === 'actions' ? (
-    <IconCheck className="mx-auto mb-16px" />
+    <IconCheck className="mx-auto mb-16px" aria-label="알림" />
   ) : (
-    <IconExclamationMark className="mx-auto mb-16px" />
+    <IconExclamationMark className="mx-auto mb-16px" aria-label="알림" />
   );
 }
 interface ModalPrimaryProps {

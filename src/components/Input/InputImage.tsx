@@ -20,7 +20,7 @@ function ImageInput({
         htmlFor={name}
         className="flex-center h-276px w-483px flex-col gap-12px rounded-5px bg-gray10 border-1px border-gray30"
       >
-        <IconCamera className="h-32px w-32px" />
+        <IconCamera className="h-32px w-32px" aria-label="이미지 업로드" />
         <p className="font-bold text-16px text-gray40">{placeholder}</p>
         <BaseInput
           id={id}

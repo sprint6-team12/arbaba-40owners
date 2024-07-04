@@ -11,7 +11,7 @@ export default function MyPageProfile({
 }) {
   const { name, phone, address, bio } = ProfileData;
   return (
-    <div className="flex justify-between border-none rounded-12px w-full p-20px tablet:p-32px pc:p-32px bg-red10 mt-16px">
+    <div className="flex justify-between border-none rounded-12px w-full pc:w-[665px] p-20px tablet:p-32px pc:p-32px bg-red10 mt-16px">
       <div className="flex flex-col gap-8px tablet:gap-12px">
         <div>
           <p className="text-custom-orange text-14px font-[700]">이름</p>
@@ -19,13 +19,13 @@ export default function MyPageProfile({
         </div>
         {phone && (
           <div className="flex items-center gap-6px text-gray50">
-            <IconPhone />
+            <IconPhone aria-label="전화번호" />
             {phone}
           </div>
         )}
         {address && (
           <div className="flex items-center gap-6px text-gray50">
-            <IconLocation />
+            <IconLocation aria-label="지역" />
             선호지역: {address}
           </div>
         )}

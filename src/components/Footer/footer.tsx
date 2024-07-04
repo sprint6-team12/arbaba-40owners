@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import {
   IconEnvelopeSquare,
   IconFacebookSquare,
@@ -19,12 +20,24 @@ export default function Footer() {
         </div>
       </div>
       <div className="flex gap-[12px]">
-        <IconEnvelopeSquare aria-label="이메일" className="h-[24px] w-[24px]" />
-        <IconFacebookSquare
-          aria-label="페이스북"
-          className="h-[24px] w-[24px]"
-        />
-        <IconInstagram aria-label="인스타그램" className="h-[24px] w-[24px]" />
+        <Link href="https://www.gmail.com">
+          <IconEnvelopeSquare
+            aria-label="이메일"
+            className="h-[24px] w-[24px]"
+          />
+        </Link>
+        <Link href="https://www.facebook.com">
+          <IconFacebookSquare
+            aria-label="페이스북"
+            className="h-[24px] w-[24px]"
+          />
+        </Link>
+        <Link href="https://www.instagram.com">
+          <IconInstagram
+            aria-label="인스타그램"
+            className="h-[24px] w-[24px]"
+          />
+        </Link>
       </div>
     </footer>
   );

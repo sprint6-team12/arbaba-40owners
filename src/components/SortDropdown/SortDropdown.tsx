@@ -35,6 +35,7 @@ function SortDropdown({ onClick: handleSortClick }: SortDropdownProps) {
       onClick={onClickHandler}
     >
       <IconSortDropdownArrow
+        aria-label="옵션 보기"
         className={`text-black w-10px h-10px transform transition-transform duration-200 ${toggleOpen ? 'rotate-180' : ''}`}
       />
       <DropdownOptions toggleOpen={toggleOpen} onClick={onClickHandler} />
