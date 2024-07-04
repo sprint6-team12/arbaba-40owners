@@ -20,7 +20,7 @@ export default function HeaderInfo({
         <p className="font-bold text-28px">{name}</p>
       </div>
       <div className="flex items-center gap-6px">
-        <IconLocation width="20" height="20" />
+        <IconLocation width="20" height="20" aria-label="주소" />
         <p className="text-gray50">{address1}</p>
       </div>
       <p>{description}</p>

@@ -24,7 +24,9 @@ export default function MemberTypeButton({
       <div
         className={`m-0 w-18px h-18px mr-10px rounded-30px flex-center border border-solid border-gray30 ${isButtonClicked ? 'bg-custom-orange' : 'bg-white'}`}
       >
-        {isButtonClicked && <IconChecked width="14" height="14" />}
+        {isButtonClicked && (
+          <IconChecked width="14" height="14" aria-label="알림" />
+        )}
       </div>
       <span>{userType === 'employee' ? '알바님' : '사장님'}</span>
     </button>

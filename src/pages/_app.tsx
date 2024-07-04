@@ -19,11 +19,12 @@ const initializeState = ({ set }: MutableSnapshot) => {
   set(userState, initialUserState);
 };
 export default function App({ Component, pageProps }: AppProps) {
+  const is404 = Component.name === 'Error404';
   return (
     <RecoilRoot initializeState={initializeState}>
       <ModalsWrapper />
       <PopupsWrapper />
-      <Gnb />
+      {!is404 && <Gnb />}
       <Component {...pageProps} />
       <Footer />
     </RecoilRoot>

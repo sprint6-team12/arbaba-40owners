@@ -55,7 +55,7 @@ const Page = ({ noticeData }: { noticeData: NoticeItem }) => {
 
   // 레이아웃 적용 따라서 수정예정
   const basicPageDivStyle =
-    'p-12px mx-12px tablet:mx-32px pc:mx-auto w-[964px]';
+    'p-12px mx-12px tablet:mx-32px pc:mx-auto min-w-[315px] max-w-[964px]';
 
   return (
     <div className="flex-center bg-gray05">
