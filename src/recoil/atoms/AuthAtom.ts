@@ -3,13 +3,15 @@ import { recoilPersist } from 'recoil-persist';
 
 const { persistAtom } = recoilPersist();
 
-interface User {
+export interface User {
   token: string | null;
   userId: string | null;
   shopId: string | null;
   type: 'employee' | 'employer' | 'guest';
   isLogin: boolean;
-  address: string;
+  address: string | null;
+  userName: string | null;
+  DetailAddress: string | null;
 }
 
 export const userState = atom<User>({
@@ -21,6 +23,8 @@ export const userState = atom<User>({
     type: 'guest',
     isLogin: false,
     address: '',
+    userName: null,
+    DetailAddress: '',
   },
   effects_UNSTABLE: [persistAtom],
 });

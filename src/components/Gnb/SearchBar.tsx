@@ -74,6 +74,12 @@ export default function SearchBar() {
           onClick={() => resetSearchResult()}
         />
       )}
+      {searchInput && (
+        <IconCloseBlack
+          className="absolute right-10px"
+          onClick={() => resetSearchResult()}
+        />
+      )}
     </div>
   );
 }
