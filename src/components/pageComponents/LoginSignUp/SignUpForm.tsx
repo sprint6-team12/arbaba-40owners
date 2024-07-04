@@ -48,6 +48,12 @@ const SignUpForm = ({ onSignUpSuccess }: { onSignUpSuccess: () => void }) => {
           type: userType,
         });
         alert('회원가입이 완료되었습니다.');
+        setFormData(() => ({
+          signUpEmail: '',
+          signUpPassword: '',
+          signUpPasswordConfirm: '',
+        }));
+        setUserType('employee');
         onSignUpSuccess();
       } catch (error) {
         openTostPopup(error);
