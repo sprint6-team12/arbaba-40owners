@@ -4,9 +4,10 @@ import {
   EMAIL_REGEX,
   ERROR_MESSAGES,
   PASSWORD_MIN_LENGTH,
-
+  ERROR_MESSAGES_SHOP,
   NOTICE_ERROR_MESSAGES,
-  MYPAGE_ERROR_MESSAGES} from '@/constants/errorMessage';
+  MYPAGE_ERROR_MESSAGES,
+} from '@/constants/errorMessage';
 import { ShopNoticeData } from '@/lib/api/noticeAPI';
 import { UserInfo } from '@/lib/api/userAPI';
 
