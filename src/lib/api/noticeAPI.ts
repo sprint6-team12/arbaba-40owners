@@ -4,7 +4,7 @@ import { axiosInstance } from './axiosInstance';
 interface GetNoticeListData {
   offset?: number;
   limit?: number;
-  address?: string;
+  address?: string | null;
   keyword?: string;
   startsAtGte?: string;
   hourlyPayGte?: number;
@@ -38,7 +38,8 @@ const noticeAPI = {
       const response = await axiosInstance.get(`/notices`, config);
       return response.data;
     } catch (error) {
-      handleAxiosError(error);
+      const handleError = handleAxiosError(error);
+      throw handleError;
     }
   },
   getShopNoticeList: async (shop_id: string, params: GetShopNoticeListData) => {

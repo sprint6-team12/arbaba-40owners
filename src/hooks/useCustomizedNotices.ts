@@ -5,7 +5,7 @@ import { userState } from '@/recoil/atoms/AuthAtom';
 
 // 공고 데이터를 가져오는 훅
 const fetchNoticeData = async (
-  address: string
+  address: string | null
 ): Promise<NoticeListResponseData> => {
   return await noticeAPI.getNoticeList({
     address: address,
