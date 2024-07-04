@@ -44,7 +44,9 @@ function NoticeDetailCard({ data }: NoticeDetailCardProps) {
       />
       <div className={`flex flex-col gap-12px pc:w-[70%]`}>
         <Post.TitleBadge badgeText="시급" className="-mb-8px mt-8px" />
-        <div className="flex gap-8px items-center [&>_span]:shrink-0">
+        <div
+          className={`flex gap-8px items-center [&>_span]:shrink-0 ${currentNoticeState !== 'open' ? '[&>_span]:bg-gray30' : ''}`}
+        >
           <Post.Title
             text={formattedPay}
             className="shrink-0 text-24px tablet:text-28px"
