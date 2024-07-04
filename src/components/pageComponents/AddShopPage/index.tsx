@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useRef, useState } from 'react';
 import { useRecoilValue } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import Button from '@/components/Button/Button';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import FormGroup from '@/components/FormGroup/FormGroup';
@@ -48,6 +49,7 @@ function AddShopPage() {
   const { openModal } = useModal();
   const inputRef = useRef<HTMLInputElement>(null);
   const { shopId } = useRecoilValue(userState);
+  const setAuthState = useSetRecoilState(userState);
 
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -112,10 +114,13 @@ function AddShopPage() {
       setDisabled(true);
       const { hourlyPay, ...restFormData } = formData; // hourlyPay를 분해할당
       const hourlyPayNumber = Number(hourlyPay);
-      const data = await shopAPI.postShop({
-        ...restFormData,
-        originalHourlyPay: hourlyPayNumber,
-      });
+      const data = await shopAPI.postShop(
+        {
+          ...restFormData,
+          originalHourlyPay: hourlyPayNumber,
+        },
+        setAuthState
+      );
       if (data) {
         const shopId = data.item.id;
         handleOpenConfirmModal('등록이 완료되었습니다.');
