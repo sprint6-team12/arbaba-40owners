@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import { FaShopSlash } from 'react-icons/fa6';
 import { RiLoader2Fill } from 'react-icons/ri';
@@ -7,6 +8,7 @@ import keywordDataState from '@/recoil/atoms/searchAtom';
 import searchResultState from '@/recoil/atoms/SearchResultAtom';
 
 function SearchPage() {
+  const router = useRouter();
   const searchValue = useRecoilValue(keywordDataState);
   const searchResults = useRecoilValue(searchResultState);
 
@@ -19,6 +21,10 @@ function SearchPage() {
   const isSearchComplete = useMemo(() => {
     return searchResults !== null;
   }, [searchResults]);
+
+  const isFiltered = useMemo(() => {
+    return !!router.query.startsAtGte;
+  }, [router.query.startsAtGte]);
 
   if (!isSearchComplete) {
     return (
@@ -37,7 +43,7 @@ function SearchPage() {
           </>
         }
       />
-      {!hasResults && (
+      {(isFiltered || !hasResults) && (
         <div className="mx-auto w-fit h-340px text-20px tablet:text-28px pc:text-30px">
           <FaShopSlash className="mx-auto mb-20px w-160px h-160px tablet:w-200px tablet:h-200px pc:w-240px pc:h-240px" />
           공고 목록이 없습니다.
