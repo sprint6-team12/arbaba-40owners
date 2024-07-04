@@ -26,7 +26,7 @@ export const useAuth = () => {
     type: 'employee' | 'employer' | 'guest',
     isLogin: boolean,
     address: string,
-    userName: string | null ,
+    userName: string | null,
     DetailAddress: string
   ) => {
     setUserState({
