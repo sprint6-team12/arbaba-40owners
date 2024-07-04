@@ -33,10 +33,7 @@ const noticeAPI = {
   getNoticeList: async (params: GetNoticeListData | URLSearchParams) => {
     try {
       const config = {
-        params:
-          params instanceof URLSearchParams
-            ? Object.fromEntries(params.entries())
-            : params,
+        params: params,
       };
       const response = await axiosInstance.get(`/notices`, config);
       return response.data;
