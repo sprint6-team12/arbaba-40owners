@@ -40,10 +40,10 @@ function NoticeDetailCard({ data }: NoticeDetailCardProps) {
       <Post.Image
         imageUrl={imageUrl}
         status={currentNoticeState}
-        className="w-full h-178px tablet:h-360px pc:h-full pc:min-h-[360px] pc:max-w-[540px]"
+        className="w-full min-h-178px aspect-video tablet:min-h-[360px] pc:h-full pc:min-h-[360px] pc:max-w-[540px]"
       />
       <div className={`flex flex-col gap-12px pc:w-[70%]`}>
-        <Post.TitleBadge badgeText="시급" className="-mb-8px" />
+        <Post.TitleBadge badgeText="시급" className="-mb-8px mt-8px" />
         <div className="flex gap-8px items-center [&>_span]:shrink-0">
           <Post.Title
             text={formattedPay}
