@@ -10,7 +10,7 @@ import useModal from '@/hooks/useModal';
 import imageAPI from '@/lib/api/imageAPI';
 import shopAPI from '@/lib/api/shopAPI';
 import { IconCloseBlack } from '@/lib/utils/Icons';
-import {validateShopInfo} from '@/lib/utils/validation';
+import { validateShopInfo } from '@/lib/utils/validation';
 import { userState } from '@/recoil/atoms/AuthAtom';
 import ConfirmModal from './ConfirmModal';
 import InputComponent from './InputComponents';
@@ -227,7 +227,8 @@ function AddShopPage() {
                           src={imagePreview}
                           alt="Uploaded Image"
                           layout="responsive"
-                          fill
+                          width={483}
+                          height={276}
                           className="rounded-md"
                         />
                       </>
