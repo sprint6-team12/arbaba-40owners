@@ -36,7 +36,10 @@ const SignUpForm = ({ onSignUpSuccess }: { onSignUpSuccess: () => void }) => {
     if (
       !errors.signUpEmail &&
       !errors.signUpPassword &&
-      !errors.signUpPasswordConfirm
+      !errors.signUpPasswordConfirm &&
+      formData.signUpEmail !== '' &&
+      formData.signUpPassword !== '' &&
+      formData.signUpPasswordConfirm !== ''
     ) {
       try {
         await userAPI.postUserData({

@@ -31,7 +31,12 @@ export default function SignInForm({ onClose }: { onClose?: () => void }) {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!errors.loginEmail && !errors.loginPassWord) {
+    if (
+      !errors.loginEmail &&
+      !errors.loginPassWord &&
+      formData.loginEmail !== '' &&
+      formData.loginPassWord !== ''
+    ) {
       try {
         await authenticationAPI.postToken(
           {
