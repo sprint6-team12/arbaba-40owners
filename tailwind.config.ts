@@ -104,10 +104,15 @@ const config: Config = {
           '0%': { opacity: '1' },
           '100%': { opacity: '0' },
         },
+        spin: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
       },
       animation: {
         fadeIn: 'fadeIn 0.5s ease-out',
         fadeOut: 'fadeOut 0.5s ease-out',
+        spin: 'spin 1s linear infinite',
       },
     },
   },
