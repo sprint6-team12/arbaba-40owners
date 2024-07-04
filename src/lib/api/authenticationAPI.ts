@@ -1,3 +1,4 @@
+import { User } from '@/recoil/atoms/AuthAtom';
 import { handleAxiosError } from './ApiError';
 import { axiosInstance } from './axiosInstance';
 
@@ -7,13 +8,31 @@ interface LoginData {
 }
 
 const authenticationAPI = {
-  postToken: async (body: LoginData) => {
+  postToken: async (
+    body: LoginData,
+    setAuthState: (value: User | ((prevState: User) => User)) => void
+  ) => {
     try {
       const response = await axiosInstance.post(`/token`, body);
-      return response.data; // 받아온 토큰 값
+      const { token, user } = response.data.item;
+      const userId = user.item.id;
+      const userType = user.item.type;
+      localStorage.setItem('token', token);
+
+      if (token && userId) {
+        setAuthState((prevState: User) => ({
+          ...prevState,
+          token : token,
+          userId : userId,
+          type: userType,
+          isLogin: true,
+        }));
+      }
+      return response.data;
     } catch (error) {
       handleAxiosError(error);
     }
   },
 };
+
 export default authenticationAPI;

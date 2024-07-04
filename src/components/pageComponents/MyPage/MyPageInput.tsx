@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import Button from '@/components/Button/Button';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import FormGroup from '@/components/FormGroup/FormGroup';
@@ -39,11 +40,12 @@ const initialFormErrors: UserInfoFormErrors = {
 };
 
 export default function MyPageInput() {
-  const { userId } = useRecoilValue(userState);
+  const { userId, type } = useRecoilValue(userState);
   const router = useRouter();
   const { openModal } = useModal();
   const [data, setData] = useState<UserInfo>(initialFormData);
   const [errors, setErrors] = useState<UserInfoFormErrors>(initialFormErrors);
+  const setAuthState = useSetRecoilState(userState);
 
   useEffect(() => {
     if (userId) {
@@ -52,7 +54,7 @@ export default function MyPageInput() {
   }, [userId]);
 
   const fetchUserData = async (userId: string) => {
-    const userData = await userAPI.getUserData(userId);
+    const userData = await userAPI.getUserData(userId, type, setAuthState);
     setData(userData.item);
   };
 
@@ -108,7 +110,7 @@ export default function MyPageInput() {
       try {
         if (userId) {
           const token = localStorage.getItem('token');
-          await userAPI.putUserData(userId, token!, data);
+          await userAPI.putUserData(userId, token!, data, setAuthState);
           handleOpenConfirmModal('등록이 완료되었습니다.');
         } else {
           handleOpenConfirmModal('유효하지 않은 사용자 ID입니다.');

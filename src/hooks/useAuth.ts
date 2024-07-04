@@ -13,6 +13,8 @@ import { userState } from '@/recoil/atoms/AuthAtom';
  * @param shopId 유저 가게 ID (string | null)
  * @param type 유저 타입 ('employee' | 'employer' | 'guest')
  * @param isLogin 로그인 상태 (boolean)
+ * @param address 선호지역 or 가게 지역 (string | null)
+ * @param userName 알바생일경우 프로필 등록여부 확인용
  */
 export const useAuth = () => {
   const setUserState = useSetRecoilState(userState);
@@ -23,7 +25,9 @@ export const useAuth = () => {
     shopId: string | null,
     type: 'employee' | 'employer' | 'guest',
     isLogin: boolean,
-    address: string
+    address: string,
+    userName: string | null ,
+    DetailAddress: string
   ) => {
     setUserState({
       token,
@@ -32,6 +36,8 @@ export const useAuth = () => {
       type,
       isLogin,
       address,
+      userName,
+      DetailAddress,
     });
   };
 
