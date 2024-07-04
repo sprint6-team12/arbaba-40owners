@@ -37,11 +37,15 @@ const EMPLOYEE_BUTTONS: GnbButtonType[] = [
 const SpecialModal = ({
   onClose,
   isLogin = false,
+  autoClose = true,
 }: {
   onClose?: () => void;
   isLogin?: boolean;
+  autoClose?: boolean;
 }) => (
   <ModalCustom
+    autoClose={autoClose}
+    onClose={onClose}
     content={
       <div className="relative min-w-[480px] border rounded-20px border-gray20 bg-white">
         <LoginSignUp isLogin={isLogin} onClose={onClose} />
