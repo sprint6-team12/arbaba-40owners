@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useState, useCallback } from 'react';
 import { SORT_OPTION_MAP } from '@/constants/sortOptionMap';
 import noticeAPI from '@/lib/api/noticeAPI';
@@ -26,6 +27,8 @@ function useNoticeList(initialData: NoticeListResponseData) {
     sort: 'time',
   });
 
+  const router = useRouter();
+
   const fetchNotices = useCallback(
     async (settings: NoticeSettings, page: number) => {
       const params = new URLSearchParams();
@@ -36,9 +39,8 @@ function useNoticeList(initialData: NoticeListResponseData) {
           params.append(key, value.toString());
         }
       });
-
       params.set('offset', ((page - 1) * settings.limit).toString());
-
+      params.set('page', page.toString());
       if (settings.keyword) {
         params.set('keyword', settings.keyword);
       }
@@ -46,6 +48,12 @@ function useNoticeList(initialData: NoticeListResponseData) {
       const newNoticeData = await noticeAPI.getNoticeList(params);
       setNoticeData(newNoticeData);
       setCurrentPage(page);
+
+      router.push(
+        { pathname: router.pathname, query: params.toString() },
+        undefined,
+        { shallow: true }
+      );
       return newNoticeData;
     },
     []
