@@ -6,6 +6,7 @@ import {
   PASSWORD_MIN_LENGTH,
   NOTICE_ERROR_MESSAGES,
   MYPAGE_ERROR_MESSAGES,
+  ERROR_MESSAGES_SHOP,
 } from '@/constants/errorMessage';
 import { ShopNoticeData } from '@/lib/api/noticeAPI';
 import { UserInfo } from '@/lib/api/userAPI';
