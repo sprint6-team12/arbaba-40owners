@@ -23,7 +23,7 @@ function EmployerTable({ data }: EmployerTableProps) {
       className="border-1px border-gray20 rounded-tr-10px rounded-tl-10px overflow-x-auto m-auto min-w-[351px] w-full"
       ref={scrollContainerRef}
     >
-      <table className="table-auto min-w-full">
+      <table className="w-full">
         <EmployerHeader />
         <EmployerBody items={data.items} />
       </table>

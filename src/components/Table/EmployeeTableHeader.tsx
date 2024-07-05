@@ -4,19 +4,19 @@ const BASE_TH_STYLE =
 const TABLE_HEADERS = [
   {
     label: '가게',
-    className: `${BASE_TH_STYLE} min-w-189px tablet:min-w-[228px] pc:w-228px sticky left-0px p-0 pl-8px`,
+    className: `${BASE_TH_STYLE} min-w-140px tablet:min-w-[228px] pc:w-228px sticky left-0px p-0 pl-8px`,
   },
   {
     label: '일자',
-    className: `${BASE_TH_STYLE} min-w-102px tablet:min-w-[300px] pc:w-300px pl-8px`,
+    className: `${BASE_TH_STYLE} min-w-[262px] tablet:min-w-[300px] pc:w-300px pl-8px`,
   },
   {
     label: '시급',
-    className: `${BASE_TH_STYLE} min-w-162px pl-8px`,
+    className: `${BASE_TH_STYLE} min-w-100px pl-8px`,
   },
   {
     label: '상태',
-    className: `${BASE_TH_STYLE} min-w-102px tablet:min-w-[200px] pc:w-236px pl-12px`,
+    className: `${BASE_TH_STYLE} min-w-162px tablet:min-w-[200px] pc:w-236px pl-12px`,
   },
 ];
 

@@ -24,20 +24,20 @@ function EmployeeTableBody({ items }: EmployeeTableBodyProps) {
         return (
           <tr key={id}>
             <td
-              className={`${BASE_TD_STYLE} min-w-189px tablet:min-w-[228px] pc:w-228px sticky left-0px pl-8px`}
+              className={`${BASE_TD_STYLE} min-w-140px tablet:min-w-[228px] pc:w-228px sticky left-0px pl-8px`}
             >
               {name}
             </td>
             <td
-              className={`${BASE_TD_STYLE} min-w-102px tablet:min-w-[300px] pl-8px`}
+              className={`${BASE_TD_STYLE} min-w-[262px] tablet:min-w-[300px] pl-8px`}
             >
               {formattedSchedule}
             </td>
-            <td className={`${BASE_TD_STYLE} min-w-162px pl-8px`}>
+            <td className={`${BASE_TD_STYLE} min-w-100px pl-8px`}>
               {formattedPay}원
             </td>
             <td
-              className={`${BASE_TD_STYLE} min-w-102px tablet:min-w-[200px] pc:w-236px pl-12px`}
+              className={`${BASE_TD_STYLE} min-w-162px tablet:min-w-[200px] pc:w-236px pl-12px`}
             >
               <StatusBadge status={status} />
             </td>
