@@ -3,9 +3,9 @@ import Filter from '@/components/Filter/Filter';
 import Pagination from '@/components/Pagination/Pagination';
 import PostCard from '@/components/Post/PostCard';
 import SortDropdown from '@/components/SortDropdown/SortDropdown';
+import useMediaQuery from '@/hooks/useMediaQuery';
 import useNoticeList from '@/hooks/useNoticeList';
 import removePrefix from '@/lib/utils/RemovePrefix';
-import useMediaQuery from '@/lib/utils/useMediaQuery';
 
 interface NoticeListViewProps {
   initialData: NoticeListResponseData;

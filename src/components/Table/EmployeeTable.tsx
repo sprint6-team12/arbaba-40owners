@@ -1,4 +1,6 @@
+import { useEffect, useRef } from 'react';
 import StatusBadge from '@/components/Badge/StatusBadge';
+import useMediaQuery from '@/hooks/useMediaQuery';
 import FormatUtils from '@/lib/utils/FormatUtils';
 
 export interface EmployeeTableApplication {
@@ -31,6 +33,8 @@ interface EmployeeTableProps {
 }
 
 function EmployeeTable({ data }: EmployeeTableProps) {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const { isMobile, isTablet } = useMediaQuery();
   const baseThStyle =
     'border-gray20 border-1px bg-red10 text-left h-40px text-12px tablet:text-14px pc:text-14px';
   const baseTdStyle =
@@ -55,8 +59,18 @@ function EmployeeTable({ data }: EmployeeTableProps) {
     },
   ];
 
+  useEffect(() => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollLeft =
+        scrollContainerRef.current.scrollWidth;
+    }
+  }, [isMobile, isTablet]);
+
   return (
-    <div className="border-1px border-gray20 rounded-tr-10px rounded-tl-10px overflow-x-auto m-auto w-351px tablet:min-w-[680px] pc:min-w-[964px]">
+    <div
+      className="border-1px border-gray20 rounded-tr-10px rounded-tl-10px overflow-x-auto m-auto w-351px tablet:min-w-[680px] pc:min-w-[964px]"
+      ref={scrollContainerRef}
+    >
       <table className="table-auto min-w-full">
         <thead>
           <tr>
