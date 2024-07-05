@@ -8,6 +8,7 @@ export default function Document() {
           rel="stylesheet"
           href="https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css"
         />
+        <link rel="icon" href="/arbaba.png" type="image/x-icon" />
       </Head>
       <body>
         <Main />
