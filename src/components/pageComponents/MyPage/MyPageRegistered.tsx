@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import LinkButton from '@/components/Button/LinkButton';
 import MyPageProfile from '@/components/pageComponents/MyPage/MyPageProfile';
+import NoData from '@/components/pageComponents/ShopDetail/NoData';
 import Pagination from '@/components/Pagination/Pagination';
 import EmployeeTable, {
   EmployeeTableData,
@@ -90,21 +90,11 @@ export default function MyPageRegistered({
             />
           </>
         ) : (
-          <div className="border rounded-12px w-full h-195px tablet:h-217px pc:h-217px flex flex-col justify-center items-center">
-            <div className="text-center px-[6px] py-[15px]">
-              <span className="font-normal text-[14px] tablet:text-[16px] pc:text-[16px]">
-                아직 신청 내역이 없어요.
-              </span>
-              <div className="flex justify-center mt-[4px] tablet:mt-[6px] pc:mt-[6px]">
-                <LinkButton
-                  href="/"
-                  className="button_large_active text-nowrap"
-                >
-                  공고 보러가기
-                </LinkButton>
-              </div>
-            </div>
-          </div>
+          <NoData
+            title="아직 신청 내역이 없어요."
+            text="공고 보러가기"
+            href="/"
+          />
         )}
       </div>
     </div>

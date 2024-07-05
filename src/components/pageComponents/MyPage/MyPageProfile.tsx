@@ -31,8 +31,11 @@ export default function MyPageProfile({
         )}
         <div className="mt-12px">{bio}</div>
       </div>
-      <div className="w-108px tablet:w-169px pc:w-169px">
-        <Button className="w-full button_medium_disActive" onClick={onClick}>
+      <div className="tablet:w-169px pc:w-169px break-keep">
+        <Button
+          className="[&_>div]:w-full button_medium_disActive"
+          onClick={onClick}
+        >
           편집하기
         </Button>
       </div>
