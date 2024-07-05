@@ -99,14 +99,12 @@ const useNoticeDetailCardButton = (
   // 공고 상태 업데이트
   useEffect(() => {
     if (userType !== 'employee') return;
-    const token = localStorage.getItem('token');
-    if (!token) return;
+    if (!localStorage.getItem('token')) return;
 
     const updateNoticeStatus = async () => {
       const { item } = await noticeAPI.getShopNotice({
         shop_id,
         notice_id,
-        token,
       });
       if (!('currentUserApplication' in item)) return;
       setApplicationData(item.currentUserApplication?.item);
