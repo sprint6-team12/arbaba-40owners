@@ -52,11 +52,15 @@ export default function PostCard({
       </div>
       <div className="flex justify-between flex-col pt-16px gap-0px tablet:flex-row pc:flex-row mt-auto">
         <Post.Title text={formattedPay} className={`shrink-0`} />
-        <Post.IncreaseRateBadge
-          hourlyPay={hourlyPay}
-          originalHourlyPay={originalHourlyPay}
-          bgNone={bgNone}
-        />
+        <div
+          className={`pc:absolute pc:top-24px pc:right-22px ${currentPostState !== 'open' ? 'pc:hidden' : ''}`}
+        >
+          <Post.IncreaseRateBadge
+            hourlyPay={hourlyPay}
+            originalHourlyPay={originalHourlyPay}
+            bgNone={bgNone}
+          />
+        </div>
       </div>
     </Post.Wrapper>
   );
