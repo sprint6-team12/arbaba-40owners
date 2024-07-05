@@ -38,8 +38,12 @@ const useCustomizedNotices = () => {
   useEffect(() => {
     const getCustomizedNotices = async () => {
       try {
-        const data = await fetchNoticeData(user.address);
-        const openItems = filterOpenNotices(data.items);
+        const addressData = await fetchNoticeData(user.address);
+        let openItems = filterOpenNotices(addressData.items);
+        if (openItems.length === 0) {
+          const allAddress = await fetchNoticeData(null);
+          openItems = filterOpenNotices(allAddress.items);
+        }
         const randomItems = getRandomItems(openItems, 3);
 
         setCustomizedNotices({
@@ -47,7 +51,7 @@ const useCustomizedNotices = () => {
           count: randomItems.length,
         });
       } catch (error) {
-        alert(`맞춤 공고 데이터 패치 에러: ${error}`);
+        throw new Error(`맞춤 공고 데이터 패치 에러: ${error}`);
       }
     };
 
