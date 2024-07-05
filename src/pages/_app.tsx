@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { RecoilRoot, MutableSnapshot } from 'recoil';
-import LoadingImage from '@/../../public/loading-arbaba2.png';
+import LoadingImage from '@/../../public/loading-arbaba.png';
 import Footer from '@/components/Footer/footer';
 import Gnb from '@/components/Gnb/Gnb';
 import ModalsWrapper from '@/components/Modal/ModalsWrapper';
