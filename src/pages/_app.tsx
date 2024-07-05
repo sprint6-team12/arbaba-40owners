@@ -1,7 +1,7 @@
 import type { AppProps } from 'next/app';
 // eslint-disable-next-line import/named
-import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { useState, useEffect } from 'react';
 import { RecoilRoot, MutableSnapshot } from 'recoil';
 import LoadingImage from '@/../../public/loading-arbaba2.png';
 import Footer from '@/components/Footer/footer';
