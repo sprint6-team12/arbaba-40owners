@@ -108,12 +108,17 @@ const config: Config = {
           '0%': { transform: 'rotate(0deg)' },
           '100%': { transform: 'rotate(360deg)' },
         },
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-20px)' },
+        },
       },
       animation: {
         fadeIn: 'fadeIn 0.5s ease-out',
         fadeOut: 'fadeOut 0.5s ease-out',
         spin: 'spin 1s linear infinite',
         'spin-slow': 'spin 10s linear infinite',
+        float: 'float 3s ease-in-out infinite',
       },
     },
   },
