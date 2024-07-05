@@ -10,15 +10,7 @@ interface GetAlertData {
 }
 
 const alertAPI = {
-  getAlerts: async ({
-    user_id,
-    token = localStorage.getItem('token'),
-    offset,
-    limit,
-  }: GetAlertData) => {
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
+  getAlerts: async ({ user_id, offset, limit }: GetAlertData) => {
     const params = {
       offset,
       limit,
@@ -26,29 +18,18 @@ const alertAPI = {
     try {
       const response = await axiosInstance.get(`/users/${user_id}/alerts`, {
         params,
-        headers,
       });
       return response.data;
     } catch (error) {
       handleAxiosError(error);
     }
   },
-  putAlerts: async ({
-    user_id,
-    token = localStorage.getItem('token'),
-    alert_id,
-  }: GetAlertData) => {
-    const headers = {
-      Authorization: `Bearer ${token}`,
-    };
+  putAlerts: async ({ user_id, alert_id }: GetAlertData) => {
     const requestBody = {};
     try {
       const response = await axiosInstance.put(
         `/users/${user_id}/alerts/${alert_id}`,
-        requestBody,
-        {
-          headers,
-        }
+        requestBody
       );
       return response.data;
     } catch (error) {

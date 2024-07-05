@@ -62,17 +62,11 @@ const userAPI = {
   },
   putUserData: async (
     user_id: string,
-    token = localStorage.getItem('token'),
     body: UserInfo,
     setAuthState: (update: (prevState: User) => User) => void
   ) => {
     try {
-      const headers = {
-        Authorization: `Bearer ${token}`,
-      };
-      const response = await axiosInstance.put(`/users/${user_id}`, body, {
-        headers,
-      });
+      const response = await axiosInstance.put(`/users/${user_id}`, body);
       const userName = response?.data?.item?.name;
       const address = response?.data?.item?.address1;
       setAuthState((prevState: User) => ({
