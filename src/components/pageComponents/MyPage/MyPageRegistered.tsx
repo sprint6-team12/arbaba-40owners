@@ -78,16 +78,18 @@ export default function MyPageRegistered({
       <div className="mt-[8px] w-full">
         {data ? (
           <>
-            <div className="[&_>div]:w-full mb-12px">
+            <div className="[&_>div]:w-full">
               <EmployeeTable data={data} />
             </div>
-            <Pagination
-              count={data.count}
-              limit={limit}
-              currentPage={currentPage}
-              hasNext={data.hasNext}
-              onPageChange={handlePageChange}
-            />
+            <div className="bg-white border-1px h-64px flex-center rounded-b-10px">
+              <Pagination
+                count={data.count}
+                limit={limit}
+                currentPage={currentPage}
+                hasNext={data.hasNext}
+                onPageChange={handlePageChange}
+              />
+            </div>
           </>
         ) : (
           <NoData
