@@ -6,7 +6,7 @@ class APIError extends Error {
     public status: number
   ) {
     super(message);
-    this.name = 'APIError';
+    this.name = '';
   }
 }
 

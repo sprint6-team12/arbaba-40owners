@@ -1,9 +1,11 @@
-import { useState } from 'react';
-import { useSetRecoilState } from 'recoil';
+import React, { useEffect, useState } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import Button from '@/components/Button/Button';
+import usePopup from '@/hooks/usePopup';
 import authenticationAPI from '@/lib/api/authenticationAPI';
+import userAPI from '@/lib/api/userAPI';
 import { SignInValidate } from '@/lib/utils/validation';
-import { userState } from '@/recoil/atoms/AuthAtom'; // 경로 확인
+import { userState } from '@/recoil/atoms/AuthAtom';
 import InputComponent from './InputComponent';
 
 export default function SignInForm({ onClose }: { onClose?: () => void }) {
@@ -13,6 +15,8 @@ export default function SignInForm({ onClose }: { onClose?: () => void }) {
   });
   const [errors, setErrors] = useState({ loginEmail: '', loginPassWord: '' });
   const setAuthState = useSetRecoilState(userState);
+  const { userId, type } = useRecoilValue(userState);
+  const { openPopup } = usePopup();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -21,9 +25,18 @@ export default function SignInForm({ onClose }: { onClose?: () => void }) {
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
 
+  const openTostPopup = (errors: any) => {
+    openPopup('loginErrorMessage', errors.message, 2500);
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!errors.loginEmail && !errors.loginPassWord) {
+    if (
+      !errors.loginEmail &&
+      !errors.loginPassWord &&
+      formData.loginEmail !== '' &&
+      formData.loginPassWord !== ''
+    ) {
       try {
         await authenticationAPI.postToken(
           {
@@ -37,10 +50,16 @@ export default function SignInForm({ onClose }: { onClose?: () => void }) {
           onClose();
         }
       } catch (error) {
-        alert(error);
+        openTostPopup(error);
       }
     }
   };
+
+  useEffect(() => {
+    if (userId) {
+      userAPI.getUserData(userId, type, setAuthState);
+    }
+  }, [userId, type, setAuthState]);
 
   return (
     <form

@@ -1,12 +1,10 @@
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import GnbUiButton from '@/components/Gnb/GnbUiButton';
 import ModalCustom from '@/components/Modal/ModalCustom';
 import LoginSignUp from '@/components/pageComponents/LoginSignUp/LoginSignUp';
 import { useAuth } from '@/hooks/useAuth';
 import useModal from '@/hooks/useModal';
-import userAPI from '@/lib/api/userAPI';
 import { IconCloseBlack } from '@/lib/utils/Icons';
 import { userState } from '@/recoil/atoms/AuthAtom';
 
@@ -39,11 +37,15 @@ const EMPLOYEE_BUTTONS: GnbButtonType[] = [
 const SpecialModal = ({
   onClose,
   isLogin = false,
+  autoClose = true,
 }: {
   onClose?: () => void;
   isLogin?: boolean;
+  autoClose?: boolean;
 }) => (
   <ModalCustom
+    autoClose={autoClose}
+    onClose={onClose}
     content={
       <div className="relative min-w-[480px] border rounded-20px border-gray20 bg-white">
         <LoginSignUp isLogin={isLogin} onClose={onClose} />
@@ -59,23 +61,13 @@ const SpecialModal = ({
 
 export default function GnbButton({ userType, onClick }: GnbButtonProps) {
   const { openModal } = useModal();
-  const { userId, type, shopId } = useRecoilValue(userState);
+  const { userId, shopId } = useRecoilValue(userState);
   const router = useRouter();
   const { setUser } = useAuth();
-  const setAuthState = useSetRecoilState(userState);
 
   const openLoginModal = (isLogin: boolean) => {
     openModal('LoginSignUpModal', SpecialModal, { isLogin });
   };
-
-  useEffect(() => {
-    if (userId) {
-      const getUserShopId = async (userId: string, type: string) => {
-        await userAPI.getUserData(userId, type, setAuthState);
-      };
-      getUserShopId(userId, type);
-    }
-  }, []);
 
   const handleGnbButtonsClick = (buttonId: string) => {
     if (userType === 'guest' || userType === undefined) {

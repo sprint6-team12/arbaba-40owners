@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Button from '@/components/Button/Button';
+import usePopup from '@/hooks/usePopup';
 import userAPI from '@/lib/api/userAPI';
 import { SignUpValidate } from '@/lib/utils/validation';
 import InputComponent from './InputComponent';
@@ -17,6 +18,7 @@ const SignUpForm = ({ onSignUpSuccess }: { onSignUpSuccess: () => void }) => {
     signUpPassword: '',
     signUpPasswordConfirm: '',
   });
+  const { openPopup } = usePopup();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -25,12 +27,19 @@ const SignUpForm = ({ onSignUpSuccess }: { onSignUpSuccess: () => void }) => {
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
 
+  const openTostPopup = (errors: any) => {
+    openPopup('signUpErrorMessage', errors.message, 2500);
+  };
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (
       !errors.signUpEmail &&
       !errors.signUpPassword &&
-      !errors.signUpPasswordConfirm
+      !errors.signUpPasswordConfirm &&
+      formData.signUpEmail !== '' &&
+      formData.signUpPassword !== '' &&
+      formData.signUpPasswordConfirm !== ''
     ) {
       try {
         await userAPI.postUserData({
@@ -39,9 +48,15 @@ const SignUpForm = ({ onSignUpSuccess }: { onSignUpSuccess: () => void }) => {
           type: userType,
         });
         alert('회원가입이 완료되었습니다.');
+        setFormData(() => ({
+          signUpEmail: '',
+          signUpPassword: '',
+          signUpPasswordConfirm: '',
+        }));
+        setUserType('employee');
         onSignUpSuccess();
       } catch (error) {
-        alert(error);
+        openTostPopup(error);
       }
     }
   };

@@ -26,8 +26,8 @@ const userAPI = {
 
       if (type == 'employer') {
         const shopId = response?.data?.item?.shop?.item?.id;
-        const address = response?.data?.item?.shop?.items?.address1;
-        const DetailAddress = response?.data?.item?.shop?.items?.address2;
+        const address = response?.data?.item?.shop?.item?.address1;
+        const DetailAddress = response?.data?.item?.shop?.item?.address2;
         setAuthState((prevState: User) => ({
           ...prevState,
           shopId: shopId,
