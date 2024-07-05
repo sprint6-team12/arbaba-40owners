@@ -3,7 +3,6 @@ import { useRecoilValue } from 'recoil';
 import noticeAPI from '@/lib/api/noticeAPI';
 import { userState } from '@/recoil/atoms/AuthAtom';
 
-// 공고 데이터를 가져오는 훅
 const fetchNoticeData = async (
   address: string | null
 ): Promise<NoticeListResponseData> => {
@@ -13,18 +12,15 @@ const fetchNoticeData = async (
   });
 };
 
-// 열린 공고만 필터링
 const filterOpenNotices = (items: NoticeItem[]) => {
   return items.filter(({ item }) => item.closed === false);
 };
 
-// 랜덤으로 아이템을 선택
 const getRandomItems = (items: NoticeItem[], count: number) => {
   const shuffled = [...items].sort(() => 0.5 - Math.random());
   return shuffled.slice(0, count);
 };
 
-// 커스텀 훅: 맞춤 공고 3개 반환
 const useCustomizedNotices = () => {
   const user = useRecoilValue(userState);
   const [customizedNotices, setCustomizedNotices] = useState<{
