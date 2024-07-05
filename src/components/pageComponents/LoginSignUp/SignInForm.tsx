@@ -86,7 +86,7 @@ export default function SignInForm({ onClose }: { onClose?: () => void }) {
         errorMessage={errors.loginPassWord}
       />
       <Button className="w-full button_medium_active" type="submit">
-        로그인 하기
+        로그인
       </Button>
     </form>
   );
