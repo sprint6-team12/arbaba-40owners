@@ -56,7 +56,7 @@ const config: Config = {
       },
       zIndex: {
         dropdown: '10',
-        popup: '15',
+        popup: '100',
         modalbackground: '20',
         modalbody: '30',
       },
