@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import PostCard from '@/components/Post/PostCard';
 import useCustomizedNotices from '@/hooks/useCustomizedNotices';
+import useMediaQuery from '@/hooks/useMediaQuery';
 import removePrefix from '@/lib/utils/RemovePrefix';
-import useMediaQuery from '@/lib/utils/useMediaQuery';
 
 export default function CustomizedNoticeList() {
   const { isMobile } = useMediaQuery();

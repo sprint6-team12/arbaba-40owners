@@ -85,8 +85,10 @@ function ApplicantsList({
         )}
         {applicantListData.count !== 0 ? (
           <>
-            <EmployerTable data={applicantListData} />
-            <div className="my-16px">
+            <div className="[&_>div]:w-full">
+              <EmployerTable data={applicantListData} />
+            </div>
+            <div className="bg-white border-1px h-64px flex-center rounded-b-10px w-full">
               <Pagination
                 count={applicantListData.count}
                 limit={APPLY_LIMIT}
