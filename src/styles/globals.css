@@ -47,7 +47,7 @@ body {
 /* filter, table scrollbar */
 ::-webkit-scrollbar {
   width: 5px;
-  height: 5px;
+  height: 2px;
 }
 
 ::-webkit-scrollbar-track {

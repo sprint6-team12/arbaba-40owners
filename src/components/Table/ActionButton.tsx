@@ -23,7 +23,7 @@ function ActionButton({ href, ...rest }: ActionButtonProps) {
   };
 
   return (
-    <div className="flex-center gap-8px">
+    <div className="flex-center gap-8px w-122px tablet:min-w-182px pc:min-w-200px ml-8px tablet:m-auto pc:m-auto">
       <button
         className={`${styleBase} border-custom-orange text-custom-orange`}
         onClick={handleClick}

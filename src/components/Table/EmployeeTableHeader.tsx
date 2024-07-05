@@ -1,5 +1,5 @@
 const BASE_TH_STYLE =
-  'border-gray20 border-1px bg-red10 text-left h-40px text-12px tablet:text-14px pc:text-14px';
+  'border-gray20 border-b-2px bg-red10 text-left h-40px text-12px tablet:text-14px pc:text-14px';
 
 const TABLE_HEADERS = [
   {
@@ -16,7 +16,7 @@ const TABLE_HEADERS = [
   },
   {
     label: '상태',
-    className: `${BASE_TH_STYLE} min-w-102px tablet:min-w-[220px] pc:w-236px pl-12px`,
+    className: `${BASE_TH_STYLE} min-w-102px tablet:min-w-[200px] pc:w-236px pl-12px`,
   },
 ];
 

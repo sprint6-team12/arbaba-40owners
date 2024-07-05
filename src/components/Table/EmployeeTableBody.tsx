@@ -6,7 +6,7 @@ interface EmployeeTableBodyProps {
 }
 
 const BASE_TD_STYLE =
-  'border-gray20 border-1px bg-white h-46px tablet:h-69px pc:h-69px text-14px tablet:text-16px pc:text-16px';
+  'border-gray20 border-b-1px bg-white h-46px tablet:h-69px pc:h-69px text-14px tablet:text-16px pc:text-16px';
 
 function EmployeeTableBody({ items }: EmployeeTableBodyProps) {
   return (
@@ -37,7 +37,7 @@ function EmployeeTableBody({ items }: EmployeeTableBodyProps) {
               {formattedPay}원
             </td>
             <td
-              className={`${BASE_TD_STYLE} min-w-102px tablet:min-w-[220px] pc:w-236px pl-12px`}
+              className={`${BASE_TD_STYLE} min-w-102px tablet:min-w-[200px] pc:w-236px pl-12px`}
             >
               <StatusBadge status={status} />
             </td>

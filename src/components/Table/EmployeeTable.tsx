@@ -45,7 +45,7 @@ function EmployeeTable({ data }: EmployeeTableProps) {
 
   return (
     <div
-      className="rounded-tr-10px rounded-tl-10px overflow-x-auto m-auto w-351px tablet:min-w-[680px] pc:min-w-[964px]"
+      className="border-1px border-gray20 rounded-tr-10px rounded-tl-10px overflow-x-auto m-auto w-351px tablet:min-w-[600px] pc:min-w-[940px]"
       ref={scrollContainerRef}
     >
       <table className="table-auto min-w-full">
