@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Post from '@/components/Post/Post';
 import PostCard from '@/components/Post/PostCard';
-import useMediaQuery from '@/lib/utils/useMediaQuery';
+import useMediaQuery from '@/hooks/useMediaQuery';
 
 function RecentNoticeListSection({ list }: { list: Notice[] }) {
   return (
