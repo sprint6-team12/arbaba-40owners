@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import Button from '@/components/Button/Button';
 import FormGroup from '@/components/FormGroup/FormGroup';
@@ -49,6 +49,30 @@ export default function AddNoticeInput() {
   const { openModal } = useModal();
   const [data, setData] = useState<ShopNoticeData>(initialFormData);
   const [errors, setErrors] = useState<ShopNoticeFormErrors>(initialFormErrors);
+
+  useEffect(() => {
+    const fetchNoticeData = async () => {
+      try {
+        if (typeof shopId === 'string' && typeof notice_id === 'string') {
+          const noticeData = await noticeAPI.getShopNotice({
+            shop_id: shopId,
+            notice_id,
+          });
+          const noticeItem = noticeData.item;
+          setData({
+            hourlyPay: noticeItem.hourlyPay,
+            startsAt: new Date(noticeItem.startsAt).toISOString().slice(0, 16),
+            workhour: noticeItem.workhour,
+            description: noticeItem.description,
+          });
+        }
+      } catch (error) {
+        handleOpenConfirmModal('공고 데이터를 찾을 수 없습니다.');
+      }
+    };
+
+    fetchNoticeData();
+  }, [shopId, notice_id]);
 
   const handleChangeData = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
