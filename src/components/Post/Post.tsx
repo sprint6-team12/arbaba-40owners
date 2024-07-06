@@ -125,7 +125,7 @@ function WorkSchedule({
   workHour: number;
   status?: NoticeStatus;
 }) {
-  const [isUnder280, setIsUnder280] = useState(false);
+  const [isUnder270, setIsUnder270] = useState(false);
   const [isUnder200, setIsUnder200] = useState(false);
   const divRef = useRef<HTMLDivElement>(null);
 
@@ -146,7 +146,7 @@ function WorkSchedule({
   const handleResize = useCallback(
     debounce(() => {
       if (divRef.current) {
-        setIsUnder280(divRef.current.offsetWidth <= 280);
+        setIsUnder270(divRef.current.offsetWidth <= 270);
         setIsUnder200(divRef.current.offsetWidth <= 200);
       }
     }, 500),
@@ -166,7 +166,7 @@ function WorkSchedule({
     <div ref={divRef} className={`flex gap-6px ${className}`}>
       <div>{clockIcon}</div>
       <div
-        className={`${isUnder280 ? 'block' : 'flex'} leading-[21.5px] text-gray50 text-12px tablet:text-14px pc:text-14px font-[400] break-keep`}
+        className={`${isUnder270 ? 'block' : 'flex'} leading-[21.5px] text-gray50 text-12px tablet:text-14px pc:text-14px font-[400] break-keep`}
       >
         <p className="mr-4px">{formattedStartDate}</p>
         <div className={`${isUnder200 ? 'block' : 'flex'}`}>
