@@ -6,7 +6,11 @@ import InputComponent from '@/components/AddShopPage/InputComponents';
 import Button from '@/components/Button/Button';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import FormGroup from '@/components/FormGroup/FormGroup';
-import { SHOP_LOCATIONS, SHOP_MENU_CATEGORIES } from '@/constants/shopOptions';
+import {
+  SHOP_BASE_IMAGE,
+  SHOP_LOCATIONS,
+  SHOP_MENU_CATEGORIES,
+} from '@/constants/shopOptions';
 import imageAPI from '@/lib/api/imageAPI';
 import shopAPI from '@/lib/api/shopAPI';
 import { IconCloseBlack } from '@/lib/utils/Icons';
@@ -34,7 +38,7 @@ function EditShopPage() {
     address2: '',
     hourlyPay: '',
     shopDescription: '',
-    imageUrl: 'https://ibb.co/NFq1htW',
+    imageUrl: SHOP_BASE_IMAGE,
   });
   const [disabled, setDisabled] = useState(false);
   const [errors, setErrors] = useState<Partial<ShopType>>({});
@@ -122,7 +126,7 @@ function EditShopPage() {
   const handleImageReset = () => {
     setFormData((prevFormData) => ({
       ...prevFormData,
-      imageUrl: 'https://ibb.co/NFq1htW',
+      imageUrl: SHOP_BASE_IMAGE,
     }));
     setImagePreview(null);
   };

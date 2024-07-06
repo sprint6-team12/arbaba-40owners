@@ -36,3 +36,6 @@ export const SHOP_MENU_CATEGORIES: ShopMenuCategory[] = [
   '편의점',
   '기타',
 ];
+
+export const SHOP_BASE_IMAGE =
+  'https://bootcamp-project-api.s3.ap-northeast-2.amazonaws.com/06-12/the-julge/b9e09597-dc41-4442-8aa9-30e39587c43e-not-shop.png';
