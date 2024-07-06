@@ -42,7 +42,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       noticeData: data,
     },
-    revalidate: 60 * 60 * 1000, // 1시간마다 페이지 재생성
+    revalidate: 10,
   };
 };
 
