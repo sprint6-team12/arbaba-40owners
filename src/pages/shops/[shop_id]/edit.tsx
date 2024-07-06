@@ -24,7 +24,7 @@ interface ShopType {
   address2: string;
   hourlyPay: string;
   shopDescription?: string | undefined;
-  imageUrl?: string | undefined;
+  imageUrl?: string;
 }
 
 function EditShopPage() {
@@ -128,7 +128,7 @@ function EditShopPage() {
       ...prevFormData,
       imageUrl: SHOP_BASE_IMAGE,
     }));
-    setImagePreview(null);
+    setImagePreview(SHOP_BASE_IMAGE);
   };
 
   const handleTotalSubmit = async () => {
@@ -248,15 +248,15 @@ function EditShopPage() {
             </div>
             <div className="flex flex-col gap-8px w-full">
               <h1>가게 이미지</h1>
-              <div className="inline-block relative">
+              <div className="inline-block relative pc:w-1/2">
                 <div onClick={handleClick}>
-                  {imagePreview ? (
+                  {imagePreview !== SHOP_BASE_IMAGE ? (
                     <>
                       <button className="absolute pc:ml-[450px] pc:mt-2px border-solid border-2px border-black">
                         <IconCloseBlack onClick={handleImageReset} />
                       </button>
                       <Image
-                        src={imagePreview}
+                        src={imagePreview || ''}
                         alt="업로드된 이미지"
                         layout="responsive"
                         width={483}
