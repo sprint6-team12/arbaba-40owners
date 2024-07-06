@@ -7,9 +7,11 @@
   src: url(https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
 }
 
-body {
-  font-family: 'SpoqaHanSansNeo';
-  @apply text-black;
+@layer base {
+  body {
+    font-family: 'SpoqaHanSansNeo';
+    @apply text-black;
+  }
 }
 
 @layer components {
