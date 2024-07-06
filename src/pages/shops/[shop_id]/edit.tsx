@@ -163,7 +163,7 @@ function EditShopPage() {
     }
   };
 
-  const formatNumber = (num) => {
+  const formatNumber = (num: string) => {
     return num.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   };
 
@@ -202,6 +202,7 @@ function EditShopPage() {
                   onSelect={(value) => handleDropdownChange('category', value)}
                   width="100%"
                   defaultValue={formData.category || '선택'}
+                  prevValue={formData.category}
                 />
                 {errors.category && (
                   <p className="text-red-500">{errors.category}</p>
@@ -216,6 +217,7 @@ function EditShopPage() {
                   onSelect={(value) => handleDropdownChange('address1', value)}
                   width="100%"
                   defaultValue={formData.address1 || '선택'}
+                  prevValue={formData.address1}
                 />
                 {errors.address1 && (
                   <p className="text-red-500">{errors.address1}</p>

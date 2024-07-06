@@ -6,14 +6,15 @@ interface DropdownProps {
   onSelect: (value: string) => void;
   width?: string;
   defaultValue?: string;
-  placeholder?: string;
+  prevValue?: string;
 }
 
 function Dropdown({
   options,
   onSelect,
   width = '300px',
-  placeholder = '선택',
+  defaultValue = '선택',
+  prevValue,
 }: DropdownProps) {
   const dropDownClickRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -56,8 +57,8 @@ function Dropdown({
           <IconDropdown aria-label="옵션 보기" />
         </div>
         <div className="flex w-full px-20px py-16px items-center border bg-white border-gray30 rounded-md text-base">
-          <span className={selectedOption ? '' : 'text-gray-400'}>
-            {selectedOption || placeholder}
+          <span className={selectedOption || prevValue ? '' : 'text-gray-400'}>
+            {selectedOption || defaultValue}
           </span>
         </div>
         {isOpen && (

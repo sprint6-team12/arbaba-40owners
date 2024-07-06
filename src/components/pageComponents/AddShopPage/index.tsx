@@ -55,7 +55,7 @@ function AddShopPage() {
   const setAuthState = useSetRecoilState(userState);
 
   // 숫자 포맷팅 함수 추가
-  const formatNumber = (num) => {
+  const formatNumber = (num: string) => {
     return num.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   };
 
@@ -243,7 +243,7 @@ function AddShopPage() {
                   <div onClick={handleClick}>
                     {imagePreview ? (
                       <>
-                        <button>
+                        <button className="absolute pc:ml-[450px] pc:mt-2px border-solid border-2px border-black">
                           <IconCloseBlack onClick={handleImageReset} />
                         </button>
                         <Image
@@ -252,7 +252,7 @@ function AddShopPage() {
                           layout="responsive"
                           width={483}
                           height={276}
-                          className="rounded-md"
+                          className="max-w-[483px] max-h-[276px] rounded-md"
                         />
                       </>
                     ) : (
