@@ -33,8 +33,8 @@ function AddShopPage() {
     address1: '',
     address2: '',
     hourlyPay: '',
-    description: '',
-    imageUrl: '',
+    description: undefined,
+    imageUrl: undefined,
   });
   const [disabled, setDisabled] = useState(false);
   const [errors, setErrors] = useState<ShopType>({
@@ -89,6 +89,7 @@ function AddShopPage() {
 
   const handleImageReset = () => {
     setImagePreview('');
+    setFormData((prevFormData) => ({ ...prevFormData, imageUrl: undefined }));
   };
 
   const handleOpenConfirmModal = (content: string) => {
@@ -210,7 +211,7 @@ function AddShopPage() {
                   name="기본 시급*"
                   type="input"
                   placeholder="입력"
-                  value={formData.hourlyPay}
+                  value={Number(formData.hourlyPay).toLocaleString()}
                   onChange={handleInputChange}
                   errorMessage={errors.hourlyPay}
                 />

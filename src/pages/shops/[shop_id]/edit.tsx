@@ -41,6 +41,7 @@ function EditShopPage() {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const shop_id = shopId;
+
   useEffect(() => {
     if (!isLogin) {
       alert('로그인이 필요합니다.');
@@ -77,9 +78,17 @@ function EditShopPage() {
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { id, value } = event.target;
-    const errorMessage = validateShopInfo(id as keyof ShopType, value);
+    // Remove commas for validation and state update
+    const valueWithoutCommas = value.replace(/,/g, '');
+    const errorMessage = validateShopInfo(
+      id as keyof ShopType,
+      valueWithoutCommas
+    );
     setErrors((prevErrors) => ({ ...prevErrors, [id]: errorMessage }));
-    setFormData((prevFormData) => ({ ...prevFormData, [id]: value }));
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [id]: valueWithoutCommas,
+    }));
   };
 
   const handleDropdownChange = (id: keyof ShopType, value: string) => {
@@ -144,6 +153,10 @@ function EditShopPage() {
     } catch (error) {
       alert(error);
     }
+  };
+
+  const formatNumber = (num) => {
+    return num.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   };
 
   return (
@@ -218,7 +231,7 @@ function EditShopPage() {
                 name="기본 시급*"
                 type="input"
                 placeholder="입력"
-                value={formData.hourlyPay}
+                value={formatNumber(formData.hourlyPay)}
                 onChange={handleInputChange}
                 errorMessage={errors.hourlyPay || ''}
               />
