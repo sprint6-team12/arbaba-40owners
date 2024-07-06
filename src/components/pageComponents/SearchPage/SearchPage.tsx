@@ -1,7 +1,8 @@
+import Image from 'next/image';
 import { useMemo } from 'react';
-import { FaShopSlash } from 'react-icons/fa6';
 import { RiLoader2Fill } from 'react-icons/ri';
 import { useRecoilValue } from 'recoil';
+import Nothing from '@/../../public/images/arbaba-nothing.png';
 import NoticeListView from '@/components/pageComponents/NoticeList/NoticeListView';
 import keywordDataState from '@/recoil/atoms/searchAtom';
 import searchResultState from '@/recoil/atoms/SearchResultAtom';
@@ -30,10 +31,12 @@ function SearchPage() {
 
   if (isEmptySearchResult) {
     return (
-      <div className="mx-auto w-fit h-340px text-20px tablet:text-28px pc:text-34px">
-        <FaShopSlash className="mx-auto mb-20px w-160px h-160px tablet:w-200px tablet:h-200px pc:w-260px pc:h-260px" />
-        <span className="text-red40">{searchValue}</span>에 해당하는 목록이
-        없습니다.
+      <div className="mx-auto w-fit h-340px text-20px tablet:text-28px pc:text-34px mb-80px flex-center flex-col">
+        <Image src={Nothing} alt="검색결과없음" height={60} width={300} />
+        <div>
+          <span className="text-red40">{searchValue}</span>에 해당하는 목록이
+          없습니다.
+        </div>
       </div>
     );
   }
