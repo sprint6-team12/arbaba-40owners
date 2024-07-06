@@ -47,10 +47,10 @@ const SpecialModal = ({
     autoClose={autoClose}
     onClose={onClose}
     content={
-      <div className="relative min-w-[480px] border rounded-20px border-gray20 bg-white">
+      <div className="relative bg-white border rounded-20px border-gray20">
         <LoginSignUp isLogin={isLogin} onClose={onClose} />
         <IconCloseBlack
-          className="absolute top-20px right-20px cursor-pointer"
+          className="absolute cursor-pointer top-20px right-20px"
           onClick={onClose}
           aria-label="닫기"
         />

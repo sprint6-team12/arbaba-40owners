@@ -12,7 +12,7 @@ function DropdownOptions({
   const optionBaseStyles =
     'cursor-pointer text-14px flex-center h-40px hover:font-bold select-none';
 
-  const options = [
+  const OPTIONS = [
     {
       value: '마감임박순',
       className: 'rounded-t-6px border-b-1px border-b-gray20',
@@ -33,7 +33,7 @@ function DropdownOptions({
           className={`z-20 absolute top-34px w-105px h-160px bg-white rounded-6px border-1px border-gray20`}
           onClick={handleClick}
         >
-          {options.map(({ className, value }, index) => (
+          {OPTIONS.map(({ className, value }, index) => (
             <li
               key={index}
               className={`${className} ${optionBaseStyles}`}

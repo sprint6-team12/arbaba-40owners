@@ -42,7 +42,10 @@ export default function PostCard({
         className="w-full aspect-video mb-12px tablet:mb-20px"
       />
       <div className={`flex flex-col gap-8px`}>
-        <Post.SubTitle text={name} className="mb-4px" />
+        <Post.SubTitle
+          text={name}
+          className="mb-4px whitespace-nowrap overflow-hidden text-ellipsis"
+        />
         <Post.WorkSchedule
           startsAt={startsAt}
           workHour={workhour}
@@ -53,7 +56,7 @@ export default function PostCard({
       <div className="flex justify-between flex-col pt-16px gap-0px tablet:flex-row pc:flex-row mt-auto">
         <Post.Title text={formattedPay} className={`shrink-0`} />
         <div
-          className={`pc:absolute pc:top-24px pc:right-22px ${currentPostState !== 'open' ? 'pc:hidden' : ''}`}
+          className={`tablet:absolute pc:absolute tablet:top-24px pc:top-24px tablet:right-22px pc:right-22px ${currentPostState !== 'open' ? 'tablet:hidden pc:hidden' : ''}`}
         >
           <Post.IncreaseRateBadge
             hourlyPay={hourlyPay}

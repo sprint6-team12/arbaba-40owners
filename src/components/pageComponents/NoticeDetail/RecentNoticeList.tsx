@@ -7,7 +7,7 @@ function RecentNoticeListSection({ list }: { list: Notice[] }) {
   return (
     <>
       <Post.Title text="최근에 본 공고" className="mb-24px" />
-      <div className="flex flex-wrap gap-8px tablet:gap-14px pc:gap-14px w-full">
+      <div className="flex flex-wrap justify-between pc:justify-normal gap-8px tablet:gap-14px pc:gap-14px w-full">
         <RecentNoticeList list={list} />
       </div>
     </>
@@ -39,7 +39,7 @@ function RecentNoticeList({ list }: { list: Notice[] }) {
           <Link
             key={notice.id}
             href={href}
-            className="w-[calc(50%-8px)] pc:w-[calc(33.33333%-10px)]"
+            className="w-[calc(50%-8px)] pc:w-[calc(33.33333%-10px)] hover:animate-scale-up"
           >
             <PostCard
               noticeData={notice}

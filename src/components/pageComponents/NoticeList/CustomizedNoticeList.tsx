@@ -9,12 +9,12 @@ export default function CustomizedNoticeList() {
   const customizedNotices = useCustomizedNotices();
 
   return (
-    <div className="bg-red10 h-381px tablet:h-[535px] pc:h-[535px] pt-40px">
-      <div className="flex flex-col gap-16px tablet:gap-32px pc:gap-32px ml-12px tablet:ml-32px pc:m-auto pc:w-[964px]">
+    <div className="bg-red10 flex h-auto min-h-[400px] tablet:min-h-[535px] pc:min-h-[535px] py-40px">
+      <div className="flex flex-col gap-16px mx-auto px-12px tablet:gap-32px pc:gap-32px tablet:px-32px pc:m-auto pc:w-[964px]">
         <h1 className="text-20px tablet:text-28px pc:text-28px font-bold">
           맞춤 공고
         </h1>
-        <div className="flex pc:flex-center flex-grow-0 flex-shrink-0 h-274px tablet:h-378px pc:h-349px gap-4px tablet:gap-14px pc:gap-14px overflow-x-auto no-scrollbar">
+        <div className="flex items-center pc:flex-center flex-grow-0 flex-shrink-0 min-h-[300px] tablet:min-h-[378px] pc:min-h-[358px] gap-4px tablet:gap-14px pc:gap-14px overflow-x-auto no-scrollbar">
           {customizedNotices.items.map(({ item, links }) => {
             if (!('shop' in item)) return null;
             const noticeData = item;
@@ -25,7 +25,7 @@ export default function CustomizedNoticeList() {
               <Link
                 href={hrefValue}
                 key={noticeData.id}
-                className="flex-none w-171px tablet:w-312px pc:w-312px"
+                className="flex-none w-171px tablet:w-312px pc:w-312px hover:animate-scale-up"
               >
                 <PostCard
                   noticeData={noticeData}

@@ -108,7 +108,8 @@ export default function MyPageInput() {
     } else {
       try {
         if (userId) {
-          await userAPI.putUserData(userId, data, setAuthState);
+          const token = localStorage.getItem('token');
+          await userAPI.putUserData(userId, token!, data, setAuthState);
           handleOpenConfirmModal('등록이 완료되었습니다.');
         } else {
           handleOpenConfirmModal('유효하지 않은 사용자 ID입니다.');

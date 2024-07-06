@@ -14,9 +14,11 @@
       format('truetype');
 }
 
-body {
-  font-family: 'NanumSquareNeo';
-  @apply text-black;
+@layer base {
+  body {
+    font-family: 'NanumSquareNeo';
+    @apply text-black;
+  }
 }
 
 @layer components {
