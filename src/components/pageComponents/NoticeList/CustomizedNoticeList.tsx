@@ -14,7 +14,7 @@ export default function CustomizedNoticeList() {
         <h1 className="text-20px tablet:text-28px pc:text-28px font-bold">
           맞춤 공고
         </h1>
-        <div className="flex pc:flex-center flex-grow-0 flex-shrink-0 h-292px tablet:h-378px pc:h-349px gap-4px tablet:gap-14px pc:gap-14px overflow-x-auto no-scrollbar">
+        <div className="flex items-center pc:flex-center flex-grow-0 flex-shrink-0 h-300px tablet:h-378px pc:h-358px gap-4px tablet:gap-14px pc:gap-14px overflow-x-auto no-scrollbar">
           {customizedNotices.items.map(({ item, links }) => {
             if (!('shop' in item)) return null;
             const noticeData = item;

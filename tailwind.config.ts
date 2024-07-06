@@ -110,7 +110,7 @@ const config: Config = {
         },
         scaleUp: {
           '0%': { transform: 'scale(1)' },
-          '100%': { transform: 'scale(1.05)' },
+          '100%': { transform: 'scale(1.02)' },
         },
       },
       animation: {

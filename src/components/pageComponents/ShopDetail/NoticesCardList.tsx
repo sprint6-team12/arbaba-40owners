@@ -23,7 +23,11 @@ export default function NoticesCardList({
           {noticesData.map((item) => {
             const link = removePrefix(item.links[0].href);
             return (
-              <Link key={item.item.id} href={link}>
+              <Link
+                key={item.item.id}
+                href={link}
+                className="hover:animate-scale-up"
+              >
                 <PostCard noticeData={item.item} shopData={shopData} />
               </Link>
             );

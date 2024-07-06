@@ -39,7 +39,7 @@ function RecentNoticeList({ list }: { list: Notice[] }) {
           <Link
             key={notice.id}
             href={href}
-            className="w-[calc(50%-8px)] pc:w-[calc(33.33333%-10px)]"
+            className="w-[calc(50%-8px)] pc:w-[calc(33.33333%-10px)] hover:animate-scale-up"
           >
             <PostCard
               noticeData={notice}
