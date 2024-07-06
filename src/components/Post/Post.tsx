@@ -1,5 +1,6 @@
+import { debounce } from 'lodash';
 import Image from 'next/image';
-import React from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import RateBadge from '@/components/Badge/RateBadge';
 import FormatUtils from '@/lib/utils/FormatUtils';
 import {
@@ -124,6 +125,10 @@ function WorkSchedule({
   workHour: number;
   status?: NoticeStatus;
 }) {
+  const [isUnder280, setIsUnder280] = useState(false);
+  const [isUnder200, setIsUnder200] = useState(false);
+  const divRef = useRef<HTMLDivElement>(null);
+
   const {
     formattedStartDate,
     formattedStartTime,
@@ -138,14 +143,38 @@ function WorkSchedule({
       <IconClock aria-label="시간 활성화" />
     );
 
+  const handleResize = useCallback(
+    debounce(() => {
+      if (divRef.current) {
+        setIsUnder280(divRef.current.offsetWidth <= 280);
+        setIsUnder200(divRef.current.offsetWidth <= 200);
+      }
+    }, 500),
+    []
+  );
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      handleResize.cancel();
+    };
+  }, []);
+
   return (
-    <div className={`flex gap-6px ${className}`}>
+    <div ref={divRef} className={`flex gap-6px ${className}`}>
       <div>{clockIcon}</div>
-      <div className="flex flex-wrap leading-[21.5px] text-gray50 text-12px tablet:text-14px pc:text-14px font-[400] break-keep">
+      <div
+        className={`${isUnder280 ? 'block' : 'flex'} leading-[21.5px] text-gray50 text-12px tablet:text-14px pc:text-14px font-[400] break-keep`}
+      >
         <p className="mr-4px">{formattedStartDate}</p>
-        <p>
-          {formattedStartTime}~{formattedEndTime} ({durationHours}h)
-        </p>
+        <div className={`${isUnder200 ? 'block' : 'flex'}`}>
+          <p className="mr-4px">
+            {formattedStartTime}~{formattedEndTime}
+          </p>
+          <p>({durationHours}시간)</p>
+        </div>
       </div>
     </div>
   );

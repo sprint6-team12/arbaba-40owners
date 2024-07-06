@@ -40,7 +40,7 @@ const Popup = ({
 
   return (
     <div
-      className={`min-w-113px h-46px rounded-5px flex gap-8px justify-around items-center bg-red30 text-white text-16px px-16px ${fadeAnimationStyle}`}
+      className={`min-w-[120px] min-h-46px rounded-5px flex gap-8px justify-around items-center bg-red30 text-white text-16px py-8px px-16px break-keep ${fadeAnimationStyle}`}
       onAnimationEnd={handleAnimationEnd}
     >
       <p className="block">{message}</p>

@@ -69,7 +69,9 @@ function ApplicantsList({
   }, [applicantListCurrentPage]);
 
   if (isLoading || !applicantListData) {
-    return <div className="h-300px w-full text-center">Loading...</div>;
+    return (
+      <div className="h-300px w-full text-center min-h-[300px]">Loading...</div>
+    );
   }
 
   return (
@@ -79,7 +81,7 @@ function ApplicantsList({
       <div className="relative rounded-10px overflow-hidden">
         {!isOpen && (
           <div
-            className="absolute inset-0 z-20 h-[calc(100%-56px)]"
+            className="absolute inset-0 z-20 h-[calc(100%-62px-4px)]"
             onClick={handleOverlayClick}
           ></div>
         )}

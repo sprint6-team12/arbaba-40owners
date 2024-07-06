@@ -28,7 +28,10 @@ export default function App({ Component, pageProps }: AppProps) {
       <ModalsWrapper />
       <PopupsWrapper />
       {!is404 && <Gnb />}
-      <Component {...pageProps} />
+      {/* 100vh - (footer와 header 높이) 뺀 값을 최소 높이로 설정 */}
+      <main className="min-h-[calc(100vh-76px-162px)] tablet:min-h-[calc(100vh-76px-84px)] pc:min-h-[calc(100vh-72px-98px)]">
+        <Component {...pageProps} />
+      </main>
       <Footer />
     </RecoilRoot>
   );
