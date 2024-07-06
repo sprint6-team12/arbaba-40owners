@@ -38,4 +38,4 @@ export const SHOP_MENU_CATEGORIES: ShopMenuCategory[] = [
 ];
 
 export const SHOP_BASE_IMAGE =
-  'https://bootcamp-project-api.s3.ap-northeast-2.amazonaws.com/06-12/the-julge/b9e09597-dc41-4442-8aa9-30e39587c43e-not-shop.png';
+  'https://bootcamp-project-api.s3.ap-northeast-2.amazonaws.com/06-12/the-julge/1eb9acf0-a673-4c87-8e09-59fb3e400283-40_1.png';
