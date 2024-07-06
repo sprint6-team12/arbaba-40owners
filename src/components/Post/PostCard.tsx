@@ -42,7 +42,10 @@ export default function PostCard({
         className="w-full aspect-video mb-12px tablet:mb-20px"
       />
       <div className={`flex flex-col gap-8px`}>
-        <Post.SubTitle text={name} className="mb-4px" />
+        <Post.SubTitle
+          text={name}
+          className="mb-4px whitespace-nowrap overflow-hidden text-ellipsis"
+        />
         <Post.WorkSchedule
           startsAt={startsAt}
           workHour={workhour}
