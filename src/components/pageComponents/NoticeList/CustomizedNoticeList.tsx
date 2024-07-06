@@ -25,7 +25,7 @@ export default function CustomizedNoticeList() {
               <Link
                 href={hrefValue}
                 key={noticeData.id}
-                className="flex-none w-171px tablet:w-312px pc:w-312px"
+                className="flex-none w-171px tablet:w-312px pc:w-312px hover:animate-scale-up"
               >
                 <PostCard
                   noticeData={noticeData}
