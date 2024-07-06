@@ -7,20 +7,3 @@ export const axiosInstance = axios.create({
   },
   withCredentials: false,
 });
-
-if (typeof window !== 'undefined') {
-  const token = localStorage.getItem('token');
-  if (token) {
-    axiosInstance.interceptors.request.use(
-      (config) => {
-        config.headers.Authorization = `Bearer ${token}`;
-        return config;
-      },
-      (error) => {
-        return Promise.reject(error);
-      }
-    );
-  }
-}
-
-export default axiosInstance;

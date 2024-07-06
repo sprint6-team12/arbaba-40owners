@@ -37,9 +37,14 @@ const applicationAPI = {
     }
   },
   postShopApply: async ({ shop_id, notice_id }: ShopApplyData) => {
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    };
     try {
       const response = await axiosInstance.post(
-        `/shops/${shop_id}/notices/${notice_id}/applications`
+        `/shops/${shop_id}/notices/${notice_id}/applications`,
+        {},
+        { headers }
       );
       return response.data;
     } catch (error) {
@@ -47,9 +52,12 @@ const applicationAPI = {
     }
   },
   putShopApply: async (href: string, applyStatus: string) => {
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    };
     const body = { status: applyStatus };
     try {
-      const response = await axiosInstance.put(href, body);
+      const response = await axiosInstance.put(href, body, { headers });
       return response.data;
     } catch (error) {
       handleAxiosError(error);
@@ -61,11 +69,15 @@ const applicationAPI = {
       offset,
       limit,
     };
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    };
     try {
       const response = await axiosInstance.get(
         `/users/${user_id}/applications`,
         {
           params,
+          headers,
         }
       );
       return response.data;
