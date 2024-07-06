@@ -5,6 +5,7 @@ import Logo from '/public/images/logo.png';
 type ToggleContainerProps = {
   isSignUp: boolean;
   onToggle: () => void;
+  isMobile: boolean;
 };
 
 const signUp = {
@@ -19,8 +20,25 @@ const signIn = {
   sign: '회원가입',
 };
 
-const ToggleContainer = ({ isSignUp, onToggle }: ToggleContainerProps) => {
+const ToggleContainer = ({
+  isSignUp,
+  onToggle,
+  isMobile,
+}: ToggleContainerProps) => {
   const content = isSignUp ? signUp : signIn;
+
+  const ToggleButton = () => (
+    <Button
+      className={`button_medium_active${isMobile ? ' mb-20px' : ''}`}
+      onClick={onToggle}
+    >
+      {content.sign}
+    </Button>
+  );
+
+  if (isMobile) {
+    return ToggleButton();
+  }
 
   return (
     <div
@@ -30,11 +48,9 @@ const ToggleContainer = ({ isSignUp, onToggle }: ToggleContainerProps) => {
     >
       <>
         <Image src={Logo} className="mb-16px" alt="더줄게 로고" />
-        <h1 className="mb-16px text-xl font-bold">{content.title}</h1>
+        <h1 className="text-xl font-bold mb-16px">{content.title}</h1>
         <p className="mb-32px">{content.text}</p>
-        <Button className="button_medium_active" onClick={onToggle}>
-          {content.sign}
-        </Button>
+        {ToggleButton()}
       </>
     </div>
   );
