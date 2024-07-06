@@ -32,7 +32,7 @@ export default function InputComponent({
             placeholder={placeholder}
             value={value}
             onChange={onChange}
-            className=" px-20px my-4px text-16px h-58px"
+            className="px-20px my-4px text-16px h-58px"
           />
         ) : (
           <FormGroup.InputField.Textarea
