@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import useMediaQuery from '@/lib/utils/useMediaQuery';
+import useMediaQuery from '@/hooks/useMediaQuery';
 import SignInFormContainer from './SignInFormContainer';
 import SignUpFormContainer from './SignUpFormContainer';
 import ToggleContainer from './ToggleContainer';
