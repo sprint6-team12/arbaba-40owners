@@ -108,12 +108,17 @@ const config: Config = {
           '0%': { transform: 'rotate(0deg)' },
           '100%': { transform: 'rotate(360deg)' },
         },
+        scaleUp: {
+          '0%': { transform: 'scale(1)' },
+          '100%': { transform: 'scale(1.02)' },
+        },
       },
       animation: {
         fadeIn: 'fadeIn 0.5s ease-out',
         fadeOut: 'fadeOut 0.5s ease-out',
         spin: 'spin 1s linear infinite',
         'spin-slow': 'spin 10s linear infinite',
+        'scale-up': 'scaleUp 0.2s ease-in-out forwards',
       },
     },
   },

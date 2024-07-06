@@ -148,7 +148,7 @@ function AddShopPage() {
                 <IconCloseBlack />
               </button>
             </div>
-            <div className="flex flex-col gap-20px w-full tablet:flex-row tablet:flex-wrap tablet:gap-24px  pc:flex-row pc:flex-wrap pc:gap-32px">
+            <div className="flex flex-col gap-20px w-full tablet:flex-row tablet:flex-wrap tablet:gap-24px pc:flex-row pc:flex-wrap pc:gap-32px">
               <div className="tablet:flex tablet:w-full tablet:h-92px tablet:gap-20px pc:flex pc:w-full pc:h-92px pc:gap-20px">
                 <div className="flex flex-col gap-8px w-full tablet:w-1/2">
                   <InputComponent
@@ -177,7 +177,7 @@ function AddShopPage() {
                   )}
                 </div>
               </div>
-              <div className="tablet:flex tablet:w-full tablet:h-92px tablet:gap-20px  pc:flex pc:w-full pc:h-92px pc:gap-20px">
+              <div className="tablet:flex tablet:w-full tablet:h-92px tablet:gap-20px pc:flex pc:w-full pc:h-92px pc:gap-20px">
                 <div className="flex flex-col gap-8px w-full tablet:w-1/2 ">
                   <h1 className="mt-8px mb-4px">주소*</h1>
                   <Dropdown
@@ -222,10 +222,7 @@ function AddShopPage() {
                     {imagePreview ? (
                       <>
                         <button>
-                          <IconCloseBlack
-                            onClick={handleImageReset}
-                            className=""
-                          />
+                          <IconCloseBlack onClick={handleImageReset} />
                         </button>
                         <Image
                           src={imagePreview}

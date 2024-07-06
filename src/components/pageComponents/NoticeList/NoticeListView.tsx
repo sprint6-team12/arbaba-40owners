@@ -47,7 +47,7 @@ function NoticeListView({ initialData, title }: NoticeListViewProps) {
               <Link
                 href={hrefValue}
                 key={noticeData.id}
-                className="w-171px tablet:w-332px pc:w-312px mb-8px tablet:mb-18px pc:18px"
+                className="w-171px tablet:w-332px pc:w-312px mb-8px tablet:mb-18px pc:18px hover:animate-scale-up"
               >
                 <PostCard
                   noticeData={noticeData}
@@ -58,7 +58,7 @@ function NoticeListView({ initialData, title }: NoticeListViewProps) {
             );
           })}
         </div>
-        <div className="inline-block mx-auto mt-40px mb-60px">
+        <div className="inline-block mx-auto mt-40px mb-60px select-none">
           <Pagination
             count={noticeData.count}
             limit={noticeData.limit}
