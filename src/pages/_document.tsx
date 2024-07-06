@@ -6,8 +6,9 @@ export default function Document() {
       <Head>
         <link
           rel="stylesheet"
-          href="https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css"
+          href="https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.eot"
         />
+        <link rel="icon" href="/arbaba.png" type="image/x-icon" />
       </Head>
       <body>
         <Main />

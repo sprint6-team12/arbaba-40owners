@@ -3,13 +3,20 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'SpoqaHanSansNeo';
-  src: url(https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+  font-family: 'NanumSquareNeo';
+  src: url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.eot);
+  src:
+    url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.eot?#iefix)
+      format('embedded-opentype'),
+    url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.woff)
+      format('woff'),
+    url(https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.ttf)
+      format('truetype');
 }
 
 @layer base {
   body {
-    font-family: 'SpoqaHanSansNeo';
+    font-family: 'NanumSquareNeo';
     @apply text-black;
   }
 }

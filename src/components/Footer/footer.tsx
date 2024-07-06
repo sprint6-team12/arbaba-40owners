@@ -10,7 +10,7 @@ export default function Footer() {
     <footer className="flex justify-between p-20px tablet:p-30px pc:px-[238px] py-37px bg-gray10">
       <div className="flex flex-col gap-40px tablet:flex-row pc:flex-row tablet:basis-1/2 pc:basis-1/2 tablet:justify-between pc:justify-between">
         <span className="order-3 font-normal tablet:order-none pc:order-none text-16px text-gray50">
-          @codeit - 2023
+          @codeit - 2024
         </span>
         <div className="flex items-center gap-40px">
           <span className="font-normal text-16px text-gray50">

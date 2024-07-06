@@ -11,7 +11,7 @@ export default function MyPageProfile({
 }) {
   const { name, phone, address, bio } = ProfileData;
   return (
-    <div className="flex justify-between border-none rounded-12px w-full pc:w-[665px] p-20px tablet:p-32px pc:p-32px bg-red10 mt-16px">
+    <div className="flex justify-between border-none rounded-12px w-full p-20px tablet:p-32px pc:p-32px bg-red10 mt-16px">
       <div className="flex flex-col gap-8px tablet:gap-12px">
         <div>
           <p className="text-custom-orange text-14px font-[700]">이름</p>
@@ -31,8 +31,11 @@ export default function MyPageProfile({
         )}
         <div className="mt-12px">{bio}</div>
       </div>
-      <div className="w-108px tablet:w-169px pc:w-169px">
-        <Button className="w-full button_medium_disActive" onClick={onClick}>
+      <div className="tablet:w-169px pc:w-169px break-keep">
+        <Button
+          className="[&_>div]:w-full button_medium_disActive"
+          onClick={onClick}
+        >
           편집하기
         </Button>
       </div>
