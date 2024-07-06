@@ -34,7 +34,11 @@ export default function MyPageRegistered({
             offset: (currentPage - 1) * limit,
             limit: limit,
           });
-          setData(result);
+          if (result.items && result.items.length > 0) {
+            setData(result);
+          } else {
+            setData(null);
+          }
         } catch (error) {
           alert(error);
         }
