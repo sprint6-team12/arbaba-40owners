@@ -53,7 +53,7 @@ export default function PostCard({
       <div className="flex justify-between flex-col pt-16px gap-0px tablet:flex-row pc:flex-row mt-auto">
         <Post.Title text={formattedPay} className={`shrink-0`} />
         <div
-          className={`pc:absolute pc:top-24px pc:right-22px ${currentPostState !== 'open' ? 'pc:hidden' : ''}`}
+          className={`tablet:absolute pc:absolute tablet:top-24px pc:top-24px tablet:right-22px pc:right-22px ${currentPostState !== 'open' ? 'tablet:hidden pc:hidden' : ''}`}
         >
           <Post.IncreaseRateBadge
             hourlyPay={hourlyPay}
