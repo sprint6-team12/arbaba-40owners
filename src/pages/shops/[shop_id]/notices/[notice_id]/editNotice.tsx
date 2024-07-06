@@ -10,7 +10,7 @@ export default function AddNotice() {
     <div className="px-40px tablet:px-60px pc:px-[238px] py-12px tablet:py-32px pc:py-60px">
       <div className="flex justify-between">
         <span className="font-[700] text-20px tablet:text-28px pc:text-28px mb-24px">
-          공고 등록
+          공고 편집
         </span>
         <Link href={`/shops/${shopId}`}>
           <IconCloseBlack aria-label="닫기" />
