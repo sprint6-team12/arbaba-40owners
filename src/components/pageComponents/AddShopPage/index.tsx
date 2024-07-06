@@ -5,7 +5,11 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import Button from '@/components/Button/Button';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import FormGroup from '@/components/FormGroup/FormGroup';
-import { SHOP_LOCATIONS, SHOP_MENU_CATEGORIES } from '@/constants/shopOptions';
+import {
+  SHOP_BASE_IMAGE,
+  SHOP_LOCATIONS,
+  SHOP_MENU_CATEGORIES,
+} from '@/constants/shopOptions';
 import useModal from '@/hooks/useModal';
 import imageAPI from '@/lib/api/imageAPI';
 import shopAPI from '@/lib/api/shopAPI';
@@ -34,7 +38,7 @@ function AddShopPage() {
     address2: '',
     hourlyPay: '',
     description: '',
-    imageUrl: '',
+    imageUrl: SHOP_BASE_IMAGE,
   });
   const [disabled, setDisabled] = useState(false);
   const [errors, setErrors] = useState<ShopType>({
@@ -50,13 +54,26 @@ function AddShopPage() {
   const { shopId } = useRecoilValue(userState);
   const setAuthState = useSetRecoilState(userState);
 
+  // 숫자 포맷팅 함수 추가
+  const formatNumber = (num: string) => {
+    return num.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  };
+
+  // 쉼표 제거 및 상태 업데이트
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { id, value } = event.target;
-    const errorMessage = validateShopInfo(id as keyof ShopType, value);
+    const valueWithoutCommas = value.replace(/,/g, ''); // 쉼표 제거
+    const errorMessage = validateShopInfo(
+      id as keyof ShopType,
+      valueWithoutCommas
+    );
     setErrors((prevErrors) => ({ ...prevErrors, [id]: errorMessage }));
-    setFormData((prevFormData) => ({ ...prevFormData, [id]: value }));
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [id]: valueWithoutCommas,
+    })); // 쉼표 제거한 값으로 상태 업데이트
   };
 
   const handleDropdownChange = (id: keyof ShopType, value: string) => {
@@ -89,6 +106,10 @@ function AddShopPage() {
 
   const handleImageReset = () => {
     setImagePreview('');
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      imageUrl: SHOP_BASE_IMAGE,
+    }));
   };
 
   const handleOpenConfirmModal = (content: string) => {
@@ -210,7 +231,8 @@ function AddShopPage() {
                   name="기본 시급*"
                   type="input"
                   placeholder="입력"
-                  value={formData.hourlyPay}
+                  // 숫자 포맷팅 적용
+                  value={formatNumber(formData.hourlyPay)}
                   onChange={handleInputChange}
                   errorMessage={errors.hourlyPay}
                 />
@@ -221,7 +243,7 @@ function AddShopPage() {
                   <div onClick={handleClick}>
                     {imagePreview ? (
                       <>
-                        <button>
+                        <button className="absolute pc:ml-[450px] pc:mt-2px border-solid border-2px border-black">
                           <IconCloseBlack onClick={handleImageReset} />
                         </button>
                         <Image
@@ -230,7 +252,7 @@ function AddShopPage() {
                           layout="responsive"
                           width={483}
                           height={276}
-                          className="rounded-md"
+                          className="max-w-[483px] max-h-[276px] rounded-md"
                         />
                       </>
                     ) : (

@@ -19,7 +19,7 @@ export default function NoticesCardList({
         {title}
       </h1>
       <div className="flex gap-32px">
-        <div className="grid grid-cols-2 gap-x-8px gap-y-12px my-0 mx-auto pc:gap-x-36px pc:gap-y-26px pc:grid-cols-3">
+        <div className="grid grid-cols-2 gap-x-8px gap-y-12px my-0 mx-auto pc: w-[936px] pc:gap-x-36px pc:gap-y-26px pc:grid-cols-3">
           {noticesData.map((item) => {
             const link = removePrefix(item.links[0].href);
             return (

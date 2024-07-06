@@ -6,7 +6,11 @@ import InputComponent from '@/components/AddShopPage/InputComponents';
 import Button from '@/components/Button/Button';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import FormGroup from '@/components/FormGroup/FormGroup';
-import { SHOP_LOCATIONS, SHOP_MENU_CATEGORIES } from '@/constants/shopOptions';
+import {
+  SHOP_BASE_IMAGE,
+  SHOP_LOCATIONS,
+  SHOP_MENU_CATEGORIES,
+} from '@/constants/shopOptions';
 import imageAPI from '@/lib/api/imageAPI';
 import shopAPI from '@/lib/api/shopAPI';
 import { IconCloseBlack } from '@/lib/utils/Icons';
@@ -20,7 +24,7 @@ interface ShopType {
   address2: string;
   hourlyPay: string;
   shopDescription?: string | undefined;
-  imageUrl?: string | undefined;
+  imageUrl?: string;
 }
 
 function EditShopPage() {
@@ -34,13 +38,14 @@ function EditShopPage() {
     address2: '',
     hourlyPay: '',
     shopDescription: '',
-    imageUrl: '',
+    imageUrl: SHOP_BASE_IMAGE,
   });
   const [disabled, setDisabled] = useState(false);
   const [errors, setErrors] = useState<Partial<ShopType>>({});
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const shop_id = shopId;
+
   useEffect(() => {
     if (!isLogin) {
       alert('로그인이 필요합니다.');
@@ -77,9 +82,17 @@ function EditShopPage() {
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { id, value } = event.target;
-    const errorMessage = validateShopInfo(id as keyof ShopType, value);
+    // Remove commas for validation and state update
+    const valueWithoutCommas = value.replace(/,/g, '');
+    const errorMessage = validateShopInfo(
+      id as keyof ShopType,
+      valueWithoutCommas
+    );
     setErrors((prevErrors) => ({ ...prevErrors, [id]: errorMessage }));
-    setFormData((prevFormData) => ({ ...prevFormData, [id]: value }));
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [id]: valueWithoutCommas,
+    }));
   };
 
   const handleDropdownChange = (id: keyof ShopType, value: string) => {
@@ -111,7 +124,11 @@ function EditShopPage() {
   };
 
   const handleImageReset = () => {
-    setImagePreview(null);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      imageUrl: SHOP_BASE_IMAGE,
+    }));
+    setImagePreview(SHOP_BASE_IMAGE);
   };
 
   const handleTotalSubmit = async () => {
@@ -144,6 +161,10 @@ function EditShopPage() {
     } catch (error) {
       alert(error);
     }
+  };
+
+  const formatNumber = (num: string) => {
+    return num.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   };
 
   return (
@@ -181,6 +202,7 @@ function EditShopPage() {
                   onSelect={(value) => handleDropdownChange('category', value)}
                   width="100%"
                   defaultValue={formData.category || '선택'}
+                  prevValue={formData.category}
                 />
                 {errors.category && (
                   <p className="text-red-500">{errors.category}</p>
@@ -195,6 +217,7 @@ function EditShopPage() {
                   onSelect={(value) => handleDropdownChange('address1', value)}
                   width="100%"
                   defaultValue={formData.address1 || '선택'}
+                  prevValue={formData.address1}
                 />
                 {errors.address1 && (
                   <p className="text-red-500">{errors.address1}</p>
@@ -218,22 +241,22 @@ function EditShopPage() {
                 name="기본 시급*"
                 type="input"
                 placeholder="입력"
-                value={formData.hourlyPay}
+                value={formatNumber(formData.hourlyPay)}
                 onChange={handleInputChange}
                 errorMessage={errors.hourlyPay || ''}
               />
             </div>
             <div className="flex flex-col gap-8px w-full">
               <h1>가게 이미지</h1>
-              <div className="inline-block relative">
+              <div className="inline-block relative pc:w-1/2">
                 <div onClick={handleClick}>
-                  {imagePreview ? (
+                  {imagePreview !== SHOP_BASE_IMAGE ? (
                     <>
                       <button className="absolute pc:ml-[450px] pc:mt-2px border-solid border-2px border-black">
                         <IconCloseBlack onClick={handleImageReset} />
                       </button>
                       <Image
-                        src={imagePreview}
+                        src={imagePreview || ''}
                         alt="업로드된 이미지"
                         layout="responsive"
                         width={483}

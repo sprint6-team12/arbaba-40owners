@@ -61,7 +61,7 @@ export default function MyPageRegistered({
   };
 
   return (
-    <div className="px-40px tablet:px-60px pc:px-[350px] py-12px tablet:py-32px pc:py-60px w-957px">
+    <div className="px-40px tablet:px-60px mx-auto pc:w-[1040px] py-12px tablet:py-32px pc:py-60px w-957px">
       <div className="pc:flex mb-60px pc:w-957px">
         <span className="font-[700] text-20px tablet:text-28px pc:text-28px text-nowrap mr-190px">
           내 프로필
