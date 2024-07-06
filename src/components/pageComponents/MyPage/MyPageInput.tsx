@@ -156,7 +156,7 @@ export default function MyPageInput() {
             </div>
           </div>
           <div className="mb-20px w-full pc:basis-1/3">
-            <h2>선호 지역</h2>
+            <h2 className="mb-6px">선호 지역</h2>
             <Dropdown
               options={SHOP_LOCATIONS}
               onSelect={handleDropdownSelect}
