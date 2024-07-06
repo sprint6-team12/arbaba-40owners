@@ -34,7 +34,7 @@ function EditShopPage() {
     address2: '',
     hourlyPay: '',
     shopDescription: '',
-    imageUrl: '',
+    imageUrl: 'https://ibb.co/NFq1htW',
   });
   const [disabled, setDisabled] = useState(false);
   const [errors, setErrors] = useState<Partial<ShopType>>({});
@@ -120,6 +120,10 @@ function EditShopPage() {
   };
 
   const handleImageReset = () => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      imageUrl: 'https://ibb.co/NFq1htW',
+    }));
     setImagePreview(null);
   };
 

@@ -34,7 +34,7 @@ function AddShopPage() {
     address2: '',
     hourlyPay: '',
     description: undefined,
-    imageUrl: undefined,
+    imageUrl: 'https://ibb.co/NFq1htW',
   });
   const [disabled, setDisabled] = useState(false);
   const [errors, setErrors] = useState<ShopType>({
@@ -89,7 +89,10 @@ function AddShopPage() {
 
   const handleImageReset = () => {
     setImagePreview('');
-    setFormData((prevFormData) => ({ ...prevFormData, imageUrl: undefined }));
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      imageUrl: 'https://ibb.co/NFq1htW',
+    }));
   };
 
   const handleOpenConfirmModal = (content: string) => {
