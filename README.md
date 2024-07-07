@@ -21,7 +21,7 @@
 
 - ### 협력
 
-  - 원활한 협력을 위해 [notion](https://www.notion.so/part3-12-2e36b18474754374ba9640bd24dac669)에 팀규칙을 기록하고, discord로 소통, [jira](https://dodobirdy.atlassian.net/jira/software/projects/DD/boards/1/timeline)를 통해 이슈관리를 하였습니다
+  - 원활한 협력을 위해 [notion](https://www.notion.so/part3-12-2e36b18474754374ba9640bd24dac669)에 팀규칙을 기록하고, discord로 소통, [jira](https://dodobirdy.atlassian.net/jira/software/projects/DD/boards/1/timeline)를 통해 이슈를 관리했습니다
   - `Eslint`와 `prettier`를 사용해 일관된 코드스타일을 유지하려 노력했습니다
   - `git hooks(husky)`를 이용해 main branch에 불필요한 에러와 커밋을 방지했습니다
 
@@ -37,7 +37,7 @@
 
   - `Next.js` PageRouter
 
-    (개발 기간이 짧았기에 더 익숙하고, 에러가 적으며, 정보가 풍부한 `PageRouter`를 선택했습니다)
+    (개발기간이 짧았기에 더 익숙하고, 에러가 더 적으며, 정보가 많은 `PageRouter`를 선택했습니다)
 
   - `TypeScript`을 사용
 
@@ -45,15 +45,15 @@
 
   - `Recoil`을 이용한 상태 관리
 
-    (리액트의 useState와 유사한 방법으로 사용하기 때문에 러닝커브가 적어 바로 도입할 수 있는 기술이라 판단해 선택했습니다.)
+    (리액트의 useState와 유사한 방법으로 사용하기 때문에, 러닝커브가 적어 바로 도입할 수 있다고 판단해 선택했습니다.)
 
   - `TailwindCSS` 사용
 
-    (css-in-js 방식이 아니기에 next에 적합하면서도 스타일 작업 속도가 다른 방법에 비해 월등히 빨라지기 때문에 선택했습니다.)
+    (css-in-js 방식이 아니기에 next에 적합했고, 스타일 작업 속도를 향상 시키기위해 도입했습니다.)
 
   - `Axios` 사용
 
-    (page router를 선택했기에 axios사용에 부담이 없었고, instance기능과 자동적인 에러처리 등 DX 향상을 위해 선택했습니다)
+    (page router를 선택했기에 axios사용에 부담이 없었고, instance기능과 자동적인 에러처리 등 DX 향상을 위해 도입했습니다)
 
 <br>
 <br>
@@ -94,7 +94,7 @@
 
 <br>
 
-`퇴근스레드`로(디스코드 스레드)로 퇴근 시에 오늘 한 일, 내일 할 일을 공유했습니다
+`퇴근스레드`로 퇴근 시에 오늘 한 일, 내일 할 일을 공유했습니다
 
 (데일리스크럼을 비교적 늦은 시간에 진행했기때문에 (오후 4시) 추가적인 진행 상황 공유와 퇴근 후 개인시간 보장 목적으로 도입)
 
@@ -106,11 +106,9 @@
 
 지라의 타임라인, 백로그, 보드를 이용해 기본적인 이슈관리를 진행하였습니다
 
-(스프린트 기능을 활용해 에자일하게 개발을 진행하려고 노력했습니다.)
+스프린트 기능을 활용해 에자일하게 개발을 진행하려고 노력했습니다.
 
-<br>
-
-지라의 이슈를 활용해 의견을 주고받음으로서 소통내용이 흩어지지 않고 효율적으로 의견을 관리할 수 있었습니다
+이슈를 활용해 의견을 주고받음으로서 소통내용이 흩어지지 않고 효율적으로 의견을 관리할 수 있었습니다
 
 <details>
   <summary> 이런 식으로 이슈에 대해 이야기를 나눴어요 🧐</summary>
@@ -155,7 +153,9 @@
 <img width="1068" alt="image" src="https://github.com/sprint6-team12/the-julge/assets/154623483/01bee522-98f2-4892-ab2a-32634dd8e0c9">
 
 ![Jul-07-2024 22-59-47](https://github.com/sprint6-team12/the-julge/assets/154623483/528f0be0-b44c-457d-b6ed-3e36d8014513)
+
 ![Jul-07-2024 23-00-17](https://github.com/sprint6-team12/the-julge/assets/154623483/8e0f4256-9679-4053-8252-612e28ad0da5)
+
 ![Jul-07-2024 23-01-16](https://github.com/sprint6-team12/the-julge/assets/154623483/5ca2d540-2aef-405f-9693-183cc4e2232b)
 <br>
 <br>
@@ -171,16 +171,16 @@
 ├── src/                     # 소스 코드 폴더
 │   ├── components/          # 재사용 가능한 컴포넌트
 │   │   ├── pageComponents/  # 페이지 종속성 컴포넌트
-│   │   │   └── items/         (path같은 기준을 잡고 분리)
+│   │   │   └── items/
 │   │   │        └── index.tsx
 │   │   └──  .
 │   │        .
 │   │        .
+│   │
 │   ├── pages/               # 페이지 컴포넌트
 │   │   ├── _app.tsx         # 글로벌 설정
 │   │   ├── _document.tsx    # 문서 설정
-│   │   ├── index.tsx        # 루트 경로 페이지
-│   │   └── about.tsx        # /about 페이지
+│   │   └── index.tsx        # 루트 경로 페이지
 │   ├── styles/              # 스타일 파일
 │   │   ├── globals.css
 │   │   └── tailwind.css
@@ -190,16 +190,16 @@
 │   ├── hooks/               # 커스텀 훅
 │   ├── types/               # 타입 선언 파일
 │   │   └── User.d.ts          (기본적인 데이터 타입을 전역 타입 파일로 관리)
-│   ├── recoil/                # 리코일 관련 파일
+│   ├── recoil/              # 리코일 관련 파일
 │   │   └─atoms/
-│   └── constants/         # 상수파일
-├── node_modules/          # 프로젝트 의존성
-├── .env                   # 환경 변수 파일
-├── .gitignore             # Git 무시 파일
-├── tsconfig.json          # TypeScript 설정 파일
-├── tailwind.config.js     # Tailwind CSS 설정 파일
-├── postcss.config.js      # PostCSS 설정 파일
-├── package.json           # 프로젝트 메타데이터 및 스크립트
-└── next.config.js         # Next.js 설정 파일
+│   └── constants/           # 상수파일
+├── node_modules/            # 프로젝트 의존성
+├── .env                     # 환경 변수 파일
+├── .gitignore               # Git 무시 파일
+├── tsconfig.json            # TypeScript 설정 파일
+├── tailwind.config.js       # Tailwind CSS 설정 파일
+├── postcss.config.js        # PostCSS 설정 파일
+├── package.json             # 프로젝트 메타데이터 및 스크립트
+└── next.config.js           # Next.js 설정 파일
 
 ```
