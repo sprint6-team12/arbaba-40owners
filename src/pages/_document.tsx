@@ -20,7 +20,7 @@ export default function Document() {
         />
         <meta
           property="og:image"
-          content="https://cdn.discordapp.com/attachments/1242764736924483644/1259417140373618769/image.png?ex=668b9b1d&is=668a499d&hm=64181ec26a4baf0dd27eff1d89957348468421b6c7cd040407f43321fc195c93&"
+          content="https://cdn.discordapp.com/attachments/1228964135052644362/1259512794248904794/1.png?ex=668bf432&is=668aa2b2&hm=7f5f142140fd53d1692b6564815cbbe7caef161cb22af060af8f457c88f90e72&"
         />
         <meta property="og:url" content="https://the-julge-6-12.vercel.app/" />
         <title>아르바바와40인의사장들</title>
