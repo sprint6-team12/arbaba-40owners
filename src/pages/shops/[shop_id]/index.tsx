@@ -50,9 +50,10 @@ export const getServerSideProps: GetServerSideProps<ShopDetailProps> = async (
 };
 
 export default function ShopDetail({ shopData, noticesData }: ShopDetailProps) {
-  const { token, userId, type, isLogin } = useRecoilValue(userState);
+  const { token, userId, type, isLogin, shopId } = useRecoilValue(userState);
   const { setUser } = useAuth();
   const router = useRouter();
+  const { shop_id } = router.query;
 
   useEffect(() => {
     if (!isLogin) {
@@ -61,6 +62,11 @@ export default function ShopDetail({ shopData, noticesData }: ShopDetailProps) {
       return;
     }
     if (type !== 'employer') {
+      alert('권한이 없습니다.');
+      router.push('/');
+      return;
+    }
+    if (shop_id !== shopId) {
       alert('내 가게가 아닙니다.');
       router.push('/');
       return;
@@ -71,10 +77,10 @@ export default function ShopDetail({ shopData, noticesData }: ShopDetailProps) {
       router.push('/');
       return;
     }
-  }, [isLogin, type, token, userId, router, setUser]);
+  }, [isLogin, type, token, userId, router, shopId, shop_id, setUser]);
 
   return (
-    <div className="w-full flex flex-col">
+    <div className="flex flex-col w-full">
       <ShopHeaderSection title="내 가게" shopData={shopData} />
       {noticesData && shopData && (
         <NoticesList noticesData={noticesData} shopData={shopData} />
