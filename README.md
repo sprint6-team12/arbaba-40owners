@@ -205,3 +205,5 @@
 ```
 
 ## 짧은 후기
+
+<img width="1068" alt="image" src="https://github.com/sprint6-team12/the-julge/assets/154623483/ee4fea57-71c3-433e-a59e-29beaf02be36">
