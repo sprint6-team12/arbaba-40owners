@@ -1,0 +1,223 @@
+## 프로젝트 소개
+
+// 프로젝트 메인 사진
+
+// 프로젝트 설명
+
+<br>
+<br>
+
+## ✌️ 팀원 소개
+
+|                                           김제완                                           |                                          원찬희                                           |                                         📢 이도요                                         |                                           이정민                                           |                                           주강산                                           |
+| :----------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------: |
+| <img src="https://avatars.githubusercontent.com/u/162148781?v=4" width="150" height="150"> | <img src="https://avatars.githubusercontent.com/u/97877328?v=4" width="150" height="150"> | <img src="https://avatars.githubusercontent.com/u/83871696?v=4" width="150" height="150"> | <img src="https://avatars.githubusercontent.com/u/154623483?v=4" width="150" height="150"> | <img src="https://avatars.githubusercontent.com/u/162934516?v=4" width="150" height="150"> |
+|                          [@Berrnuda](https://github.com/Berrnuda)                          |                          [@wch2208](https://github.com/wch2208)                           |                           [@doh-yo](https://github.com/doh-yo)                            |                             [@oris8](https://github.com/oris8)                             |                        [@JooKangsan](https://github.com/JooKangsan)                        |
+| # 로그인, 회원가입 페이지<br>가게 상세 페이지<Br># 컴포넌트 - Filter<br>(공고검색시 사용)  |   # 공고리스트 페이지<br>(공고 검색결과 페이지 포함)<br># 컴포넌트 - (List)Table, Badge   |               # 공고등록 페이지, 마이페이지<br># 컴포넌트 - GNB,footer,Post               |        # 공고상세 페이지 <br>(일반회원/사장님)<br># 컴포넌트 - Modal, Popup, Input         | # 가게 등록 페이지 <br>가게 편집페이지<br>#컴포넌트 - Button, Dropdown <br> # API 함수제작 |
+|                              UI/UX 개선사항 논의,<br> QA 관리                              |                               UI/UX 개선사항 논의,<br>발표                                |                         팀장, <br> 팀내 디자인 작업,<br>발표 PPT                          |           초기 작업 환경 설정,<br>UI/UX 개선사항 논의<br>리드미 작성 및 QA 관리            |                      스타일 초기설정,<br> 노션 관리, <br> 서비스 배포                      |
+
+<br>
+<br>
+
+## 💻 사용 기술
+
+- ### 협력
+
+  - 원활한 협력을 위해 notion에 팀규칙을 기록하고, discord로 소통, jira를 통해 이슈관리를 하였습니다
+  - Eslint와 prettier를 사용해 일관된 코드스타일을 유지하려 노력했습니다
+  - git hooks(husky)를 이용해 main branch에 불필요한 에러와 커밋을 방지했습니다
+
+<br>
+<div>
+<img src="https://img.shields.io/badge/discord-5865F2?style=for-the-badge&logo=discord&logoColor=white">
+<br>
+<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> 
+<img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
+<br>
+<a href="https://www.notion.so/part3-12-2e36b18474754374ba9640bd24dac669"><img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white"></a> ← 클릭하면 팀 노션 페이지로 연결됩니다
+<br>
+<a href="https://dodobirdy.atlassian.net/jira/software/projects/DD/boards/1/timeline"><img src="https://img.shields.io/badge/jira-0052CC?style=for-the-badge&logo=jira&logoColor=white"></a> ← 클릭하면 팀 jira 페이지로 연결됩니다
+<br>
+<img src="https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white"> 
+<img src="https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=black">
+<img src="https://img.shields.io/badge/husky-FF4154?style=for-the-badge&logo=husky&logoColor=white">
+</div>
+<br>
+<br>
+
+- ### Development
+
+  - `Next.js` PageRouter를 사용해 제작했습니다
+
+    (개발 기간이 짧았기에 더 익숙하고, 에러가 적으며, 정보가 풍부한 `PageRouter`를 선택했습니다)
+
+  - `타입`을 활용해 에러를 방지하고, 타입 명시로 협업시 다른 사람의 코드 파악이 쉬워질 수 있도록 노력했습니다
+
+  - `Recoil`을 이용해 상태를 관리했습니다
+
+    (리액트의 useState와 유사한 방법으로 사용하기 때문에 러닝커브가 적어 바로 도입할 수 있는 기술이라 판단해 선택했습니다.)
+
+  - `TailwindCSS`를 사용했습니다
+
+    (css-in-js 방식이 아니기에 next에 적합하면서도 스타일 작업 속도가 다른 방법에 비해 월등히 빨라지기 때문에 선택했습니다.)
+
+  - `Axios`를 사용했습니다
+
+    (page router를 선택했기에 axios사용에 부담이 없었고, instance기능과 자동적인 에러처리 등 DX 향상을 위해 선택했습니다)
+
+<br>
+<div>
+<img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white">
+<img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=next.js&logoColor=white"/>
+<img src="https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white">
+<br>
+<img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white"/>
+<img src="https://img.shields.io/badge/recoil-FF4154?style=for-the-badge&logo=recoil&logoColor=white">
+<img src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white">
+</div>
+<br>
+<br>
+<br>
+
+- ### 배포
+
+  - vercel을 통해 배포
+
+<br>
+<br>
+<br>
+
+## 📌 개발 기간 및 작업 관리
+
+### 전체 개발 기간 : 2024-06-21 ~ 2024-07-07<br>
+
+<img src="https://github.com/sprint6-team12/the-julge/assets/154623483/f4bcddb9-92a3-486f-aa71-e6eb7041f08c" height="250"/>
+<br>
+<br>
+
+### 작업 관리
+
+개발 시작 전 `UserFlow`를 작성해보면서 시안을 명확히 파악하고 업무를 분배하였습니다 (강산님, 찬희님이 작성해주신 UserFlow)
+
+<details>
+  <summary>😎 강산님, 찬희님이 작성해주신 UserFlow 😎</summary>
+
+<img src="https://github.com/sprint6-team12/the-julge/assets/154623483/8e14af32-20bc-4508-a9d4-6051821f0c44" width="700"/>
+<img src="https://github.com/sprint6-team12/the-julge/assets/154623483/d1185afa-ac21-4c6a-b27b-aebc3a66f4ee" width="700"/> 
+</details>
+
+<br>
+<br>
+
+매일 오후 `데일리스크럼`을 통해 프로젝트 관련 회의를 나누고,
+
+데일리스크럼 이후 2시간 `코어타임`을 가졌습니다
+
+<br>
+
+`퇴근스레드`로(디스코드 스레드)로 퇴근 시에 오늘 한 일, 내일 할 일을 공유했습니다
+
+데일리스크럼을 비교적 늦은 시간에 진행했기때문에 (오후 4시) 추가적인 진행 상황 공유와 퇴근 후 개인시간 보장 목적으로 도입했습니다
+
+<br>
+
+<details>
+  <summary>😎 [팀 Notion] 스크린샷으로 미리 보기 😎</summary>
+<img width="700" alt="image" src="https://github.com/sprint6-team12/the-julge/assets/154623483/406b6ddf-9983-420a-86ae-a7ae05b1b028">
+<img width="700" alt="image" src="https://github.com/sprint6-team12/the-julge/assets/154623483/7ad24f65-8a69-4efb-aa4c-44aa6b621ec8">
+</details>
+
+<br>
+
+### jira
+
+지라의 타임라인, 백로그, 보드를 이용해 기본적인 이슈관리를 진행하였습니다
+
+(스프린트 기능을 활용해 에자일하게 개발을 진행하려고 노력했습니다.)
+
+<br>
+
+지라의 이슈를 활용해 의견을 주고받음으로서 소통내용이 흩어지지 않고 효율적으로 의견을 관리할 수 있었습니다
+
+<details>
+  <summary>🧐 이런 식으로 이슈에 대해 이야기를 나눴어요 🧐</summary>
+ <img src="https://github.com/sprint6-team12/the-julge/assets/154623483/381d99c4-13a1-4954-9fa0-0ebab81092f6" width="700"/>
+<img src="https://github.com/sprint6-team12/the-julge/assets/154623483/50e23e58-6c1c-4ccb-8b39-6856ee39f305" width="700"/>
+</details>
+
+<br>
+
+### 코드리뷰
+
+코드리뷰 문화를 통해 서로 개발지식을 공유하고 소통하면서 프로젝트 코드를 발전시키려는 노력을 꾸준히 진행했습니다
+
+<details>
+  <summary>🧐 이런 식으로 코드리뷰를 진행했어요 🧐</summary>
+<img width="700" alt="image" src="https://github.com/sprint6-team12/the-julge/assets/154623483/a21a88b7-e8bd-4bba-954c-a2c81521089a">
+<img src="https://github.com/sprint6-team12/the-julge/assets/154623483/9cea317b-1e82-4e44-918a-c94eee032f6b" width="700"/>
+</details>
+
+<br>
+<br>
+<br>
+<br>
+
+## 🥊 트러블 슈팅
+
+[글 확인하러 가기](https://www.notion.so/f5de7ca1afec49a0afd5a5971f323d34?v=089820b5e2464642bded7d7575b7f22a)
+
+<img width="654" alt="image" src="https://github.com/sprint6-team12/the-julge/assets/154623483/36d6c3dd-bd5a-458d-9bdc-4033674675a6">
+
+<br>
+<br>
+
+## 📖 페이지별 기능
+
+![공고상세](https://github.com/sprint6-team12/the-julge/assets/154623483/079e099f-22bd-4e2e-bea7-db4f66649490)
+
+<br>
+<br>
+<br>
+
+## 📁 프로젝트 구조
+
+```
+프로젝트 파일/
+├── public/                  # 정적 파일(이미지, 폰트 등)
+│   ├── favicon.ico
+│   └── images/
+├── src/                     # 소스 코드 폴더
+│   ├── components/          # 재사용 가능한 컴포넌트
+│   │   ├── pageComponents/  # 페이지 종속성 컴포넌트
+│   │   │   └── items/         (path같은 기준을 잡고 분리)
+│   │   │        └── index.tsx
+│   │   └──  .
+│   │        .
+│   │        .
+│   ├── pages/               # 페이지 컴포넌트
+│   │   ├── _app.tsx         # 글로벌 설정
+│   │   ├── _document.tsx    # 문서 설정
+│   │   ├── index.tsx        # 루트 경로 페이지
+│   │   └── about.tsx        # /about 페이지
+│   ├── styles/              # 스타일 파일
+│   │   ├── globals.css
+│   │   └── tailwind.css
+│   ├── lib/                 # 유틸리티 함수, API 클라이언트 등
+│   │   ├── api/
+│   │   └── utils/
+│   ├── hooks/               # 커스텀 훅
+│   ├── types/               # 타입 선언 파일
+│   │   └── User.d.ts          (기본적인 데이터 타입을 전역 타입 파일로 관리)
+│   ├── recoil/                # 리코일 관련 파일
+│   │   └─atoms/
+│   └── constants/         # 상수파일
+├── node_modules/          # 프로젝트 의존성
+├── .env                   # 환경 변수 파일
+├── .gitignore             # Git 무시 파일
+├── tsconfig.json          # TypeScript 설정 파일
+├── tailwind.config.js     # Tailwind CSS 설정 파일
+├── postcss.config.js      # PostCSS 설정 파일
+├── package.json           # 프로젝트 메타데이터 및 스크립트
+└── next.config.js         # Next.js 설정 파일
+
+```
