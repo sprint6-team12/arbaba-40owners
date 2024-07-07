@@ -10,7 +10,7 @@ export default function CustomizedNoticeList() {
 
   return (
     <div className="bg-red10 flex h-auto min-h-[400px] tablet:min-h-[535px] pc:min-h-[535px] w-screen py-40px">
-      <div className="flex flex-col gap-16px mx-auto px-12px tablet:gap-32px pc:gap-32px tablet:px-32px pc:m-auto pc:w-[calc(964px+24px)]">
+      <div className="flex flex-col gap-16px mx-auto px-12px max-w-[100%] tablet:gap-32px pc:gap-32px tablet:px-32px pc:m-auto pc:w-[calc(964px+24px)]">
         <h1 className="text-20px tablet:text-28px pc:text-28px font-bold">
           맞춤 공고
         </h1>
