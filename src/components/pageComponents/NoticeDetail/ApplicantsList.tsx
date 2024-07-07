@@ -81,7 +81,7 @@ function ApplicantsList({
       <div className="relative rounded-10px overflow-hidden">
         {!isOpen && (
           <div
-            className="absolute inset-0 z-20 h-[calc(100%-62px-4px)]"
+            className="absolute inset-0 z-20 h-[calc(100%-62px-6px)]"
             onClick={handleOverlayClick}
           ></div>
         )}
