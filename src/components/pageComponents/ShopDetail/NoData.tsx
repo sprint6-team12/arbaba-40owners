@@ -28,7 +28,7 @@ export default function NoData({
   };
 
   return (
-    <div className="flex-col w-full border border-solid flex-center py-60px border-gray20 rounded-12px gap-24px">
+    <div className="flex-col w-full border border-solid flex-center py-60px border-gray20 rounded-12px gap-24px [&_>a]:max-w-[80%] [&_>a]:px-20px tablet:[&_>a]:px-136px pc:[&_>a]:px-136px">
       <p>{title}</p>
       {RenderButton()}
     </div>
