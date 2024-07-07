@@ -4,9 +4,10 @@ import removePrefix from '@/lib/utils/RemovePrefix';
 interface ActionButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   href: string;
+  onActionSuccess: (status: ApplicationStatus) => void;
 }
 
-function ActionButton({ href, ...rest }: ActionButtonProps) {
+function ActionButton({ href, onActionSuccess, ...rest }: ActionButtonProps) {
   const BASE_STYLE =
     'tablet:font-bold pc:font-bold border-1px flex-center w-69px tablet:w-92px pc:w-92px h-32px tablet:h-38px pc:h-38px text-12px tablet:text-14px pc:text-14px rounded-6px';
 
@@ -20,6 +21,7 @@ function ActionButton({ href, ...rest }: ActionButtonProps) {
     alert(`지원 요청을 ${APPLY_RESPONSE_MAP[value]}합니다.`);
     const cleanUrl = removePrefix(href);
     applicationAPI.putShopApply(cleanUrl, value);
+    onActionSuccess(value as ApplicationStatus);
   };
 
   return (
