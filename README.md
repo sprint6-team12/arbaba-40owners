@@ -1,8 +1,6 @@
 ## 프로젝트 소개
 
-// 프로젝트 메인 사진
-
-// 프로젝트 설명
+![image](https://github.com/sprint6-team12/the-julge/assets/154623483/2ad57a8a-521f-413d-8939-7aa3c3f75322)
 
 <br>
 <br>
@@ -154,8 +152,11 @@
 
 ![검색](https://github.com/sprint6-team12/the-julge/assets/154623483/2d65b8f6-e624-46fa-80a4-4dbcec4a979a)
 
-![Jul-07-2024 21-20-37](https://github.com/sprint6-team12/the-julge/assets/154623483/359519eb-a281-4579-84b7-2b1c013e689c)
+<img width="1068" alt="image" src="https://github.com/sprint6-team12/the-julge/assets/154623483/01bee522-98f2-4892-ab2a-32634dd8e0c9">
 
+![Jul-07-2024 22-59-47](https://github.com/sprint6-team12/the-julge/assets/154623483/528f0be0-b44c-457d-b6ed-3e36d8014513)
+![Jul-07-2024 23-00-17](https://github.com/sprint6-team12/the-julge/assets/154623483/8e0f4256-9679-4053-8252-612e28ad0da5)
+![Jul-07-2024 23-01-16](https://github.com/sprint6-team12/the-julge/assets/154623483/5ca2d540-2aef-405f-9693-183cc4e2232b)
 <br>
 <br>
 <br>
