@@ -59,12 +59,11 @@ function AddShopPage() {
     return num.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   };
 
-  // 쉼표 제거 및 상태 업데이트
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { id, value } = event.target;
-    const valueWithoutCommas = value.replace(/,/g, ''); // 쉼표 제거
+    const valueWithoutCommas = value.replace(/,/g, '');
     const errorMessage = validateShopInfo(
       id as keyof ShopType,
       valueWithoutCommas
@@ -73,7 +72,7 @@ function AddShopPage() {
     setFormData((prevFormData) => ({
       ...prevFormData,
       [id]: valueWithoutCommas,
-    })); // 쉼표 제거한 값으로 상태 업데이트
+    }));
   };
 
   const handleDropdownChange = (id: keyof ShopType, value: string) => {
@@ -132,7 +131,7 @@ function AddShopPage() {
 
     try {
       setDisabled(true);
-      const { hourlyPay, ...restFormData } = formData; // hourlyPay를 분해할당
+      const { hourlyPay, ...restFormData } = formData;
       const hourlyPayNumber = Number(hourlyPay);
       const data = await shopAPI.postShop(
         {
@@ -231,7 +230,6 @@ function AddShopPage() {
                   name="기본 시급*"
                   type="input"
                   placeholder="입력"
-                  // 숫자 포맷팅 적용
                   value={formatNumber(formData.hourlyPay)}
                   onChange={handleInputChange}
                   errorMessage={errors.hourlyPay}
