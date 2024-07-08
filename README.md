@@ -1,3 +1,10 @@
+<br>
+<div align=center> 
+ [아르바바 바로가기](https://the-julge-6-12.vercel.app/) 
+
+  </div>
+<br>
+
 ## 아르바바와 40인의 사장들
 
 급하게 알바가 필요할 때 !
@@ -5,6 +12,8 @@
 사장님도 알바생도 이용하는, 기존보다 높은 시급으로 알바를 빠르게 구할 수 있는 서비스입니다
 
 ![image](https://github.com/sprint6-team12/the-julge/assets/154623483/2ad57a8a-521f-413d-8939-7aa3c3f75322)
+
+
 
 <br>
 <br>
@@ -30,7 +39,7 @@
   - `git hooks(husky)`를 이용해 main branch에 불필요한 에러와 커밋을 방지했습니다
 
 <br>
-  <details style="margin-left: 70px;">
+  <details align=center>
   <summary> [팀 Notion] 스크린샷으로 미리 보기 😎</summary>
 <img width="700" alt="image" src="https://github.com/sprint6-team12/the-julge/assets/154623483/406b6ddf-9983-420a-86ae-a7ae05b1b028">
 <img width="700" alt="image" src="https://github.com/sprint6-team12/the-julge/assets/154623483/7ad24f65-8a69-4efb-aa4c-44aa6b621ec8">
@@ -154,7 +163,8 @@
 
 ![검색](https://github.com/sprint6-team12/the-julge/assets/154623483/2d65b8f6-e624-46fa-80a4-4dbcec4a979a)
 
-<img width="1068" alt="image" src="https://github.com/sprint6-team12/the-julge/assets/154623483/01bee522-98f2-4892-ab2a-32634dd8e0c9">
+<img width="1063" alt="image" src="https://github.com/sprint6-team12/the-julge/assets/154623483/460bff72-5512-4835-955e-4716f81c0ff7">
+
 
 ![Jul-07-2024 22-59-47](https://github.com/sprint6-team12/the-julge/assets/154623483/528f0be0-b44c-457d-b6ed-3e36d8014513)
 
