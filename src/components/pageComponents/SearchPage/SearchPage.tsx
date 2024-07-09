@@ -1,6 +1,6 @@
+//SearchPage.tsx
 import Image from 'next/image';
 import { useMemo } from 'react';
-import { RiLoader2Fill } from 'react-icons/ri';
 import { useRecoilValue } from 'recoil';
 import Nothing from '@/../../public/images/arbaba-nothing.png';
 import NoticeListView from '@/components/pageComponents/NoticeList/NoticeListView';
@@ -11,25 +11,11 @@ function SearchPage() {
   const searchValue = useRecoilValue(keywordDataState);
   const searchResults = useRecoilValue(searchResultState);
 
-  const isLoading = useMemo(() => {
-    return searchResults === null;
+  const hasResults = useMemo(() => {
+    return searchResults?.items?.length > 0;
   }, [searchResults]);
 
-  const hasResults = useMemo(() => {
-    return !isLoading && searchResults.items && searchResults.items.length > 0;
-  }, [isLoading, searchResults]);
-
-  const isEmptySearchResult = useMemo(() => {
-    return !isLoading && !hasResults;
-  }, [isLoading, hasResults]);
-
-  if (isLoading) {
-    return (
-      <RiLoader2Fill className="animate-spin w-28px h-28px mx-auto my-40px" />
-    );
-  }
-
-  if (isEmptySearchResult) {
+  if (!hasResults) {
     return (
       <div className="mx-auto w-fit h-340px text-20px tablet:text-28px pc:text-34px mb-80px flex-center flex-col">
         <Image src={Nothing} alt="검색결과없음" height={60} width={300} />

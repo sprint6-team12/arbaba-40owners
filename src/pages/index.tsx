@@ -1,4 +1,7 @@
+//index.tsx
 import { GetServerSideProps } from 'next';
+import { useEffect, useState, useTransition } from 'react';
+import { RiLoader2Fill } from 'react-icons/ri';
 import { useRecoilValue } from 'recoil';
 import CustomizedNoticeList from '@/components/pageComponents/NoticeList/CustomizedNoticeList';
 import NoticeListView from '@/components/pageComponents/NoticeList/NoticeListView';
@@ -9,8 +12,21 @@ import keywordDataState from '@/recoil/atoms/searchAtom';
 
 export default function Home(data: NoticeListResponseData) {
   const keyword = useRecoilValue(keywordDataState);
-  const isSearchData = keyword !== '';
+  const [isSearchData, setIsSearchData] = useState(false);
+  const [isPending, startTransition] = useTransition();
   useResetSearchOnHome(data);
+
+  useEffect(() => {
+    startTransition(() => {
+      setIsSearchData(keyword !== '');
+    });
+  }, [keyword]);
+
+  if (isPending) {
+    return (
+      <RiLoader2Fill className="animate-spin w-28px h-28px mx-auto my-40px" />
+    );
+  }
 
   if (isSearchData) return <SearchPage />;
 
