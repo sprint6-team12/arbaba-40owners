@@ -23,7 +23,7 @@ function NoticeListView({ initialData, title }: NoticeListViewProps) {
   } = useNoticeList(initialData);
 
   return (
-    <div className="pt-40px tablet:pt-60px pc:pt-60px">
+    <div className="pt-40px tablet:pt-60px pc:pt-60px min-h-[956px]">
       <div className="relative flex flex-col w-351px tablet:w-[678px] pc:w-[964px] m-auto">
         <div className="flex flex-col tablet:flex-row pc:flex-row tablet:justify-between pc: justify-between">
           <h1 className="mb-16px tablet:mb-32px pc:mb-32px text-20px tablet:text-28px pc:text-28px font-bold">
@@ -58,7 +58,7 @@ function NoticeListView({ initialData, title }: NoticeListViewProps) {
             );
           })}
         </div>
-        <div className="inline-block mx-auto mt-40px mb-60px select-none">
+        <div className="inline-block mx-auto mt-40px mb-60px select-none min-h-[40px]">
           <Pagination
             count={noticeData.count}
             limit={noticeData.limit}
