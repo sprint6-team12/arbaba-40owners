@@ -1,13 +1,12 @@
 import type { AppProps } from 'next/app';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 // eslint-disable-next-line import/named
 import { RecoilRoot, MutableSnapshot } from 'recoil';
-import LoadingImage from '@/../../public/loading-arbaba.png';
 import Footer from '@/components/Footer/footer';
 import Gnb from '@/components/Gnb/Gnb';
 import ModalsWrapper from '@/components/Modal/ModalsWrapper';
+import Loading from '@/components/pageComponents/Loading/Loading';
 import PopupsWrapper from '@/components/Popup/PopupsWrapper';
 import '@/styles/globals.css';
 import { User, userState } from '@/recoil/atoms/AuthAtom';
@@ -43,11 +42,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <RecoilRoot initializeState={initializeState}>
       <ModalsWrapper />
       <PopupsWrapper />
-      {loading && (
-        <div className="flex-center h-screen">
-          <Image src={LoadingImage} alt="로딩중" className="animate-float" />
-        </div>
-      )}
+      {loading && <Loading />}
       {!is404Page && <Gnb />}
       <main className="min-h-[calc(100vh-76px-162px)] tablet:min-h-[calc(100vh-76px-84px)] pc:min-h-[calc(100vh-72px-98px)]">
         <Component {...pageProps} />

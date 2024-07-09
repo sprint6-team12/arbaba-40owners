@@ -1,8 +1,8 @@
 //index.tsx
 import { GetServerSideProps } from 'next';
 import { useEffect, useState, useTransition } from 'react';
-import { RiLoader2Fill } from 'react-icons/ri';
 import { useRecoilValue } from 'recoil';
+import Loading from '@/components/pageComponents/Loading/Loading';
 import CustomizedNoticeList from '@/components/pageComponents/NoticeList/CustomizedNoticeList';
 import NoticeListView from '@/components/pageComponents/NoticeList/NoticeListView';
 import SearchPage from '@/components/pageComponents/SearchPage/SearchPage';
@@ -14,6 +14,7 @@ export default function Home(data: NoticeListResponseData) {
   const keyword = useRecoilValue(keywordDataState);
   const [isSearchData, setIsSearchData] = useState(false);
   const [isPending, startTransition] = useTransition();
+
   useResetSearchOnHome(data);
 
   useEffect(() => {
@@ -22,19 +23,15 @@ export default function Home(data: NoticeListResponseData) {
     });
   }, [keyword]);
 
-  if (isPending) {
-    return (
-      <RiLoader2Fill className="animate-spin w-28px h-28px mx-auto my-40px" />
-    );
-  }
+  if (isPending) return <Loading />;
 
   if (isSearchData) return <SearchPage />;
 
   return (
-    <main>
+    <>
       <CustomizedNoticeList />
       <NoticeListView initialData={data} title={'전체 공고'} />
-    </main>
+    </>
   );
 }
 
