@@ -1,4 +1,5 @@
-import { useCallback, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useCallback, useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { INITIAL_NOTICE_DATA } from '@/constants/initialNoticeData';
 import useNoticeList from '@/hooks/useNoticeList';
@@ -7,10 +8,17 @@ import keywordDataState from '@/recoil/atoms/searchAtom';
 import searchResultState from '@/recoil/atoms/SearchResultAtom';
 
 export default function SearchBar() {
+  const router = useRouter();
   const [searchInput, setSearchInput] = useState('');
   const setKeyword = useSetRecoilState(keywordDataState);
   const setSearchResult = useSetRecoilState(searchResultState);
   const { handleSearch } = useNoticeList(INITIAL_NOTICE_DATA);
+
+  useEffect(() => {
+    if (router.pathname !== '/search') {
+      setSearchInput('');
+    }
+  }, [router.pathname]);
 
   const setSearchAtoms = useCallback(
     (keyword: string, results: NoticeListResponseData) => {
@@ -23,12 +31,14 @@ export default function SearchBar() {
   const initiateSearch = async () => {
     const results = await handleSearch(searchInput);
     setSearchAtoms(searchInput, results);
+    router.push(`/search?q=${searchInput}`);
   };
 
   const resetSearchResult = async () => {
     const results = await handleSearch('');
     setSearchAtoms('', results);
     setSearchInput('');
+    router.push('/');
   };
 
   const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
