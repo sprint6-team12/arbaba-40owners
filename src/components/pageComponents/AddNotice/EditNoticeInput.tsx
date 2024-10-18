@@ -5,7 +5,11 @@ import Button from '@/components/Button/Button';
 import FormGroup from '@/components/FormGroup/FormGroup';
 import ConfirmModal from '@/components/pageComponents/AddShopPage/ConfirmModal';
 import useModal from '@/hooks/useModal';
-import noticeAPI, { ShopNoticeData } from '@/lib/api/noticeAPI';
+import {
+  getShopNotice,
+  putShopNotice,
+  ShopNoticeData,
+} from '@/lib/api/noticeAPI';
 import FormatUtils from '@/lib/utils/FormatUtils';
 import {
   clearError,
@@ -54,7 +58,7 @@ export default function AddNoticeInput() {
     const fetchNoticeData = async () => {
       try {
         if (typeof shopId === 'string' && typeof notice_id === 'string') {
-          const noticeData = await noticeAPI.getShopNotice({
+          const noticeData = await getShopNotice({
             shop_id: shopId,
             notice_id,
           });
@@ -105,7 +109,7 @@ export default function AddNoticeInput() {
       try {
         if (typeof shopId === 'string' && typeof notice_id === 'string') {
           const formattedStartsAt = new Date(data.startsAt).toISOString();
-          await noticeAPI.putShopNotice(shopId, notice_id, {
+          await putShopNotice(shopId, notice_id, {
             hourlyPay: data.hourlyPay,
             startsAt: formattedStartsAt,
             workhour: Number(data.workhour),

@@ -11,8 +11,8 @@ import {
   SHOP_MENU_CATEGORIES,
 } from '@/constants/shopOptions';
 import useModal from '@/hooks/useModal';
-import imageAPI from '@/lib/api/imageAPI';
-import shopAPI from '@/lib/api/shopAPI';
+import { imageAPI } from '@/lib/api/imageAPI';
+import { postShop } from '@/lib/api/shopAPI';
 import { IconCloseBlack } from '@/lib/utils/Icons';
 import { validateShopInfo } from '@/lib/utils/validation';
 import { userState } from '@/recoil/atoms/AuthAtom';
@@ -133,7 +133,7 @@ function AddShopPage() {
       setDisabled(true);
       const { hourlyPay, ...restFormData } = formData;
       const hourlyPayNumber = Number(hourlyPay);
-      const data = await shopAPI.postShop(
+      const data = await postShop(
         {
           ...restFormData,
           originalHourlyPay: hourlyPayNumber,

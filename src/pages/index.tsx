@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next';
 import CustomizedNoticeList from '@/components/pageComponents/NoticeList/CustomizedNoticeList';
 import NoticeListView from '@/components/pageComponents/NoticeList/NoticeListView';
 import { useResetSearchOnHome } from '@/hooks/useResetSearchOnHome';
-import noticeAPI from '@/lib/api/noticeAPI';
+import { getNoticeList } from '@/lib/api/noticeAPI';
 
 export default function Home(data: NoticeListResponseData) {
   useResetSearchOnHome(data);
@@ -16,7 +16,7 @@ export default function Home(data: NoticeListResponseData) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const data = await noticeAPI.getNoticeList({ limit: 6 });
+  const data = await getNoticeList({ limit: 6 });
 
   return {
     props: data,

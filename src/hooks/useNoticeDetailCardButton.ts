@@ -9,7 +9,7 @@ import {
 import NOTICE_DETAIL_BUTTON_PROPS from '@/constants/noticeDetailButtonMap';
 import useApplicationActions from '@/hooks/useApplicationActions';
 import useModal from '@/hooks/useModal';
-import noticeAPI from '@/lib/api/noticeAPI';
+import { getShopNotice } from '@/lib/api/noticeAPI';
 import { userState } from '@/recoil/atoms/AuthAtom';
 
 interface NoticeDetailButtonProps {
@@ -103,7 +103,7 @@ const useNoticeDetailCardButton = (
     if (!token) return;
 
     const updateNoticeStatus = async () => {
-      const { item } = await noticeAPI.getShopNotice({
+      const { item } = await getShopNotice({
         shop_id,
         notice_id,
         token,

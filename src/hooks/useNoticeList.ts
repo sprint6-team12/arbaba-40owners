@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useState, useCallback } from 'react';
 import { SORT_OPTION_MAP } from '@/constants/sortOptionMap';
-import noticeAPI from '@/lib/api/noticeAPI';
+import { getNoticeList } from '@/lib/api/noticeAPI';
 
 interface NoticeSettings {
   offset: number;
@@ -45,7 +45,7 @@ function useNoticeList(initialData: NoticeListResponseData) {
         params.set('keyword', settings.keyword);
       }
 
-      const newNoticeData = await noticeAPI.getNoticeList(params);
+      const newNoticeData = await getNoticeList(params);
       setNoticeData(newNoticeData);
       setCurrentPage(page);
 

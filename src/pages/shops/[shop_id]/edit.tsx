@@ -11,8 +11,8 @@ import {
   SHOP_LOCATIONS,
   SHOP_MENU_CATEGORIES,
 } from '@/constants/shopOptions';
-import imageAPI from '@/lib/api/imageAPI';
-import shopAPI from '@/lib/api/shopAPI';
+import { imageAPI } from '@/lib/api/imageAPI';
+import { getShop, putShop } from '@/lib/api/shopAPI';
 import { IconCloseBlack } from '@/lib/utils/Icons';
 import { validateShopInfo } from '@/lib/utils/validation';
 import { userState } from '@/recoil/atoms/AuthAtom';
@@ -55,7 +55,7 @@ function EditShopPage() {
 
     const getShopData = async () => {
       try {
-        const shopData = await shopAPI.getShop(shop_id as string);
+        const shopData = await getShop(shop_id as string);
         setFormData({
           shopName: shopData.item.name,
           category: shopData.item.category,
@@ -142,7 +142,7 @@ function EditShopPage() {
         hourlyPayNumber
       ) {
         setDisabled(true);
-        const data = await shopAPI.putShop(shop_id as string, {
+        const data = await putShop(shop_id as string, {
           name: formData.shopName,
           category: formData.category,
           address1: formData.address1,
