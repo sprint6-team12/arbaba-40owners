@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import NotificationModal from '@/components/NotificationModal/NotificationModal';
-import alertAPI from '@/lib/api/alertAPI';
+import { getAlerts } from '@/lib/api/alertAPI';
 import { IconStatusActive, IconStatusInactive } from '@/lib/utils/Icons';
 import { userState } from '@/recoil/atoms/AuthAtom';
 const initialNotificationData: NotificationListResponseData = {
@@ -24,7 +24,7 @@ export default function NotificationButton() {
     const fetchNotifications = async () => {
       if (isModalOpen && user?.userId) {
         try {
-          const data: NotificationListResponseData = await alertAPI.getAlerts({
+          const data: NotificationListResponseData = await getAlerts({
             user_id: user.userId,
           });
           setNotificationData(data);

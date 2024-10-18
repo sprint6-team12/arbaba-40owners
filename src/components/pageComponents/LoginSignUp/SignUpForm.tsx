@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Button from '@/components/Button/Button';
 import usePopup from '@/hooks/usePopup';
-import userAPI from '@/lib/api/userAPI';
+import { postUserData } from '@/lib/api/userAPI';
 import { SignUpValidate } from '@/lib/utils/validation';
 import InputComponent from './InputComponent';
 import MemberTypeToggle from './MemberTypeToggle';
@@ -42,7 +42,7 @@ const SignUpForm = ({ onSignUpSuccess }: { onSignUpSuccess: () => void }) => {
       formData.signUpPasswordConfirm !== ''
     ) {
       try {
-        await userAPI.postUserData({
+        await postUserData({
           email: formData.signUpEmail,
           password: formData.signUpPassword,
           type: userType,

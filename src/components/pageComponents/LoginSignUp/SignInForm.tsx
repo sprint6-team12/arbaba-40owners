@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import Button from '@/components/Button/Button';
 import usePopup from '@/hooks/usePopup';
-import authenticationAPI from '@/lib/api/authenticationAPI';
-import userAPI from '@/lib/api/userAPI';
+import { postToken } from '@/lib/api/authenticationAPI';
+import { getUserData } from '@/lib/api/userAPI';
 import { SignInValidate } from '@/lib/utils/validation';
 import { userState } from '@/recoil/atoms/AuthAtom';
 import InputComponent from './InputComponent';
@@ -38,7 +38,7 @@ export default function SignInForm({ onClose }: { onClose?: () => void }) {
       formData.loginPassWord !== ''
     ) {
       try {
-        await authenticationAPI.postToken(
+        await postToken(
           {
             email: formData.loginEmail,
             password: formData.loginPassWord,
@@ -57,7 +57,7 @@ export default function SignInForm({ onClose }: { onClose?: () => void }) {
 
   useEffect(() => {
     if (userId) {
-      userAPI.getUserData(userId, type, setAuthState);
+      getUserData(userId, type, setAuthState);
     }
   }, [userId, type, setAuthState]);
 

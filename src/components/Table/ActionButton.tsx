@@ -1,4 +1,4 @@
-import applicationAPI from '@/lib/api/applicationAPI';
+import { putShopApply } from '@/lib/api/applicationAPI';
 import removePrefix from '@/lib/utils/RemovePrefix';
 
 interface ActionButtonProps
@@ -20,7 +20,7 @@ function ActionButton({ href, onActionSuccess, ...rest }: ActionButtonProps) {
     const { value } = event.target as HTMLButtonElement;
     alert(`지원 요청을 ${APPLY_RESPONSE_MAP[value]}합니다.`);
     const cleanUrl = removePrefix(href);
-    applicationAPI.putShopApply(cleanUrl, value);
+    putShopApply(cleanUrl, value);
     onActionSuccess(value as ApplicationStatus);
   };
 

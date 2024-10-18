@@ -7,7 +7,7 @@ import FormGroup from '@/components/FormGroup/FormGroup';
 import ConfirmModal from '@/components/pageComponents/AddShopPage/ConfirmModal';
 import { SHOP_LOCATIONS } from '@/constants/shopOptions';
 import useModal from '@/hooks/useModal';
-import userAPI, { UserInfo } from '@/lib/api/userAPI';
+import { getUserData, putUserData, UserInfo } from '@/lib/api/userAPI';
 import FormatUtils from '@/lib/utils/FormatUtils';
 import {
   clearError,
@@ -53,7 +53,7 @@ export default function MyPageInput() {
   }, [userId]);
 
   const fetchUserData = async (userId: string) => {
-    const userData = await userAPI.getUserData(userId, type, setAuthState);
+    const userData = await getUserData(userId, type, setAuthState);
     setData(userData.item);
   };
 
@@ -109,7 +109,7 @@ export default function MyPageInput() {
       try {
         if (userId) {
           const token = localStorage.getItem('token');
-          await userAPI.putUserData(userId, token!, data, setAuthState);
+          await putUserData(userId, token!, data, setAuthState);
           handleOpenConfirmModal('등록이 완료되었습니다.');
         } else {
           handleOpenConfirmModal('유효하지 않은 사용자 ID입니다.');

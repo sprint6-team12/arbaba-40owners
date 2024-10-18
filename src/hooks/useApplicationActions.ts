@@ -1,4 +1,4 @@
-import applicationAPI from '@/lib/api/applicationAPI';
+import { postShopApply, putShopApply } from '@/lib/api/applicationAPI';
 import useApiRequestWithPopup from './useApiRequestWithPopup';
 
 interface Params {
@@ -28,10 +28,7 @@ const useApplicationActions = <T>(
   const { shop_id, notice_id, application_id } = params;
 
   const createApplication = (popupText?: string) => {
-    handleAsyncOperation(
-      applicationAPI.postShopApply({ shop_id, notice_id }),
-      popupText
-    );
+    handleAsyncOperation(postShopApply({ shop_id, notice_id }), popupText);
   };
 
   const updateApplication = async (
@@ -41,7 +38,7 @@ const useApplicationActions = <T>(
     if (!application_id) return;
     const url = `shops/${shop_id}/notices/${notice_id}/applications/${application_id}`;
 
-    handleAsyncOperation(applicationAPI.putShopApply(url, status), popupText);
+    handleAsyncOperation(putShopApply(url, status), popupText);
   };
 
   const cancelApplication = async (popupText?: string) => {

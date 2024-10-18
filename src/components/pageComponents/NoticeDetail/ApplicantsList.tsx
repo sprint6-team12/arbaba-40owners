@@ -5,7 +5,7 @@ import Pagination from '@/components/Pagination/Pagination';
 import Post from '@/components/Post/Post';
 import EmployerTable from '@/components/Table/EmployerTable';
 import usePopup from '@/hooks/usePopup';
-import applicationAPI from '@/lib/api/applicationAPI';
+import { getShopApply } from '@/lib/api/applicationAPI';
 
 function EmptyApplicantsList() {
   return (
@@ -34,7 +34,7 @@ function ApplicantsList({
 
   const fetchData = async () => {
     try {
-      const data = await applicationAPI.getShopApply({
+      const data = await getShopApply({
         shop_id: shop_id as string,
         notice_id: notice_id as string,
         limit: APPLY_LIMIT,

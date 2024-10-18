@@ -6,7 +6,7 @@ import Pagination from '@/components/Pagination/Pagination';
 import EmployeeTable, {
   EmployeeTableData,
 } from '@/components/Table/EmployeeTable';
-import applicationAPI from '@/lib/api/applicationAPI';
+import { getUserApply } from '@/lib/api/applicationAPI';
 import { UserInfo } from '@/lib/api/userAPI';
 import { IconCloseBlack } from '@/lib/utils/Icons';
 
@@ -29,7 +29,7 @@ export default function MyPageRegistered({
     const fetchData = async () => {
       if (userId) {
         try {
-          const result = await applicationAPI.getUserApply({
+          const result = await getUserApply({
             user_id: userId,
             offset: (currentPage - 1) * limit,
             limit: limit,
