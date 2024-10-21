@@ -20,10 +20,7 @@ export async function postShop(
   body: PostShopData,
   setAuthState: (update: (prevState: User) => User) => void
 ) {
-  const headers = {
-    Authorization: `Bearer ${localStorage.getItem('token')}`,
-  };
-  const response = await axiosInstance.post(`/shops`, body, { headers });
+  const response = await axiosInstance.post(`/shops`, body);
   const shopId = response?.data?.item?.id;
   const address = response?.data?.item?.address1;
   const DetailAddress = response?.data?.item?.address2;
@@ -38,12 +35,7 @@ export async function postShop(
 }
 
 export async function putShop(shop_id: string, body: PostShopData) {
-  const headers = {
-    Authorization: `Bearer ${localStorage.getItem('token')}`,
-  };
-  const response = await axiosInstance.put(`/shops/${shop_id}`, body, {
-    headers,
-  });
+  const response = await axiosInstance.put(`/shops/${shop_id}`, body);
   return response.data;
 }
 

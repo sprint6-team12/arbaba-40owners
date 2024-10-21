@@ -9,19 +9,11 @@ const uploadImageToS3 = async (url: string, fileObject: File) => {
   });
 };
 
-export async function imageAPI(
-  fileObject: File,
-  token = localStorage.getItem('token')
-) {
+export async function imageAPI(fileObject: File) {
   const response = await axiosInstance.post(
     `/images`,
     { name: fileObject.name },
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        authorization: `Bearer ${token}`,
-      },
-    }
+    {}
   );
   const result = response.data;
   await uploadImageToS3(result.item.url, fileObject);

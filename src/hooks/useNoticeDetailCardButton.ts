@@ -106,7 +106,6 @@ const useNoticeDetailCardButton = (
       const { item } = await getShopNotice({
         shop_id,
         notice_id,
-        token,
       });
       if (!('currentUserApplication' in item)) return;
       setApplicationData(item.currentUserApplication?.item);

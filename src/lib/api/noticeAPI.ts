@@ -19,7 +19,6 @@ interface GetShopNoticeListData {
 export interface GetShopNoticeData {
   shop_id: string;
   notice_id: string;
-  token?: string;
 }
 
 export interface ShopNoticeData {
@@ -49,28 +48,15 @@ export async function getShopNoticeList(
   return response.data;
 }
 
-export async function getShopNotice({
-  shop_id,
-  notice_id,
-  token,
-}: GetShopNoticeData) {
-  const headers = {
-    Authorization: token ? `Bearer ${token}` : '',
-  };
+export async function getShopNotice({ shop_id, notice_id }: GetShopNoticeData) {
   const response = await axiosInstance.get(
-    `/shops/${shop_id}/notices/${notice_id}`,
-    { headers }
+    `/shops/${shop_id}/notices/${notice_id}`
   );
   return response.data;
 }
 
 export async function postShopNotice(shop_id: string, body: ShopNoticeData) {
-  const headers = {
-    Authorization: `Bearer ${localStorage.getItem('token')}`,
-  };
-  const response = await axiosInstance.post(`/shops/${shop_id}/notices`, body, {
-    headers,
-  });
+  const response = await axiosInstance.post(`/shops/${shop_id}/notices`, body);
   return response.data;
 }
 
@@ -79,15 +65,9 @@ export async function putShopNotice(
   notice_id: string,
   body: ShopNoticeData
 ) {
-  const headers = {
-    Authorization: `Bearer ${localStorage.getItem('token')}`,
-  };
   const response = await axiosInstance.put(
     `/shops/${shop_id}/notices/${notice_id}`,
-    body,
-    {
-      headers,
-    }
+    body
   );
   return response.data;
 }

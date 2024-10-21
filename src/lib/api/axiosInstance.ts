@@ -10,11 +10,17 @@ export const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use(
-  async (config) => {
-    const accessToken = await localStorage.getItem('accessToken');
-    const newConfig = { ...config };
-    newConfig.headers.Authorization = `Bearer ${accessToken}`;
-    return newConfig;
+  (config) => {
+    // 브라우저 환경에서만 실행
+    if (typeof window !== 'undefined') {
+      const accessToken = localStorage.getItem('token');
+      const newConfig = { ...config };
+      if (accessToken) {
+        newConfig.headers.Authorization = `Bearer ${accessToken}`;
+      }
+      return newConfig;
+    }
+    return config;
   },
   (error) => Promise.reject(error)
 );

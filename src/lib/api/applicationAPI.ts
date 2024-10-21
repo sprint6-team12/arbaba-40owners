@@ -32,27 +32,15 @@ export async function getShopApply({
 }
 
 export async function postShopApply({ shop_id, notice_id }: ShopApplyData) {
-  const headers = {
-    Authorization: `Bearer ${localStorage.getItem('token')}`,
-  };
-
   const response = await axiosInstance.post(
     `/shops/${shop_id}/notices/${notice_id}/applications`,
-    {},
-    { headers }
+    {}
   );
   return response.data;
 }
 
 export async function putShopApply(href: string, applyStatus: string) {
-  const headers = {
-    Authorization: `Bearer ${localStorage.getItem('token')}`,
-  };
-  const response = await axiosInstance.put(
-    href,
-    { status: applyStatus },
-    { headers }
-  );
+  const response = await axiosInstance.put(href, { status: applyStatus });
   return response.data;
 }
 
@@ -62,12 +50,8 @@ export async function getUserApply({ user_id, offset, limit }: UserApplyData) {
     offset,
     limit,
   };
-  const headers = {
-    Authorization: `Bearer ${localStorage.getItem('token')}`,
-  };
   const response = await axiosInstance.get(`/users/${user_id}/applications`, {
     params,
-    headers,
   });
   return response.data;
 }
