@@ -1,18 +1,15 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useRef, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import InputComponent from '@/components/AddShopPage/InputComponents';
 import Button from '@/components/Button/Button';
 import Dropdown from '@/components/Dropdown/Dropdown';
 import FormGroup from '@/components/FormGroup/FormGroup';
-import {
-  SHOP_BASE_IMAGE,
-  SHOP_LOCATIONS,
-  SHOP_MENU_CATEGORIES,
-} from '@/constants/shopOptions';
+import { SHOP_BASE_IMAGE, SHOP_MENU_CATEGORIES } from '@/constants/shopOptions';
 import { imageAPI } from '@/lib/api/imageAPI';
 import { getShop, putShop } from '@/lib/api/shopAPI';
+import FormatUtils from '@/lib/utils/FormatUtils';
 import { IconCloseBlack } from '@/lib/utils/Icons';
 import { validateShopInfo } from '@/lib/utils/validation';
 import { userState } from '@/recoil/atoms/AuthAtom';
@@ -43,8 +40,8 @@ function EditShopPage() {
   const [disabled, setDisabled] = useState(false);
   const [errors, setErrors] = useState<Partial<ShopType>>({});
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
   const shop_id = shopId;
+  const hourlyPayNumber = Number(formData.hourlyPay);
 
   useEffect(() => {
     if (!isLogin) {
@@ -77,21 +74,32 @@ function EditShopPage() {
       getShopData();
     }
   }, [shop_id, isLogin, router]);
-
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { id, value } = event.target;
-    // Remove commas for validation and state update
-    const valueWithoutCommas = value.replace(/,/g, '');
-    const errorMessage = validateShopInfo(
-      id as keyof ShopType,
-      valueWithoutCommas
-    );
+
+    let newValue = value; // 기본 입력값
+
+    // "hourlyPay"일 때 숫자만 허용
+    if (id === 'hourlyPay') {
+      // 콤마 제거
+      const valueWithoutCommas = value.replace(/,/g, '');
+
+      // 숫자만 필터링
+      newValue = valueWithoutCommas.replace(/[^0-9]/g, '');
+    } else {
+      // 다른 경우에는 콤마 제거만 수행
+      newValue = value.replace(/,/g, '');
+    }
+
+    // 입력값 검증
+    const errorMessage = validateShopInfo(id as keyof ShopType, newValue);
+
     setErrors((prevErrors) => ({ ...prevErrors, [id]: errorMessage }));
     setFormData((prevFormData) => ({
       ...prevFormData,
-      [id]: valueWithoutCommas,
+      [id]: newValue,
     }));
   };
 
@@ -111,10 +119,6 @@ function EditShopPage() {
     setImagePreview(URL.createObjectURL(file));
   };
 
-  const handleClick = () => {
-    inputRef.current?.click();
-  };
-
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
   };
@@ -132,7 +136,6 @@ function EditShopPage() {
   };
 
   const handleTotalSubmit = async () => {
-    const hourlyPayNumber = Number(formData.hourlyPay);
     try {
       if (
         formData.shopName &&
@@ -163,121 +166,116 @@ function EditShopPage() {
     }
   };
 
-  const formatNumber = (num: string) => {
-    return num.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  };
+  const handleSearchAddress = () => {};
 
   return (
-    <div className="flex w-full py-24px px-12px flex-col items-start gap-8px bg-gray05 tablet:px-48px tablet:py-48px pc:px-96px pc:py-64px">
-      <form
-        onSubmit={handleSubmit}
-        className="flex w-full flex-col items-center gap-8"
-      >
-        <div className="flex flex-col items-start gap-24px w-full tablet:gap-32px pc:gap-40px">
-          <div className="flex w-full justify-between items-center">
-            <p className="text-black text-20px font-bold tablet:text-24px pc:text-30px">
+    <>
+      <div className="bg-gray05 w-full m-auto">
+        <div className="flex flex-col w-full max-w-[964px] gap-4 pt-32px px-12px mx-auto tablet:px-48px tablet:py-48px pc:px-96px pc:py-64px">
+          <div className="flex justify-between h-24px">
+            <h3 className="text-black font-bold text-20px tablet:text-24px pc:text-30px">
               가게 정보 수정
-            </p>
+            </h3>
             <button onClick={handleClose}>
               <IconCloseBlack />
             </button>
           </div>
-          <div className="flex flex-col gap-20px w-full tablet:flex-row tablet:flex-wrap tablet:gap-24px pc:gap-32px">
-            <div className="tablet:flex tablet:w-full tablet:h-92px tablet:gap-20px pc:flex pc:w-full pc:h-92px pc:gap-20px">
-              <div className="flex flex-col gap-8px w-full tablet:w-1/2">
-                <InputComponent
-                  id="shopName"
-                  name="가게 이름*"
-                  type="input"
-                  placeholder="입력"
-                  value={formData.shopName}
-                  onChange={handleInputChange}
-                  errorMessage={errors.shopName || ''}
-                />
-              </div>
-              <div className="flex flex-col gap-8px w-full tablet:w-1/2">
-                <h1 className="mt-8px mb-4px">분류*</h1>
-                <Dropdown
-                  options={SHOP_MENU_CATEGORIES}
-                  onSelect={(value) => handleDropdownChange('category', value)}
-                  width="100%"
-                  defaultValue={formData.category || '선택'}
-                  prevValue={formData.category}
-                />
-                {errors.category && (
-                  <p className="text-red-500">{errors.category}</p>
-                )}
-              </div>
-            </div>
-            <div className="tablet:flex tablet:w-full tablet:h-92px tablet:gap-20px  pc:flex pc:w-full pc:h-92px pc:gap-20px">
-              <div className="flex flex-col gap-8px w-full tablet:w-1/2">
-                <h1 className="mt-8px mb-4px">주소*</h1>
-                <Dropdown
-                  options={SHOP_LOCATIONS}
-                  onSelect={(value) => handleDropdownChange('address1', value)}
-                  width="100%"
-                  defaultValue={formData.address1 || '선택'}
-                  prevValue={formData.address1}
-                />
-                {errors.address1 && (
-                  <p className="text-red-500">{errors.address1}</p>
-                )}
-              </div>
-              <div className="flex flex-col gap-8px w-full tablet:w-1/2">
-                <InputComponent
-                  id="address2"
-                  name="상세 주소*"
-                  type="input"
-                  placeholder="입력"
-                  value={formData.address2}
-                  onChange={handleInputChange}
-                  errorMessage={errors.address2 || ''}
-                />
-              </div>
-            </div>
-            <div className="flex flex-col gap-8px w-full pr-10px tablet:w-1/2 pc:w-1/2">
-              <InputComponent
-                id="hourlyPay"
-                name="기본 시급*"
-                type="input"
-                placeholder="입력"
-                value={formatNumber(formData.hourlyPay)}
-                onChange={handleInputChange}
-                errorMessage={errors.hourlyPay || ''}
-              />
-            </div>
-            <div className="flex flex-col gap-8px w-full">
-              <h1>가게 이미지</h1>
-              <div className="inline-block relative pc:w-1/2">
-                <div onClick={handleClick}>
-                  {imagePreview !== SHOP_BASE_IMAGE ? (
-                    <>
-                      <button className="absolute pc:ml-[450px] pc:mt-2px border-solid border-2px border-black">
-                        <IconCloseBlack onClick={handleImageReset} />
-                      </button>
-                      <Image
-                        src={imagePreview || ''}
-                        alt="업로드된 이미지"
-                        layout="responsive"
-                        width={483}
-                        height={276}
-                        className="max-w-[483px] max-h-[276px] rounded-md"
-                      />
-                    </>
-                  ) : (
-                    <div className="flex-center flex-shrink-0 rounded-5px border border-solid border-gray30 bg-gray10 h-276px w-483px">
-                      <FormGroup.InputField.Image
-                        id="imageUrl"
-                        name="imageUrl"
-                        onChange={handleImageChange}
-                        className="border border-gray30 bg-gray20 rounded-md"
+          <form onSubmit={handleSubmit}>
+            <div className="flex flex-col gap-12px">
+              <div className="flex flex-col gap-8px">
+                <div className="flex flex-col tablet:flex-row tablet:gap-20px pc:flex-row pc:gap-20px">
+                  <InputComponent
+                    id="shopName"
+                    name="가게 이름*"
+                    type="input"
+                    placeholder="입력"
+                    value={formData.shopName}
+                    onChange={handleInputChange}
+                    errorMessage={errors.shopName || ''}
+                    className="tablet:w-1/2 pc:w-1/2"
+                  />
+                  <div className="flex flex-col mt-8px gap-8px my-4px tablet:gap-12px tablet:w-1/2 pc:gap-12px pc:w-1/2">
+                    <h3>분류*</h3>
+                    <Dropdown
+                      options={SHOP_MENU_CATEGORIES}
+                      onSelect={(value) =>
+                        handleDropdownChange('category', value)
+                      }
+                      width="100%"
+                      defaultValue={formData.category || '선택'}
+                      prevValue={formData.category}
+                    />
+                    {errors.category && (
+                      <p className="text-red-500">{errors.category}</p>
+                    )}
+                  </div>
+                </div>
+                <div className="flex flex-col tablet:flex-row tablet:gap-20px pc:flex-row pc:gap-20px">
+                  <div className="flex w-full flex-row gap-12px tablet:w-1/2 pc:w-1/2">
+                    <div className="flex-grow">
+                      <InputComponent
+                        id="shopName"
+                        name="주소*"
+                        type="input"
+                        placeholder="입력"
+                        value={formData.address1}
+                        errorMessage={errors.address1 || ''}
                       />
                     </div>
-                  )}
+                    <button
+                      className="w-90px mt-44px mb-8px bg-gray30 rounded-[4px]"
+                      onClick={handleSearchAddress}
+                    >
+                      검색
+                    </button>
+                  </div>
+                  <InputComponent
+                    id="address2"
+                    name="상세 주소*"
+                    type="input"
+                    placeholder="입력"
+                    value={formData.address2}
+                    onChange={handleInputChange}
+                    errorMessage={errors.address2 || ''}
+                    className="tablet:w-1/2 pc:w-1/2"
+                  />
                 </div>
+                <InputComponent
+                  id="hourlyPay"
+                  name="기본 시급*"
+                  type="input"
+                  placeholder="입력"
+                  value={FormatUtils.price(hourlyPayNumber)}
+                  onChange={handleInputChange}
+                  errorMessage={errors.hourlyPay || ''}
+                  className="tablet:w-1/2 pc:w-1/2"
+                />
               </div>
-            </div>
-            <div className="flex flex-col gap-8px w-full h-187px">
+              <div className="flex flex-col mt-8px gap-8px my-4px">
+                <p>가게 이미지</p>
+                {imagePreview !== SHOP_BASE_IMAGE ? (
+                  <div className="relative w-full tablet:max-w-[483px] tablet:max-h-[273px] pc:max-w-[483px] pc:max-h-[273px] rounded-md">
+                    <button className="absolute bg-gray05 mt-5px right-17px rounded-[12px] w-60px h-24px ">
+                      <p onClick={handleImageReset}>삭제</p>
+                    </button>
+                    <Image
+                      src={imagePreview || ''}
+                      alt="업로드된 이미지"
+                      layout="responsive"
+                      width={483}
+                      height={276}
+                      className="tablet:max-w-[483px] tablet:max-h-[276px] pc:max-w-[483px] pc:max-h-[276px]  rounded-md"
+                    />
+                  </div>
+                ) : (
+                  <FormGroup.InputField.Image
+                    id="imageUrl"
+                    name="imageUrl"
+                    onChange={handleImageChange}
+                    className="w-full "
+                  />
+                )}
+              </div>
               <InputComponent
                 id="shopDescription"
                 name="가게 설명"
@@ -288,20 +286,20 @@ function EditShopPage() {
                 errorMessage=""
               />
             </div>
-            <div className="flex justify-center w-full mt-32px">
-              <Button
-                className="button_large"
-                type="submit"
-                onClick={handleTotalSubmit}
-                disabled={disabled}
-              >
-                수정하기
-              </Button>
-            </div>
+          </form>
+          <div className="mx-auto">
+            <Button
+              className="button_large"
+              type="submit"
+              onClick={handleTotalSubmit}
+              disabled={disabled}
+            >
+              수정하기
+            </Button>
           </div>
         </div>
-      </form>
-    </div>
+      </div>
+    </>
   );
 }
 

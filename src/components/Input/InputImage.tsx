@@ -18,7 +18,7 @@ function ImageInput({
     <div className={`flex min-h-168px min-w-168px gap-8px ${className}`}>
       <label
         htmlFor={name}
-        className="flex-center h-276px w-483px flex-col gap-12px rounded-5px bg-gray10 border-1px border-gray30"
+        className="flex-center w-full aspect-[7/4] flex-col gap-12px rounded-5px bg-gray10 border-1px border-gray30"
       >
         <IconCamera className="h-32px w-32px" aria-label="이미지 업로드" />
         <p className="font-bold text-16px text-gray40">{placeholder}</p>
