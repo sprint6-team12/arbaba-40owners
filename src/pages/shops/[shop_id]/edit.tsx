@@ -310,17 +310,15 @@ function EditShopPage() {
               <div className="flex flex-col mt-8px gap-8px my-4px">
                 <p>가게 이미지</p>
                 {imagePreview !== SHOP_BASE_IMAGE ? (
-                  <div className="relative w-full tablet:max-w-[483px] tablet:max-h-[273px] pc:max-w-[483px] pc:max-h-[273px] rounded-md">
-                    <button className="absolute bg-gray05 mt-5px right-17px rounded-[12px] w-60px h-24px ">
+                  <div className="relative w-full aspect-[7/4] tablet:w-[483px] tablet:h-[276px] pc:w-[483px] pc:h-[276px] rounded-md">
+                    <button className="absolute z-10 bg-gray05 mt-5px right-17px rounded-[12px] w-60px h-24px">
                       <p onClick={handleImageReset}>삭제</p>
                     </button>
                     <Image
                       src={imagePreview || ''}
                       alt="업로드된 이미지"
-                      layout="responsive"
-                      width={483}
-                      height={276}
-                      className="tablet:max-w-[483px] tablet:max-h-[276px] pc:max-w-[483px] pc:max-h-[276px]  rounded-md"
+                      fill
+                      className="object-cover rounded-md"
                     />
                   </div>
                 ) : (
