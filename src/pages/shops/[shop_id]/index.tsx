@@ -66,7 +66,7 @@ export default function ShopDetail({ shopData, noticesData }: ShopDetailProps) {
       router.push('/');
       return;
     }
-    if (shop_id !== shopId) {
+    if (shop_id !== 'undefined' && shop_id !== shopId) {
       alert('내 가게가 아닙니다.');
       router.push('/');
       return;
