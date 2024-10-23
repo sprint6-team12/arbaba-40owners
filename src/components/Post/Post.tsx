@@ -66,6 +66,8 @@ function PostImage({
         className="rounded-12px object-cover"
         alt="가게 사진"
         fill
+        sizes="145px, tablet:298px, pc:278px"
+        loading="lazy"
       />
     </div>
   );

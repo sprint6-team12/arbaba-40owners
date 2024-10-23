@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import Button from '@/components/Button/Button';
 import Dropdown from '@/components/Dropdown/Dropdown';
@@ -46,16 +46,19 @@ export default function MyPageInput() {
   const [errors, setErrors] = useState<UserInfoFormErrors>(initialFormErrors);
   const setAuthState = useSetRecoilState(userState);
 
+  const fetchUserData = useCallback(
+    async (userId: string) => {
+      const userData = await getUserData(userId, type, setAuthState);
+      setData(userData.item);
+    },
+    [setAuthState, type]
+  );
+
   useEffect(() => {
     if (userId) {
       fetchUserData(userId);
     }
-  }, [userId]);
-
-  const fetchUserData = async (userId: string) => {
-    const userData = await getUserData(userId, type, setAuthState);
-    setData(userData.item);
-  };
+  }, [userId, fetchUserData]);
 
   const handleChangeData = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

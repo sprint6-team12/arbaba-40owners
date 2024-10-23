@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import Button from '@/components/Button/Button';
 import FormGroup from '@/components/FormGroup/FormGroup';
@@ -54,6 +54,31 @@ export default function AddNoticeInput() {
   const [data, setData] = useState<ShopNoticeData>(initialFormData);
   const [errors, setErrors] = useState<ShopNoticeFormErrors>(initialFormErrors);
 
+  const handleChangeData = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const { name, value } = event.target;
+      if (name === 'hourlyPay') {
+        const numericValue = parseInt(value.replace(/,/g, ''), 10) || 0;
+        handleInputChange(setData, name, numericValue);
+      } else {
+        handleInputChange(setData, name, value);
+      }
+      clearError(setErrors, name as keyof ShopNoticeFormErrors);
+    },
+    []
+  );
+
+  const handleOpenConfirmModal = useCallback(
+    (content: string) => {
+      openModal('addNoticeConfirmModal', ConfirmModal, {
+        content: content,
+        onConfirm: () => {
+          router.push(`/shops/${shopId}`);
+        },
+      });
+    },
+    [openModal, router, shopId]
+  );
   useEffect(() => {
     const fetchNoticeData = async () => {
       try {
@@ -76,58 +101,39 @@ export default function AddNoticeInput() {
     };
 
     fetchNoticeData();
-  }, [shopId, notice_id]);
+  }, [shopId, notice_id, handleOpenConfirmModal]);
 
-  const handleChangeData = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = event.target;
-    if (name === 'hourlyPay') {
-      const numericValue = parseInt(value.replace(/,/g, ''), 10) || 0;
-      handleInputChange(setData, name, numericValue);
-    } else {
-      handleInputChange(setData, name, value);
-    }
-    clearError(setErrors, name as keyof ShopNoticeFormErrors);
-  };
-
-  const handleOpenConfirmModal = (content: string) => {
-    openModal('addNoticeConfirmModal', ConfirmModal, {
-      content: content,
-      onConfirm: () => {
-        router.push(`/shops/${shopId}`);
-      },
-    });
-  };
-
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    const validationErrors = validateAddNoticeForm(data);
-    if (hasErrors(validationErrors)) {
-      setErrors(validationErrors);
-    } else {
-      try {
-        if (typeof shopId === 'string' && typeof notice_id === 'string') {
-          const formattedStartsAt = new Date(data.startsAt).toISOString();
-          await putShopNotice(shopId, notice_id, {
-            hourlyPay: data.hourlyPay,
-            startsAt: formattedStartsAt,
-            workhour: Number(data.workhour),
-            description: data.description,
-          });
-          handleOpenConfirmModal('등록이 완료되었습니다.');
-          router.push(`/shops/${shopId}`);
-        } else {
-          handleOpenConfirmModal('유효하지 않은 ID입니다.');
+  const handleSubmit = useCallback(
+    async (event: React.FormEvent) => {
+      event.preventDefault();
+      const validationErrors = validateAddNoticeForm(data);
+      if (hasErrors(validationErrors)) {
+        setErrors(validationErrors);
+      } else {
+        try {
+          if (typeof shopId === 'string' && typeof notice_id === 'string') {
+            const formattedStartsAt = new Date(data.startsAt).toISOString();
+            await putShopNotice(shopId, notice_id, {
+              hourlyPay: data.hourlyPay,
+              startsAt: formattedStartsAt,
+              workhour: Number(data.workhour),
+              description: data.description,
+            });
+            handleOpenConfirmModal('등록이 완료되었습니다.');
+            router.push(`/shops/${shopId}`);
+          } else {
+            handleOpenConfirmModal('유효하지 않은 ID입니다.');
+          }
+        } catch (error) {
+          handleOpenConfirmModal(
+            '수정 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.'
+          );
+          router.push('/');
         }
-      } catch (error) {
-        handleOpenConfirmModal(
-          '수정 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.'
-        );
-        router.push('/');
       }
-    }
-  };
+    },
+    [data, shopId, notice_id, handleOpenConfirmModal, router]
+  );
 
   return (
     <div className="flex-center">

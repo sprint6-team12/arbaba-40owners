@@ -1,4 +1,4 @@
-import axios from 'axios';
+import { isAxiosError } from 'axios';
 
 class APIError extends Error {
   constructor(
@@ -22,7 +22,7 @@ const ErrorMessages: { [key: string]: string } = {
 };
 
 export const handleAxiosError = (error: unknown) => {
-  if (axios.isAxiosError(error)) {
+  if (isAxiosError(error)) {
     if (error.response) {
       const { status, data } = error.response;
       const errorMessage =

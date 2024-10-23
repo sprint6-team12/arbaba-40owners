@@ -56,7 +56,7 @@ function useNoticeList(initialData: NoticeListResponseData) {
       );
       return newNoticeData;
     },
-    []
+    [router]
   );
 
   const handlePageChange = useCallback(
