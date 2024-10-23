@@ -29,7 +29,7 @@ export default function MyPage() {
     };
 
     fetchUserData();
-  }, [userId]);
+  }, [userId, router, setAuthState, type]);
 
   const isProfileDataValid = (data: UserInfo | null): data is UserInfo => {
     return data !== null && !!data.name && !!data.phone;

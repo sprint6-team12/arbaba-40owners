@@ -36,7 +36,7 @@ const Popup = ({
       duration - fadeDuration
     );
     return () => clearTimeout(timer);
-  }, [isVisible, onClose]);
+  }, [isVisible, onClose, duration]);
 
   return (
     <div

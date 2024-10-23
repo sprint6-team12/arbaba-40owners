@@ -5,7 +5,12 @@ function Loading() {
   return (
     <div className="flex-center h-screen">
       {' '}
-      <Image src={LoadingImage} alt="로딩중" className="animate-float" />{' '}
+      <Image
+        src={LoadingImage}
+        alt="로딩중"
+        className="animate-float"
+        priority
+      />{' '}
     </div>
   );
 }

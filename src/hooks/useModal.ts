@@ -12,6 +12,15 @@ export interface ModalProps {
 const useModal = () => {
   const [modalsData, setModalsData] = useRecoilState(modalsDataState);
 
+  const closeModal = useCallback(
+    (id: string) => {
+      setModalsData((prevModals) =>
+        prevModals.filter((modal) => modal.id !== id)
+      );
+    },
+    [setModalsData]
+  );
+
   const openModal = useCallback(
     (id: string, Component: React.ComponentType, props?: ModalProps) => {
       setModalsData((prevModals) => {
@@ -29,16 +38,7 @@ const useModal = () => {
         ];
       });
     },
-    [setModalsData]
-  );
-
-  const closeModal = useCallback(
-    (id: string) => {
-      setModalsData((prevModals) =>
-        prevModals.filter((modal) => modal.id !== id)
-      );
-    },
-    [setModalsData]
+    [setModalsData, closeModal]
   );
 
   return { modalsData, openModal, closeModal };

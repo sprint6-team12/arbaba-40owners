@@ -1,5 +1,5 @@
 import Script from 'next/script';
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 interface DaumPostcodeData {
   address: string;
@@ -52,11 +52,11 @@ const DaumPostcode = ({ onComplete }: DaumPostcodeProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const scriptLoadedRef = useRef<boolean>(false);
 
-  const checkDaumPostcodeLoaded = () => {
+  const checkDaumPostcodeLoaded = useCallback(() => {
     return typeof window !== 'undefined' && window.daum && window.daum.Postcode;
-  };
+  }, []);
 
-  const initPostcode = () => {
+  const initPostcode = useCallback(() => {
     if (loadingRef.current || postcodeRef.current || !containerRef.current)
       return;
     if (!checkDaumPostcodeLoaded()) return;
@@ -80,17 +80,16 @@ const DaumPostcode = ({ onComplete }: DaumPostcodeProps) => {
     } catch (error) {
       loadingRef.current = false;
     }
-  };
+  }, [checkDaumPostcodeLoaded, onComplete]);
 
-  const handleScriptLoad = () => {
+  const handleScriptLoad = useCallback(() => {
     scriptLoadedRef.current = true;
-    // 약간의 지연을 주어 daum 객체가 완전히 초기화되도록 함
     setTimeout(() => {
       if (checkDaumPostcodeLoaded()) {
         initPostcode();
       }
     }, 100);
-  };
+  }, [checkDaumPostcodeLoaded, initPostcode]);
 
   useEffect(() => {
     const checkExistingScript = () => {
@@ -107,7 +106,7 @@ const DaumPostcode = ({ onComplete }: DaumPostcodeProps) => {
       loadingRef.current = false;
       scriptLoadedRef.current = false;
     };
-  }, []);
+  }, [initPostcode, checkDaumPostcodeLoaded]);
 
   return (
     <>

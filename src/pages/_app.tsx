@@ -1,4 +1,5 @@
 import type { AppProps } from 'next/app';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 // eslint-disable-next-line import/named
@@ -24,6 +25,7 @@ const initializeState = ({ set }: MutableSnapshot) => {
   };
   set(userState, initialUserState);
 };
+
 export default function App({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
@@ -31,7 +33,7 @@ export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -40,6 +42,9 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <RecoilRoot initializeState={initializeState}>
+      <Head>
+        <title>아르바바 - 40대들의 편안한 중고거래</title>
+      </Head>
       <ModalsWrapper />
       <PopupsWrapper />
       {loading && <Loading />}
