@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
+import DaumPostcode from '@/components/AddShopPage/DaumPostcode';
 import InputComponent from '@/components/AddShopPage/InputComponents';
 import Button from '@/components/Button/Button';
 import Dropdown from '@/components/Dropdown/Dropdown';
@@ -15,7 +16,6 @@ import FormatUtils from '@/lib/utils/FormatUtils';
 import { IconCloseBlack } from '@/lib/utils/Icons';
 import { validateShopInfo } from '@/lib/utils/validation';
 import { userState } from '@/recoil/atoms/AuthAtom';
-import DaumPostcode from '../../../components/AddShopPage/DaumPostcode';
 
 interface ShopType {
   shopName: string;
@@ -25,20 +25,6 @@ interface ShopType {
   hourlyPay: string;
   shopDescription?: string | undefined;
   imageUrl?: string;
-}
-
-interface DaumPostcodeData {
-  address: string;
-  addressType: 'R' | 'J';
-  bname: string;
-  buildingName: string;
-  zonecode: string;
-  roadAddress: string;
-  roadname: string;
-  jibunAddress: string;
-  sido: string;
-  sigungu: string;
-  userSelectedType: 'R' | 'J';
 }
 
 function EditShopPage() {
@@ -92,28 +78,20 @@ function EditShopPage() {
       getShopData();
     }
   }, [shop_id, isLogin, router]);
+
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { id, value } = event.target;
 
-    let newValue = value; // 기본 입력값
-
-    // "hourlyPay"일 때 숫자만 허용
+    let newValue = value;
     if (id === 'hourlyPay') {
-      // 콤마 제거
       const valueWithoutCommas = value.replace(/,/g, '');
-
-      // 숫자만 필터링
       newValue = valueWithoutCommas.replace(/[^0-9]/g, '');
     } else {
-      // 다른 경우에는 콤마 제거만 수행
       newValue = value.replace(/,/g, '');
     }
-
-    // 입력값 검증
     const errorMessage = validateShopInfo(id as keyof ShopType, newValue);
-
     setErrors((prevErrors) => ({ ...prevErrors, [id]: errorMessage }));
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -270,7 +248,7 @@ function EditShopPage() {
                   <div className="flex w-full flex-row gap-12px tablet:w-1/2 pc:w-1/2">
                     <div className="flex-grow">
                       <InputComponent
-                        id="shopName"
+                        id="address1"
                         name="주소*"
                         type="input"
                         placeholder="입력"
@@ -322,12 +300,14 @@ function EditShopPage() {
                     />
                   </div>
                 ) : (
-                  <FormGroup.InputField.Image
-                    id="imageUrl"
-                    name="imageUrl"
-                    onChange={handleImageChange}
-                    className="w-full "
-                  />
+                  <div className="tablet:w-[483px] tablet:h-[276px] pc:w-[483px] pc:h-[276px] rounded-md">
+                    <FormGroup.InputField.Image
+                      id="imageUrl"
+                      name="imageUrl"
+                      onChange={handleImageChange}
+                      className="w-full "
+                    />
+                  </div>
                 )}
               </div>
               <InputComponent
