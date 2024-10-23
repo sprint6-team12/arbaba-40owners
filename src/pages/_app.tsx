@@ -43,7 +43,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <RecoilRoot initializeState={initializeState}>
       <Head>
-        <title>아르바바 - 40대들의 편안한 중고거래</title>
+        <title>아르바바와40인의사장들</title>
       </Head>
       <ModalsWrapper />
       <PopupsWrapper />
