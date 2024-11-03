@@ -49,7 +49,7 @@ export default function NoticesList({
     return () => {
       if (observer.current) observer.current.disconnect();
     };
-  }, [observerCallback, noticesRef.current]);
+  }, [observerCallback]);
 
   return (
     <div className="bg-gray05">

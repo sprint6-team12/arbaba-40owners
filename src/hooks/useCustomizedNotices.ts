@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
-import noticeAPI from '@/lib/api/noticeAPI';
+import { getNoticeList } from '@/lib/api/noticeAPI';
 import { userState } from '@/recoil/atoms/AuthAtom';
 
 const fetchNoticeData = async (
   address: string | null
 ): Promise<NoticeListResponseData> => {
-  return await noticeAPI.getNoticeList({
+  return await getNoticeList({
     address: address,
     sort: 'time',
   });

@@ -5,8 +5,8 @@ import { useRecoilValue } from 'recoil';
 import NoticesList from '@/components/pageComponents/ShopDetail/NoticesList';
 import ShopHeaderSection from '@/components/pageComponents/ShopDetail/ShopHeader/ShopHeaderSection';
 import { useAuth } from '@/hooks/useAuth';
-import noticeAPI from '@/lib/api/noticeAPI';
-import shopAPI from '@/lib/api/shopAPI';
+import { getShopNoticeList } from '@/lib/api/noticeAPI';
+import { getShop } from '@/lib/api/shopAPI';
 import { userState } from '@/recoil/atoms/AuthAtom';
 
 interface ShopDetailProps {
@@ -26,10 +26,10 @@ export const getServerSideProps: GetServerSideProps<ShopDetailProps> = async (
 
   try {
     if (shopId) {
-      const shopResponse = await shopAPI.getShop(shopId);
+      const shopResponse = await getShop(shopId);
       shopData = shopResponse.item ?? null;
 
-      const noticesResponse = await noticeAPI.getShopNoticeList(shopId, {
+      const noticesResponse = await getShopNoticeList(shopId, {
         shop_id: shopId,
         offset: 0,
         limit: 99,
@@ -66,7 +66,7 @@ export default function ShopDetail({ shopData, noticesData }: ShopDetailProps) {
       router.push('/');
       return;
     }
-    if (shop_id !== shopId) {
+    if (shop_id !== 'undefined' && shop_id !== shopId) {
       alert('내 가게가 아닙니다.');
       router.push('/');
       return;

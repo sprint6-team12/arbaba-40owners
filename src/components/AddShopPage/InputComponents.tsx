@@ -9,6 +9,7 @@ interface InputComponentProps {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeTextArea?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   errorMessage: string;
+  className?: string;
 }
 export default function InputComponent({
   id,
@@ -19,10 +20,11 @@ export default function InputComponent({
   onChange,
   onChangeTextArea,
   errorMessage,
+  className,
 }: InputComponentProps) {
   return (
     <>
-      <FormGroup className="mt-8px my-4px">
+      <FormGroup className={`mt-8px my-4px ${className}`}>
         <FormGroup.Label htmlFor={id}>{name}</FormGroup.Label>
         {type === 'input' ? (
           <FormGroup.InputField.Text

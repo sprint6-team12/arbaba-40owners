@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import Button from '@/components/Button/Button';
 import Dropdown from '@/components/Dropdown/Dropdown';
@@ -7,7 +7,7 @@ import FormGroup from '@/components/FormGroup/FormGroup';
 import ConfirmModal from '@/components/pageComponents/AddShopPage/ConfirmModal';
 import { SHOP_LOCATIONS } from '@/constants/shopOptions';
 import useModal from '@/hooks/useModal';
-import userAPI, { UserInfo } from '@/lib/api/userAPI';
+import { getUserData, putUserData, UserInfo } from '@/lib/api/userAPI';
 import FormatUtils from '@/lib/utils/FormatUtils';
 import {
   clearError,
@@ -46,16 +46,19 @@ export default function MyPageInput() {
   const [errors, setErrors] = useState<UserInfoFormErrors>(initialFormErrors);
   const setAuthState = useSetRecoilState(userState);
 
+  const fetchUserData = useCallback(
+    async (userId: string) => {
+      const userData = await getUserData(userId, type, setAuthState);
+      setData(userData.item);
+    },
+    [setAuthState, type]
+  );
+
   useEffect(() => {
     if (userId) {
       fetchUserData(userId);
     }
-  }, [userId]);
-
-  const fetchUserData = async (userId: string) => {
-    const userData = await userAPI.getUserData(userId, type, setAuthState);
-    setData(userData.item);
-  };
+  }, [userId, fetchUserData]);
 
   const handleChangeData = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -108,8 +111,7 @@ export default function MyPageInput() {
     } else {
       try {
         if (userId) {
-          const token = localStorage.getItem('token');
-          await userAPI.putUserData(userId, token!, data, setAuthState);
+          await putUserData(userId, data, setAuthState);
           handleOpenConfirmModal('등록이 완료되었습니다.');
         } else {
           handleOpenConfirmModal('유효하지 않은 사용자 ID입니다.');

@@ -57,3 +57,17 @@ interface ShopData {
   item: Shop;
   href: string;
 }
+
+interface DaumPostcodeData {
+  address: string;
+  addressType: 'R' | 'J';
+  bname: string;
+  buildingName: string;
+  zonecode: string;
+  roadAddress: string;
+  roadname: string;
+  jibunAddress: string;
+  sido: string;
+  sigungu: string;
+  userSelectedType: 'R' | 'J';
+}

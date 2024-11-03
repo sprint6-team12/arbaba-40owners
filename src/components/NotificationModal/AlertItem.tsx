@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useRecoilValue } from 'recoil';
-import alertAPI from '@/lib/api/alertAPI';
+import { putAlerts } from '@/lib/api/alertAPI';
 import FormatUtils from '@/lib/utils/FormatUtils';
 import { getResultInfo } from '@/lib/utils/NotificationModal';
 import removePrefix from '@/lib/utils/RemovePrefix';
@@ -24,7 +24,7 @@ export default function AlertItem({ item }: { item: NotificationItem }) {
 
   const handleOnclickAlert = async (alertId: string) => {
     if (userId && !read) {
-      await alertAPI.putAlerts({ user_id: userId, alert_id: alertId });
+      await putAlerts({ user_id: userId, alert_id: alertId });
     }
   };
 

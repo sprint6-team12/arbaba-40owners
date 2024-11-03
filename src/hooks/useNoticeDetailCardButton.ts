@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRecoilValue } from 'recoil';
 import {
   ProfileRegistrationModal,
@@ -9,7 +9,7 @@ import {
 import NOTICE_DETAIL_BUTTON_PROPS from '@/constants/noticeDetailButtonMap';
 import useApplicationActions from '@/hooks/useApplicationActions';
 import useModal from '@/hooks/useModal';
-import noticeAPI from '@/lib/api/noticeAPI';
+import { getShopNotice } from '@/lib/api/noticeAPI';
 import { userState } from '@/recoil/atoms/AuthAtom';
 
 interface NoticeDetailButtonProps {
@@ -52,21 +52,21 @@ const useNoticeDetailCardButton = (
   );
 
   // 지원 버튼 클릭 핸들러
-  const handleClickCreateApplicationButton = () => {
+  const handleClickCreateApplicationButton = useCallback(() => {
     if (userType === 'guest') return openModal('GuestModal', GuestModal);
     if (!userName)
       return openModal('ProfileRegistrationModal', ProfileRegistrationModal);
     createApplication('신청했어요');
-  };
+  }, [createApplication, openModal, userName, userType]);
 
   // 취소 버튼 클릭 핸들러
-  const handleClickCancelApplicationButton = () => {
+  const handleClickCancelApplicationButton = useCallback(() => {
     openModal('CancelApplicationModal', CancelApplicationModal, {
       onConfirm: () => cancelApplication('취소했어요'),
     });
-  };
+  }, [openModal, cancelApplication]);
 
-  const getButtonProps = () => {
+  const getButtonProps = useCallback(() => {
     const handleClickButton = (() => {
       if (applicationData?.status === 'pending')
         return handleClickCancelApplicationButton;
@@ -89,12 +89,28 @@ const useNoticeDetailCardButton = (
         applicationData?.status || 'default'
       ];
     return { ...statusProps, onClick: handleClickButton };
-  };
+  }, [
+    handleClickCancelApplicationButton,
+    handleClickCreateApplicationButton,
+    notice_id,
+    router,
+    shop_id,
+    noticeState,
+    userType,
+    applicationData?.status,
+  ]);
 
   // 버튼 프롭 설정
   useEffect(() => {
     setButtonProps(getButtonProps());
-  }, [userType, noticeState, applicationData, shop_id, notice_id]);
+  }, [
+    userType,
+    noticeState,
+    applicationData,
+    shop_id,
+    notice_id,
+    getButtonProps,
+  ]);
 
   // 공고 상태 업데이트
   useEffect(() => {
@@ -103,10 +119,9 @@ const useNoticeDetailCardButton = (
     if (!token) return;
 
     const updateNoticeStatus = async () => {
-      const { item } = await noticeAPI.getShopNotice({
+      const { item } = await getShopNotice({
         shop_id,
         notice_id,
-        token,
       });
       if (!('currentUserApplication' in item)) return;
       setApplicationData(item.currentUserApplication?.item);

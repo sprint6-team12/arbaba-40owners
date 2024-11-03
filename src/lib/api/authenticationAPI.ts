@@ -1,38 +1,29 @@
 import { User } from '@/recoil/atoms/AuthAtom';
-import { handleAxiosError } from './ApiError';
-import { axiosInstance } from './axiosInstance';
+import fetchInstance from './fetchInstance';
 
 interface LoginData {
   email: string;
   password: string;
 }
 
-const authenticationAPI = {
-  postToken: async (
-    body: LoginData,
-    setAuthState: (value: User | ((prevState: User) => User)) => void
-  ) => {
-    try {
-      const response = await axiosInstance.post(`/token`, body);
-      const { token, user } = response.data.item;
-      const userId = user.item.id;
-      const userType = user.item.type;
-      localStorage.setItem('token', token);
+export async function postToken(
+  body: LoginData,
+  setAuthState: (value: User | ((prevState: User) => User)) => void
+) {
+  const response = await fetchInstance.post(`/token`, body);
+  const { token, user } = response.item;
+  const userId = user.item.id;
+  const userType = user.item.type;
+  localStorage.setItem('token', token);
 
-      if (token && userId) {
-        setAuthState((prevState: User) => ({
-          ...prevState,
-          token: token,
-          userId: userId,
-          type: userType,
-          isLogin: true,
-        }));
-      }
-      return response.data;
-    } catch (error) {
-      handleAxiosError(error);
-    }
-  },
-};
-
-export default authenticationAPI;
+  if (token && userId) {
+    setAuthState((prevState: User) => ({
+      ...prevState,
+      token: token,
+      userId: userId,
+      type: userType,
+      isLogin: true,
+    }));
+  }
+  return response;
+}

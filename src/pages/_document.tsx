@@ -4,10 +4,6 @@ export default function Document() {
   return (
     <Html lang="ko">
       <Head>
-        <link
-          rel="stylesheet"
-          href="https://hangeul.pstatic.net/hangeul_static/webfont/NanumSquareNeo/NanumSquareNeoTTF-bRg.eot"
-        />
         <link rel="icon" href="/arbaba.png" type="image/x-icon" />
         <meta
           name="description"
@@ -23,7 +19,6 @@ export default function Document() {
           content="https://the-julge-6-12.vercel.app/arbaba.png"
         />
         <meta property="og:url" content="https://the-julge-6-12.vercel.app/" />
-        <title>아르바바와40인의사장들</title>
       </Head>
       <body>
         <Main />

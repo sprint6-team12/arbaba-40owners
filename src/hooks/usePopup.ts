@@ -5,6 +5,15 @@ import popupsDataState from '@/recoil/atoms/PopupAtom';
 const usePopup = () => {
   const [popupsData, setPopupsData] = useRecoilState(popupsDataState);
 
+  const closePopup = useCallback(
+    (id: string) => {
+      setPopupsData((prevPopups) =>
+        prevPopups.filter((popup) => popup.id !== id)
+      );
+    },
+    [setPopupsData]
+  );
+
   const openPopup = useCallback(
     (id: string, message: string, duration?: number) => {
       // duration 없을경우 삭제 버튼 추가
@@ -18,16 +27,7 @@ const usePopup = () => {
 
       return id;
     },
-    [setPopupsData]
-  );
-
-  const closePopup = useCallback(
-    (id: string) => {
-      setPopupsData((prevPopups) =>
-        prevPopups.filter((popup) => popup.id !== id)
-      );
-    },
-    [setPopupsData]
+    [setPopupsData, closePopup]
   );
 
   return { popupsData, openPopup, closePopup };
